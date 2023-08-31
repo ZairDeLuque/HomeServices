@@ -1,0 +1,11 @@
+<p-contextMenu [model]="items" [target]="content"></p-contextMenu>
+<div #content class="container w-75 mt-4 dropped-shadow">
+    <div class="row">
+        <div class="col" style="background-color: blue;">
+            a
+        </div>
+        <div class="col">
+            <re-captcha (resolved)="resolved($event)" (errored)="errored()" errorMode="handled"></re-captcha>
+        </div>
+    </div>
+</div>
