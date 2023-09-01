@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 
 //.env
 require('dotenv').config({ path: './.env'})
-const origins = process.env.origin;
-const port = process.env.port;
-const host = process.env.host;
+const origins = process.env.ORIGIN;
+const port = process.env.PORT;
+const host = process.env.HOST;
 
 //Routers
 //const mainRouter = require('./src/routers/main.routes');
