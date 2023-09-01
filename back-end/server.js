@@ -10,7 +10,7 @@ const port = process.env.PORT;
 const host = process.env.HOST;
 
 //Routers
-//const mainRouter = require('./src/routers/main.routes');
+const mainRouter = require('./bin/api/routers/init.routes');
 
 //Socket IO
 const http = require('http');
@@ -33,7 +33,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 //Use router
-//app.use(mainRouter);
+app.use(mainRouter);
 
 //App listen
 server.listen(port, host, () => {
