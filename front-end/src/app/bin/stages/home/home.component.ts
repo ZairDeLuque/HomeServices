@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MsalService } from '@azure/msal-angular';
+import { AuthenticationResult } from '@azure/msal-browser';
+import { Loading, Notify } from 'notiflix';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -9,7 +12,7 @@ import { MenuItem } from 'primeng/api';
 export class HomeComponent implements OnInit{
   protected items: MenuItem[];
 
-  constructor() {
+  constructor(private msalService: MsalService) {
     this.items = [
       {
         label: 'Copiar',
@@ -30,12 +33,23 @@ export class HomeComponent implements OnInit{
     ];
   }
 
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
-  }
+  loginWithAzure(): void {
+    Loading.circle('Waiting response from Microsoft...');
 
-  errored() {
-    console.warn(`reCAPTCHA error encountered`);
+    const loginPopup = this.msalService.loginPopup().subscribe(
+      (response: AuthenticationResult) => {
+        Loading.remove();
+  
+        this.msalService.instance.setActiveAccount(response.account);
+
+        loginPopup.unsubscribe();
+      },
+      (error: any) => {
+        Loading.remove();
+        Notify.failure('Error in login with Azure, please try again later.');
+        loginPopup.unsubscribe();
+      }
+    )
   }
 
   ngOnInit(): void {

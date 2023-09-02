@@ -1,11 +1,55 @@
 <p-contextMenu [model]="items" [target]="content"></p-contextMenu>
-<div #content class="container w-75 mt-4 dropped-shadow">
+<div #content class="container w-75 mt-5 dropped-shadow">
     <div class="row">
-        <div class="col" style="background-color: blue;">
-            a
+        <div class="col-5" style="background-color: #f8faff;">
+            <div class="container-fluid p-4">
+                <h3 class="scroller" style="color: rgb(30, 30, 30);">HomeWork es
+                    <span style="color: rgb(255, 0, 0);">
+                        simpleza<br>
+                        facilidad<br>
+                        eficiencia<br>
+                        apoyo<br>
+                    </span>
+                </h3>
+            </div>
         </div>
         <div class="col">
-            <re-captcha (resolved)="resolved($event)" (errored)="errored()" errorMode="handled"></re-captcha>
+            <div class="container-fluid p-4">
+                <h2 class="font-a">¡Bienvenido a HomeWork!</h2>
+                <hr>
+                <p style="font-size: 14px;">HomeWork es una pagina en donde encontrar un servicio o producto es la tarea mas fácil. Regístrate y comienza la búsqueda!</p>
+                <form>
+                    <div class="mt-4 mb-3">
+                        <label for="FormControlInput1" class="form-label">Correo electrónico:</label>
+                        <input type="email" class="form-control" id="FormControlInput1" placeholder="Inserte dirección valida">
+                    </div>
+                    <div class="mb-3">
+                        <label for="FormControlInput2" class="form-label">Email address</label>
+                        <input type="password" class="form-control" id="FormControlInput2" placeholder="Contraseña mayor a 4 dígitos">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary"><i class="bi bi-send"></i> Registrarme</button>
+                    </div>
+                    <!--<re-captcha (resolved)="resolved($event)" (errored)="errored()" errorMode="handled"></re-captcha>-->
+                </form>
+                <div class="hr-container" style="position: relative; text-align: center; margin: 20px 0;">
+                    <hr style="border: none; border-top: 1px solid #000;">
+                    <div class="circle">o</div>
+                </div>
+                <div class="row p-0 d-flex justify-content-center">
+                    <asl-google-signin-button class="d-flex justify-content-center w-100" type="standard" text="signup_with" size="large" width="400" theme="outline"></asl-google-signin-button>
+                    <button type="button" class="btn btn-outline-login mt-3" style="width: 25rem;" (click)="loginWithAzure()">
+                        <div class="row">
+                            <div class="col-2 d-flex">
+                                <i class="bi bi-microsoft"></i>
+                            </div>
+                            <div class="col font-b" style="font-size: 14px;">
+                                Sign up with Microsoft Account
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

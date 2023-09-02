@@ -1,15 +1,23 @@
-/* Scroller styling */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+@font-face {
+    font-family: 'Product Sans';
+    src: url('../../../../assets/productsansregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .scroller {
     height: 1.2em;
     line-height: 1.2em;
     position: relative;
     overflow: hidden;
-    width: 10em;
+    width: auto;
 }
 .scroller > span {
+    margin-left: .8rem;
     position: absolute;
     top: 0;
-    animation: slide 10s infinite;
+    animation: slide 5s infinite;
     font-weight: bold;
 }
 @keyframes slide {
@@ -25,4 +33,38 @@
     75% {
         top: -3.6em;
     }
+}
+
+.font-a{
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.font-b{
+    font-family: 'Product Sans', sans-serif;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(0%, -57%);
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: gray;
+}
+
+.btn-outline-login{
+    border-color: #dadce0;
+    background-color: transparent;
+}
+
+.btn-outline-login:hover{
+    border-color: #d2e3fc;
+    background-color: #f8faff;
 }
