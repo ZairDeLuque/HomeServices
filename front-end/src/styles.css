@@ -12,3 +12,25 @@ html, body{
 .dropped-shadow-tiny{
     box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
 }
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track{
+    background: #fff;
+}
+
+::-webkit-scrollbar-thumb{
+    background: purple;
+    border-radius: 20px;
+    border: 3px solid #fff;
+}
+
+.dropped-shadow{
+    box-shadow: rgba(63, 63, 63, 0.5) 0px 3px 8px; overflow: hidden;
+}
+
+.dropped-shadow-tiny{
+    box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
+}

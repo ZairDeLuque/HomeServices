@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+@font-face {
+    font-family: 'Product Sans';
+    src: url('../../../../assets/productsansregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-a{
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.font-b{
+    font-family: 'Product Sans', sans-serif;
+}

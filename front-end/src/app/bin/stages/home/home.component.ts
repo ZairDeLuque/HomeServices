@@ -11,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class HomeComponent implements OnInit{
   protected items: MenuItem[];
+  protected value: string = "";
 
   constructor(private msalService: MsalService) {
     this.items = [
@@ -34,22 +35,7 @@ export class HomeComponent implements OnInit{
   }
 
   loginWithAzure(): void {
-    Loading.circle('Waiting response from Microsoft...');
-
-    const loginPopup = this.msalService.loginPopup().subscribe(
-      (response: AuthenticationResult) => {
-        Loading.remove();
-  
-        this.msalService.instance.setActiveAccount(response.account);
-
-        loginPopup.unsubscribe();
-      },
-      (error: any) => {
-        Loading.remove();
-        Notify.failure('Error in login with Azure, please try again later.');
-        loginPopup.unsubscribe();
-      }
-    )
+    
   }
 
   ngOnInit(): void {

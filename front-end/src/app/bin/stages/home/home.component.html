@@ -1,36 +1,38 @@
 <p-contextMenu [model]="items" [target]="content"></p-contextMenu>
-<div #content class="container w-75 mt-5 dropped-shadow">
+<nav class="navbar navbar-expand-lg dropped-shadow-tiny p-2 user-select-none" style="overflow: visible; background-color: lightblue;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">logo</a>
+    </div>
+</nav>
+
+<div #content class="container w-75 p-4">
     <div class="row">
-        <div class="col-5" style="background-color: #f8faff;">
-            <div class="container-fluid p-4">
-                <h3 class="scroller" style="color: rgb(30, 30, 30);">HomeWork es
-                    <span style="color: rgb(255, 0, 0);">
-                        simpleza<br>
-                        facilidad<br>
-                        eficiencia<br>
-                        apoyo<br>
-                    </span>
-                </h3>
-            </div>
+        <div class="col-5 p-5">
+            <h3>Ingrese con una nueva cuenta HomeWork o con sus servicios favoritos.</h3>
+            <hr>
+            <p style="color: gray">Reporte un problema:</p>
+            <p-button icon="bi bi-person-badge-fill" label="Cuenta perdida" styleClass="p-button-raised p-button-text p-button-help"></p-button> <br><br>
+            <p-button icon="bi bi-question" label="Otros" styleClass="p-button-raised p-button-text p-button-help"></p-button>
         </div>
         <div class="col">
-            <div class="container-fluid p-4">
-                <h2 class="font-a">¡Bienvenido a HomeWork!</h2>
-                <hr>
-                <p style="font-size: 14px;">HomeWork es una pagina en donde encontrar un servicio o producto es la tarea mas fácil. Regístrate y comienza la búsqueda!</p>
+            <div class="container-fluid border p-5 border-1 rounded-3">
                 <form>
-                    <div class="mt-4 mb-3">
-                        <label for="FormControlInput1" class="form-label">Correo electrónico:</label>
-                        <input type="email" class="form-control" id="FormControlInput1" placeholder="Inserte dirección valida">
+                    <div class="row mb-3">
+                        <p><i class="bi bi-envelope"></i> E-mail:</p>
+                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" [(ngModel)]="value" />
                     </div>
-                    <div class="mb-3">
-                        <label for="FormControlInput2" class="form-label">Email address</label>
-                        <input type="password" class="form-control" id="FormControlInput2" placeholder="Contraseña mayor a 4 dígitos">
+                    <div class="row mb-3">
+                        <p><i class="bi bi-key"></i> Contraseña:</p>
+                        <input pInputText pTooltip="Para cambiar mas tarde, vaya a Configuración > Cuenta > Credenciales." tooltipPosition="bottom" type="password" [(ngModel)]="value" />
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary"><i class="bi bi-send"></i> Registrarme</button>
+                    <div class="row p-0 mb-3">
+                        <div class="col-auto me-2 p-0">
+                            <p-button label="Crear cuenta" styleClass="p-button-help"></p-button>
+                        </div>
+                        <div class="col-auto p-0">
+                            <p-button label="Tengo cuenta" styleClass="p-button-help p-button-text"></p-button>
+                        </div>
                     </div>
-                    <!--<re-captcha (resolved)="resolved($event)" (errored)="errored()" errorMode="handled"></re-captcha>-->
                 </form>
                 <div class="hr-container" style="position: relative; text-align: center; margin: 20px 0;">
                     <hr style="border: none; border-top: 1px solid #000;">
@@ -50,6 +52,17 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container w-75 p-0" style="font-size: 12px; color: gray;">
+    <div class="row mt-3">
+        <div class="col">
+            Copyright 2023 Aurora Studios Mexico S.A. de C.V.
+        </div>
+        <div class="col d-flex justify-content-end">
+            Protegido por reCAPTCHA • <a routerLink="/terms">Términos y condiciones</a>
         </div>
     </div>
 </div>

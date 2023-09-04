@@ -34,7 +34,7 @@
             ],
             "scripts": [
               "./node_modules/notiflix/dist/notiflix-3.2.6.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
