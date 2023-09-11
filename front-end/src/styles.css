@@ -8,11 +8,6 @@ html, body{
 .dropped-shadow{
     box-shadow: rgba(63, 63, 63, 0.5) 0px 3px 8px; overflow: hidden;
 }
-
-.dropped-shadow-tiny{
-    box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
-}
-
 ::-webkit-scrollbar{
     width: 10px;
 }
