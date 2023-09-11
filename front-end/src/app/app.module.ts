@@ -35,6 +35,7 @@ import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
 import { NavbarTinyComponent } from './bin/components/navbar-tiny/navbar-tiny.component';
+import { RegistroComponent } from './bin/stages/registro/registro.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -55,7 +56,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     TermsComponent,
     InsideHomeComponent,
     FooterComponent,
-    NavbarTinyComponent
+    NavbarTinyComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
