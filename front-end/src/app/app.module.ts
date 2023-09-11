@@ -35,6 +35,8 @@ import { LoginControllerComponent } from './bin/services/api/login-controller/lo
 import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
+import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
+import { ProfileComponent } from './bin/stages/profile/profile.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -55,7 +57,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     LoginControllerComponent,
     TermsComponent,
     InsideHomeComponent,
-    FooterComponent
+    FooterComponent,
+    ProductViewComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
