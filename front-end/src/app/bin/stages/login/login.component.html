@@ -1,1 +1,76 @@
-<p>login works!</p>
+<p-contextMenu [model]="items" [target]="content"></p-contextMenu>
+<app-navbar-tiny></app-navbar-tiny>
+
+<div #content class="container w-75 p-4">
+    <div class="row">
+        <div class="col-5 p-5">
+            <h3>Inicie sesión con una nueva cuenta HomeWork o con sus servicios favoritos.</h3>
+            <hr>
+            <p style="color: gray">Reporte un problema:</p>
+            <p-button icon="bi bi-person-badge-fill" label="Cuenta perdida" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+        </div>
+        <div class="col">
+            <div class="container-fluid border p-5 border-1 rounded-3">
+                <form>
+                    <div class="row mb-3">
+                        <p><i class="bi bi-envelope"></i> E-mail:</p>
+                        <input pInputText [(ngModel)]="value" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="row mb-3">
+                        <p><i class="bi bi-key"></i> Contraseña:</p>
+                        <input pInputText type="password" [(ngModel)]="value" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="row p-0 mb-3">
+                        <div class="col-auto me-2 p-0">
+                            <p-button label="Iniciar sesión" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help"></p-button>
+                        </div>
+                        <div class="col-auto p-0">
+                            <p-button label="No tengo cuenta" (onClick)="noAccount()" styleClass="p-button-help p-button-text"></p-button>
+                        </div>
+                    </div>
+                </form>
+                <div class="hr-container" style="position: relative; text-align: center; margin: 20px 0;">
+                    <hr style="border: none; border-top: 1px solid #000;">
+                    <div class="circle">o</div>
+                </div>
+                <div class="row p-0 d-flex justify-content-center">
+                    <asl-google-signin-button class="d-flex justify-content-center w-100" type="standard" text="signup_with" size="large" width="400" theme="outline"></asl-google-signin-button>
+                    <!--<button type="button" class="btn btn-outline-login mt-3" style="width: 25rem;" (click)="loginWithAzure()">
+                        <div class="row">
+                            <div class="col-2 d-flex">
+                                <i class="bi bi-microsoft"></i>
+                            </div>
+                            <div class="col font-b" style="font-size: 14px;">
+                                Sign up with Microsoft Account
+                            </div>
+                        </div>
+                    </button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container w-75 p-0" style="font-size: 12px; color: gray;">
+    <div class="row mt-5">
+        <div class="col">
+            Copyright 2023 Aurora Studios Mexico S.A. de C.V.
+        </div>
+        <div class="col d-flex justify-content-end">
+            Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de Google
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bg-blur" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">Validación</h5>
+            </div>
+            <div class="modal-body">
+                <re-captcha class="d-flex justify-content-center"></re-captcha>
+            </div>
+        </div>
+    </div>
+</div>
