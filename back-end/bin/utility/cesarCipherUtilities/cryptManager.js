@@ -15,20 +15,22 @@ const cipherCesar = {
     //
     // Output: ©ÇÏÍÑ¸ÑÕÍÆ
     //
-    encrypt: function(text, password) {
-        let textCrypted = '';
+    encrypt: async function(text, password) {
+        return new Promise((resolve, reject) => {
+            let textCrypted = '';
         
-        const lengthText = text.length;
-        const lengthPassword = password.length;
+            const lengthText = text.length;
+            const lengthPassword = password.length;
 
-        for(let i = 0; i < lengthText; i++){
-            const char = text.charCodeAt(i);
-            const charCry = password.charCodeAt(i % lengthPassword);
-            const charCrypted = String.fromCharCode(char + charCry);
-            textCrypted += charCrypted;
-        }
+            for(let i = 0; i < lengthText; i++){
+                const char = text.charCodeAt(i);
+                const charCry = password.charCodeAt(i % lengthPassword);
+                const charCrypted = String.fromCharCode(char + charCry);
+                textCrypted += charCrypted;
+            }
 
-        return textCrypted;
+            resolve(textCrypted);
+        })
     },
     // Function to decrypt UTF-8 data based on the length of a password (Cesar Cipher)
     //
@@ -41,20 +43,22 @@ const cipherCesar = {
     //
     // Output: Hello world
     //
-    decrypt: function(text, password) {
-        let textDecrypted = '';
+    decrypt: async function(text, password) {
+        return new Promise((resolve, reject) => {
+            let textDecrypted = '';
 
-        const lengthText = text.length;
-        const lengthPassword = password.length;
+            const lengthText = text.length;
+            const lengthPassword = password.length;
 
-        for(let i = 0; i < lengthText; i++){
-            const char = text.charCodeAt(i);
-            const charDecry = password.charCodeAt(i % lengthPassword);
-            const charDecrypted = String.fromCharCode(char - charDecry);
-            textDecrypted += charDecrypted;
-        }
+            for(let i = 0; i < lengthText; i++){
+                const char = text.charCodeAt(i);
+                const charDecry = password.charCodeAt(i % lengthPassword);
+                const charDecrypted = String.fromCharCode(char - charDecry);
+                textDecrypted += charDecrypted;
+            }
 
-        return textDecrypted;
+            resolve(textDecrypted);
+        })
     }
 };
 
