@@ -31,7 +31,6 @@ import { environment } from 'src/environments/environment';
 import { HomeComponent } from './bin/stages/home/home.component';
 import { NavbarComponent } from './bin/components/navbar/navbar.component';
 import { LoginComponent } from './bin/stages/login/login.component';
-import { LoginControllerComponent } from './bin/services/api/login-controller/login-controller.component';
 import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
@@ -53,7 +52,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    LoginControllerComponent,
     TermsComponent,
     InsideHomeComponent,
     FooterComponent,
