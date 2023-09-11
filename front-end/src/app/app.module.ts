@@ -31,12 +31,10 @@ import { environment } from 'src/environments/environment';
 import { HomeComponent } from './bin/stages/home/home.component';
 import { NavbarComponent } from './bin/components/navbar/navbar.component';
 import { LoginComponent } from './bin/stages/login/login.component';
-import { LoginControllerComponent } from './bin/services/api/login-controller/login-controller.component';
 import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
-import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
-import { ProfileComponent } from './bin/stages/profile/profile.component';
+import { NavbarTinyComponent } from './bin/components/navbar-tiny/navbar-tiny.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -54,12 +52,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    LoginControllerComponent,
     TermsComponent,
     InsideHomeComponent,
     FooterComponent,
-    ProductViewComponent,
-    ProfileComponent
+    NavbarTinyComponent
   ],
   imports: [
     BrowserModule,

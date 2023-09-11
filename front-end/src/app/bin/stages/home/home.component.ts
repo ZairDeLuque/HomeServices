@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { AuthenticationResult } from '@azure/msal-browser';
 import { Loading, Notify } from 'notiflix';
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit{
   protected items: MenuItem[];
   protected value: string = "";
 
-  constructor(private msalService: MsalService) {
+  constructor(private msalService: MsalService, private router: Router) {
     this.items = [
       {
         label: 'Copiar',
@@ -36,6 +37,10 @@ export class HomeComponent implements OnInit{
 
   loginWithAzure(): void {
     
+  }
+
+  siAccount(): void{
+    this.router.navigate(["/login"]);
   }
 
   ngOnInit(): void {
