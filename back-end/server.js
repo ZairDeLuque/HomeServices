@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const router = require('./bin/api/routers/routes.js');
+
 
 //.env
 require('dotenv').config({ path: './.env'})
@@ -34,6 +36,11 @@ app.use(bodyParser.json());
 
 //Use router
 app.use(mainRouter);
+
+app.use(router);
+
+
+
 
 //App listen
 server.listen(port, host, () => {
