@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { AuthenticationResult } from '@azure/msal-browser';
+import * as Notiflix from 'notiflix';
 import { Loading, Notify } from 'notiflix';
 import { MenuItem } from 'primeng/api';
 
@@ -33,6 +34,21 @@ export class HomeComponent implements OnInit{
           routerLink: '/terms'
       }
     ];
+  }
+
+  user = {
+    "email" : "",
+    "pass": ""
+  }
+
+  resgistro () {
+    if (this.user.email !== "" && this.user.pass !== ""){
+      Notiflix.Notify.info("Procesando informacion");
+    }
+  }
+  
+  crearCuenta(){
+    this.router.navigate(['/registro']);
   }
 
   loginWithAzure(): void {
