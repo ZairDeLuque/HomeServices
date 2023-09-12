@@ -15,16 +15,15 @@
                 <form>
                     <div class="row mb-3">
                         <p><i class="bi bi-envelope"></i> E-mail:</p>
-                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" [(ngModel)]="user.email" type="email"/>
+                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email"/>
                     </div>
                     <div class="row mb-3">
                         <p><i class="bi bi-key"></i> Contraseña:</p>
-                        <input pInputText pTooltip="Para cambiar mas tarde, vaya a Configuración > Cuenta > Credenciales." tooltipPosition="bottom" type="password" [(ngModel)]="user.pass" />
+                        <input pInputText pTooltip="Para cambiar mas tarde, vaya a Configuración > Cuenta > Credenciales." tooltipPosition="bottom" type="password"/>
                     </div>
                     <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button label="Crear cuenta" data-bs-toggle="modal" (click)="crearCuenta()" ></p-button>
-                            <!-- <p-button label="Crear cuenta" data-bs-toggle="modal" (click)="crearCuenta()" data-bs-target="#modalId" styleClass="p-button-help"></p-button> -->
+                            <p-button label="Crear cuenta" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help"></p-button>
                         </div>
                         <div class="col-auto p-0">
                             <p-button label="Tengo cuenta" (onClick)="siAccount()" styleClass="p-button-help p-button-text"></p-button>

@@ -1,0 +1,55 @@
+<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+
+<div class="container p-4 mt-4 w-75 mb-0">
+    <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
+    <p style="text-align: justify; font-size: 14px;">En HomeWork nos interesa tu confianza y seguridad, para esto, requerimos informacion personal para que los demas usuarios se sientan seguros.</p>
+    <hr>
+    <form>
+        <div class="row mb-3">
+            <div class="col">
+                <p><i class="bi bi-card-heading"></i> Nombre:</p>
+                <input style="width: 100%;" pInputText type="email"/>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-card-heading"></i> Apellidos:</p>
+                <input style="width: 100%;" pInputText type="email"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <p><i class="bi bi-person-exclamation"></i> Edad:</p>
+                <input style="width: 100%;" pInputText type="number" min="18"/>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-geo-alt"></i> Estado:</p>
+                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-geo-alt"></i> Ciudad:</p>
+                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <p><i class="bi bi-person"></i> Nombre de usuario:</p>
+                <input style="width: 100%;" pInputText type="email"/>
+            </div>
+            <div class="col">
+                <p><i class="bi bi-gender-ambiguous"></i> Genero:</p>
+                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+            </div>
+        </div>
+        <p-button label="Crear cuenta" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help mb-0"></p-button>
+    </form>
+</div>
+
+<div class="container w-75 p-0 mt-0" style="font-size: 12px; color: gray;">
+    <div class="row mt-5">
+        <div class="col">
+            Copyright 2023 Aurora Studios Mexico S.A. de C.V.
+        </div>
+        <div class="col d-flex justify-content-end">
+            Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de Google
+        </div>
+    </div>
+</div>

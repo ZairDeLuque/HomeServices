@@ -36,21 +36,7 @@ export class HomeComponent implements OnInit{
     ];
   }
 
-  user = {
-    "email" : "",
-    "pass": ""
-  }
-
-  resgistro () {
-    if (this.user.email !== "" && this.user.pass !== ""){
-      Notiflix.Notify.info("Procesando informacion");
-    }
-  }
   
-  crearCuenta(){
-    this.router.navigate(['/registro']);
-  }
-
   loginWithAzure(): void {
     
   }
