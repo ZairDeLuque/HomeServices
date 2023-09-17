@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface State {
   name: string;
@@ -10,8 +10,14 @@ interface State {
   templateUrl: './homestep2.component.html',
   styleUrls: ['./homestep2.component.css']
 })
-export class Homestep2Component {
-  protected states: State[] = [
-    {name: 'AGUASCACHONDAS', code: 'AC'}
-  ];
+export class Homestep2Component implements OnInit{
+  protected stateselected: string = "";
+  
+  protected states: State[] = [];
+
+  constructor(){}
+
+  ngOnInit(): void {
+      
+  }
 }
