@@ -13,10 +13,6 @@ export class AppComponent implements OnInit{
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-<<<<<<< Updated upstream
-    this.router.navigate(["profile"]);
-=======
-    this.router.navigate(["/start/verify"]);
->>>>>>> Stashed changes
+    this.router.navigate(["/terms"]);
   }
 }

@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'start/verify', component: Homestep3Component},
   {path: 'terms', component: TermsComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile/:uuid', component: ProfileComponent}
 ];
 
 @NgModule({

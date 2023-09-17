@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 //Social Lib imports
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
@@ -37,9 +38,10 @@ import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
 import { NavbarTinyComponent } from './bin/components/navbar-tiny/navbar-tiny.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Homestep2Component } from './bin/stages/homestep2/homestep2.component';
 import { Homestep3Component } from './bin/stages/homestep3/homestep3.component';
+import { ProfileComponent } from './bin/stages/profile/profile.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -63,6 +65,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NavbarTinyComponent,
     Homestep2Component,
     Homestep3Component,
+    ProfileComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     RecaptchaFormsModule,
     ContextMenuModule,
     GoogleSigninButtonModule,
-    AvatarModule,
     BadgeModule,
     TooltipModule,
     CarouselModule,
@@ -86,7 +89,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PasswordModule,
     HttpClientModule,
     MultiSelectModule,
-    StepsModule
+    StepsModule,
+    AvatarModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
     { 

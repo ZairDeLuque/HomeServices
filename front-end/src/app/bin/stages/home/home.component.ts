@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
-import { AuthenticationResult } from '@azure/msal-browser';
-import * as Notiflix from 'notiflix';
-import { Loading, Notify } from 'notiflix';
+import { v4 as uuidv4, v4 } from 'uuid';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -36,7 +34,6 @@ export class HomeComponent implements OnInit{
     ];
   }
 
-  
   loginWithAzure(): void {
     
   }
