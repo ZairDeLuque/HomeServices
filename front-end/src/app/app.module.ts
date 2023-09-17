@@ -24,6 +24,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { MultiSelectModule } from 'primeng/multiselect'
+import { StepsModule } from 'primeng/steps'
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { FooterComponent } from './bin/components/footer/footer.component';
 import { NavbarTinyComponent } from './bin/components/navbar-tiny/navbar-tiny.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Homestep2Component } from './bin/stages/homestep2/homestep2.component';
+import { Homestep3Component } from './bin/stages/homestep3/homestep3.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -60,6 +62,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     FooterComponent,
     NavbarTinyComponent,
     Homestep2Component,
+    Homestep3Component,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     InputTextModule,
     PasswordModule,
     HttpClientModule,
-    MultiSelectModule
+    MultiSelectModule,
+    StepsModule
   ],
   providers: [
     { 

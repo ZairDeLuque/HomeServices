@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 interface State {
   name: string;
@@ -13,6 +14,20 @@ interface State {
 export class Homestep2Component implements OnInit{
   protected stateselected: string = "";
   
+  protected steps: MenuItem[] = [
+    {
+      label: 'Credenciales'
+    },
+    {
+      label: 'Información personal'
+    },
+    {
+      label: 'Verificación'
+    },
+    {
+      label: 'Intereses'
+    }
+  ]
   protected states: State[] = [];
 
   constructor(){}

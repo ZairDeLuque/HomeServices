@@ -1,8 +1,12 @@
 <app-navbar-tiny class="sticky-top"></app-navbar-tiny>
 
-<div class="container p-4 mt-4 w-75 mb-0">
+<div class="container w-75 p-4 mt-4">
+    <p-steps [model]="steps" [readonly]="true" [activeIndex]="1"></p-steps>
+</div>
+
+<div class="container p-4 w-75 mb-0">
     <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
-    <p style="text-align: justify; font-size: 14px;">En HomeWork nos interesa tu confianza y seguridad, para esto, requerimos informacion personal para que los demas usuarios se sientan seguros.</p>
+    <p style="text-align: justify; font-size: 14px; color: gray;">En HomeWork nos interesa tu confianza y seguridad, para esto, requerimos información personal para que los demás usuarios se sientan seguros.</p>
     <hr>
     <form>
         <div class="row mb-3">
@@ -16,9 +20,9 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col">
-                <p><i class="bi bi-person-exclamation"></i> Edad:</p>
-                <input style="width: 100%;" pInputText type="number" min="18"/>
+            <div class="col-2">
+                <p><i class="bi bi-geo-alt"></i> Código Postal:</p>
+                <input style="width: 100%;" pInputText type="number" max="99999" min="0"/>
             </div>
             <div class="col">
                 <p><i class="bi bi-geo-alt"></i> Estado:</p>
@@ -30,7 +34,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col">
+            <div class="col-3">
                 <p><i class="bi bi-person"></i> Nombre de usuario:</p>
                 <input style="width: 100%;" pInputText type="email"/>
             </div>
@@ -38,7 +42,22 @@
                 <p><i class="bi bi-gender-ambiguous"></i> Genero:</p>
                 <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
             </div>
+            <div class="col">
+                <p><i class="bi bi-person-exclamation"></i> Edad:</p>
+                <input style="width: 100%;" pInputText type="number" min="18" max="99"/>
+            </div>
         </div>
-        <p-button label="Crear cuenta" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help mb-0"></p-button>
+        <div class="row mt-4">
+            <div class="d-flex justify-content-end">
+                <div class="col-auto">
+                    <p-button label="Crear cuenta" styleClass="p-button-help mb-0"></p-button>
+                </div>
+                <div class="col-auto">
+                    <p-button icon="bi bi-arrow-left" label="Volver" styleClass="p-button-help p-button-text mb-0"></p-button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
+
+<app-footer></app-footer>

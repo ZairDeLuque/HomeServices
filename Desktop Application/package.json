@@ -1,0 +1,19 @@
+{
+  "name": "desktop-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "run": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^26.2.1"
+  },
+  "dependencies": {
+    "custom-electron-titlebar": "^4.2.7",
+    "dotenv": "^16.3.1"
+  }
+}
