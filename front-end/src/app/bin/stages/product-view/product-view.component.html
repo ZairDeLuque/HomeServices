@@ -1,1 +1,128 @@
-<p>product-view works</p>
+<app-navbar class="sticky-top"></app-navbar>
+
+<div class="container mt-4 rounded-3 user-select-none border-bottom" style="background-color: #ededed;">
+    <div class="container-fluid border-bottom p-0" style="background-color: #ededed;">
+        <p-breadcrumb class="max-w-full" [style]="{'background-color':'transparent', 'border':'0', 'padding':'10px'}" [home]="home" [model]="items"></p-breadcrumb>
+    </div>
+    <div class="row">
+        <!-- Part I -->
+        <div class="col border-start" style="background-color: white;">
+            <div class="container-fluid mt-3 p-0 border-bottom">
+                <p-galleria [value]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                    </ng-template>
+                </p-galleria>
+            </div>
+            <div class="container-fluid p-0 mt-3">
+                <h4 class="mt-4">Características:</h4>
+                <table class="table p-0">
+                    <tbody>
+                        <tr>
+                            <td><b>Marca:</b></td>
+                            <td>[data]</td>
+                        </tr>
+                        <tr>
+                            <td><b>Estado:</b></td>
+                            <td>[data]</td>
+                        </tr>
+                        <tr>
+                            <td><b>Durabilidad:</b></td>
+                            <td>[data]</td>
+                        </tr>
+                        <tr>
+                            <td><b>Extras:</b></td>
+                            <td>[data]</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="mt-4">Descripción sobre el producto:</h4>
+                <p appUppercase style="text-align: justify; color: gray;">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur culpa atque saepe voluptates, dicta expedita incidunt et est itaque optio recusandae. Illum ad culpa libero impedit alias aliquid repellendus adipisci quam esse debitis odit dolor tenetur dolorum sequi veniam nisi eos, velit rem enim earum qui aliquam cupiditate? Aperiam, assumenda, quibusdam mollitia ducimus unde doloremque laboriosam at vitae cum molestiae nostrum ad itaque quae omnis pariatur odit explicabo? Quos quia autem recusandae deleniti provident architecto praesentium facere soluta possimus expedita. At eligendi quia facilis explicabo neque. Mollitia quis adipisci perferendis error tempora distinctio deserunt debitis odit, pariatur provident facere impedit.
+                </p>
+
+                <h4 class="mt-4 mb-4">Preguntas y respuestas:</h4>
+                <app-commentaryandwrite></app-commentaryandwrite>
+            </div>
+        </div>
+        <!-- Part II -->
+        <div class="col-5 p-4 border-start border-end" style="background-color: white;">
+            <div class="row">
+                <div class="col">
+                    <h3 class="font-b mt-2">[Name]</h3>
+                </div>
+                <div class="col-auto">
+                    <a href="" style="color: #b26fff"><i class="bi bi-heart" style="font-size: xx-large;"></i></a>
+                </div>
+            </div>
+            <div class="row mt-2 mb-0">
+                <div class="col">
+                    <p-rating [cancel]="false" [readonly]="true"></p-rating>
+                </div>
+                <div class="col-auto">
+                    <p style="color: gray">[n] ventas totales</p>
+                </div>
+            </div>
+            <p class="mb-0" style="opacity: .5; text-decoration:line-through;">$[costo sin descuento]</p>
+            <div class="row">
+                <div class="col-auto">
+                    <h2 class="font-a">$[precio]</h2>
+                </div>
+                <div class="col">
+                    <h2 class="font-a" style="color: rgb(0, 148, 0);">[porcentaje]% off</h2>
+                </div>
+            </div>
+            <p class="mb-0" style="opacity: .5;"><i class="bi bi-check"></i> Producto verificado por WorkHome®️</p>
+
+            <div class="container-fluid p-0 mt-4">
+                <p class="mb-2" style="opacity: .7;"><i class="bi bi-clock"></i> Tiempo de entrega: [date]</p>
+                <p class="mb-2" style="opacity: .7;"><i class="bi bi-airplane"></i> Método de entrega: [string]</p>
+                <p style="opacity: .7;"><i class="bi bi-box2"></i> Posibilidad de devolución: [boolean]</p>
+            </div>
+
+            <div class="container-fluid p-0">
+                <h4 class="font-b" style="color: rgb(0, 148, 0);"><i class="bi bi-check"></i> Stock disponible</h4>
+
+                <div class="container-fluid p-0 mt-3">
+                    <div class="row">
+                        <div class="col-auto">
+                            <h4 class="font-b">Cantidad:</h4>
+                        </div>
+                        <div class="col">
+                            <input style="width: 25%; height: 65%;" pInputText type="number" value="1" min="1" max="5"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <button type="button" class="btn btn-purple p-2 mb-3 rounded-4"><i class="bi bi-bag"></i> Comprar ahora</button>
+                    <button type="button" class="btn btn-outline-purple p-2 rounded-4"><i class="bi bi-cart-plus"></i> Añadir al carrito</button>
+                </div>
+                
+
+                <p class="mt-3" style="opacity: .5;"><i class="bi bi-arrow-up-circle"></i> Con WorkHome®️ Prime aumentas [n] puntos de exp.</p>
+            </div>
+
+            <div class="container-fluid p-0 mt-5">
+                <h4>Información del vendedor:</h4>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-2 text-center">
+                        <p-avatar size="large" label="Z"></p-avatar>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <a href="" class="text-decoration-none"><h6>[Nombre]</h6></a>
+                            <p class="mb-0">Vendedor oficial de WorkHome®️</p>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="mt-3">Reputación en décimas: [decimal]</h6>
+                <h6 class="mt-3">Ventas totales: [n]</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -24,8 +24,11 @@ import { TagModule } from 'primeng/tag'
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { MultiSelectModule } from 'primeng/multiselect'
-import { StepsModule } from 'primeng/steps'
+import { MultiSelectModule } from 'primeng/multiselect';
+import { StepsModule } from 'primeng/steps';
+import { RatingModule } from 'primeng/rating';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { GalleriaModule } from 'primeng/galleria'
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +45,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Homestep2Component } from './bin/stages/homestep2/homestep2.component';
 import { Homestep3Component } from './bin/stages/homestep3/homestep3.component';
 import { ProfileComponent } from './bin/stages/profile/profile.component';
+import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
+import { UppercaseDirective } from './bin/directives/customization/uppercase.directive';
+import { CommentaryandwriteComponent } from './bin/components/commentaryandwrite/commentaryandwrite.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -66,7 +72,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     Homestep2Component,
     Homestep3Component,
     ProfileComponent,
-    TermsComponent
+    TermsComponent,
+    ProductViewComponent,
+    UppercaseDirective,
+    CommentaryandwriteComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +99,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HttpClientModule,
     MultiSelectModule,
     StepsModule,
-    AvatarModule
+    AvatarModule,
+    RatingModule,
+    BreadcrumbModule,
+    GalleriaModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

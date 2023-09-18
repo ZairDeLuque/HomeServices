@@ -48,4 +48,5 @@ html, body{
 
 .btn-purple:hover{
     background-color: #9f4bff;
+    color: white;
 }
