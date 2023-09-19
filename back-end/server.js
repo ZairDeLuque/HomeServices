@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const router = require('./bin/api/routers/routes.js');
 
 
 //.env
@@ -36,8 +35,6 @@ app.use(bodyParser.json());
 
 //Use router
 app.use(mainRouter);
-
-app.use(router);
 
 
 

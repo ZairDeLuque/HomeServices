@@ -6,16 +6,24 @@
 require('dotenv').config({ path: './.env'})
 
 //Requires
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 //Export
-const DBx0 = mysql.createPool({
-    host: process.env.HOSTSQL,
-    user: process.env.USERSQL,
-    password: process.env.PASSWORDSQL,
-    database: process.env.DBSQL
-})
-
-module.exports = {
-    DBx0: DBx0
+async function DBx0(){
+    try{
+        const CNx0 = mysql.createPool({
+            host: process.env.HOSTSQL,
+            port: process.env.DBPORT,
+            user: process.env.USERSQL,
+            password: process.env.PASSWORDSQL,
+            database: process.env.DBSQL
+        })
+        console.log("[INFO] Utility mysql DBx0 success.");
+        return CNx0;
+    }
+    catch(err){
+        console.log("[ERR] Utility mysql DBx0 throw error: " + err);
+    }
 }
+
+module.exports = DBx0();

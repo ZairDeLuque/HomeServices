@@ -1,0 +1,38 @@
+.active{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;   
+}
+
+.dropdown-item{
+    transition: background-color .2s;
+}
+
+.dropdown-item:hover{
+    background-color: lightblue;
+}
+
+.dropdown-item:active{
+    color: rgb(75, 150, 175);
+}
+
+.red{
+    transition: background-color .2s, color .2s;
+}
+
+.red:hover{
+    background-color:rgb(231, 80, 80);
+    color: white;
+}
+
+.blue{
+    transition: background-color .2s, color .2s;
+}
+
+.blue:hover{
+    background-color:rgb(69, 99, 235);
+    color: white;
+}

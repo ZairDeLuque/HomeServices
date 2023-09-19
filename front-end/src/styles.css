@@ -8,6 +8,10 @@ html, body{
 .dropped-shadow{
     box-shadow: rgba(63, 63, 63, 0.5) 0px 3px 8px; overflow: hidden;
 }
+.dropped-shadow-tiny{
+    box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
+}
+
 ::-webkit-scrollbar{
     width: 10px;
 }
@@ -22,10 +26,6 @@ html, body{
     border: 3px solid #fff;
 }
 
-.dropped-shadow-tiny{
-    box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
-}
-
 .bg-blur{
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -33,7 +33,7 @@ html, body{
 
 .btn-outline-purple{
     border-color: #b26fff;
-    color: #b26fff;
+    color: #9f4bff;
 }
 
 .btn-outline-purple:hover{
@@ -51,3 +51,4 @@ html, body{
     background-color: #9f4bff;
     color: white;
 }
+
