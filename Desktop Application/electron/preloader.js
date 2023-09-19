@@ -7,7 +7,6 @@ contextBridge.exposeInMainWorld('electron', {
 
 window.addEventListener('DOMContentLoaded', () => {
 	new CustomTitlebar({
-		backgroundColor: TitlebarColor.fromHex('#ADD8E6'),
-		maximizable: false
+		backgroundColor: TitlebarColor.fromHex('#ADD8E6')
 	})
 })

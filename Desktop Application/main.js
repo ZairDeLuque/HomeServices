@@ -19,8 +19,6 @@ function createWindow() {
 		height: 700,
 		frame: false,
 		titleBarStyle: 'hidden',
-		resizable: false,
-		maximizable: false,
 		webPreferences: {
 			sandbox: false,
 			nodeIntegration: true,
@@ -88,7 +86,7 @@ const exampleMenuTemplate = [
 						type: 'info',
 						title: 'WorkHome®️ Desktop',
 						message: 'Acerca de WorkHome®️',
-						detail: `Electron version: ${electronVer}\nNode version: ${nodeVer}\nChrome version: ${chromeVer}\nAngular version: 16.2.6-local+sha.b0b004e3ff\n\nWorkHome®️ es un proyecto comunitario de código libre, consulte las redes de Aurora Studios para mas información.`,
+						detail: `Electron version: ${electronVer}\nNode version: ${nodeVer}\nChrome version: ${chromeVer}\nAngular version: 16.2.6-local+sha.b0b004e3ff\n\nWorkHome®️ es un proyecto comunitario pero de código privado, consulte las redes de Aurora Studios Mexico S.A. de C.V. para mas información.`,
 						
 					})
 				}

@@ -34,10 +34,6 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-3">
-                <p><i class="bi bi-person"></i> Nombre de usuario:</p>
-                <input style="width: 100%;" pInputText type="email"/>
-            </div>
             <div class="col">
                 <p><i class="bi bi-gender-ambiguous"></i> Genero:</p>
                 <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
@@ -45,6 +41,16 @@
             <div class="col">
                 <p><i class="bi bi-person-exclamation"></i> Edad:</p>
                 <input style="width: 100%;" pInputText type="number" min="18" max="99"/>
+            </div>
+        </div>
+        <div class="container-fluid p-0 mb-3 user-select-none">
+            <div class="row">
+                <div class="col-auto">
+                    <input class="form-check-input ms-0" type="checkbox" id="flexCheckDefault">
+                </div>
+                <div class="col">
+                    <p style="font-size: 12px; color: gray">Acepto tener la mayoría de edad para usar WorkHome®️ y aceptar el uso de mi informacion segun los acuerdos de privacidad de Aurora Studios Mexico S.A. de C.V.</p>
+                </div>
             </div>
         </div>
         <div class="row mt-4">

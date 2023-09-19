@@ -1,0 +1,107 @@
+<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+
+<div class="container w-75 p-4 mt-4">
+    <p-steps [model]="steps" [readonly]="true" [activeIndex]="3"></p-steps>
+</div>
+
+<div class="container p-4 w-75 mb-0">
+    <h2>¡Perfecto! Tu cuenta esta creada satisfactoriamente.</h2>
+    <p>Ahora, veamos tus intereses en WorkHome®️. ¡Asi sabremos que recomendaciones brindarte!</p>
+    <hr>
+    <form>
+        <div class="row">
+            <div class="col p-4">
+                <div class="container-fluid p-0 mb-3">
+                    <h5>1.- ¿Que planea buscar mas?</h5>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="btnradio" id="p1-1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="p1-1">Productos</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio" id="p1-2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p1-2">Servicios</label>
+                    </div>
+                </div>
+                <div class="container-fluid p-0 mb-3">
+                    <h5>2.- ¿Cuantas compras pretende hacer?</h5>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="btnradio2" id="p2-1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="p2-1">Menos de 5</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio2" id="p2-2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p2-2">5 a 10</label>
+                        <input type="radio" class="btn-check" name="btnradio2" id="p2-3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p2-3">10 a 20</label>
+                        <input type="radio" class="btn-check" name="btnradio2" id="p2-4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p2-4">Mas de 20</label>
+                    </div>
+                </div>
+                <div class="container-fluid p-0 mb-3">
+                    <h5>3.- ¿Cual es su presupuesto promedio en compras?</h5>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="btnradio3" id="p3-1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="p3-1">Menos de 250</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio3" id="p3-2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p3-2">250 a 500</label>
+                        <input type="radio" class="btn-check" name="btnradio3" id="p3-3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p3-3">500 a 1000</label>
+                        <input type="radio" class="btn-check" name="btnradio3" id="p3-4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p3-4">Mas de 1000</label>
+                    </div>
+                </div>
+                <div class="container-fluid p-0 mb-3">
+                    <h5>4.- ¿Cómo se enteró de WorkHome®️?</h5>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="btnradio4" id="p4-1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="p4-1">Redes sociales</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio4" id="p4-2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p4-2">Publicidad</label>
+                    </div>
+                </div>
+                <div class="container-fluid p-0 mb-3">
+                    <h5>5.- ¿Quieres recibir correos electrónicos con ofertas y novedades de WorkHome®️?</h5>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="btnradio5" id="p5-1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="p5-1">Si</label>
+                      
+                        <input type="radio" class="btn-check" name="btnradio5" id="p5-2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="p5-2">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col p-4">
+                <!-- Productos selected -->
+                <!-- <div class="container-fluid p-0">
+                    <h4>Productos:</h4>
+                    <div class="container-fluid p-0 mb-3">
+                        <h5>1.- ¿Qué tipo de productos te interesan?</h5>
+                        <p-multiSelect [filter]="true" optionLabel="name" [style]="{'width': '100%'}"></p-multiSelect>
+                    </div>
+                    <div class="container-fluid p-0 mb-3">
+                        <h5>2.- ¿Que marcas te interesan?</h5>
+                        <p-multiSelect [filter]="true" optionLabel="name" [style]="{'width': '100%'}"></p-multiSelect>
+                    </div>
+                </div> -->
+                <!-- Servicios selected -->
+                <!-- <div class="container-fluid p-0">
+                    <h4>Servicios:</h4>
+                    <div class="container-fluid p-0 mb-3">
+                        <h5>1.- ¿Qué tipo de servicios te interesan?</h5>
+                        <p-multiSelect [filter]="true" optionLabel="name" [style]="{'width': '100%'}"></p-multiSelect>
+                    </div>
+                    <div class="container-fluid p-0 mb-3">
+                        <h5>2.- ¿Que método de pago usarías?</h5>
+                        <p-multiSelect [filter]="true" optionLabel="name" [style]="{'width': '100%'}"></p-multiSelect>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end p-0 mb-0 mt-4">
+            <p-button label="Listo!" icon="bi bi-send" styleClass="p-button-help"></p-button>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>

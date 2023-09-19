@@ -29,6 +29,8 @@ import { StepsModule } from 'primeng/steps';
 import { RatingModule } from 'primeng/rating';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { GalleriaModule } from 'primeng/galleria'
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ChipModule } from 'primeng/chip';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -48,6 +50,8 @@ import { ProfileComponent } from './bin/stages/profile/profile.component';
 import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
 import { UppercaseDirective } from './bin/directives/customization/uppercase.directive';
 import { CommentaryandwriteComponent } from './bin/components/commentaryandwrite/commentaryandwrite.component';
+import { ResponseCommentarysComponent } from './bin/components/response-commentarys/response-commentarys.component';
+import { Homestep4Component } from './bin/stages/homestep4/homestep4.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -75,7 +79,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     TermsComponent,
     ProductViewComponent,
     UppercaseDirective,
-    CommentaryandwriteComponent
+    CommentaryandwriteComponent,
+    ResponseCommentarysComponent,
+    Homestep4Component
   ],
   imports: [
     BrowserModule,
@@ -102,7 +108,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AvatarModule,
     RatingModule,
     BreadcrumbModule,
-    GalleriaModule
+    GalleriaModule,
+    InputSwitchModule,
+    ChipModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

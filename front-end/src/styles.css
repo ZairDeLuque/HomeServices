@@ -33,11 +33,12 @@ html, body{
 
 .btn-outline-purple{
     border-color: #b26fff;
+    color: #b26fff;
 }
 
 .btn-outline-purple:hover{
     border-color: transparent;
-    background-color: #b26fff;
+    background-color: #9f4bff;
     color: white;
 }
 
