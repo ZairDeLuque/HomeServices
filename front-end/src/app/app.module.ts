@@ -52,6 +52,7 @@ import { UppercaseDirective } from './bin/directives/customization/uppercase.dir
 import { CommentaryandwriteComponent } from './bin/components/commentaryandwrite/commentaryandwrite.component';
 import { ResponseCommentarysComponent } from './bin/components/response-commentarys/response-commentarys.component';
 import { Homestep4Component } from './bin/stages/homestep4/homestep4.component';
+import { ServicesViewComponent } from './bin/stages/services-view/services-view.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -81,7 +82,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     UppercaseDirective,
     CommentaryandwriteComponent,
     ResponseCommentarysComponent,
-    Homestep4Component
+    Homestep4Component,
+    ServicesViewComponent
   ],
   imports: [
     BrowserModule,

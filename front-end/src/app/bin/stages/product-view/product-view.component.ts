@@ -12,13 +12,13 @@ export class ProductViewComponent {
   
   protected images: any[] = [
     {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg'
+      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_957919-MLU54972894434_042023-O.webp'
     },
     {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg'
+      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_631919-MLU54967277823_042023-O.webp'
     },
     {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria3.jpg'
+      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_649249-MLU54972894436_042023-O.webp'
     }  
   ];
 
