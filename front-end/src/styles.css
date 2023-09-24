@@ -32,7 +32,7 @@ html, body{
 }
 
 .btn-outline-purple{
-    border-color: #b26fff;
+    border-color: #a95eff;
     color: #9f4bff;
 }
 
@@ -42,8 +42,25 @@ html, body{
     color: white;
 }
 
+.btn-outline-purple:active{
+    border-color: transparent;
+    background-color: #8a2af8;
+    color: white;
+}
+
+.btn-outline-purple-var-2{
+    border-color: white;
+    background-color: transparent;
+}
+
+.btn-outline-purple-var-2:hover{
+    border-color: #a95eff;
+    background-color: white;
+    color: #a95eff;
+}
+
 .btn-purple{
-    background-color: #b26fff;
+    background-color: #a95eff;
     color: white;
 }
 

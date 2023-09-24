@@ -5,12 +5,13 @@
 //Requires
 const SQ0x1 = require('../../utility/mysqlUtilities/connectionManager');
 const Cx0 = require('../../utility/cesarCipherUtilities/cryptHelper').start('condorManager')
+const fs = require('fs');
 
 //Exports functions to be used by other files
 const condorExports = {
     //Function to convert
-    sendToSql: function(reqData){
-        const temporalBytes = Cx0.createNewChallenge(reqData.bytes);
+    sendToSql: function(reqFile){
+        
 
         const query = {
             sql: 'INSERT INTO ? (imgBytes, idOwner'

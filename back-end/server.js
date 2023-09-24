@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const multer = require('multer')
 
 //.env
 require('dotenv').config({ path: './.env'})
@@ -28,6 +28,18 @@ const corsOptions = {
 //Express app
 const app = express();
 const server = http.createServer(app);
+
+//Configuration Multer
+const storage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        cb(null, 'bin/disk/uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({storage});
 
 //Set uses of cors and body-parser
 app.use(cors(corsOptions));
