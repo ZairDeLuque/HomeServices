@@ -53,6 +53,11 @@ import { CommentaryandwriteComponent } from './bin/components/commentaryandwrite
 import { ResponseCommentarysComponent } from './bin/components/response-commentarys/response-commentarys.component';
 import { Homestep4Component } from './bin/stages/homestep4/homestep4.component';
 import { ServicesViewComponent } from './bin/stages/services-view/services-view.component';
+import { CheckerLoaderComponent } from './bin/stages/checker-loader/checker-loader.component';
+import { ConfigComponent } from './bin/stages/config/config.component';
+import { NavbarTiny2Component } from './bin/components/navbar-tiny2/navbar-tiny2.component';
+import { ConfigTabsComponent } from './bin/components/config-tabs/config-tabs.component';
+import { ShopsComponent } from './bin/stages/shops/shops.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -83,7 +88,12 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     CommentaryandwriteComponent,
     ResponseCommentarysComponent,
     Homestep4Component,
-    ServicesViewComponent
+    ServicesViewComponent,
+    CheckerLoaderComponent,
+    ConfigComponent,
+    NavbarTiny2Component,
+    ConfigTabsComponent,
+    ShopsComponent
   ],
   imports: [
     BrowserModule,

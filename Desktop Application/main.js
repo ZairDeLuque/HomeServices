@@ -58,7 +58,6 @@ app.whenReady().then(() => {
 	})
 })
 
-
 // Custom menu
 const exampleMenuTemplate = [
 	{
@@ -71,9 +70,8 @@ const exampleMenuTemplate = [
 					dialog.showMessageBox(BrowserWindow.getFocusedWindow(), {
 						type: 'info',
 						title: 'WorkHome®️ Desktop',
-						message: 'Acerca de WorkHome®️',
-						detail: `Electron version: ${electronVer}\nNode version: ${nodeVer}\nChrome version: ${chromeVer}\nAngular version: 16.2.6-local+sha.b0b004e3ff\n\nWorkHome®️ es un proyecto comunitario pero de código privado, consulte las redes de Aurora Studios Mexico S.A. de C.V. para mas información.`,
-						
+						message: 'Acerca de WorkHome®️ Desktop Edition',
+						detail: `Electron version: ${electronVer}\nNode version: ${nodeVer}\nChrome version: ${chromeVer}\nAngular version: 16.2.6-local+sha.b0b004e3ff\n\nDesktop Version: ${process.env.npm_package_version}\n\nWorkHome®️ es un proyecto comunitario pero de código privado, consulte las redes de Aurora Studios Mexico S.A. de C.V. para mas información.`
 					})
 				}
 			},

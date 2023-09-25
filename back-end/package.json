@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon .",
     "start": "node ."
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.0",
     "nodemon": "^3.0.1",
