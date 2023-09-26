@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { SaveFormsService } from '../../services/forms/storage/save-forms.service';
