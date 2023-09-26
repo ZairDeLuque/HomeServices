@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+//Bootstrap
+import { ModalModule } from 'ngx-bootstrap/modal'
+
 //Social Lib imports
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -101,6 +104,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
     MsalModule,
     RecaptchaModule,
     RecaptchaFormsModule,

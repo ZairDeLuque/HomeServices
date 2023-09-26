@@ -12,19 +12,51 @@
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
-                <form>
+                <form [formGroup]="formLogin">
                     <div class="row mb-3">
-                        <p><i class="bi bi-envelope"></i> E-mail:</p>
-                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email"/>
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <p><i class="bi bi-envelope"></i> E-mail:</p>
+                            </div>
+                            <div class="col d-flex justify-content-end text-danger">
+                                <div *ngIf="formLogin.controls['email'].invalid && (formLogin.controls['email'].dirty || formLogin.controls['email'].touched)">
+                                    <div *ngIf="formLogin.controls['email'].errors?.['required']">
+                                        Campo obligatorio
+                                    </div>
+                                    <div *ngIf="formLogin.controls['email'].errors?.['pattern']">
+                                        Dirección invalida
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email" id="email" formControlName="email"/>
                     </div>
                     <div class="row mb-2">
-                        <p><i class="bi bi-key"></i> Contraseña:</p>
-                        <input pInputText pTooltip="Para cambiar mas tarde, vaya a Configuración > Cuenta > Credenciales." tooltipPosition="bottom" type="password"/>
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <p><i class="bi bi-key"></i> Contraseña:</p>
+                            </div>
+                            <div class="col d-flex justify-content-end text-danger">
+                                <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)">
+                                    <div *ngIf="formLogin.get('password')?.hasError('required')">
+                                        Campo obligatorio
+                                    </div>
+                                    <div *ngIf="formLogin.get('password')?.hasError('minlength')" style="font-size: 12px;">
+                                        Contraseña demasiado corta (mínimo 6 caracteres)
+                                    </div>
+                                    <div *ngIf="formLogin.get('password')?.hasError('pattern')">
+                                        Contraseña vacía
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <input pInputText pTooltip="Para cambiar mas tarde, vaya a Configuración > Cuenta > Credenciales." tooltipPosition="bottom" type="password" id="password" formControlName="password"/>
                     </div>
                     <div class="container-fluid p-0 mb-3">
-                        <div class="row">
+                        <div class="row p-0">
                             <div class="col-auto">
-                                <input class="form-check-input ms-0" type="checkbox" id="flexCheckDefault">
+                                <input class="form-check-input ms-0 border-dark-subtle" type="checkbox" id="checked" formControlName="checked">
                             </div>
                             <div class="col">
                                 <p style="font-size: 12px; color: gray">Acepto los <a routerLink="/terms">terminos y condiciones</a> de WorkHome®️ y Aurora Studios Mexico S.A. de C.V.</p>
@@ -33,7 +65,7 @@
                     </div>
                     <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button label="Crear cuenta" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help"></p-button>
+                            <p-button [disabled]="!formLogin.valid" label="Crear cuenta" styleClass="p-button-help" type="submit" (onClick)="openModal(verify)"></p-button>
                         </div>
                         <div class="col-auto p-0">
                             <p-button label="Tengo cuenta" (onClick)="siAccount()" styleClass="p-button-help p-button-text"></p-button>
@@ -63,16 +95,25 @@
     </div>
 </div>
 
-<div class="modal fade bg-blur" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<ng-template #verify>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalVerify">Beep...boop, ¿boop beep?</h5>
+    </div>
+    <div class="modal-body">
+        <re-captcha class="d-flex justify-content-center" (resolved)="onResolved($event)" (errored)="onErrorRecap()"></re-captcha>
+    </div>
+</ng-template>
+
+<!-- <div class="modal fade bg-blur" id="modalVerify" tabindex="-1" aria-labelledby="modalVerify" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">Validación</h5>
+                <h5 class="modal-title" id="modalVerify">Beep...boop, ¿boop beep?</h5>
+                <button (click)="closeModal('modalVerify')">abc</button>
             </div>
             <div class="modal-body">
-                <re-captcha class="d-flex justify-content-center"></re-captcha>
+                <re-captcha class="d-flex justify-content-center" (resolved)="onResolved($event)" (errored)="onErrorRecap()"></re-captcha>
             </div>
         </div>
     </div>
-</div>
-
+</div> -->

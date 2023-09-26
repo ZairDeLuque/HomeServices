@@ -39,3 +39,7 @@
     border-color: #d2e3fc;
     background-color: #f8faff;
 }
+
+.modal-backdrop {
+    display: none !important;
+}

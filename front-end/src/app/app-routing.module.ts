@@ -23,11 +23,11 @@ const routes: Routes = [
   {path: 'terms', component: TermsComponent},
   {path: 'login', component: LoginComponent},
   {path: 'profile/:uuid', component: ProfileComponent},
-  {path: 'articles/:uuid', component: ProductViewComponent},
+  // {path: 'articles/:uuid', component: ProductViewComponent},
   {path: 'services/:uuid', component: ServicesViewComponent},
   {path: 'r/:redirect', component: CheckerLoaderComponent},
   {path: 'configuration', component: ConfigComponent},
-  {path: 'myaccount/shops', component: ShopsComponent}
+  {path: 'myaccount/s/owned', component: ShopsComponent}
 ];
 
 @NgModule({
