@@ -1,0 +1,9 @@
+.card{
+    user-select: none;
+    transition: background-color .5s;
+    cursor: pointer;
+}
+
+.card:hover{
+    background-color: rgb(231, 231, 231);
+}

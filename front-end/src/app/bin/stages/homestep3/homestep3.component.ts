@@ -18,7 +18,7 @@ export class Homestep3Component {
       label: 'Verificación'
     },
     {
-      label: 'Intereses'
+      label: 'Personalizacion'
     }
   ]
 }

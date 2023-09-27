@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-terms',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class TermsComponent {
 
+  constructor(private _location: Location ){
+
+  }
+
+  returnHome(){
+    this._location.back();
+  }
 }

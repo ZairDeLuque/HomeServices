@@ -7,7 +7,6 @@ import { LoginComponent } from './bin/stages/login/login.component';
 import { ProfileComponent } from './bin/stages/profile/profile.component';
 import { Homestep2Component } from './bin/stages/homestep2/homestep2.component';
 import { Homestep3Component } from './bin/stages/homestep3/homestep3.component';
-import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
 import { Homestep4Component } from './bin/stages/homestep4/homestep4.component';
 import { ServicesViewComponent } from './bin/stages/services-view/services-view.component';
 import { CheckerLoaderComponent } from './bin/stages/checker-loader/checker-loader.component';
@@ -19,7 +18,7 @@ const routes: Routes = [
   {path: 'start', component: HomeComponent},
   {path: 'start/information', component: Homestep2Component},
   {path: 'start/verify', component: Homestep3Component},
-  {path: 'start/topics', component: Homestep4Component},
+  {path: 'start/photo', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'login', component: LoginComponent},
   {path: 'profile/:uuid', component: ProfileComponent},
