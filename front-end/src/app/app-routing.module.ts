@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'start', component: HomeComponent},
   {path: 'start/information', component: Homestep2Component},
   {path: 'start/verify', component: Homestep3Component},
-  {path: 'start/photo', component: Homestep4Component},
+  {path: 'start/experience', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'login', component: LoginComponent},
   {path: 'profile/:uuid', component: ProfileComponent},

@@ -4,6 +4,6 @@
     cursor: pointer;
 }
 
-.card:hover{
-    background-color: rgb(231, 231, 231);
+.card:hover {
+    background-color: lightblue;
 }

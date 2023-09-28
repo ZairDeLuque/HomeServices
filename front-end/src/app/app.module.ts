@@ -34,6 +34,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { GalleriaModule } from 'primeng/galleria'
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChipModule } from 'primeng/chip';
+import { BlockUIModule } from 'primeng/blockui';
+import { PanelModule } from 'primeng/panel'
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -126,7 +128,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     BreadcrumbModule,
     GalleriaModule,
     InputSwitchModule,
-    ChipModule
+    ChipModule,
+    BlockUIModule,
+    PanelModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

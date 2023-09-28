@@ -6,37 +6,81 @@
 
 <div class="container p-4 mb-0">
     <h2>¡Perfecto! Tu cuenta esta lista, pero...</h2>
-    <p>Ahora, personaliza tu experiencia en WorkHome®️. ¡Hablanos de ti!</p>
+    <p>Ahora, personaliza tu experiencia en WorkHome®️.</p>
     <hr>
     <div class="row">
         <div class="col">
-            <div class="card border-0 dropped-shadow text-center">
-                <i class="bi bi-person p-2" style="font-size: 32px;"></i>
-                <div class="card-body p-0">
-                    <h4 class="card-title">¿Eres tu?</h4>
-                    <p class="card-text mb-3">Establece una foto para tu perfil.</p>
+            <a class="text-decoration-none" (click)="openModal(itsme)">
+                <div class="card border-0 dropped-shadow text-center">
+                    <i class="bi bi-person p-2" style="font-size: 32px;"></i>
+                    <div class="card-body p-0">
+                        <h4 class="card-title">¿Eres tu?</h4>
+                        <p class="card-text mb-3">Establece una foto para tu perfil.</p>
+                        <p class="text-danger"><i class="bi bi-ban"></i> No completado</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
-            <div class="card border-0 dropped-shadow text-center">
-                <i class="bi bi-stars p-2" style="font-size: 32px;"></i>
-                <div class="card-body p-0">
-                    <h4 class="card-title">¿Como te llamaremos?</h4>
-                    <p class="card-text mb-3">Establece tu nombre de usuario.</p>
+            <a class="text-decoration-none">
+                <div class="card border-0 dropped-shadow text-center">
+                    <i class="bi bi-stars p-2" style="font-size: 32px;"></i>
+                    <div class="card-body p-0">
+                        <h4 class="card-title">¿Como te llamaremos?</h4>
+                        <p class="card-text mb-3">Establece tu nombre de usuario.</p>
+                        <p><i class="bi bi-ban"></i> No completado</p>
+                        <div class="container w-75 mb-3">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                    @
+                                </span>
+                                <input pInputText placeholder="Username" pTooltip="Para modificar: Configuracion > Información personal" tooltipPosition="bottom"/>
+                                <p-button icon="bi bi-lock" styleClass="p-button-help ms-2"></p-button>
+                            </div>
+                        </div>
+                        <!-- <input pInputText  type="text" [style]="{'width': '80%'}"/> -->
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
-            <div class="card border-0 dropped-shadow text-center">
-                <i class="bi bi-bag p-2" style="font-size: 32px;"></i>
-                <div class="card-body p-0">
-                    <h4 class="card-title">¿Cual es tu proposito?</h4>
-                    <p class="card-text mb-3">¿Comprar? ¿Vender? Tu eliges.</p>
+            <a class="text-decoration-none">
+                <div class="card border-0 dropped-shadow text-center">
+                    <i class="bi bi-handbag p-2" style="font-size: 32px;"></i>
+                    <div class="card-body p-0">
+                        <h4 class="card-title">¿Cual es tu proposito?</h4>
+                        <p class="card-text mb-3">¿Comprar? ¿Vender? Tu eliges.</p>
+                        <p><i class="bi bi-ban"></i> No completado</p>
+                        <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false" [maxSelectedLabels]="1"></p-multiSelect>
+                    </div>
                 </div>
-            </div>
+            </a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-4 offset-4">
+            <a href="" class="text-decoration-none">
+                <div class="card border-0 dropped-shadow text-center">
+                    <i class="bi bi-person-raised-hand p-2" style="font-size: 32px;"></i>
+                    <div class="card-body p-0">
+                        <h4 class="card-title">Ayúdanos a entenderte</h4>
+                        <p class="card-text mb-3">Realiza una breve encuesta para entenderte.</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>
 
 <app-footer></app-footer>
+
+<ng-template #itsme>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalVerify">
+            ¿Eres tu?
+        </h5>
+    </div>
+    <div class="modal-body">
+        
+    </div>
+</ng-template>

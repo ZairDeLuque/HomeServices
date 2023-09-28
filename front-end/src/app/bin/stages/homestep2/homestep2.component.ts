@@ -30,7 +30,7 @@ export class Homestep2Component implements OnInit{
       label: 'Verificación'
     },
     {
-      label: 'Personalizacion'
+      label: 'Personalización'
     }
   ]
   protected states: State[] = [];
