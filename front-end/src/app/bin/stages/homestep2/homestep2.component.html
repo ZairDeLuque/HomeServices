@@ -5,14 +5,57 @@
 </div>
 
 <div class="container p-4 w-75 mb-0">
+
+    <!-- Alert -->
+    <div class="alert alert-danger mt-2" role="alert">
+        <div class="row">
+            <div class="col-auto">
+                <i class="bi bi-exclamation-triangle" style="font-size: 17px;"></i>
+            </div>
+            <div class="col">
+                <!-- <div>
+                    Nombre es requerido, no es posible continuar.
+                </div> -->
+                <!-- <div>
+                    ¿Nombre con números? Es imposible...
+                </div> -->
+                <!-- <div>
+                    Es un nombre muy corto, es estadisticamente imposible...
+                </div> -->
+                <!-- <div>
+                    Es un nombre muy largo, es estadisticamente imposible...
+                </div> -->
+                <!-- <div>
+                    Apellidos requeridos, no es posible continuar.
+                </div> -->
+                <!-- <div>
+                    ¿Apellidos con números? Buen intento...
+                </div> -->
+                <!-- <div>
+                    Son apellidos muy cortos, es estadisticamente imposible...
+                </div> -->
+                <!-- <div>
+                    Son apellidos muy largos, ¿seguro de no estar equivocado?
+                </div> -->
+                <!-- <div>
+                    Código postal requerido, ¿Como sabremos que servicios ofrecerte?
+                </div> -->
+                <div>
+                    Son apellidos muy cortos, es estadisticamente imposible...
+                </div>
+            </div>
+        </div>
+    </div>
+
     <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
     <p style="text-align: justify; font-size: 14px; color: gray;">En WorkHome®️ nos interesa tu confianza y seguridad, para esto, requerimos información personal para que los demás usuarios se sientan seguros.</p>
     <hr>
-    <form>
+    <form [formGroup]="formCurrentStage">
         <div class="row mb-3">
             <div class="col">
-                <p><i class="bi bi-card-heading"></i> Nombre:</p>
+                <p><i class="bi bi-card-heading"></i> Nombre(s):</p>
                 <input style="width: 100%;" pInputText type="email"/>
+                
             </div>
             <div class="col">
                 <p><i class="bi bi-card-heading"></i> Apellidos:</p>

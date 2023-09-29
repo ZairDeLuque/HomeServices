@@ -35,7 +35,7 @@
                                     @
                                 </span>
                                 <input pInputText placeholder="Username" pTooltip="Para modificar: Configuracion > Información personal" tooltipPosition="bottom"/>
-                                <p-button icon="bi bi-lock" styleClass="p-button-help ms-2"></p-button>
+                                <p-button icon="bi bi-check" styleClass="p-button-help ms-2"></p-button>
                             </div>
                         </div>
                         <!-- <input pInputText  type="text" [style]="{'width': '80%'}"/> -->
@@ -45,13 +45,13 @@
         </div>
         <div class="col">
             <a class="text-decoration-none">
-                <div class="card border-0 dropped-shadow text-center">
+                <div class="card border-0 dropped-shadow text-center overflow-visible">
                     <i class="bi bi-handbag p-2" style="font-size: 32px;"></i>
-                    <div class="card-body p-0">
+                    <div class="card-body p-0 mb-3">
                         <h4 class="card-title">¿Cual es tu proposito?</h4>
                         <p class="card-text mb-3">¿Comprar? ¿Vender? Tu eliges.</p>
                         <p><i class="bi bi-ban"></i> No completado</p>
-                        <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false" [maxSelectedLabels]="1"></p-multiSelect>
+                        <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'60%'}" [filter]="false" [selectionLimit]="1" ></p-multiSelect>
                     </div>
                 </div>
             </a>
@@ -59,7 +59,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-4 offset-4">
-            <a href="" class="text-decoration-none">
+            <a class="text-decoration-none">
                 <div class="card border-0 dropped-shadow text-center">
                     <i class="bi bi-person-raised-hand p-2" style="font-size: 32px;"></i>
                     <div class="card-body p-0">
@@ -76,11 +76,20 @@
 
 <ng-template #itsme>
     <div class="modal-header">
-        <h5 class="modal-title" id="modalVerify">
-            ¿Eres tu?
-        </h5>
+        <div class="row p-0">
+            <h5 class="modal-title" id="modalVerify">
+                ¿Eres tu?
+            </h5>
+            <p>
+                En WorkHome®️ mostrar quien eres sube tu reputación, brindas la confianza que muchos quieren a la hora de comprar, ¿Porque no hacerlo?
+            </p>
+        </div>
     </div>
     <div class="modal-body">
-        
+        <div class="row">
+            <div class="col">
+                <p-avatar class="mt-4 mb-3" shape="square" label="Z" [style]="{'width':'110px', 'height':'110px', 'background-color': 'lightblue'}"></p-avatar>
+            </div>
+        </div>
     </div>
 </ng-template>

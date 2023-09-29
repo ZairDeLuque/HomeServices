@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Notify } from 'notiflix';
@@ -8,7 +8,7 @@ import { Notify } from 'notiflix';
   templateUrl: './homestep4.component.html',
   styleUrls: ['./homestep4.component.css']
 })
-export class Homestep4Component {
+export class Homestep4Component implements OnInit{
 
   //Blocked?
   protected aBlock: boolean = false;
@@ -52,11 +52,10 @@ export class Homestep4Component {
   //Modal
   modalRef?: BsModalRef;
   modalRef2?: BsModalRef;
-  modalRef3?: BsModalRef;
-  modalRef4?: BsModalRef;
+
   openModal(template: TemplateRef<any>) {
     if(this.aBlock === false){
-      this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur modal-xl', ignoreBackdropClick: true});
+      this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur modal-xl mt-4 rounded-0', ignoreBackdropClick: true});
     }
     else{
       Notify.info('Paso bloqueado, ha sido completado.')
@@ -65,14 +64,11 @@ export class Homestep4Component {
   openModal2(template: TemplateRef<any>) {
     this.modalRef2 = this.modalService.show(template, {id: 2, class: 'modal-xl bg-blur'});
   }
-  openModal3(template: TemplateRef<any>) {
-    this.modalRef3 = this.modalService.show(template, {id: 3, class: 'bg-blur'});
-  }
-  openModal4(template: TemplateRef<any>) {
-    this.modalRef4 = this.modalService.show(template, {id: 4, class: 'bg-blur'});
-  }
 
   closeModal(modalId?: number){
     this.modalService.hide(modalId);
+  }
+
+  ngOnInit(): void {
   }
 }

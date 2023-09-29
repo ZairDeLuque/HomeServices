@@ -6,6 +6,7 @@ import { Notify } from 'notiflix';
 import { SaveFormsService } from '../../services/forms/storage/save-forms.service';
 import { TinyService } from '../../services/navbars/customization/tiny.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
 
-  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService) {    
+  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location) {    
     //PrimeNG Context Menu
     this.items = [
       {
@@ -82,6 +83,10 @@ export class HomeComponent implements OnInit{
         this.router.navigate(["/start/information"]);
       }
     }
+  }
+
+  back(){
+    this._locate.back();
   }
 
   onErrorRecap(){
