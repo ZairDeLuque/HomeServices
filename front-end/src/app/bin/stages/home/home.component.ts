@@ -76,11 +76,11 @@ export class HomeComponent implements OnInit{
         
         this._save.setFormData(this.formLogin);
         
-        localStorage.setItem('s1x0', 'true');
+        // sessionStorage.setItem('s1x0', 'true');
         
         this.closeModal();
         
-        this.router.navigate(["/start/information"]);
+        this.router.navigate(["/start/verification"]);
       }
     }
   }

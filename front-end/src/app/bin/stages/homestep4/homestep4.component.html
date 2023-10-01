@@ -12,11 +12,12 @@
         <div class="col">
             <a class="text-decoration-none" (click)="openModal(itsme)">
                 <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-person p-2" style="font-size: 32px;"></i>
+                    <i class="bi bi-person p-2" style="font-size: 32px; color: #b574ff;"></i>
                     <div class="card-body p-0">
                         <h4 class="card-title">¿Eres tu?</h4>
                         <p class="card-text mb-3">Establece una foto para tu perfil.</p>
-                        <p class="text-danger"><i class="bi bi-ban"></i> No completado</p>
+                        <p class="text-dark-emphasis" *ngIf="aBlock === 's'">Saltado</p>
+                        <p class="text-success" *ngIf="aBlock === 'c'"><i class="bi bi-check-all"></i> Completo</p>
                     </div>
                 </div>
             </a>
@@ -24,18 +25,16 @@
         <div class="col">
             <a class="text-decoration-none">
                 <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-stars p-2" style="font-size: 32px;"></i>
+                    <i class="bi bi-stars p-2" style="font-size: 32px; color: #b574ff;"></i>
                     <div class="card-body p-0">
                         <h4 class="card-title">¿Como te llamaremos?</h4>
                         <p class="card-text mb-3">Establece tu nombre de usuario.</p>
-                        <p><i class="bi bi-ban"></i> No completado</p>
                         <div class="container w-75 mb-3">
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon">
                                     @
                                 </span>
-                                <input pInputText placeholder="Username" pTooltip="Para modificar: Configuracion > Información personal" tooltipPosition="bottom"/>
-                                <p-button icon="bi bi-check" styleClass="p-button-help ms-2"></p-button>
+                                <input pInputText appLowercase placeholder="Username" pTooltip="Para modificar: Configuracion > Información personal" tooltipPosition="bottom"/>
                             </div>
                         </div>
                         <!-- <input pInputText  type="text" [style]="{'width': '80%'}"/> -->
@@ -46,11 +45,10 @@
         <div class="col">
             <a class="text-decoration-none">
                 <div class="card border-0 dropped-shadow text-center overflow-visible">
-                    <i class="bi bi-handbag p-2" style="font-size: 32px;"></i>
+                    <i class="bi bi-handbag p-2" style="font-size: 32px; color: #b574ff;"></i>
                     <div class="card-body p-0 mb-3">
                         <h4 class="card-title">¿Cual es tu proposito?</h4>
                         <p class="card-text mb-3">¿Comprar? ¿Vender? Tu eliges.</p>
-                        <p><i class="bi bi-ban"></i> No completado</p>
                         <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'60%'}" [filter]="false" [selectionLimit]="1" ></p-multiSelect>
                     </div>
                 </div>
@@ -61,34 +59,58 @@
         <div class="col-4 offset-4">
             <a class="text-decoration-none">
                 <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-person-raised-hand p-2" style="font-size: 32px;"></i>
+                    <i class="bi bi-person-raised-hand p-2" style="font-size: 32px; color: #b574ff;"></i>
                     <div class="card-body p-0">
                         <h4 class="card-title">Ayúdanos a entenderte</h4>
-                        <p class="card-text mb-3">Realiza una breve encuesta para entenderte.</p>
+                        <p class="card-text mb-1">Realiza una breve encuesta para entenderte.</p>
+                        <p class="text-danger">Opcional</p>
                     </div>
                 </div>
             </a>
         </div>
+    </div>
+
+    <div class="d-flex justify-content-end p-0 mt-5">
+        <p-button label="Continuar" [disabled]="aBlock === 'n' && bBlock === 'n' && cBlock === 'n' && dBlock === 'n'" styleClass="p-button-help"></p-button>
     </div>
 </div>
 
 <app-footer></app-footer>
 
 <ng-template #itsme>
-    <div class="modal-header">
+    <div class="modal-header user-select-none">
         <div class="row p-0">
-            <h5 class="modal-title" id="modalVerify">
+            <h4 class="modal-title" id="modalVerify">
                 ¿Eres tu?
-            </h5>
-            <p>
+            </h4>
+            <p class="mb-0">
                 En WorkHome®️ mostrar quien eres sube tu reputación, brindas la confianza que muchos quieren a la hora de comprar, ¿Porque no hacerlo?
             </p>
         </div>
     </div>
-    <div class="modal-body">
+    <div class="modal-body user-select-none">
         <div class="row">
+            <div class="col-auto text-center" id="avatars">
+                <p-avatar class="mt-4 mb-3" shape="square" label="Z" [style]="{'width':'110px', 'height':'110px', 'background-color': 'lightblue'}" *ngIf="formCurrentStage.controls['file'].value === ''"></p-avatar>
+                <img src="{{image}}"  alt="" style="width: 110px; height: 110px; border-radius: 10px;" *ngIf="formCurrentStage.controls['file'].value !== ''">
+                <p class="opacity-50">Vista previa</p>
+            </div>
             <div class="col">
-                <p-avatar class="mt-4 mb-3" shape="square" label="Z" [style]="{'width':'110px', 'height':'110px', 'background-color': 'lightblue'}"></p-avatar>
+                <h5>Seleccione una imagen nueva:</h5>
+                <form [formGroup]="formCurrentStage">
+                    <div class="mb-3">
+                        <input type="file" appOnlyimgs accept="image/*" class="form-control" id="file" formControlName="file" aria-describedby="helpId" (change)="onFileChange($event)">
+                        <small id="helpId" class="form-text text-muted">Tamaño recomendado: 128x128</small>
+                    </div>
+                    <div class="row p-0">
+                        <div class="col d-flex justify-content-end">
+                            <p-button label="Saltar" styleClass="p-button-help p-button-text" (onClick)="jumpStep1()"></p-button>
+                        </div>
+                        <div class="col-auto">
+                            <p-button label="Continuar" [disabled]="!formCurrentStage.valid" styleClass="p-button-help" type="submit"></p-button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

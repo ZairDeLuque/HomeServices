@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'home', component: InsideHomeComponent},
   {path: 'start', component: HomeComponent},
   {path: 'start/information', component: Homestep2Component},
-  {path: 'start/verify', component: Homestep3Component},
+  {path: 'start/verification', component: Homestep3Component},
   {path: 'start/experience', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'login', component: LoginComponent},

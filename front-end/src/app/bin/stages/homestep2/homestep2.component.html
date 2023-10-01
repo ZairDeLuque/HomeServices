@@ -5,101 +5,117 @@
 </div>
 
 <div class="container p-4 w-75 mb-0">
-
+    <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
+    <p style="text-align: justify; font-size: 14px; color: gray;">En WorkHome®️ nos interesa tu confianza y seguridad, para esto, requerimos información personal para que los demás usuarios se sientan seguros.</p>
+    <hr>
     <!-- Alert -->
-    <div class="alert alert-danger mt-2" role="alert">
+    <div class="alert customalert user-select-none" role="alert" *ngIf="!formCurrentStage.valid && formCurrentStage.touched">
         <div class="row">
             <div class="col-auto">
                 <i class="bi bi-exclamation-triangle" style="font-size: 17px;"></i>
             </div>
             <div class="col">
-                <!-- <div>
-                    Nombre es requerido, no es posible continuar.
-                </div> -->
-                <!-- <div>
-                    ¿Nombre con números? Es imposible...
-                </div> -->
-                <!-- <div>
-                    Es un nombre muy corto, es estadisticamente imposible...
-                </div> -->
-                <!-- <div>
-                    Es un nombre muy largo, es estadisticamente imposible...
-                </div> -->
-                <!-- <div>
-                    Apellidos requeridos, no es posible continuar.
-                </div> -->
-                <!-- <div>
-                    ¿Apellidos con números? Buen intento...
-                </div> -->
-                <!-- <div>
-                    Son apellidos muy cortos, es estadisticamente imposible...
-                </div> -->
-                <!-- <div>
-                    Son apellidos muy largos, ¿seguro de no estar equivocado?
-                </div> -->
-                <!-- <div>
-                    Código postal requerido, ¿Como sabremos que servicios ofrecerte?
-                </div> -->
-                <div>
-                    Son apellidos muy cortos, es estadisticamente imposible...
+                <div *ngIf="formCurrentStage.get('name')?.hasError('required')">
+                    <strong>•</strong> Nombre es requerido, no es posible continuar.
+                </div>
+                <div *ngIf="formCurrentStage.get('name')?.hasError('pattern')">
+                    <strong>•</strong> ¿Nombre con números? Es imposible...
+                </div>
+                <div *ngIf="formCurrentStage.get('name')?.hasError('minlength')">
+                    <strong>•</strong> Es un nombre muy corto, es estadisticamente imposible...
+                </div>
+                <div *ngIf="formCurrentStage.get('name')?.hasError('maxlength')">
+                    <strong>•</strong> Es un nombre muy largo, es estadisticamente imposible...
+                </div>
+                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('required')">
+                    <strong>•</strong> Apellidos requeridos, no es posible continuar.
+                </div>
+                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('pattern')">
+                    <strong>•</strong> ¿Apellidos con números? Buen intento...
+                </div>
+                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('minlength')">
+                    <strong>•</strong> Son apellidos muy cortos, es estadisticamente imposible...
+                </div>
+                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('maxlength')">
+                    <strong>•</strong> Son apellidos muy largos, ¿seguro de no estar equivocado?
+                </div>
+                <div *ngIf="formCurrentStage.get('cp')?.hasError('required')">
+                    <strong>•</strong> Código postal requerido, ¿Como sabremos que servicios ofrecerte?
+                </div>
+                <div *ngIf="formCurrentStage.get('cp')?.hasError('pattern')">
+                    <strong>•</strong> No puedes usar letras numéricas, es un código postal...
+                </div>
+                <div *ngIf="formCurrentStage.get('state')?.hasError('required')">
+                    <strong>•</strong> Estado requerido.
+                </div>
+                <div *ngIf="formCurrentStage.get('city')?.hasError('required')">
+                    <strong>•</strong> Ciudad requerida.
+                </div>
+                <div *ngIf="formCurrentStage.get('genre')?.hasError('required')">
+                    <strong>•</strong> Genero requerido.
+                </div>
+                <div *ngIf="formCurrentStage.get('age')?.hasError('required')">
+                    <strong>•</strong> Edad requerida.
+                </div>
+                <div *ngIf="formCurrentStage.get('age')?.hasError('pattern')">
+                    <strong>•</strong> No puedes usar letras numéricas, es una edad...
+                </div>
+                <div *ngIf="formCurrentStage.get('ageVerify')?.hasError('required')">
+                    <strong>•</strong> Marca la casilla sobre el uso de tu información.
                 </div>
             </div>
         </div>
     </div>
-
-    <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
-    <p style="text-align: justify; font-size: 14px; color: gray;">En WorkHome®️ nos interesa tu confianza y seguridad, para esto, requerimos información personal para que los demás usuarios se sientan seguros.</p>
-    <hr>
-    <form [formGroup]="formCurrentStage">
+    <form [formGroup]="formCurrentStage" (ngSubmit)="onSave()">
         <div class="row mb-3">
             <div class="col">
                 <p><i class="bi bi-card-heading"></i> Nombre(s):</p>
-                <input style="width: 100%;" pInputText type="email"/>
+                <input style="width: 100%;" pInputText type="text" id="name" formControlName="name"/>
                 
             </div>
             <div class="col">
                 <p><i class="bi bi-card-heading"></i> Apellidos:</p>
-                <input style="width: 100%;" pInputText type="email"/>
+                <input style="width: 100%;" pInputText type="text" id="lastnames" formControlName="lastnames"/>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-2">
                 <p><i class="bi bi-geo-alt"></i> Código Postal:</p>
-                <input style="width: 100%;" pInputText type="number" max="99999" min="0"/>
+                <input style="width: 100%;" pInputText type="number" max="99999" min="0" id="cp" formControlName="cp"/>
             </div>
             <div class="col">
                 <p><i class="bi bi-geo-alt"></i> Estado:</p>
-                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="state" formControlName="state" (onChange)="updateCitys()"></p-multiSelect>
             </div>
             <div class="col">
                 <p><i class="bi bi-geo-alt"></i> Ciudad:</p>
-                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+                <p-multiSelect optionLabel="name" [options]="citys" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="city" formControlName="city"></p-multiSelect>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col">
                 <p><i class="bi bi-gender-ambiguous"></i> Genero:</p>
-                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false"></p-multiSelect>
+                <p-multiSelect optionLabel="name" [options]="genre" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="genre" formControlName="genre"></p-multiSelect>
             </div>
             <div class="col">
                 <p><i class="bi bi-person-exclamation"></i> Edad:</p>
-                <input style="width: 100%;" pInputText type="number" min="18" max="99"/>
+                <input style="width: 100%;" pInputText type="number" min="18" max="99" id="age" formControlName="age"/>
             </div>
         </div>
         <div class="container-fluid p-0 mb-3 user-select-none">
             <div class="row">
                 <div class="col-auto">
-                    <input class="form-check-input ms-0" type="checkbox" id="flexCheckDefault">
+                    <input class="form-check-input ms-0" type="checkbox" id="ageVerify" formControlName="ageVerify">
                 </div>
                 <div class="col">
-                    <p style="font-size: 12px; color: gray">Acepto tener la mayoría de edad para usar WorkHome®️ y aceptar el uso de mi informacion segun los acuerdos de privacidad de Aurora Studios Mexico S.A. de C.V.</p>
+                    <p style="font-size: 12px; color: gray">Acepto tener la edad recomendada para usar WorkHome®️ y aceptar el uso de mi información según los acuerdos de privacidad de Aurora Studios Mexico S.A. de C.V.</p>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="d-flex justify-content-end">
                 <div class="col-auto">
-                    <p-button label="Crear cuenta" styleClass="p-button-help mb-0"></p-button>
+                    <p-button [disabled]="!formCurrentStage.valid" icon="bi bi-arrow-right" label="Continuar" styleClass="p-button-help mb-0" type="submit"></p-button>
                 </div>
                 <div class="col-auto">
                     <p-button icon="bi bi-arrow-left" label="Volver" routerLink="/start" styleClass="p-button-help p-button-text mb-0"></p-button>
@@ -108,5 +124,6 @@
         </div>
     </form>
 </div>
+
 
 <app-footer></app-footer>

@@ -1,3 +1,7 @@
+// Multer Config
+// Aurora Stdios Services
+// @apocalixdeluque - The creator
+
 const multer = require('multer');
 
 const storageConfigProfilePic = multer.diskStorage({
