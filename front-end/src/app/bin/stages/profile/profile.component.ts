@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
   protected UUIDactive: string;
+  protected valueStars: number = 5;
   
   constructor(private title: Title, private ar: ActivatedRoute) {
     this.UUIDactive = this.ar.snapshot.params['uuid']

@@ -16,8 +16,8 @@
 
 
 <div class="container-fluid p-4 mt-3 border border-1 font-b">
-    <h1 class="mb-4">Ofertas de semana:</h1>
-    <p-carousel [value]="items" [numVisible]="3">
+    <h1 class="mb-4">Destacados:</h1>
+    <p-carousel [value]="items" [numVisible]="3" [showIndicators]="false">
         <ng-template let-items pTemplate="item">
             <a href="" class="text-decoration-none">
                 <div class="container border border-1 w-75 text-center p-3 rounded-3">
@@ -46,7 +46,7 @@
 <div class="container-fluid p-4 mt-3 border border-1 font-b">
     <div class="row">
         <div class="col">
-            <h3 class="mb-4">Cuentas verificadas:</h3>
+            <h3 class="mb-4">Ofertas:</h3>
         </div>
         <div class="col">
             <h3 class="mb-4">Top 10:</h3>

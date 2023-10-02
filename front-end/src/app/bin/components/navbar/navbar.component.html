@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg dropped-shadow-tiny p-2 user-select-none" style="overflow: visible; background-color: white;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">logo</a>
+        <a class="navbar-brand" href="#">
+            <img src="../../../../assets/mainlogo.png" alt="WorkHome®️ Logo" style="height: 40px; width: auto;">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,17 +20,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Nuevos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ofertas</a>
-                </li>
             </ul>
             <form class="d-flex w-50" role="search" style="margin-right: 1rem;">
-                <input class="form-control me-2" type="search" placeholder="Busque servicios, productos, etc..." aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Servicio de..." aria-label="Search">
                 <button class="btn btn-outline-purple" type="submit">Buscar</button>
             </form>
-            <button type="button" pTooltip="Mi carrito ([n])" tooltipPosition="bottom" class="btn btn-outline-purple border-0 me-3"><i class="bi bi-cart"></i></button>
             <div class="z-2">
-                <p-avatar label="Z" pBadge value="1" severity="info" styleClass="mr-2" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"></p-avatar>
+                <p-avatar label="Z" pBadge value="1" severity="danger" styleClass="mr-2" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"></p-avatar>
             </div>
             <div class="btn-group z-1">
                 <button type="button" class="btn border-0 dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -48,14 +46,14 @@
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-bell"></i> Notificaciones</button></li>                    
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-gem"></i> WorkHome®️ Prime</button></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item rounded-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios adquiridos</button></li>
+                    <li><button class="dropdown-item rounded-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button></li>
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-basket"></i> Mis ventas</button></li>
-                    <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-credit-card"></i> Mis tarjetas</button></li>
+                    <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-credit-card"></i> Mis métodos de pago</button></li>
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button></li>
                     <li><hr class="dropdown-divider"></li>
                     <li pTooltip="Actualmente en Desktop App" tooltipPosition="left"><button class="dropdown-item rounded-3 disabled" type="button"><i class="bi bi-download"></i> WorkHome®️ Desktop</button></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item blue rounded-3" type="button" routerLink="/configuration"><i class="bi bi-gear"></i> Configuración</button></li>
+                    <li><button class="dropdown-item blue rounded-3" type="button" routerLink="/myaccount/configuration"><i class="bi bi-gear"></i> Configuración</button></li>
                     <li><button class="dropdown-item blue rounded-3" type="button"><i class="bi bi-question-circle"></i> Acerca de</button></li>
                     <li><button class="dropdown-item red rounded-3 btn-danger" type="button"><i class="bi bi-door-open"></i> Cerrar sesión</button></li>
                 </ul>

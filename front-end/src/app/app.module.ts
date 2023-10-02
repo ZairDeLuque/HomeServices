@@ -65,6 +65,8 @@ import { ConfigTabsComponent } from './bin/components/config-tabs/config-tabs.co
 import { ShopsComponent } from './bin/stages/shops/shops.component';
 import { OnlyimgsDirective } from './bin/directives/uploads/onlyimgs.directive';
 import { LowercaseDirective } from './bin/directives/customization/lowercase.directive';
+import { NotifysComponent } from './bin/stages/notifys/notifys.component';
+import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -102,7 +104,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ConfigTabsComponent,
     ShopsComponent,
     OnlyimgsDirective,
-    LowercaseDirective
+    LowercaseDirective,
+    NotifysComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,

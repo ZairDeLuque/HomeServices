@@ -12,6 +12,8 @@ import { ServicesViewComponent } from './bin/stages/services-view/services-view.
 import { CheckerLoaderComponent } from './bin/stages/checker-loader/checker-loader.component';
 import { ConfigComponent } from './bin/stages/config/config.component';
 import { ShopsComponent } from './bin/stages/shops/shops.component';
+import { NotifysComponent } from './bin/stages/notifys/notifys.component';
+import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 
 const routes: Routes = [
   {path: 'home', component: InsideHomeComponent},
@@ -20,13 +22,15 @@ const routes: Routes = [
   {path: 'start/verification', component: Homestep3Component},
   {path: 'start/experience', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
+  {path: 'privacy', component: PrivacyComponent},
   {path: 'login', component: LoginComponent},
   {path: 'profile/:uuid', component: ProfileComponent},
   // {path: 'articles/:uuid', component: ProductViewComponent},
   {path: 'services/:uuid', component: ServicesViewComponent},
   {path: 'r/:redirect', component: CheckerLoaderComponent},
-  {path: 'configuration', component: ConfigComponent},
-  {path: 'myaccount/s/owned', component: ShopsComponent}
+  {path: 'myaccount/configuration', component: ConfigComponent},
+  {path: 'myaccount/s/owned', component: ShopsComponent},
+  {path: 'myaccount/notifications', component: NotifysComponent}
 ];
 
 @NgModule({
