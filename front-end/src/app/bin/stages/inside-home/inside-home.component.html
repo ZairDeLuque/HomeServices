@@ -17,7 +17,7 @@
 
 <div class="container-fluid p-4 mt-3 border border-1 font-b">
     <h1 class="mb-4">Destacados:</h1>
-    <p-carousel [value]="items" [numVisible]="3" [showIndicators]="false">
+    <p-carousel [value]="items" [numVisible]="3" [showIndicators]="false" [autoplayInterval]="5000">
         <ng-template let-items pTemplate="item">
             <a href="" class="text-decoration-none">
                 <div class="container border border-1 w-75 text-center p-3 rounded-3">

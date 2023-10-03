@@ -4,15 +4,29 @@
 <div #content class="container w-75 p-4">
     <div class="row">
         <div class="col-5 p-5">
-            <h3>Ingrese con una nueva cuenta WorkHome®️ o con sus servicios favoritos.</h3>
-            <hr>
-            <p style="color: gray">Reporte un problema:</p>
-            <p-button icon="bi bi-person-badge-fill" label="Cuenta perdida" styleClass="p-button-raised p-button-text p-button-help"></p-button> <br><br>
-            <p-button icon="bi bi-question" label="Otros" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+            <h3>Ingrese con una nueva cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
                 <form [formGroup]="formLogin">
+                    <div class="row mb-3">
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <p><i class="bi bi-person"></i> Nombre y apellido:</p>
+                            </div>
+                            <div class="col d-flex justify-content-end text-danger">
+                                <div *ngIf="formLogin.controls['email'].invalid && (formLogin.controls['email'].dirty || formLogin.controls['email'].touched)">
+                                    <div *ngIf="formLogin.controls['email'].errors?.['required']">
+                                        Campo obligatorio
+                                    </div>
+                                    <div *ngIf="formLogin.controls['email'].errors?.['pattern']">
+                                        Dirección invalida
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email" id="email" formControlName="email"/>
+                    </div>
                     <div class="row mb-3">
                         <div class="row p-0">
                             <div class="col-auto">
