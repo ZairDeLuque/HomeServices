@@ -8,6 +8,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 //Bootstrap
 import { ModalModule } from 'ngx-bootstrap/modal'
 
+//Paypal
+import { NgxPayPalModule } from 'ngx-paypal';
+
 //Social Lib imports
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -67,6 +70,7 @@ import { OnlyimgsDirective } from './bin/directives/uploads/onlyimgs.directive';
 import { LowercaseDirective } from './bin/directives/customization/lowercase.directive';
 import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
+import { PaymentComponent } from './bin/stages/payment/payment.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -106,7 +110,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     OnlyimgsDirective,
     LowercaseDirective,
     NotifysComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

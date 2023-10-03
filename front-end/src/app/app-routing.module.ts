@@ -14,6 +14,7 @@ import { ConfigComponent } from './bin/stages/config/config.component';
 import { ShopsComponent } from './bin/stages/shops/shops.component';
 import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
+import { PaymentComponent } from './bin/stages/payment/payment.component';
 
 const routes: Routes = [
   {path: 'home', component: InsideHomeComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'r/:redirect', component: CheckerLoaderComponent},
   {path: 'myaccount/configuration', component: ConfigComponent},
   {path: 'myaccount/s/owned', component: ShopsComponent},
-  {path: 'myaccount/notifications', component: NotifysComponent}
+  {path: 'myaccount/notifications', component: NotifysComponent},
+  {path: 'myorders/payment/:id', component: PaymentComponent}
 ];
 
 @NgModule({
