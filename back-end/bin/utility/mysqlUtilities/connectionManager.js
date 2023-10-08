@@ -9,9 +9,9 @@ require('dotenv').config({ path: './.env'})
 const mysql = require('mysql2/promise');
 
 //Export
-async function DBx0(){
+async function Connection(){
     try{
-        const CNx0 = mysql.createPool({
+        const CNx0 = await mysql.createConnection({
             host: process.env.HOSTSQL,
             port: process.env.DBPORT,
             user: process.env.USERSQL,
@@ -23,7 +23,8 @@ async function DBx0(){
     }
     catch(err){
         console.log("[ERR] Utility mysql DBx0 throw error: " + err);
+        throw err;
     }
 }
 
-module.exports = DBx0();
+module.exports = { Connection };

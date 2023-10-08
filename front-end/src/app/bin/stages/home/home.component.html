@@ -4,7 +4,7 @@
 <div #content class="container w-75 p-4">
     <div class="row">
         <div class="col-5 p-5">
-            <h3>Ingrese con una nueva cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
+            <h3>Cree una nueva cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
@@ -15,17 +15,17 @@
                                 <p><i class="bi bi-person"></i> Nombre y apellido:</p>
                             </div>
                             <div class="col d-flex justify-content-end text-danger">
-                                <div *ngIf="formLogin.controls['email'].invalid && (formLogin.controls['email'].dirty || formLogin.controls['email'].touched)">
-                                    <div *ngIf="formLogin.controls['email'].errors?.['required']">
+                                <div *ngIf="formLogin.controls['name'].invalid && (formLogin.controls['name'].dirty || formLogin.controls['name'].touched)">
+                                    <div *ngIf="formLogin.controls['name'].errors?.['required']">
                                         Campo obligatorio
                                     </div>
-                                    <div *ngIf="formLogin.controls['email'].errors?.['pattern']">
-                                        Dirección invalida
+                                    <div *ngIf="formLogin.controls['name'].errors?.['pattern']">
+                                        Nombre invalido
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email" id="email" formControlName="email"/>
+                        <input pInputText type="name" id="name" formControlName="name"/>
                     </div>
                     <div class="row mb-3">
                         <div class="row p-0">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input pInputText pTooltip="No es posible cambiar, intente no presentar errores." tooltipPosition="bottom" type="email" id="email" formControlName="email"/>
+                        <input pInputText type="email" id="email" formControlName="email"/>
                     </div>
                     <div class="row mb-2">
                         <div class="row p-0">
@@ -103,10 +103,10 @@
 
 <div class="container w-75 p-0" style="font-size: 12px; color: gray;">
     <div class="row mt-4">
-        <div class="col">
+        <div class="col mb-3">
             Aurora Studios Mexico S.A. de C.V.
         </div>
-        <div class="col d-flex justify-content-end">
+        <div class="col d-flex justify-content-end mb-3">
             Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de Google
         </div>
     </div>

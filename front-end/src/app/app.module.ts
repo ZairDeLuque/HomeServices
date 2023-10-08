@@ -71,6 +71,7 @@ import { LowercaseDirective } from './bin/directives/customization/lowercase.dir
 import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 import { PaymentComponent } from './bin/stages/payment/payment.component';
+import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -111,7 +112,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     LowercaseDirective,
     NotifysComponent,
     PrivacyComponent,
-    PaymentComponent
+    PaymentComponent,
+    NotaccountComponent
   ],
   imports: [
     BrowserModule,

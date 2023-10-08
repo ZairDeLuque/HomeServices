@@ -5,10 +5,10 @@ const express = require('express');
 const router = express.Router();
 
 //Call controller to router
-const controller = require('../controllers/init.controller')
+const controller = require('../controllers/verification.controller')
 
 //Routes
-router.post('/uploads/profile', upload.single('archivo'), controller.profile)
+router.get('/api/security/verification/mail', controller)
 
 //Export
 module.exports = router;

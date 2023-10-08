@@ -2,19 +2,24 @@
 // Aurora Stdios Services
 // @zairdeluque - The creator
 
-//Config
-const config = require('../../mailer.config');
-
 //.env
-require('dotenv').config({ path: './.env'})
+require('dotenv').config({ path: '../../../.bin'})
 
-//Nodemailer req
-const nodemailer = require('nodemailer');
+//Nodemailer - Outlook
+const nodemailer = require('nodejs-nodemailer-outlook')
 
 //Export function ,
 function senderVerify(MailTo, VerifyNumbers){
-    const mailConfig = {
-        from: process.env.EMAIL,
+    nodemailer.sendEmail({
+        auth: {
+            user: process.env.EMAILUSER,
+            pass: process.env.PASSW0RDMAILER,
+            secure: false,
+        },
+        tls: {
+            rejectUnauthorized: false
+        },
+        from: process.env.EMAILUSER,
         to: MailTo,
         subject: 'WorkHome®️ - Verificación de cuenta',
         html: `
@@ -36,24 +41,24 @@ function senderVerify(MailTo, VerifyNumbers){
     
                     <div class="container p-0 mt-3 text-center">
                         <h2 class="border-bottom d-inline-block p-2 border-3" style="border-color: #cc9fff !important;">Código de verificación:</h2>
-                        <div class="row">
-                            <div class="col">
-                                <h1>${VerifyNumbers[0]}</h1>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[0]}
                             </div>
-                            <div class="col">
-                                <h1>${VerifyNumbers[1]}</h1>
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[1]}
                             </div>
-                            <div class="col">
-                                <h1>${VerifyNumbers[2]}</h1>
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[2]}
                             </div>
-                            <div class="col">
-                                <h1>${VerifyNumbers[3]}</h1>
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[3]}
                             </div>
-                            <div class="col">
-                                <h1>${VerifyNumbers[4]}</h1>
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[4]}
                             </div>
-                            <div class="col">
-                                <h1>${VerifyNumbers[5]}</h1>
+                            <div style="flex: 1; text-align: center;">
+                                ${VerifyNumbers[5]}
                             </div>
                         </div>
                         <hr class="invisible">
@@ -72,17 +77,26 @@ function senderVerify(MailTo, VerifyNumbers){
                 </div>
             </body>
         </html>
-        `
-    }
-    
-    config.sendMail(mailConfig, (err, inf) => {
-        if(err){
-            console.log('[ERR - MailerUtility] SenderVerify function throw error: ' + err);
-            return;
-        }
-
-        return 'succesfully';
+        `,
+        onError: (e) => console.log(e),
+        onSuccess: (i) => console.log(i)
     })
+    
+    // const mailConfig = {
+    //     from: 'workhome.aurora@outlook.com',
+    //     to: MailTo,
+    //     subject: 'WorkHome®️ - Verificación de cuenta',
+        
+    // }
+    
+    // config.sendMail(mailConfig, (err, inf) => {
+    //     if(err){
+    //         console.log('[ERR - MailerUtility] SenderVerify function throw error: ' + err);
+    //         return;
+    //     }
+
+    //     return 'succesfully';
+    // })
 }
 
 module.exports = {

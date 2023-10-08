@@ -7,6 +7,7 @@ import { SaveFormsService } from '../../services/forms/storage/save-forms.servic
 import { TinyService } from '../../services/navbars/customization/tiny.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
 
-  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location) {    
+  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title) {    
     //PrimeNG Context Menu
     this.items = [
       {
@@ -43,10 +44,13 @@ export class HomeComponent implements OnInit{
 
     //Form
     this.formLogin = this.__formgroup.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/[a-zA-Z0-9!@#$%^&*()-_+=<>?]/)]],
       checked: ['', [Validators.required]]
     })
+
+    this.Title.setTitle('WorkHome®️ - Crear cuenta')
   }
   
   //Modal
