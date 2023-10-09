@@ -19,7 +19,7 @@ function generateNumbers(){
 }
 
 function isCodeExpired(value){
-    return new Promise((res, rej) => {
+    return new Promise(async (res, rej) => {
         let cn;
 
         try{
@@ -55,7 +55,7 @@ function isCodeExpired(value){
 }
 
 async function saveondatabase(value, to){
-    return new Promise((res, rej) => {
+    return new Promise(async (res, rej) => {
         let cn; 
 
         try {
@@ -79,6 +79,9 @@ async function saveondatabase(value, to){
                 if(res){
                     res('saved');
                 }
+                else{
+                    rej('not saved')
+                }
             }
         }
         catch (err){
@@ -96,9 +99,10 @@ async function sendNewMail(req, res){
     try{
         const body = req.body;
 
-        const
+        const verifyCode = await generateNumbers();
 
-        mailerUtility.verify(body.to,)
+        const mailer = mailerUtility.verify(body.to, verifyCode);
+        const saved = saveondatabase(verifyCode, body.to);
     }
     catch(err){
     

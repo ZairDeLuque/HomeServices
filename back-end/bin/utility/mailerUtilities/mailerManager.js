@@ -19,7 +19,7 @@ function senderVerify(MailTo, VerifyNumbers){
         tls: {
             rejectUnauthorized: false
         },
-        from: process.env.EMAILUSER,
+        from: 'WorkHome®️',
         to: MailTo,
         subject: 'WorkHome®️ - Verificación de cuenta',
         html: `
@@ -78,8 +78,12 @@ function senderVerify(MailTo, VerifyNumbers){
             </body>
         </html>
         `,
-        onError: (e) => console.log(e),
-        onSuccess: (i) => console.log(i)
+        onError: (err) => {
+            return err
+        },
+        onSuccess: () => {
+            return 'sended'
+        }
     })
     
     // const mailConfig = {
