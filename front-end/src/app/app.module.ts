@@ -145,7 +145,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     InputSwitchModule,
     ChipModule,
     BlockUIModule,
-    PanelModule
+    PanelModule,
+    NgxPayPalModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

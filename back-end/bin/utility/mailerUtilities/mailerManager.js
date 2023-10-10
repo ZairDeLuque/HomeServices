@@ -82,7 +82,7 @@ function senderVerify(MailTo, VerifyNumbers){
             return err
         },
         onSuccess: () => {
-            return 'sended'
+            return true;
         }
     })
     
