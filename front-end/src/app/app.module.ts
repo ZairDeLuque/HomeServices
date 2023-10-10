@@ -38,7 +38,8 @@ import { GalleriaModule } from 'primeng/galleria'
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ChipModule } from 'primeng/chip';
 import { BlockUIModule } from 'primeng/blockui';
-import { PanelModule } from 'primeng/panel'
+import { PanelModule } from 'primeng/panel';
+import { AccordionModule } from 'primeng/accordion';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -72,6 +73,8 @@ import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 import { PaymentComponent } from './bin/stages/payment/payment.component';
 import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
+import { Payment2Component } from './bin/stages/payment2/payment2.component';
+import { Payment3Component } from './bin/stages/payment3/payment3.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -113,7 +116,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NotifysComponent,
     PrivacyComponent,
     PaymentComponent,
-    NotaccountComponent
+    NotaccountComponent,
+    Payment2Component,
+    Payment3Component
   ],
   imports: [
     BrowserModule,
@@ -146,7 +151,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ChipModule,
     BlockUIModule,
     PanelModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    AccordionModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

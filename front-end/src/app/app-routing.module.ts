@@ -18,6 +18,7 @@ import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 import { PaymentComponent } from './bin/stages/payment/payment.component';
 import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
+import { Payment3Component } from './bin/stages/payment3/payment3.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path: 'myaccount/configuration', component: ConfigComponent},
   {path: 'myaccount/s/owned', component: ShopsComponent},
   {path: 'myaccount/notifications', component: NotifysComponent},
-  {path: 'myorders/payment/:id', component: PaymentComponent},
+  {path: 'myorders/payment/address/:id', component: PaymentComponent},
+  {path: 'myorders/payment/:id', component: Payment3Component},
   {path: 'notaccount', component: NotaccountComponent}
 ];
 

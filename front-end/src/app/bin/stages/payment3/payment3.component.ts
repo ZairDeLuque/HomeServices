@@ -2,37 +2,37 @@ import { Component } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  selector: 'app-payment3',
+  templateUrl: './payment3.component.html',
+  styleUrls: ['./payment3.component.css']
 })
-export class PaymentComponent {
+export class Payment3Component {
   public payPalConfig ? : IPayPalConfig;
 
   constructor(){
     this.payPalConfig = {
-      currency: 'MXN',
+      currency: 'EUR',
       clientId: 'sb',
       createOrderOnClient: (data) => < ICreateOrderRequest > {
           intent: 'CAPTURE',
           purchase_units: [{
               amount: {
-                  currency_code: 'MXN',
-                  value: '49.99',
+                  currency_code: 'EUR',
+                  value: '9.99',
                   breakdown: {
                       item_total: {
-                          currency_code: 'MXN',
-                          value: '49.99'
+                          currency_code: 'EUR',
+                          value: '9.99'
                       }
                   }
               },
               items: [{
-                  name: 'WorkHome Subscription',
+                  name: 'Enterprise Subscription',
                   quantity: '1',
                   category: 'DIGITAL_GOODS',
                   unit_amount: {
-                      currency_code: 'MXN',
-                      value: '49.99',
+                      currency_code: 'EUR',
+                      value: '9.99',
                   },
               }]
           }]

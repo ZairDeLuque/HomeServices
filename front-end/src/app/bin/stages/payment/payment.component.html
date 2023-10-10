@@ -3,71 +3,26 @@
 <div class="container-fluid" style="background-color: #ededed;">
     <a class="invisible">👻</a>
     <div class="container bg-white border-start border-top border-end ps-5 pt-5 pe-5 pb-5" style="margin-top: 3rem;">
-        <h1 class="border-text mb-0"><i class="bi-wallet2"></i> Completa el pago</h1>
+        <h1 class="border-text mb-0"><i class="bi-credit-card"></i> ¿Cómo quieres pagar? </h1>
     </div>
 </div>
 
-<div class="container border-end border-start border-bottom ps-5 pb-4 pe-5">
+<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4">
     <div class="row">
         <div class="col">
-            <h2>Resumen del servicio:</h2>
-            <hr class="w-75">
-
-            <div class="row p-0">
-                <h3 class="mt-2" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-                    [string]
-                </h3>
-                <h6>El servicio esta programado para [date]</h6>
-                <p class="mb-0">Ofrecido por: [string]</p>
-            </div>
-
-            <div class="container-fluid p-0 mt-5 opacity-75">
-                <h6>Descripcion del servicio:</h6>
-                <hr class="w-50">
-                <p appUppercase style="text-align: justify;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo ullam, magnam distinctio nihil fugiat aliquam et eos veniam ipsum molestias beatae impedit labore in itaque deleniti adipisci accusamus officiis quo!</p>
+            <div class="container">
+                <p-accordion class="text-decoration-none">
+                    <p-accordionTab header="Pago electrónico">
+                        <ngx-paypal [config]="payPalConfig">  </ngx-paypal>
+                    </p-accordionTab>
+                    <p-accordionTab header="Pago en efectivo">
+                        <button type="button" class="btn btn-primary w-100 p-2">Otzo</button>
+                    </p-accordionTab>        
+                </p-accordion>
             </div>
         </div>
         <div class="col">
-            <div class="row mt-3">
-                <div class="col-auto">
-                    <h5>Costo de servicio:</h5>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <h5>Comisión de WorkHome®️:</h5>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-auto">
-                    <h3>Subtotal:</h3>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
 
-            <div class="container-fluid p-0 mt-4">
-                <div class="row">
-                    <div class="col-auto d-flex align-items-center">
-                        <h6>¿Tienes un codigo promocional?</h6>
-                    </div>
-                    <div class="col">
-                        <input class="ms-2" pInputText type="text" [style]="{'width': '100%'}"/>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
         </div>
     </div>
 </div>
