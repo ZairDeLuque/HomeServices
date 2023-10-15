@@ -35,10 +35,6 @@ app.use(bodyParser.json());
 //Use router
 app.use(mainRouter);
 
-function run(){
-    server.listen(port, host, () => {
-        console.log(`[INFO] Servicio HW-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);
-    });
-}
-
-run()
+server.listen(port, host, () => {
+    console.log(`[INFO] Servicio HW-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);
+});

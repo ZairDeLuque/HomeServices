@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit{
       checked: ['', [Validators.required]]
     })
 
-    this.Title.setTitle('WorkHome®️ - Crear cuenta')
+    this.Title.setTitle('HomeServices®️ - Crear cuenta')
   }
   
   //Modal

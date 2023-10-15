@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 })
 export class TermsComponent {
 
-  constructor(private _location: Location ){
+  constructor(private _location: Location){
 
   }
 

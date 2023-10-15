@@ -1,5 +1,5 @@
 {
-  "name": "front-end",
+  "name": "homeservices",
   "version": "0.5.0",
   "scripts": {
     "ng": "ng",
@@ -33,7 +33,7 @@
     "ngx-paypal": "^11.0.0",
     "ngx-spinner": "^16.0.2",
     "notiflix": "^3.2.6",
-    "primeng": "^16.4.1",
+    "primeng": "^16.5.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.1",

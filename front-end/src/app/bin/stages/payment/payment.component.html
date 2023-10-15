@@ -1,30 +1,67 @@
-<app-navbar-tiny></app-navbar-tiny>
+<app-navbar-tiny class="sticky-sm-top"></app-navbar-tiny>
 
-<div class="container-fluid" style="background-color: #ededed;">
+<div class="container-fluid font-b" style="background-color: #ededed;">
     <a class="invisible">👻</a>
-    <div class="container bg-white border-start border-top border-end ps-5 pt-5 pe-5 pb-5" style="margin-top: 3rem;">
-        <h1 class="border-text mb-0"><i class="bi-credit-card"></i> ¿Cómo quieres pagar? </h1>
+    <div class="container bg-white border-start border-top border-end ps-4 pt-5 pe-5 pb-4" style="margin-top: 3rem;">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="container-fluid text-center">
+                    <h3>[string]</h3>
+                    <h6 class="border-text">Ofrecido por: [string]</h6>
+                </div>
+            </div>
+            <div class="col">
+                <h3 class="border-text mb-0 ms-4"><i class="bi-credit-card"></i> ¿Cómo quieres pagar? </h3>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="container border-end border-start border-bottom ps-4 pb-4 pe-4">
-    <div class="row">
+    <div class="row mb-5">
         <div class="col">
+            <app-summary-buy></app-summary-buy>
+        </div>
+        <div class="col d-flex align-items-center">
             <div class="container">
-                <p-accordion class="text-decoration-none">
-                    <p-accordionTab header="Pago electrónico">
-                        <ngx-paypal [config]="payPalConfig">  </ngx-paypal>
-                    </p-accordionTab>
-                    <p-accordionTab header="Pago en efectivo">
-                        <button type="button" class="btn btn-primary w-100 p-2">Otzo</button>
-                    </p-accordionTab>        
-                </p-accordion>
+                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                <div class="hr-container opacity-50" style="position: relative; text-align: center; margin: 20px 0;">
+                    <hr style="border: none; border-top: 1px solid #000;">
+                    <div class="circle">o</div>
+                </div>
+                
+                <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button>
+
+                <div class="container-fluid text-center opacity-50" style="font-size: small;">
+                    <i class="bi bi-lock-fill"></i>
+                    <span class="fs-6 fw-bold">Pago seguro: </span>
+                    <span>Aurora Studios Mexico protege la integridad de tus transacciones. **</span>
+                </div>
+                
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <div>
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="visa" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#visa">
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="mastercard" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#mastercard">
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="amex" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#amex">
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="bbva" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#bbva">
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="santander" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#santander">
+                        <img height="25" width="37" class="mr-1 fs-unmask" alt="oxxo" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#oxxo">
+                    </div>
+                </div>  
+
+                <div class="container-fluid p-3 mt-4 text-center font-a" style="background-color: #ededed; font-size: smaller;">
+                    <div class="fw-bold mt-2">
+                        <i class="bi bi-check-circle"></i>
+                        Satisfacción garantizada
+                    </div>
+                    <p>Si no estás completamente satisfecho con tu compra, ponte en contacto con nuestros asesores de HomeServices®️.</p>
+                </div>
             </div>
         </div>
-        <div class="col">
-
-        </div>
     </div>
+    <hr style="opacity: .15;">
+    <p class="opacity-50 mb-0" style="font-size: 12px;">*Algunos asociados a HomeServices®️ pueden tener ciertos impuestos extra en las transacciones.</p>
+    <p class="opacity-50 mb-0" style="font-size: 12px;">**Aurora Studios Mexico actúa como intermediario entre los pagos para asegurar tu confianza y eficacia del servicio, por lo tanto, puedes estar seguro de la integridad del servicio contratado, una vez marcado como completado el servicio el pago fluctúa completamente hacia el contratado.</p>
 </div>
 
 <app-footer></app-footer>

@@ -1,75 +1,79 @@
-<app-navbar-tiny></app-navbar-tiny>
+<app-navbar-tiny class="sticky-sm-top"></app-navbar-tiny>
 
-<div class="container-fluid" style="background-color: #ededed;">
+<div class="container-fluid font-b" style="background-color: #ededed;">
     <a class="invisible">👻</a>
-    <div class="container bg-white border-start border-top border-end ps-5 pt-5 pe-5 pb-5" style="margin-top: 3rem;">
-        <h1 class="border-text mb-0"><i class="bi-wallet2"></i> Completa el pago</h1>
+    <div class="container bg-white border-start border-top border-end ps-4 pt-5 pe-5 pb-4" style="margin-top: 3rem;">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="container-fluid text-center">
+                    <h3>[string]</h3>
+                    <h6 class="border-text">Ofrecido por: [string]</h6>
+                </div>
+            </div>
+            <div class="col">
+                <h3 class="border-text mb-0 ms-4"><i class="bi-cart2"></i> Confirma tu compra</h3>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container border-end border-start border-bottom ps-5 pb-4 pe-5">
-    <div class="row">
+<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4">
+    <div class="row mb-5">
         <div class="col">
-            <h2>Resumen del servicio:</h2>
-            <hr class="w-75">
-
-            <div class="row p-0">
-                <h3 class="mt-2" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-                    [string]
-                </h3>
-                <h6>El servicio esta programado para [date]</h6>
-                <p class="mb-0">Ofrecido por: [string]</p>
-            </div>
-
-            <div class="container-fluid p-0 mt-5 opacity-75">
-                <h6>Descripcion del servicio:</h6>
-                <hr class="w-50">
-                <p appUppercase style="text-align: justify;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo ullam, magnam distinctio nihil fugiat aliquam et eos veniam ipsum molestias beatae impedit labore in itaque deleniti adipisci accusamus officiis quo!</p>
-            </div>
+            <app-summary-buy></app-summary-buy>
         </div>
         <div class="col">
-            <div class="row mt-3">
-                <div class="col-auto">
-                    <h5>Costo de servicio:</h5>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <h5>Comisión de WorkHome®️:</h5>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-auto">
-                    <h3>Subtotal:</h3>
-                </div>
-                <div class="col text-end">
-                    $[number]
-                </div>
-            </div>
-
-            <div class="container-fluid p-0 mt-4">
-                <div class="row">
+            <h4 class="ms-3">Información de la compra:</h4>
+            <div class="container-fluid p-4">
+                <div class="row border p-3 rounded-2 mb-3">
                     <div class="col-auto d-flex align-items-center">
-                        <h6>¿Tienes un codigo promocional?</h6>
+                        <i class="bi bi-credit-card fs-3" style="color: #ac67fc;"></i>
                     </div>
                     <div class="col">
-                        <input class="ms-2" pInputText type="text" [style]="{'width': '100%'}"/>
+                        <h5 class="mt-2">
+                            Método de pago:
+                        </h5>
+                        <p class="mb-0 text-truncate">[string] ha sido seleccionado como método de pago.</p>
                     </div>
                 </div>
+                <div class="row border p-3 rounded-2 mb-3">
+                    <div class="col-auto d-flex align-items-center">
+                        <i class="bi bi-geo-alt fs-3" style="color: #ac67fc;"></i>
+                    </div>
+                    <div class="col">
+                        <h5 class="mt-2 text-truncate">
+                            Tu dirección:
+                        </h5>
+                        <p class="mb-0" style="text-align: justify; opacity: .7;">[string]</p>
+                    </div>
+                </div>
+                <div class="row border p-3 rounded-2 mb-3">
+                    <div class="col-auto d-flex align-items-center">
+                        <i class="bi bi-cart2 fs-3" style="color: #ac67fc;"></i>
+                    </div>
+                    <div class="col">
+                        <h5 class="mt-2">
+                            Fecha de servicio:
+                        </h5>
+                        <p class="mb-0 text-truncate">[string] estará el dia [date] en tu domicilio.</p>
+                    </div>
+                </div>
+                
             </div>
-
             <hr>
 
-            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-outline-purple-var-2 mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-arrow-left"></i> Regresar</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-purple mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-check"></i> Todo correcto</button>
+                </div>
+            </div>
         </div>
     </div>
+    <hr style="opacity: .15;">
+    <p class="opacity-50 mb-0" style="font-size: 12px;">*Algunos asociados a HomeServices®️ pueden tener ciertos impuestos extra en las transacciones.</p>
 </div>
 
 <app-footer></app-footer>
