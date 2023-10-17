@@ -3,10 +3,6 @@
     overflow: hidden; 
 }
 
-.warchange{
-    color: black;
-}
-
 .theme-a{
     background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
 }
@@ -21,4 +17,8 @@
 
 .theme-d{
     background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+}
+
+.fav:hover{
+    background-color: lightblue;
 }

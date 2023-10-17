@@ -40,6 +40,7 @@ import { ChipModule } from 'primeng/chip';
 import { BlockUIModule } from 'primeng/blockui';
 import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
+import { RippleModule } from 'primeng/ripple'
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -154,7 +155,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     BlockUIModule,
     PanelModule,
     NgxPayPalModule,
-    AccordionModule
+    AccordionModule,
+    RippleModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

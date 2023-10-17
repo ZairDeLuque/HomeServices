@@ -33,18 +33,18 @@ html, body{
 
 .btn-outline-purple{
     border-color: #a95eff;
-    color: #9f4bff;
+    color: #a95eff;
 }
 
 .btn-outline-purple:hover{
     border-color: transparent;
-    background-color: #9f4bff;
+    background-color: #a95eff;
     color: white;
 }
 
 .btn-outline-purple:active{
     border-color: transparent;
-    background-color: #8a2af8;
+    background-color: #a95eff;
     color: white;
 }
 
@@ -60,12 +60,12 @@ html, body{
 }
 
 .btn-purple{
-    background-color: #a95eff;
+    background-color: #933bf8;
     color: white;
 }
 
 .btn-purple:hover{
-    background-color: #9f4bff;
+    background-color: #a95eff;
     color: white;
 }
 

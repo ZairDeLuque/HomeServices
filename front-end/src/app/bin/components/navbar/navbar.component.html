@@ -21,12 +21,14 @@
                     <a class="nav-link" href="#">Nuevos</a>
                 </li>
             </ul>
-            <form class="d-flex w-50" role="search" style="margin-right: 1rem;">
+            <form class="d-flex" role="search" style="margin-right: 1rem; width: 27rem;">
                 <input class="form-control me-2" type="search" placeholder="Servicio de..." aria-label="Search">
-                <button class="btn btn-outline-purple" type="submit">Buscar</button>
+                <button class="btn btn-purple" type="submit">
+                    <i class="bi bi-search fs-5"></i>
+                </button>
             </form>
             <div class="z-2">
-                <p-avatar label="Z" pBadge value="1" severity="danger" styleClass="mr-2" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"></p-avatar>
+                <p-avatar label="Z" pBadge value="1" severity="danger" styleClass="mr-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }"></p-avatar>
             </div>
             <div class="btn-group z-1">
                 <button type="button" class="btn border-0 dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -51,9 +53,7 @@
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-credit-card"></i> Mis métodos de pago</button></li>
                     <li><button class="dropdown-item rounded-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li pTooltip="Actualmente en Desktop App" tooltipPosition="left"><button class="dropdown-item rounded-3 disabled" type="button"><i class="bi bi-download"></i> WorkHome®️ Desktop</button></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item blue rounded-3" type="button" routerLink="/myaccount/configuration"><i class="bi bi-gear"></i> Configuración</button></li>
+                    <!-- <li><button class="dropdown-item blue rounded-3" type="button" routerLink="/myaccount/configuration"><i class="bi bi-gear"></i> Configuración</button></li> -->
                     <li><button class="dropdown-item blue rounded-3" type="button"><i class="bi bi-question-circle"></i> Acerca de</button></li>
                     <li><button class="dropdown-item red rounded-3 btn-danger" type="button"><i class="bi bi-door-open"></i> Cerrar sesión</button></li>
                 </ul>

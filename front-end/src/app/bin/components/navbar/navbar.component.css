@@ -3,7 +3,7 @@
     border-left: 0px;
     border-right: 0px;
     border-bottom: 2px;
-    border-color: #c592ff;   
+    border-color: #a95eff;   
     border-style: solid;   
 }
 
@@ -16,7 +16,7 @@
 }
 
 .dropdown-item:active{
-    color: rgb(75, 150, 175);
+    color:#a95eff
 }
 
 .red{
@@ -33,6 +33,5 @@
 }
 
 .blue:hover{
-    background-color:rgb(69, 99, 235);
-    color: white;
+    background-color:rgb(105, 137, 207);
 }

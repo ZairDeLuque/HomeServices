@@ -79,13 +79,13 @@
                     </div>
                     <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button [disabled]="!formLogin.valid" label="Siguiente" icon="bi bi-arrow-right" styleClass="p-button-help" type="submit" (onClick)="openModal(verify)"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Siguiente" icon="bi bi-arrow-right" styleClass="rounded-2" severity="help" type="submit" (onClick)="openModal(verify)"></p-button>
                         </div>
                         <div class="col-auto p-0">
-                            <p-button label="Tengo cuenta" (onClick)="siAccount()" styleClass="p-button-help p-button-text"></p-button>
+                            <p-button label="Tengo cuenta" [text]="true" (onClick)="siAccount()" styleClass="p-button-help rounded-2"></p-button>
                         </div>
                         <div class="col d-flex justify-content-end me-2 p-0">
-                            <p-button label="Volver" styleClass="p-button-help p-button-text" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
+                            <p-button label="Volver" [text]="true" styleClass="p-button-help rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
                         </div>
                     </div>
                 </form>
@@ -107,7 +107,7 @@
             Aurora Studios Mexico S.A. de C.V.
         </div>
         <div class="col d-flex justify-content-end mb-3">
-            Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de Google
+            Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de <i class="bi bi-google ms-1"></i>
         </div>
     </div>
 </div>
