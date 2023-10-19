@@ -67,18 +67,20 @@ async function compareUserCredentials(){
         //Create connection promise
         cn = await Connection();
 
+        //Hashses
+        const hashEmail = await bcrypt.hashSync(body.e2x, 12);
+        const hashPassword = await bcrypt.hashSync(body.p3x, 12);
+
         //Prepare query
         const SQL = 'SELECT * FROM ud0x WHERE email0x2 = ? AND pass0x3 = ?'
-        const values = [body.e2x, body.p3x]
+        const values = [hashEmail, hashPassword]
 
         const [rows] = await cn.execute(SQL, values);
 
         //Results?
         if(rows.length > 0){
-            const equals_EMAIL = await bcrypt.compareSync(body.e2x, rows[0].email0x2)
-            const equals_PASS = await bcrypt.compareSync(body.p3x, rows[0].pass0x3)
 
-            if(!equals_EMAIL){
+            if(hashEmail !== rows[0].email0x2){
                 res.status(200).json({
                     result: 'Dirección de correo electrónico incorrecta.',
                     agent: 'users.data',
@@ -87,7 +89,7 @@ async function compareUserCredentials(){
                 return;
             }
 
-            if(!equals_PASS){
+            if(hashPassword !== rows[0].pass0x3){
                 res.status(200).json({
                     result: 'Contraseña incorrecta.',
                     agent: 'users.data',

@@ -77,6 +77,7 @@ import { NotaccountComponent } from './bin/stages/notaccount/notaccount.componen
 import { Payment2Component } from './bin/stages/payment2/payment2.component';
 import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { SummaryBuyComponent } from './bin/components/summary-buy/summary-buy.component';
+import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -121,7 +122,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NotaccountComponent,
     Payment2Component,
     Payment3Component,
-    SummaryBuyComponent
+    SummaryBuyComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
