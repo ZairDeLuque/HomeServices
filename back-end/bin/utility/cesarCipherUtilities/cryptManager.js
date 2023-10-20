@@ -17,20 +17,22 @@ const cipherCesar = {
     //
     encrypt: async function(text, password) {
         return new Promise((resolve, reject) => {
-            let textCrypted = '';
-        
-            const lengthText = text.length;
-            const lengthPassword = password.length;
-
-            for(let i = 0; i < lengthText; i++){
-                const char = text.charCodeAt(i);
-                const charCry = password.charCodeAt(i % lengthPassword);
-                const charCrypted = String.fromCharCode(char + charCry);
-                textCrypted += charCrypted;
-            }
-
-            resolve(textCrypted);
-        })
+            const cifradoCesar = (texto, desplazamiento) => {
+                const regex = /[a-zA-Z]/g;
+    
+                return texto.replace(regex, (match) => {
+                    const isUpperCase = match === match.toUpperCase();
+                    const baseCharCode = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+                    const charCode = match.charCodeAt(0);
+                    const shiftedCharCode = ((charCode - baseCharCode + desplazamiento) % 26 + 26) % 26 + baseCharCode;
+                    return String.fromCharCode(shiftedCharCode);
+                });
+            };
+    
+            const textoCifrado = cifradoCesar(text, password);
+    
+            resolve(textoCifrado);
+        });
     },
     // Function to decrypt UTF-8 data based on the length of a password (Cesar Cipher)
     //

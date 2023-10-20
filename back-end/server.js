@@ -39,5 +39,4 @@ app.use(usersRouter)
 
 server.listen(port, host, () => {
     console.log(`[INFO] Servicio HW-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);
-    
 });

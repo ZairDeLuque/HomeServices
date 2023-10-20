@@ -22,10 +22,11 @@ async function createUserCredentials(req, res){
         //Crypt information
         const hashEmail = await bcrypt.hash(body.e2x, 12);
         const hashPassword = await bcrypt.hash(body.p3x, 12);
+        const cryptFN = await Cipher.createNewChallenge(body.fn4x)
 
         //Prepare query
         const SQL = 'INSERT INTO ud0x (uuid0x0, power0x1, email0x2, pass0x3, fullname0x4, verify0x5, pp0x6) VALUES (?,?,?,?,?,?,?)';
-        const values = [body.u0x, body.pw1x, hashEmail, hashPassword, body.fn4x, '0', 'notassign'];
+        const values = [body.u0x, body.pw1x, hashEmail, hashPassword, cryptFN, '0', 'notassign'];
 
         const [result] = await cn.execute(SQL, values);
 
@@ -34,7 +35,8 @@ async function createUserCredentials(req, res){
             res.status(200).json({
                 result: true,
                 agent: 'users.data',
-                required: req.ip
+                required: req.ip,
+                owner: hashEmail
             })
         }
         else{

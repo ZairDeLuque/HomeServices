@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { v4 as uuidv4 } from 'uuid';
+import { SignupHashesService } from '../../services/session/cache/signup-hashes.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
 
-  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService) {    
+  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService, private _HASH: SignupHashesService) {    
     //PrimeNG Context Menu
     this.items = [
       {
@@ -104,6 +105,9 @@ export class HomeComponent implements OnInit{
 
         this.userAPI.createCredentials(json).subscribe((res) => {
           if(res.result === true){
+
+            this._HASH.setEmailHash(res.owner);
+
             this.router.navigate(["/start/verification"]);
           }
           else{

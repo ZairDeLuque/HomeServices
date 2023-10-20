@@ -1,12 +1,12 @@
 <app-navbar-tiny class="sticky-top"></app-navbar-tiny>
 
 <div class="container w-75 p-4 mt-5">
-    <p-steps [model]="steps" [readonly]="true" [activeIndex]="2"></p-steps>
+    <p-steps styleClass="text-decoration-none" [model]="steps" [readonly]="true" [activeIndex]="2"></p-steps>
 </div>
 
 <div class="container text-center p-2 w-50 mb-0">
     <h2><i class="bi bi-envelope"></i> Verificación</h2>
-    <p style="font-size: 14px; color: gray;">Se ha enviado un código de verificación hacia el correo electrónico proporcionado anteriormente.</p>
+    <p style="font-size: 14px; color: #808080;">Se ha enviado un código de verificación hacia el correo electrónico proporcionado anteriormente.</p>
     <p style="font-size: 14px; color: gray;">¿Su correo electrónico no es {{mail}}? <a href="">Cambiar email</a></p>
     <div class="container p-0">
         <div class="row justify-content-center">

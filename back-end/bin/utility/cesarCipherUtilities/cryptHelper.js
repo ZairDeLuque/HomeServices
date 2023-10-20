@@ -25,11 +25,8 @@ async function createNewChallenge(message){
         const k0x = await generateNewKeyword();
 
         if(k0x.length > 0){
-            const returnData = {
-                res: CRx0.encrypt(message, k0x),
-                word: k0x
-            } 
-            resolve(returnData);
+            const RETURN = await CRx0.encrypt(message, 12)
+            resolve(RETURN);
         }
         else{
             reject('CRx0 Not return a keyword');
