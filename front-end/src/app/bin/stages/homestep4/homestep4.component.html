@@ -71,7 +71,7 @@
     </div>
 
     <div class="d-flex justify-content-end p-0 mt-5">
-        <p-button label="Continuar" [disabled]="aBlock === 'n' && bBlock === 'n' && cBlock === 'n' && dBlock === 'n'" styleClass="p-button-help"></p-button>
+        <p-button sesión="Continuar" [disabled]="aBlock === 'n' && bBlock === 'n' && cBlock === 'n' && dBlock === 'n'" styleClass="p-button-help"></p-button>
     </div>
 </div>
 
@@ -104,10 +104,10 @@
                     </div>
                     <div class="row p-0">
                         <div class="col d-flex justify-content-end">
-                            <p-button label="Saltar" styleClass="p-button-help p-button-text" (onClick)="jumpStep1()"></p-button>
+                            <p-button sesión="Saltar" styleClass="p-button-help p-button-text" (onClick)="jumpStep1()"></p-button>
                         </div>
                         <div class="col-auto">
-                            <p-button label="Continuar" [disabled]="!formCurrentStage.valid" styleClass="p-button-help" type="submit"></p-button>
+                            <p-button sesión="Continuar" [disabled]="!formCurrentStage.valid" styleClass="p-button-help" type="submit"></p-button>
                         </div>
                     </div>
                 </form>

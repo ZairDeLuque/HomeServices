@@ -14,7 +14,7 @@ function senderVerify(MailTo, VerifyNumbers){
         auth: {
             user: process.env.EMAILUSER,
             pass: process.env.PASSW0RDMAILER,
-            secure: false,
+            secure: true,
         },
         tls: {
             rejectUnauthorized: false
@@ -30,48 +30,71 @@ function senderVerify(MailTo, VerifyNumbers){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Content</title>
             </head>
-            <body style="background-color: white;">
-                <div class="container p-4 w-50">
-                    <div class="container p-0 text-center">
-                        <h1>Verificación de cuenta</h1>
-                        <hr>
-                        <p>Se ha solicitado un código de verificación para una cuenta en el servicio WorkHome®️ sobre el correo ${MailTo}, esto es necesario para iniciar sesión en la cuenta:</p>
-                    </div>
-    
-                    <div class="container p-0 mt-3 text-center">
-                        <h2 class="border-bottom d-inline-block p-2 border-3" style="border-color: #cc9fff !important;">Código de verificación:</h2>
-                        <div style="display: flex; justify-content: space-between;">
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[0]}
+            <style>
+                .dropped-shadow-tiny{
+                    box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
+                }
+                .border-text{
+                    display: inline-block;
+                    border-top: 0px;
+                    border-left: 0px;
+                    border-right: 0px;
+                    border-bottom: 2px;
+                    border-color: #c592ff;   
+                    border-style: solid;
+                    padding-bottom: 7px;
+                }
+            </style>
+            <body style="font-family: Arial, Helvetica, sans-serif; height: 100%; padding: 0%; margin: 0%;">
+                <div>
+                    <nav class="dropped-shadow-tiny" style="display: flex; padding: 10px 20px 10px 20px; z-index: 1; justify-content: center;">
+                        <img src="https://www.home-services.store/assets/mainlogo.png" alt="Logo" style="height: 40px; width: auto; ">
+                    </nav>
+
+                    <div style="background-color: #ededed; padding: 1%; z-index: 0;">
+                        <div style="font-size: 14px; text-align: justify; opacity: .7;">
+                            <p>Se solicitó un código de verificación para una cuenta en HomeServices®️ sobre el correo ${MailTo}, esto es necesario para continuar en el proceso de creación/inicio a la cuenta. :</p>
+                        </div>
+                        <hr style="opacity: .3;">
+                        <div>
+                            <h3 style="text-align: center; margin-bottom: 0;">Código de verificación:</h3>
+                            <!-- <div style="display: flex; justify-content: space-between; margin-top: .7rem; color: #39007a;">
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1ss=>
+                                </div>
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1lass=>
+                                </div>
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1class=>
+                                </div>
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1class=>
+                                </div>
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1>
+                                </div>
+                                <div style="flex: 1; text-align: center; padding: 1%;">
+                                    <h1>1</h1>
+                                </div>
+                            </div> -->
+                            <div style="text-align: center; margin-bottom: 0;">
+                                <h1 class="border-text">${VerifyNumbers[0]}  ${VerifyNumbers[1]}  ${VerifyNumbers[2]}  ${VerifyNumbers[3]}  ${VerifyNumbers[4]}  ${VerifyNumbers[5]}</h1>
                             </div>
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[1]}
-                            </div>
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[2]}
-                            </div>
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[3]}
-                            </div>
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[4]}
-                            </div>
-                            <div style="flex: 1; text-align: center;">
-                                ${VerifyNumbers[5]}
+                            <hr style="opacity: 0;">
+                            <div style="text-align: center;">
+                                <p style="opacity: .4; font-size: small;">Este código es privado.</p>
                             </div>
                         </div>
-                        <hr class="invisible">
-                        <p class="opacity-50">No se comparta con nadie.</p>
-                    </div>
-    
-                    <div class="container p-0 mt-4 text-center opacity-75">
-                        <p>¿No haz sido tu? Entra a <a href="">WorkHome®️</a> y contacte con Soporte Tecnico para recibir indicaciones de seguridad.</p>
-                        <p>¿Haz sido tu? Ingrese su codigo con total seguridad en <a href="">WorkHome®️</a></p>
-                        <hr>
-                    </div>
-                    
-                    <div class="container p-0 mt-4 text-center opacity-50">
-                        <p>"WorkHome®️ - Simple. Useful." | Powered by: Aurora Studios Services™ by Aurora Studios Mexico S.A. de C.V. | aurora@studios.dev | ZairDeLuque - CEO | ${Date.now()}</p>
+                        
+                        <div style="margin-top: 3rem; font-size: x-small; text-align: center; opacity: .6;">
+                            <p>¿No haz sido tu? Puedes hacer total caso omiso de este email.</p>
+                            <p>¿Haz sido tu? Ingrese su código en <a href="https://www.home-services.store">HomeServices®️</a></p>
+                        </div>
+                        <hr style="opacity: .3;">
+                        <div style="font-size: x-small; text-align: center; opacity: .6;">
+                            <p>"HomeServices®️ - Simple. Useful." | Aurora Studios Mexico S.A. de C.V. - Tehuacan, Puebla, MX 75790 #1930 | ${Date.now()}</p>
+                        </div>
                     </div>
                 </div>
             </body>
@@ -81,25 +104,9 @@ function senderVerify(MailTo, VerifyNumbers){
             return err
         },
         onSuccess: () => {
-            return true;
+            console.log('[SUCC - MailerUtility] SenderVerify function succesfully send email to: ' + MailTo);
         }
     })
-    
-    // const mailConfig = {
-    //     from: 'workhome.aurora@outlook.com',
-    //     to: MailTo,
-    //     subject: 'WorkHome®️ - Verificación de cuenta',
-        
-    // }
-    
-    // config.sendMail(mailConfig, (err, inf) => {
-    //     if(err){
-    //         console.log('[ERR - MailerUtility] SenderVerify function throw error: ' + err);
-    //         return;
-    //     }
-
-    //     return 'succesfully';
-    // })
 }
 
 module.exports = {

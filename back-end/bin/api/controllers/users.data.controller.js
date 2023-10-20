@@ -20,15 +20,14 @@ async function createUserCredentials(req, res){
         cn = await Connection();
 
         //Crypt information
-        const hashEmail = await bcrypt.hashSync(body.e2x, 12);
-        const hashPassword = await bcrypt.hashSync(body.p3x, 12);
-        const cypher = await Cipher.createNewChallenge(body.fn4x)
+        const hashEmail = await bcrypt.hash(body.e2x, 12);
+        const hashPassword = await bcrypt.hash(body.p3x, 12);
 
         //Prepare query
-        const SQL = 'INSERT INTO ud0x (uuid0x0, power0x1, email0x2, pass0x3, fullname0x4, verify0x5) VALUES (?,?,?,?,?)'
-        const values = [body.u0x, body.pw0x1, hashEmail, hashPassword, cypher, '0']
+        const SQL = 'INSERT INTO ud0x (uuid0x0, power0x1, email0x2, pass0x3, fullname0x4, verify0x5, pp0x6) VALUES (?,?,?,?,?,?,?)';
+        const values = [body.u0x, body.pw1x, hashEmail, hashPassword, body.fn4x, '0', 'notassign'];
 
-        const [result, error] = await cn.execute(SQL, values);
+        const [result] = await cn.execute(SQL, values);
 
         //Results?
         if(result.affectedRows === 1){
@@ -43,12 +42,12 @@ async function createUserCredentials(req, res){
                 result: false,
                 agent: 'users.data',
                 required: req.ip,
-                error: error
             })
         }
     }
     catch (e){
-        throw e;
+        console.error('[ERR] Error in createUserCredentials:', e)
+        return;
     }
     finally{
         if(cn){
@@ -57,7 +56,7 @@ async function createUserCredentials(req, res){
     }
 }
 
-async function compareUserCredentials(){
+async function compareUserCredentials(req, res){
     let cn;
 
     try{
@@ -68,14 +67,16 @@ async function compareUserCredentials(){
         cn = await Connection();
 
         //Hashses
-        const hashEmail = await bcrypt.hashSync(body.e2x, 12);
-        const hashPassword = await bcrypt.hashSync(body.p3x, 12);
+        const hashEmail = await bcrypt.hash(body.e1x, 12);
+        const hashPassword = await bcrypt.hash(body.p2x, 12);
 
         //Prepare query
         const SQL = 'SELECT * FROM ud0x WHERE email0x2 = ? AND pass0x3 = ?'
         const values = [hashEmail, hashPassword]
 
         const [rows] = await cn.execute(SQL, values);
+
+        console.log(rows)
 
         //Results?
         if(rows.length > 0){
@@ -84,7 +85,8 @@ async function compareUserCredentials(){
                 res.status(200).json({
                     result: 'Dirección de correo electrónico incorrecta.',
                     agent: 'users.data',
-                    required: req.ip
+                    required: req.ip,
+                    allowed: false
                 })
                 return;
             }
@@ -93,7 +95,8 @@ async function compareUserCredentials(){
                 res.status(200).json({
                     result: 'Contraseña incorrecta.',
                     agent: 'users.data',
-                    required: req.ip
+                    required: req.ip,
+                    allowed: false
                 })
                 return;
             }
@@ -101,16 +104,23 @@ async function compareUserCredentials(){
             res.status(200).json({
                 result: 'Bienvenido al sistema.',
                 agent: 'users.data',
-                required: req.ip
+                required: req.ip,
+                allowed: true
             })
         }       
     }
     catch (e){
-        throw e;
+        console.error('[ERR] Error in createUserCredentials:', e)
+        return;
     }
     finally{
         if(cn){
             cn.end();
         }
     }
+}
+
+module.exports = {
+    create: createUserCredentials,
+    compare: compareUserCredentials
 }

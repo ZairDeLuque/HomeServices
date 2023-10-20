@@ -8,6 +8,8 @@ import { TinyService } from '../../services/navbars/customization/tiny.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { UsersgestorService } from '../../services/api/usersgestor.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
 
-  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title) {    
+  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService) {    
     //PrimeNG Context Menu
     this.items = [
       {
@@ -72,19 +74,43 @@ export class HomeComponent implements OnInit{
     this.router.navigate(["/login"]);
   }
 
-  onResolved(captchaResponse: string) {
+  reformatJSON(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      const JSONSimplify = {
+        u0x: uuidv4(),
+        pw1x: 'aurora',
+        e2x: this.formLogin.controls['email'].value,
+        p3x: this.formLogin.controls['password'].value,
+        fn4x: this.formLogin.controls['name'].value,
+      }
+
+      resolve(JSONSimplify)
+    })
+  }
+
+  async onResolved(captchaResponse: string) {
     if(captchaResponse){
       if(!this.formLogin.errors){        
         this.customNav.setChangeValue(this.formLogin.controls['email'].value)
         this.customNav.emitNewChange();
         
+        const json = await this.reformatJSON();
+
         this._save.setFormData(this.formLogin);
         
-        // sessionStorage.setItem('s1x0', 'true');
+        sessionStorage.setItem('s1x0', 'true');
         
         this.closeModal();
-        
-        this.router.navigate(["/start/verification"]);
+
+        this.userAPI.createCredentials(json).subscribe((res) => {
+          if(res.result === true){
+            this.router.navigate(["/start/verification"]);
+          }
+          else{
+            Notify.failure('Error al crear la cuenta, intente nuevamente.');
+          }
+        });
+
       }
     }
   }

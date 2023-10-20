@@ -4,28 +4,60 @@
 <div #content class="container w-75 p-4">
     <div class="row">
         <div class="col-5 p-5">
-            <h3>Inicie sesión con una nueva cuenta HomeWork o con sus servicios favoritos.</h3>
-            <hr>
-            <p style="color: gray">Reporte un problema:</p>
-            <p-button icon="bi bi-person-badge-fill" label="Cuenta perdida" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+            <h3>Ingrese con su cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
-                <form>
+                <form [formGroup]="formLogin">
                     <div class="row mb-3">
-                        <p><i class="bi bi-envelope"></i> E-mail:</p>
-                        <input pInputText [(ngModel)]="value" [ngModelOptions]="{standalone: true}"/>
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <p><i class="bi bi-envelope"></i> E-mail:</p>
+                            </div>
+                            <div class="col d-flex justify-content-end text-danger">
+                                <div *ngIf="formLogin.controls['email'].invalid && (formLogin.controls['email'].dirty || formLogin.controls['email'].touched)">
+                                    <div *ngIf="formLogin.controls['email'].errors?.['required']">
+                                        Campo obligatorio
+                                    </div>
+                                    <div *ngIf="formLogin.controls['email'].errors?.['pattern']">
+                                        Dirección invalida
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input pInputText type="email" id="email" formControlName="email"/>
                     </div>
-                    <div class="row mb-3">
-                        <p><i class="bi bi-key"></i> Contraseña:</p>
-                        <input pInputText type="password" [(ngModel)]="value" [ngModelOptions]="{standalone: true}"/>
+                    <div class="row mb-2">
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <p><i class="bi bi-key"></i> Contraseña:</p>
+                            </div>
+                            <div class="col d-flex justify-content-end text-danger">
+                                <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)">
+                                    <div *ngIf="formLogin.get('password')?.hasError('required')">
+                                        Campo obligatorio
+                                    </div>
+                                    <div *ngIf="formLogin.get('password')?.hasError('minlength')" style="font-size: 12px;">
+                                        Contraseña demasiado corta (mínimo 6 caracteres)
+                                    </div>
+                                    <div *ngIf="formLogin.get('password')?.hasError('pattern')">
+                                        Contraseña vacía
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <input pInputText type="password" id="password" formControlName="password"/>
                     </div>
-                    <div class="row p-0 mb-3">
+                    <div class="row p-0 mb-3 mt-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button label="Iniciar sesión" data-bs-toggle="modal" data-bs-target="#modalId" styleClass="p-button-help"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="rounded-2" severity="help" type="submit" (onClick)="compare()"></p-button>
                         </div>
                         <div class="col-auto p-0">
-                            <p-button label="No tengo cuenta" (onClick)="noAccount()" styleClass="p-button-help p-button-text"></p-button>
+                            <p-button label="No tengo cuenta" [text]="true" (onClick)="noAccount()" styleClass="p-button-help rounded-2"></p-button>
+                        </div>
+                        <div class="col d-flex justify-content-end me-2 p-0">
+                            <p-button label="Volver" [text]="true" styleClass="p-button-help rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
                         </div>
                     </div>
                 </form>
@@ -34,17 +66,7 @@
                     <div class="circle">o</div>
                 </div>
                 <div class="row p-0 d-flex justify-content-center">
-                    <asl-google-signin-button class="d-flex justify-content-center w-100" type="standard" text="signup_with" size="large" width="400" theme="outline"></asl-google-signin-button>
-                    <!--<button type="button" class="btn btn-outline-login mt-3" style="width: 25rem;" (click)="loginWithAzure()">
-                        <div class="row">
-                            <div class="col-2 d-flex">
-                                <i class="bi bi-microsoft"></i>
-                            </div>
-                            <div class="col font-b" style="font-size: 14px;">
-                                Sign up with Microsoft Account
-                            </div>
-                        </div>
-                    </button>-->
+                    <asl-google-signin-button class="d-flex justify-content-center w-100" type="standard" text="signin_with" size="large" width="400" theme="outline"></asl-google-signin-button>
                 </div>
             </div>
         </div>
@@ -52,25 +74,10 @@
 </div>
 
 <div class="container w-75 p-0" style="font-size: 12px; color: gray;">
-    <div class="row mt-5">
-        <div class="col">
-            Copyright 2023 Aurora Studios Mexico S.A. de C.V.
-        </div>
-        <div class="col d-flex justify-content-end">
-            Protegido por reCAPTCHA con <a class="text-decoration-none" style="margin-left: .2rem; margin-right: .2rem;" href="https://policies.google.com/terms?hl=en-GB">Términos y condiciones</a> de Google
+    <div class="row mt-4">
+        <div class="col mb-3">
+            Aurora Studios Mexico S.A. de C.V.
         </div>
     </div>
 </div>
 
-<div class="modal fade bg-blur" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">Validación</h5>
-            </div>
-            <div class="modal-body">
-                <re-captcha class="d-flex justify-content-center"></re-captcha>
-            </div>
-        </div>
-    </div>
-</div>
