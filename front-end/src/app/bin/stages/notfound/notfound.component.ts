@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class NotfoundComponent {
   constructor(private _locate: Location, private Title: Title){
-    this.Title.setTitle('HomeServices®️ - Pagina perdida')
+    this.Title.setTitle('No encontrado | HomeServices®️')
   }
 
   back(){
