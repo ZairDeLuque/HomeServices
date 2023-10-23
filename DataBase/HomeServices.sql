@@ -16,6 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `status0x`
+--
+
+DROP TABLE IF EXISTS `status0x`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `status0x` (
+  `main0x` int NOT NULL,
+  `title0x` varchar(255) DEFAULT NULL,
+  `reason0x` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status0x`
+--
+
+LOCK TABLES `status0x` WRITE;
+/*!40000 ALTER TABLE `status0x` DISABLE KEYS */;
+/*!40000 ALTER TABLE `status0x` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ud0x`
 --
 
@@ -29,7 +52,8 @@ CREATE TABLE `ud0x` (
   `pass0x3` blob NOT NULL,
   `fullname0x4` blob NOT NULL,
   `verify0x5` int DEFAULT NULL,
-  `pp0x6` blob NOT NULL
+  `pp0x6` blob NOT NULL,
+  `type0x7` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +63,6 @@ CREATE TABLE `ud0x` (
 
 LOCK TABLES `ud0x` WRITE;
 /*!40000 ALTER TABLE `ud0x` DISABLE KEYS */;
-INSERT INTO `ud0x` VALUES ('efe2591f-3ced-42fd-ad35-2fef98fab7af','aurora',_binary '$2b$12$FNP8hTZ7gUDtK.TX6YILfOXEbzJyuJQmnO829O9Rbfg6xjkTvltFm',_binary '$2b$12$FK5QIcA4ZLy5KG1KxMzEAe3sG0nkWMjgOWkTPptt7fWdcBPEk860C',_binary 'ZairDeLuque',0,_binary 'notassign');
 /*!40000 ALTER TABLE `ud0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +75,7 @@ DROP TABLE IF EXISTS `v0x`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `v0x` (
   `code0x0` varchar(6) NOT NULL,
-  `email0x1` varchar(45) NOT NULL,
+  `email0x1` blob NOT NULL,
   `date0x2` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -75,4 +98,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-19 21:56:21
+-- Dump completed on 2023-10-22 21:46:40

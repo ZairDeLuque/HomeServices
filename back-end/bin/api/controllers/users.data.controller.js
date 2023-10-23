@@ -68,7 +68,7 @@ async function compareUserCredentials(req, res){
         //Create connection promise
         cn = await Connection();
 
-        //Hashses
+        //Hashes
         const hashEmail = await bcrypt.hash(body.e1x, 12);
         const hashPassword = await bcrypt.hash(body.p2x, 12);
 

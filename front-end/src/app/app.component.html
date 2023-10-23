@@ -1,20 +1,40 @@
-<router-outlet></router-outlet>
-<div class="container-fluid sticky-bottom p-0 d-none">
-    <div class="row w-100 p-0 mb-0">
-        <div class="col">
-            <h6 class="invisible">Esto es un easter egg</h6>
+<div style="height: 100%; width: 100%;" *ngIf="splash" [ngClass]="animations">
+    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center;">
+        <div>
+            <lord-icon
+                src="https://cdn.lordicon.com/odavpkmb.json"
+                trigger="loop"
+                delay="2000"
+                colors="primary:#121331,secondary:#a95eff"
+                style="width:70px;height:70px">
+            </lord-icon>
         </div>
-        <div class="col-3 p-0 mb-0 rounded-4 rounded-bottom-0 dropped-shadow border border-3" style="background-color: rgb(255, 255, 255);">
-            <a href="" class="text-decoration-none">
-                <div class="row w-100 p-2">
-                    <div class="col-auto">
-                        <span class="badge text-bg-secondary">4</span>
+        <h5 class="border-text-splash fst-italic">{{splash_TITLE}}</h5>
+        <p class="mb-5" style="opacity: .7;">{{splash_REASON}}</p>
+        <p style="opacity: .7; font-size: small;">Reintentando: {{splash_TIMER}}</p>
+    </div>
+    <app-footer style="position: absolute; bottom: 0%; width: 100%;"></app-footer>
+</div>
+
+<div *ngIf="!splash">
+    <router-outlet></router-outlet>
+    <div class="container-fluid sticky-bottom p-0 d-none">
+        <div class="row w-100 p-0 mb-0">
+            <div class="col">
+                <h6 class="invisible">Esto es un easter egg</h6>
+            </div>
+            <div class="col-3 p-0 mb-0 rounded-4 rounded-bottom-0 dropped-shadow border border-3" style="background-color: rgb(255, 255, 255);">
+                <a href="" class="text-decoration-none">
+                    <div class="row w-100 p-2">
+                        <div class="col-auto">
+                            <span class="badge text-bg-secondary">4</span>
+                        </div>
+                        <div class="col d-flex justify-content-start align-items-center">
+                            <h6 class="mb-0 text-dark"><i class="bi bi-chat-dots"></i> Todos tus mensajes </h6>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-start align-items-center">
-                        <h6 class="mb-0 text-dark"><i class="bi bi-chat-dots"></i> Todos tus mensajes </h6>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -8,7 +8,8 @@ const router = express.Router();
 const controller = require('../controllers/init.controller')
 
 //Routes
-router.get('/developer/status', controller.main)
+router.get('/', controller.main)
+router.get('/api/v1/get/status', controller.server)
 
 //Export
 module.exports = router;

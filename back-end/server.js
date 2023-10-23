@@ -12,6 +12,7 @@ const host = process.env.HOST;
 //Routers
 const mainRouter = require('./bin/api/routers/init.routes');
 const usersRouter = require('./bin/api/routers/users.routes');
+const verifyRouter = require('./bin/api/routers/verification.routes');
 
 //Socket IO
 const http = require('http');
@@ -35,7 +36,8 @@ app.use(bodyParser.json());
 
 //Use router
 app.use(mainRouter);
-app.use(usersRouter)
+app.use(usersRouter);
+app.use(verifyRouter)
 
 server.listen(port, host, () => {
     console.log(`[INFO] Servicio HW-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);

@@ -1,6 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+@font-face {
+    font-family: 'Product Sans';
+    src: url('../../../../assets/productsansregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
+}
+
+.border-text{
+    display: inline-block;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;
+    padding-bottom: 7px;
+}
+
+.font-a{
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.font-b{
+    font-family: 'Product Sans', sans-serif;
 }

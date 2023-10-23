@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./notaccount.component.css']
 })
 export class NotaccountComponent {
-
+  
 }

@@ -20,13 +20,14 @@ import { PaymentComponent } from './bin/stages/payment/payment.component';
 import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
 import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { Payment2Component } from './bin/stages/payment2/payment2.component';
+import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
   {path: 'start', component: HomeComponent},
   // {path: 'start/information', component: Homestep2Component},
   {path: 'start/verification', component: Homestep3Component},
-  // {path: 'start/experience', component: Homestep4Component},
+  {path: 'start/myworkspace', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path: 'login', component: LoginComponent},
@@ -40,7 +41,8 @@ const routes: Routes = [
   {path: 'services/buy/payment/method/:id', component: PaymentComponent},
   {path: 'services/buy/payment/address/:id', component: Payment2Component},
   {path: 'services/buy/payment/results/:id', component: Payment3Component},
-  {path: 'notaccount', component: NotaccountComponent}
+  {path: 'notaccount', component: NotaccountComponent},
+  {path: '**', component: NotfoundComponent}
 ];
 
 @NgModule({

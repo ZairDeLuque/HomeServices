@@ -18,7 +18,6 @@ async function Connection(){
             password: process.env.PASSWORDSQL,
             database: process.env.DBSQL
         })
-        console.log("[INFO] Utility mysql DBx0 success.");
         return CNx0;
     }
     catch(err){

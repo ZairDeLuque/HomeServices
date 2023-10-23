@@ -1,0 +1,40 @@
+.border-text-splash{
+    display: inline-block;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;
+    padding-bottom: 7px;
+}
+
+.anim-in{
+    animation: fadeSplash; 
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.anim-out{
+    animation: fadeOutSplash; 
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeSplash {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutSplash {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}

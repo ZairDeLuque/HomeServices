@@ -1,32 +1,26 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Notify } from 'notiflix';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-homestep4',
   templateUrl: './homestep4.component.html',
-  styleUrls: ['./homestep4.component.css']
+  styleUrls: ['./homestep4.component.css'],
+  providers: [MessageService]
 })
 export class Homestep4Component implements OnInit{
 
   //Blocked?
   protected aBlock: string = 'n';
   protected bBlock: string = 'n';
-  protected cBlock: string = 'n';
-  protected dBlock: string = 'n';
-
+  
   //Avatar
   protected image: string = '';
 
-  //Group
-  protected formCurrentStage: FormGroup;
-
-  //Select
-  protected stateselected: string = "";
-  protected states: any[] = [
+  //Uses
+  protected uses: any[] = [
     {
       name: 'Vender'
     },
@@ -37,23 +31,11 @@ export class Homestep4Component implements OnInit{
       name: 'Aun no lo decido'
     }
   ];
+  
+  //Group
+  protected formCurrentStage: FormGroup;
 
-  protected steps: MenuItem[] = [
-    {
-      label: 'Credenciales'
-    },
-    {
-      label: 'Información personal'
-    },
-    {
-      label: 'Verificación'
-    },
-    {
-      label: 'Personalización'
-    }
-  ]
-
-  constructor(private modalService: BsModalService, private _builder: FormBuilder, private sanitizer: DomSanitizer) {
+  constructor(private modalService: BsModalService, private _builder: FormBuilder, private NG_MSG: MessageService) {
     this.formCurrentStage = this._builder.group({
       file: ['', [Validators.required]]
     })
@@ -61,18 +43,14 @@ export class Homestep4Component implements OnInit{
 
   //Modal
   modalRef?: BsModalRef;
-  modalRef2?: BsModalRef;
 
   openModal(template: TemplateRef<any>) {
     if(this.aBlock === 'n'){
-      this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur modal-xl mt-4 rounded-0', ignoreBackdropClick: true});
+      this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur modal-lg mt-4 rounded-0', ignoreBackdropClick: true, keyboard: false});
     }
     else{
-      Notify.info('Paso bloqueado, ha sido completado.')
+      this.NG_MSG.add({severity:'info', summary:'Espera...', detail:'Paso bloqueado, ha sido completado o saltado.'});
     }
-  }
-  openModal2(template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, {id: 2, class: 'modal-xl bg-blur'});
   }
 
   closeModal(modalId?: number){
@@ -93,13 +71,13 @@ export class Homestep4Component implements OnInit{
       reader.readAsDataURL(file);
     }
     catch (err){
-      Notify.failure('No es posible usar la vista previa.')
-      console.error(err)
+      this.NG_MSG.add({severity:'error', summary:'Oh oh', detail:'No es posible usar la vista previa.'});
+      return;
     }
   }
 
   jumpStep1(){
+    this.closeModal();
     this.aBlock = 's';
-    this.closeModal(1);
   }
 }

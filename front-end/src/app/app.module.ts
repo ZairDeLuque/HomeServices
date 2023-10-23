@@ -41,6 +41,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
 import { RippleModule } from 'primeng/ripple'
+import { ToastModule } from 'primeng/toast';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -158,7 +159,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PanelModule,
     NgxPayPalModule,
     AccordionModule,
-    RippleModule
+    RippleModule,
+    ToastModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -188,7 +190,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: environment.reCaptcha.siteKeyCaptcha
+        siteKey: environment.reCaptcha.siteKeyCaptcha,
+        badge: 'bottomright'
       } as RecaptchaSettings
     },
     {provide: MSAL_INSTANCE, useFactory: MSALInstanceFactory},

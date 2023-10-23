@@ -1,9 +1,46 @@
-.card{
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
+@font-face {
+    font-family: 'Product Sans';
+    src: url('../../../../assets/productsansregular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.cardAnim{
     user-select: none;
     transition: background-color .5s;
     cursor: pointer;
 }
 
-.card:hover {
+.cardAnim:hover {
     background-color: rgb(222, 247, 255);
 }
+
+.border-text{
+    display: inline-block;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;
+    padding-bottom: 7px;
+}
+
+.font-a{
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.font-b{
+    font-family: 'Product Sans', sans-serif;
+}
+
+p-blockUI {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+  

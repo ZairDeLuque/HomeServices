@@ -12,7 +12,7 @@ export class VerifyCodeService {
 
   constructor(private _http: HttpClient) { }
 
-  protected sendNewVerificationCode(data: any): Observable<any>{
-    return this._http.post<any>(this.apiURL + '/api/security/verification/mail', data);
+  public sendNewVerificationCode(data: any): Observable<any>{
+    return this._http.post<any>(this.apiURL + '/api/v1/post/security/verification/mail', data);
   }
 }

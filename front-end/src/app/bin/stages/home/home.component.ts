@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Notify } from 'notiflix';
 import { SaveFormsService } from '../../services/forms/storage/save-forms.service';
@@ -11,11 +11,13 @@ import { Title } from '@angular/platform-browser';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { v4 as uuidv4 } from 'uuid';
 import { SignupHashesService } from '../../services/session/cache/signup-hashes.service';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [MessageService]
 })
 export class HomeComponent implements OnInit{
   protected items: MenuItem[];
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
 
-  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService, private _HASH: SignupHashesService) {    
+  constructor(private router: Router, private __formgroup: FormBuilder, private _save: SaveFormsService, private customNav: TinyService, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService, private _HASH: SignupHashesService, private NG_MSG: MessageService) {    
     //PrimeNG Context Menu
     this.items = [
       {
@@ -59,7 +61,7 @@ export class HomeComponent implements OnInit{
   //Modal
   modalRef?: BsModalRef | null;
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur'});
+    this.modalRef = this.modalService.show(template, {id: 1, class: 'bg-blur', ignoreBackdropClick: true, keyboard: false});
   }
 
   closeModal() {
@@ -92,6 +94,12 @@ export class HomeComponent implements OnInit{
   async onResolved(captchaResponse: string) {
     if(captchaResponse){
       if(!this.formLogin.errors){        
+        Notiflix.Loading.dots('Esperando respuesta...',{
+          clickToClose: false,
+          svgColor: '#a95eff',
+          className: 'font-b'
+        })
+
         this.customNav.setChangeValue(this.formLogin.controls['email'].value)
         this.customNav.emitNewChange();
         
@@ -99,21 +107,20 @@ export class HomeComponent implements OnInit{
 
         this._save.setFormData(this.formLogin);
         
-        sessionStorage.setItem('s1x0', 'true');
-        
         this.closeModal();
 
-        this.userAPI.createCredentials(json).subscribe((res) => {
-          if(res.result === true){
-
-            this._HASH.setEmailHash(res.owner);
+        this.userAPI.createCredentials(json).subscribe(
+          result => {
+            this._HASH.setEmailHash(result.owner);
+            Notiflix.Loading.remove();
 
             this.router.navigate(["/start/verification"]);
+          },
+          error => {
+            Notiflix.Loading.remove();
+            this.NG_MSG.add({severity: 'error', summary: 'Oh oh', detail:'Los servicios de Aurora Studios no han conseguido crear las credenciales.', closable: true})
           }
-          else{
-            Notify.failure('Error al crear la cuenta, intente nuevamente.');
-          }
-        });
+        );
 
       }
     }
@@ -124,7 +131,7 @@ export class HomeComponent implements OnInit{
   }
 
   onErrorRecap(){
-    Notify.failure('Verificación por ReCaptcha fuera de linea.');
+    this.NG_MSG.add({severity: 'error', summary: 'reCaptcha error', detail:'Verificación por ReCaptcha fuera de linea.', closable: true})
   }
 
   ngOnInit(): void {

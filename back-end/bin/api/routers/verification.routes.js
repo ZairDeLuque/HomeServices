@@ -8,7 +8,7 @@ const router = express.Router();
 const controller = require('../controllers/verification.controller')
 
 //Routes
-router.get('/api/security/verification/mail', controller)
+router.post('/api/v1/post/security/verification/mail', controller.newCode)
 
 //Export
 module.exports = router;

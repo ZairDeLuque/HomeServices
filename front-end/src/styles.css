@@ -12,6 +12,11 @@ html, body{
     box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px; overflow: hidden;
 }
 
+::selection {
+    background-color: lightblue;
+    color: black; /* Cambia el color del texto seleccionado si es necesario */
+}
+
 ::-webkit-scrollbar{
     width: 10px;
 }

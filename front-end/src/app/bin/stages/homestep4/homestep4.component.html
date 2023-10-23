@@ -1,79 +1,48 @@
 <app-navbar-tiny class="sticky-top"></app-navbar-tiny>
 
-<div class="container p-4 mt-4">
-    <p-steps [model]="steps" [readonly]="true" [activeIndex]="3"></p-steps>
+<p-toast [life]="7000"></p-toast>
+
+<div class="container-fluid" style="background-color: #ededed;">
+    <a href="" class="invisible">👻</a>
+    <div class="container bg-white border-start border-top border-end ps-5 pt-5 pe-5 pb-1" style="margin-top: 3rem;">
+        <h2 class="border-text font-b"><i class="bi bi-check-circle"></i> ¡Perfecto! Tu cuenta esta lista...</h2>
+    </div>
 </div>
 
-<div class="container p-4 mb-0">
-    <h2>¡Perfecto! Tu cuenta esta lista, pero...</h2>
-    <p>Ahora, personaliza tu experiencia en WorkHome®️.</p>
-    <hr>
-    <div class="row">
-        <div class="col">
-            <a class="text-decoration-none" (click)="openModal(itsme)">
-                <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-person p-2" style="font-size: 32px; color: #b574ff;"></i>
-                    <div class="card-body p-0">
-                        <h4 class="card-title">¿Eres tu?</h4>
-                        <p class="card-text mb-3">Establece una foto para tu perfil.</p>
-                        <p class="text-dark-emphasis" *ngIf="aBlock === 's'">Saltado</p>
-                        <p class="text-success" *ngIf="aBlock === 'c'"><i class="bi bi-check-all"></i> Completo</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col">
-            <a class="text-decoration-none">
-                <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-stars p-2" style="font-size: 32px; color: #b574ff;"></i>
-                    <div class="card-body p-0">
-                        <h4 class="card-title">¿Como te llamaremos?</h4>
-                        <p class="card-text mb-3">Establece tu nombre de usuario.</p>
-                        <div class="container w-75 mb-3">
-                            <div class="p-inputgroup">
-                                <span class="p-inputgroup-addon">
-                                    @
-                                </span>
-                                <input pInputText appLowercase placeholder="Username" pTooltip="Para modificar: Configuracion > Información personal" tooltipPosition="bottom"/>
-                            </div>
+<div class="container border-end border-start border-bottom ps-5 pb-4 pe-5">
+    <h6 style="color: #808080;">Solo veamos unos últimos retoques.</h6>
+    <div class="container-fluid p-0 mt-5">
+        <div class="row p-0">
+            <div class="col">
+                <a class="text-decoration-none" (click)="openModal(itsme)" #bloqueA>
+                    <div class="card cardAnim border-0 dropped-shadow-tiny text-center">
+                        <i class="bi bi-person pt-2" style="font-size: 32px; color: #b574ff;"></i>
+                        <div class="card-body pt-1 pb-3 pe-5 ps-5">
+                            <h4 class="card-title">¿Eres tu?</h4>
+                            <p class="card-text mb-3">Establece una foto para tu perfil.</p>
+                            <p class="text-dark-emphasis" *ngIf="aBlock === 's'">Saltado</p>
+                            <p class="text-success" *ngIf="aBlock === 'c'"><i class="bi bi-check-all"></i> Completo</p>
                         </div>
-                        <!-- <input pInputText  type="text" [style]="{'width': '80%'}"/> -->
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <div class="card border-0 dropped-shadow-tiny text-center overflow-visible user-select-none">
+                    <i class="bi bi-person pt-2" style="font-size: 32px; color: #b574ff;"></i>
+                    <div class="card-body pt-1 pb-3 pe-5 ps-5">
+                        <h4 class="card-title">¿Cual es tu propósito?</h4>
+                        <p class="card-text mb-3">Indicanos que deseas hacer en HomeServices®️</p>
+                        <p-multiSelect optionLabel="name" [options]="uses" [style]="{'width':'60%'}" [filter]="false" [selectionLimit]="1" ></p-multiSelect>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
-        <div class="col">
-            <a class="text-decoration-none">
-                <div class="card border-0 dropped-shadow text-center overflow-visible">
-                    <i class="bi bi-handbag p-2" style="font-size: 32px; color: #b574ff;"></i>
-                    <div class="card-body p-0 mb-3">
-                        <h4 class="card-title">¿Cual es tu proposito?</h4>
-                        <p class="card-text mb-3">¿Comprar? ¿Vender? Tu eliges.</p>
-                        <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'60%'}" [filter]="false" [selectionLimit]="1" ></p-multiSelect>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-4 offset-4">
-            <a class="text-decoration-none">
-                <div class="card border-0 dropped-shadow text-center">
-                    <i class="bi bi-person-raised-hand p-2" style="font-size: 32px; color: #b574ff;"></i>
-                    <div class="card-body p-0">
-                        <h4 class="card-title">Ayúdanos a entenderte</h4>
-                        <p class="card-text mb-1">Realiza una breve encuesta para entenderte.</p>
-                        <p class="text-danger">Opcional</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-end p-0 mt-5">
-        <p-button sesión="Continuar" [disabled]="aBlock === 'n' && bBlock === 'n' && cBlock === 'n' && dBlock === 'n'" styleClass="p-button-help"></p-button>
-    </div>
+    </div>  
+    <div class="d-flex justify-content-end mt-4">
+        <p-button label="¡Ir a mi cuenta!" [disabled]="" styleClass="p-button-help rounded-3"></p-button>
+    </div> 
 </div>
+
 
 <app-footer></app-footer>
 
@@ -84,7 +53,7 @@
                 ¿Eres tu?
             </h4>
             <p class="mb-0">
-                En WorkHome®️ mostrar quien eres sube tu reputación, brindas la confianza que muchos quieren a la hora de comprar, ¿Porque no hacerlo?
+                En HomeServices®️ mostrar quien eres ayuda a tu reputación, le brindas la confianza a muchos a la hora de comprar, ¿Porque no hacerlo?
             </p>
         </div>
     </div>
@@ -104,10 +73,10 @@
                     </div>
                     <div class="row p-0">
                         <div class="col d-flex justify-content-end">
-                            <p-button sesión="Saltar" styleClass="p-button-help p-button-text" (onClick)="jumpStep1()"></p-button>
+                            <p-button label="Saltar" [text]="true" styleClass="p-button-help rounded-3" (onClick)="jumpStep1()"></p-button>
                         </div>
                         <div class="col-auto">
-                            <p-button sesión="Continuar" [disabled]="!formCurrentStage.valid" styleClass="p-button-help" type="submit"></p-button>
+                            <p-button label="Continuar" [disabled]="!formCurrentStage.valid" styleClass="p-button-help rounded-3" type="submit"></p-button>
                         </div>
                     </div>
                 </form>
