@@ -50,7 +50,7 @@
                     <div class="container-fluid p-0 mb-4 mt-3">
                         <div class="row p-0">
                             <div class="col-auto">
-                                <input pTooltip="Desmarcado, la sesión termina al cerrar la pestaña o navegador." tooltipPosition="top" class="form-check-input ms-0 border-dark-subtle" type="checkbox" [(ngModel)]="saveCheck">
+                                <input pTooltip="Desmarcado, la sesión termina al cerrar la pestaña o navegador." tooltipPosition="top" class="form-check-input ms-0 border-dark-subtle" type="checkbox" (change)="saveCheck = !saveCheck">
                             </div>
                             <div class="col d-flex align-items-center">
                                 <p class="mb-0 m-0" style="font-size: 12px; color: gray">¿Mantener sesión activa?</p>

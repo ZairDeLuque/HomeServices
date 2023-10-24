@@ -127,9 +127,9 @@ async function compareUserCredentials(req, res){
     }
 }
 
-function createToken(user){
+async function createToken(user){
     const payload = {
-        
+        fullname: await Cipher.resolveChallenge(user.fullname0x4.toString('utf-8'))
     }
 }
 

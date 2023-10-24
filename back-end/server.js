@@ -4,10 +4,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 //.env
-require('dotenv').config({ path: './.env'})
-const origins = process.env.ORIGIN;
+// require('dotenv').config({ path: './.env'})
+const origins = ['http://localhost:4200'];
 const port = process.env.PORT;
-const host = process.env.HOST;
+const host = process.env.HOST || 3001;
 
 //Routers
 const mainRouter = require('./bin/api/routers/init.routes');
@@ -39,6 +39,6 @@ app.use(mainRouter);
 app.use(usersRouter);
 app.use(verifyRouter)
 
-server.listen(port, host, () => {
+server.listen(port, () => {
     console.log(`[INFO] Servicio HW-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);
 });

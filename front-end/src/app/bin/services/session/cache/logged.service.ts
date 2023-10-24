@@ -11,12 +11,12 @@ export class LoggedService {
 
   isSessionLogged(): Observable<boolean>{
     if(localStorage.getItem('uu0x0')){
-      const currentKey = localStorage.getItem('act0x1') === 'true';
+      const currentKey = localStorage.getItem('ac0x1') === 'true';
 
       return of(currentKey);
     }
     else{
-      const currentKey = sessionStorage.getItem('act0x1') === 'true';
+      const currentKey = sessionStorage.getItem('ac0x1') === 'true';
 
       return of(currentKey);
     }
