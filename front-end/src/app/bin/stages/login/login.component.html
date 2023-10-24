@@ -1,10 +1,11 @@
-<p-contextMenu [model]="items" [target]="content"></p-contextMenu>
-<app-navbar-tiny></app-navbar-tiny>
+<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+
+<p-toast [life]="7000"></p-toast>
 
 <div #content class="container w-75 p-4">
     <div class="row">
-        <div class="col-5 p-5">
-            <h3>Ingrese con su cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
+        <div class="col-5 p-5 font-b">
+            <h3>Ingrese con su cuenta HomeServices®️ o con sus servicios favoritos.</h3>            
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
@@ -40,16 +41,23 @@
                                     <div *ngIf="formLogin.get('password')?.hasError('minlength')" style="font-size: 12px;">
                                         Contraseña demasiado corta (mínimo 6 caracteres)
                                     </div>
-                                    <div *ngIf="formLogin.get('password')?.hasError('pattern')">
-                                        Contraseña vacía
-                                    </div>
                                 </div>
                                 
                             </div>
                         </div>
                         <input pInputText type="password" id="password" formControlName="password"/>
                     </div>
-                    <div class="row p-0 mb-3 mt-3">
+                    <div class="container-fluid p-0 mb-4 mt-3">
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <input pTooltip="Desmarcado, la sesión termina al cerrar la pestaña o navegador." tooltipPosition="top" class="form-check-input ms-0 border-dark-subtle" type="checkbox" [(ngModel)]="saveCheck">
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <p class="mb-0 m-0" style="font-size: 12px; color: gray">¿Mantener sesión activa?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
                             <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="rounded-2" severity="help" type="submit" (onClick)="compare()"></p-button>
                         </div>

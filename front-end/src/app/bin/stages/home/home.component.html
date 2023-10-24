@@ -1,11 +1,11 @@
-<app-navbar-tiny></app-navbar-tiny>
+<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
 
 <p-toast [life]="7000"></p-toast>
 
 <div class="container w-75 p-4">
     <div class="row">
         <div class="col-5 p-5">
-            <h3 class="font-b">Cree una nueva cuenta WorkHome®️ o con sus servicios favoritos.</h3>            
+            <h3 class="font-b">Crea una nueva cuenta HomeServices®️ o con tus servicios favoritos.</h3>            
         </div>
         <div class="col">
             <div class="container-fluid border p-5 border-1 rounded-3">
@@ -59,28 +59,15 @@
                                     <div *ngIf="formLogin.get('password')?.hasError('minlength')" style="font-size: 12px;">
                                         Contraseña demasiado corta (mínimo 6 caracteres)
                                     </div>
-                                    <div *ngIf="formLogin.get('password')?.hasError('pattern')">
-                                        Contraseña vacía
-                                    </div>
                                 </div>
                                 
                             </div>
                         </div>
                         <input pInputText type="password" id="password" formControlName="password"/>
                     </div>
-                    <div class="container-fluid p-0 mb-3">
-                        <div class="row p-0">
-                            <div class="col-auto">
-                                <input class="form-check-input ms-0 border-dark-subtle" type="checkbox" id="checked" formControlName="checked">
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p class="mb-0 m-0" style="font-size: 12px; color: gray">Acepto los <a routerLink="/terms">terminos y condiciones</a> de WorkHome®️ y Aurora Studios Mexico S.A. de C.V.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row p-0 mb-3">
+                    <div class="row p-0 mb-3 mt-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button pRipple [disabled]="!formLogin.valid" label="Siguiente" icon="bi bi-arrow-right" styleClass="rounded-2" severity="help" type="submit" (onClick)="openModal(verify)"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Crear cuenta" styleClass="rounded-2" severity="help" type="submit" (onClick)="openModal(verify)"></p-button>
                         </div>
                         <div class="col-auto p-0">
                             <p-button label="Tengo cuenta" [text]="true" (onClick)="siAccount()" styleClass="p-button-help rounded-2"></p-button>
@@ -115,9 +102,121 @@
 
 <ng-template #verify>
     <div class="modal-header">
-        <h5 class="modal-title" id="modalVerify">Beep...boop, ¿boop beep?</h5>
+        <h5 class="modal-title" id="modalVerify">HomeServices®️ - Términos y condiciones</h5>
+        <button type="button" class="btn-close close pull-right" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
     </div>
-    <div class="modal-body">
-        <re-captcha class="d-flex justify-content-center" (resolved)="onResolved($event)" (errored)="onErrorRecap()"></re-captcha>
+    <div class="modal-body p-4">
+        <div class="container-fluid p-5 mb-2 rounded-2" style="background-color: #ededed; height: 20rem; overflow: scroll;">
+            <div class="text-end">
+                <p style="color: gray;">Versión vigente: 23 de octubre, 2023</p>
+            </div>
+    
+            <h4 class="border-text">Introducción:</h4>
+            <p style="text-align: justify;">
+                En HomeServices®️ nuestra prioridad es brindar a nuestros usuarios la mejor experiencia posible
+                y garantizar su seguridad en nuestro sitio web. Para lograrlo, periódicamente actualizamos nuestros
+                Términos y Condiciones, que son el marco que rige el uso de nuestra plataforma.
+                Al acceder y utilizar HomeServices®️ aceptas estos términos y condiciones actualizados, por lo que te
+                invitamos a leerlos detenidamente.
+            </p>
+    
+            <h4 class="border-text">1. Definiciones</h4>
+            <p>
+                1.1. "HomeServices®️": Hace referencia a la plataforma de venta de servicios a domicilio proporcionada por
+                Aurora Studios Mexico S.A de C.V.</p>
+            <p>
+                1.2. "Usuario": Cualquier persona que acceda y utilice los servicios proporcionados por HomeServices®️, ya sea como cliente
+                o proveedor de servicios.
+            </p>
+            
+            <h4 class="border-text">2. Registro y cuentas de usuario</h4>
+            <p>
+                2.1. Para utilizar nuestros servicios, debes crear una cuenta de usuario proporcionando información precisa y
+                actualizada. Eres responsable de mantener la confidencialidad de tu cuenta y contraseña.
+            </p>
+            <p>
+                2.2. Aceptas ser el único responsable de todas las actividades que ocurran bajo tu cuenta de usuario.
+            </p>
+            <p>
+                2.3. HomeServices®️ se reserva el derecho de suspender o cancelar cuentas de usuario si consideramos que se han violado
+                estos términos y condiciones o si hay actividades fraudulentas o inapropiadas.
+            </p>
+            
+            <h4 class="border-text">3. Uso de la plataforma</h4>
+            <p>
+                3.1. Los usuarios pueden utilizar HomeServices®️ para comprar servicios a domicilio y para ofrecer servicios a
+                domicilio como proveedores.
+            </p>  
+            <p>
+                3.2. Los usuarios se comprometen a utilizar la plataforma de manera ética y legal, respetando todas las leyes y
+                regulaciones locales.
+            </p>
+            
+            <h4 class="border-text">4. Compras y pagos</h4>
+            <p>
+                4.1. Los precios de los servicios estarán claramente indicados en la plataforma. Los usuarios se
+                comprometen a pagar el monto total especificado al realizar una compra.
+            </p> 
+            <p>
+                4.2. Los pagos se procesarán a través de métodos de pago seguros proporcionados por HomeServices®️.
+            </p>
+            
+            <h4 class="border-text">5. Cancelación y reembolso</h4>
+            <p>
+                5.1. Los usuarios pueden cancelar una compra de acuerdo con la política de cancelación especificada por el proveedor
+                del servicio.
+            </p>
+            <p>
+                5.2. Los reembolsos estarán sujetos a la política de reembolsos de HomeServices®️ y los términos acordados entre el usuario
+                y el proveedor.
+            </p>
+            
+            <h4 class="border-text">6. Responsabilidad y limitación de responsabilidad</h4>
+            <p>
+                6.1. HomeServices®️ no será responsable por daños directos, indirectos, incidentales, especiales o consecuentes resultantes
+                del uso de la plataforma.
+            </p>
+            <p>
+                6.2. Los usuarios entienden y aceptan que HomeServices®️ no verifica la calidad, seguridad o legalidad de los servicios ofrecidos por terceros en la plataforma.
+            </p>
+            
+            <h4 class="border-text">7. Privacidad</h4>
+            <p>
+                7.1. HomeServices®️ recopilará y tratará datos personales de acuerdo con su Política de Privacidad. Al utilizar la
+                plataforma, los usuarios aceptan esta política.
+            </p>
+            
+            <h4 class="border-text">8. Cambios en los términos y condiciones</h4>
+            <p>
+                8.1. HomeServices®️ se reserva el derecho de actualizar o modificar estos términos y condiciones en cualquier momento. Las
+                modificaciones entrarán en vigencia a partir de la fecha de la actualización.
+            </p>
+            
+            <h4 class="border-text">9. Contacto</h4>
+            <p>
+                9.1. Para cualquier pregunta o comentario relacionado con estos Términos y Condiciones, los usuarios pueden ponerse
+                en contacto con HomeServices®️ a través de <a href="mailto:contact@home-services.shop">contact@home-services.shop</a>
+            </p>
+        </div>
+        <div class="container-fluid p-0 mb-4 d-flex justify-content-center">
+            <div class="row p-0">
+                <div class="col-auto">
+                    <input class="form-check-input ms-0 border-dark-subtle" type="checkbox" [(ngModel)]="TermsCheck">
+                </div>
+                <div class="col d-flex align-items-center">
+                    <p class="mb-0 m-0" style="font-size: 12px; color: gray">Acepto los términos y condiciones de HomeServices®️ y Aurora Studios Mexico S.A. de C.V.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start">
+                <re-captcha (resolved)="onResolved($event)" (errored)="onErrorRecap()" badge="bottomright"></re-captcha>
+            </div>
+            <div class="col d-flex justify-content-end align-items-center">
+                <p-button pRipple [disabled]="RecapCheck == false || TermsCheck == false" label="Finalizar" styleClass="rounded-2" severity="help" type="submit" (onClick)="sendData_AURORA()"></p-button>
+            </div>
+        </div>
     </div>
 </ng-template>

@@ -35,13 +35,15 @@ async function createNewChallenge(message){
     })
 }
 
-async function resolveChallenge(cypher, keyword){
+async function resolveChallenge(cypher){
     return new Promise(async (resolve, reject) => {
-        if(keyword.length > 0){
-            resolve(CRx0.decrypt(cypher, keyword));
+        const RETURN = await CRx0.decrypt(cypher, 12);
+        
+        if(RETURN){
+            resolve(RETURN);
         }
         else{
-            reject('Not keyword');
+            reject('Not return');
             return;
         }
     })

@@ -121,6 +121,6 @@ export class AppComponent implements OnInit{
         this.guardianInit();
       }
     })
-    this.router.navigate(["start/myworkspace"]);
+    // this.router.navigate([""]);
   }
 }

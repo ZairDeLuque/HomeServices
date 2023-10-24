@@ -6,6 +6,7 @@
 const bcrypt = require('bcrypt')
 const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('users.data')
+const jwt = require('jsonwebtoken')
 
 //Function: Save user data
 //
@@ -68,57 +69,67 @@ async function compareUserCredentials(req, res){
         //Create connection promise
         cn = await Connection();
 
-        //Hashes
-        const hashEmail = await bcrypt.hash(body.e1x, 12);
-        const hashPassword = await bcrypt.hash(body.p2x, 12);
-
         //Prepare query
-        const SQL = 'SELECT * FROM ud0x WHERE email0x2 = ? AND pass0x3 = ?'
-        const values = [hashEmail, hashPassword]
+        const SQL = 'SELECT * FROM ud0x'
 
-        const [rows] = await cn.execute(SQL, values);
-
-        console.log(rows)
+        const [rows] = await cn.execute(SQL);
 
         //Results?
         if(rows.length > 0){
+            for(let i = 0; i < rows.length; i++){
+                const compareEmail = await bcrypt.compare(body.e0x, rows[i].email0x2.toString('utf-8'))
+                const comparePass = await bcrypt.compare(body.p1x, rows[i].pass0x3.toString('utf-8'))
 
-            if(hashEmail !== rows[0].email0x2){
-                res.status(200).json({
-                    result: 'Dirección de correo electrónico incorrecta.',
-                    agent: 'users.data',
-                    required: req.ip,
-                    allowed: false
-                })
-                return;
+                if(compareEmail && comparePass){
+                    res.status(200).json({
+                        result: 'Bienvenido(a) de vuelta ' + await Cipher.resolveChallenge(rows[i].fullname0x4.toString('utf-8')),
+                        agent: 'users.data',
+                        required: req.ip,
+                        uuid: rows[i].uuid0x0,
+                        allowed: true
+                    })
+                }
+                else if(compareEmail && !comparePass){
+                    res.status(200).json({
+                        result: 'Contraseña incorrecta. Verifique sus credenciales.',
+                        agent: 'users.data',
+                        required: req.ip,
+                        allowed: false
+                    })
+                }
+                else{
+                    res.status(200).json({
+                        result: 'Correo electrónico incorrecto. Verifique sus credenciales.',
+                        agent: 'users.data',
+                        required: req.ip,
+                        allowed: false
+                    })
+                }
             }
-
-            if(hashPassword !== rows[0].pass0x3){
-                res.status(200).json({
-                    result: 'Contraseña incorrecta.',
-                    agent: 'users.data',
-                    required: req.ip,
-                    allowed: false
-                })
-                return;
-            }
-
+        }
+        else{
             res.status(200).json({
-                result: 'Bienvenido al sistema.',
+                result: 'No hay credenciales similares.',
                 agent: 'users.data',
                 required: req.ip,
-                allowed: true
+                allowed: false
             })
-        }       
+        }
     }
     catch (e){
         console.error('[ERR] Error in createUserCredentials:', e)
-        return;
+        throw e;
     }
     finally{
         if(cn){
             cn.end();
         }
+    }
+}
+
+function createToken(user){
+    const payload = {
+        
     }
 }
 

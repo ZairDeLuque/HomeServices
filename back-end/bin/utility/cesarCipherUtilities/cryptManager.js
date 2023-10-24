@@ -47,20 +47,24 @@ const cipherCesar = {
     //
     decrypt: async function(text, password) {
         return new Promise((resolve, reject) => {
-            let textDecrypted = '';
-
-            const lengthText = text.length;
-            const lengthPassword = password.length;
-
-            for(let i = 0; i < lengthText; i++){
-                const char = text.charCodeAt(i);
-                const charDecry = password.charCodeAt(i % lengthPassword);
-                const charDecrypted = String.fromCharCode(char - charDecry);
-                textDecrypted += charDecrypted;
-            }
-
-            resolve(textDecrypted);
-        })
+            
+            const descifradoCesar = (texto, desplazamiento) => {
+                const regex = /[a-zA-Z]/g;
+    
+                return texto.replace(regex, (match) => {
+                    const isUpperCase = match === match.toUpperCase();
+                    const baseCharCode = isUpperCase ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+                    const charCode = match.charCodeAt(0);
+                    // Aplicamos el desplazamiento negativo en el descifrado
+                    const shiftedCharCode = ((charCode - baseCharCode - desplazamiento) % 26 + 26) % 26 + baseCharCode;
+                    return String.fromCharCode(shiftedCharCode);
+                });
+            };
+    
+            const textoDescifrado = descifradoCesar(text, password);
+    
+            resolve(textoDescifrado);
+        });
     }
 };
 

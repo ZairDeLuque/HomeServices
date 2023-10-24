@@ -1,3 +1,8 @@
+<div class="alert alert-warning mb-0 rounded-0" role="alert">
+    <strong>Verificación requerida</strong> La cuenta actual no esta verificada, esto lo requerimos para realizar actividades en HomeServices®️
+    <a href="">Verificar</a>
+</div>
+
 <nav class="navbar navbar-expand-lg dropped-shadow-tiny p-2 user-select-none" style="overflow: visible; background-color: white;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -27,16 +32,18 @@
                     <i class="bi bi-search fs-5"></i>
                 </button>
             </form>
-            <a class="btn btn-purple" type="submit" routerLink="/start">
-                Crear cuenta
-            </a>
-            <a class="btn btn-outline-purple ms-2" type="submit" routerLink="/login">
-                Iniciar sesión
-            </a>
-            <!-- <div class="z-2">
+            <div *ngIf="isCurrentSign">
+                <a class="btn btn-purple" type="submit" routerLink="/start">
+                    Crear cuenta
+                </a>
+                <a class="btn btn-outline-purple ms-2" type="submit" routerLink="/login">
+                    Iniciar sesión
+                </a>
+            </div>
+            <div class="z-2" *ngIf="!isCurrentSign">
                 <p-avatar label="Z" pBadge value="1" severity="danger" styleClass="mr-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }"></p-avatar>
             </div>
-            <div class="btn-group z-1">
+            <div class="btn-group z-1" *ngIf="!isCurrentSign">
                 <button type="button" class="btn border-0 dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                     Usuario
                 </button>
@@ -62,7 +69,8 @@
                     <li><button class="dropdown-item blue rounded-3" type="button"><i class="bi bi-question-circle"></i> Acerca de</button></li>
                     <li><button class="dropdown-item red rounded-3 btn-danger" type="button"><i class="bi bi-door-open"></i> Cerrar sesión</button></li>
                 </ul>
-            </div> -->
+            </div>
         </div>
     </div>
 </nav>
+
