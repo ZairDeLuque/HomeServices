@@ -81,11 +81,16 @@ async function compareUserCredentials(req, res){
                 const comparePass = await bcrypt.compare(body.p1x, rows[i].pass0x3.toString('utf-8'))
 
                 if(compareEmail && comparePass){
+
+                    const userData = rows[i];
+
+                    const token = await createToken(userData);
+
                     res.status(200).json({
                         result: 'Bienvenido(a) de vuelta ' + await Cipher.resolveChallenge(rows[i].fullname0x4.toString('utf-8')),
                         agent: 'users.data',
                         required: req.ip,
-                        uuid: rows[i].uuid0x0,
+                        token: token,
                         allowed: true
                     })
                 }
@@ -128,9 +133,25 @@ async function compareUserCredentials(req, res){
 }
 
 async function createToken(user){
-    const payload = {
-        fullname: await Cipher.resolveChallenge(user.fullname0x4.toString('utf-8'))
-    }
+    return new Promise(async (result, reject) => {
+        try{
+            const payload = {
+                uuid: user.uuid0x0,
+                email: user.email0x2.toString('utf-8'),
+                fullname: await Cipher.resolveChallenge(user.fullname0x4.toString('utf-8')),
+                verify: user.verify0x5,
+                picprofile: user.pp0x6.toString('utf-8'),
+                type: user.type0x7
+            }
+        
+            const token_RESULT = jwt.sign(payload, 'aurorastudios');
+    
+            result(token_RESULT);
+        }
+        catch{
+            reject('Token invalid')
+        }
+    })
 }
 
 module.exports = {
