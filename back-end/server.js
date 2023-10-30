@@ -4,10 +4,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 //.env
-require('dotenv').config({ path: './.env'})
+// require('dotenv').config({ path: './.env'})
 const origins = ['http://localhost:4200'];
-const port = process.env.PORT;
-const host = process.env.HOST || 3001;
+const port = process.env.PORT || 3001;
+// const host = process.env.HOST;
 
 //Routers
 const mainRouter = require('./bin/api/routers/init.routes');
@@ -42,6 +42,6 @@ app.use(usersRouter);
 app.use(verifyRouter);
 app.use(locationsRouter)
 
-server.listen(port, host, () => {
-    console.log(`[INFO] Servicio HS-Backend iniciado correctamente [DATA: port ${port}, host: ${host}].`);
+server.listen(port, () => {
+    console.log(`[INFO] Servicio HS-Backend iniciado correctamente [DATA: port ${port}].`);
 });
