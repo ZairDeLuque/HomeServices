@@ -6,7 +6,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 //Bootstrap
-import { ModalModule } from 'ngx-bootstrap/modal'
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 //Paypal
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -163,6 +164,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AccordionModule,
     RippleModule,
     ToastModule,
+    TypeaheadModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -25,18 +25,39 @@
 
 <div class="container border-end border-start border-bottom ps-4 pb-4 pe-4" style="width: 60rem;">
     <form>
-        <div class="container-fluid p-0 mt-4">
+        <div class="container-fluid p-0">
             <div class="row">
                 <div class="col">
-                    <h4>¿A que categoría pertenece tu servicio?</h4>
+                    <h4 class="mt-4">¿A que categoría pertenece tu servicio?</h4>
                 </div>
                 <div class="col">
                     
                 </div>
             </div>
+            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col">
+                    <h4 class="mt-4">¿Cual es el nombre de tu servicio?</h4>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col">
+                    <h4 class="mt-4">¿Pendiente...?</h4>
+                </div>
+                <div class="col">
+                    
+                </div>
+            </div>
+            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>        
         </div>
     </form>
 </div>
-    
 
 <app-footer></app-footer>
