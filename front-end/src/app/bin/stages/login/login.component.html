@@ -59,7 +59,7 @@
                     </div>
                     <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="rounded-2" severity="help" type="submit" (onClick)="compare()"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="rounded-2" severity="help" type="submit" (onClick)="compare('AURORA')"></p-button>
                         </div>
                         <div class="col-auto p-0">
                             <p-button label="No tengo cuenta" [text]="true" (onClick)="noAccount()" styleClass="p-button-help rounded-2"></p-button>
@@ -74,7 +74,7 @@
                     <div class="circle">o</div>
                 </div>
                 <div class="row p-0 d-flex justify-content-center">
-                    <asl-google-signin-button class="d-flex justify-content-center w-100" type="standard" text="signin_with" size="large" width="400" theme="outline"></asl-google-signin-button>
+                    <asl-google-signin-button pTooltip="Las sesiones de Google se mantienen siempre activas." class="d-flex justify-content-center w-100" type="standard" text="signin_with" size="large" width="400" theme="outline"></asl-google-signin-button>
                 </div>
             </div>
         </div>

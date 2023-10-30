@@ -19,4 +19,13 @@ export class UsersgestorService {
   public compareCredentials(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/comparecredentials', data);
   }
+
+  public obtainUserData(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/allinformation', data);
+  }
+
+  public getLocation(): Observable<any>{
+    return this._http.get<any>(this.API_URL + '/api/v1/get/locations/obtainPublicIP');
+  
+  }
 }

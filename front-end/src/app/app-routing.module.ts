@@ -21,16 +21,17 @@ import { NotaccountComponent } from './bin/stages/notaccount/notaccount.componen
 import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { Payment2Component } from './bin/stages/payment2/payment2.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
+import { guard } from './bin/guards/routes.guard';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
-  {path: 'start', component: HomeComponent},
-  // {path: 'start/information', component: Homestep2Component},
-  {path: 'start/verification', component: Homestep3Component},
-  {path: 'start/myworkspace', component: Homestep4Component},
+  {path: 'start', component: HomeComponent, canActivate: [guard]},
+  {path: 'publish', component: Homestep2Component},
+  // {path: 'start/verification', component: Homestep3Component},
+  // {path: 'start/myworkspace', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'privacy', component: PrivacyComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [guard]},
   {path: 'profile/:uuid', component: ProfileComponent},
   // {path: 'articles/:uuid', component: ProductViewComponent},
   {path: 'services/:uuid', component: ServicesViewComponent},

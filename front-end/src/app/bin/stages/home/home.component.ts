@@ -7,9 +7,9 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { v4 as uuidv4 } from 'uuid';
-import { SignupHashesService } from '../../services/session/cache/signup-hashes.service';
 import * as Notiflix from 'notiflix';
 import { LoggedService } from '../../services/session/cache/logged.service';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-home',
@@ -20,14 +20,16 @@ import { LoggedService } from '../../services/session/cache/logged.service';
 export class HomeComponent implements OnInit{
   protected value: string = "";
 
+  //Google Subscribe
+  private userGoogle: SocialUser | undefined;
+
   //Modal Form
   protected RecapCheck: boolean = false;
   protected TermsCheck: boolean = false;
 
   //Form
   protected formLogin: FormGroup;
-
-  constructor(private router: Router, private __formgroup: FormBuilder, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService, private _HASH: SignupHashesService, private NG_MSG: MessageService, private Logged:LoggedService) {        //Form
+  constructor(private router: Router, private __formgroup: FormBuilder, private modalService: BsModalService, private _locate: Location, private Title: Title, private userAPI: UsersgestorService, private NG_MSG: MessageService, private readonly Logged: LoggedService, private readonly _authService: SocialAuthService) {
     this.formLogin = this.__formgroup.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
@@ -50,6 +52,7 @@ export class HomeComponent implements OnInit{
  
     this.modalRef.hide();
     this.modalRef = null;
+    this.TermsCheck = false;
   }
 
   siAccount(): void{
@@ -60,10 +63,11 @@ export class HomeComponent implements OnInit{
     return new Promise<any>((resolve, reject) => {
       const JSONSimplify = {
         u0x: uuidv4(),
-        pw1x: 'aurora',
+        pw1x: 'AURORA',
         e2x: this.formLogin.controls['email'].value,
         p3x: this.formLogin.controls['password'].value,
         fn4x: this.formLogin.controls['name'].value,
+        pp5x: 'notassign'
       }
 
       resolve(JSONSimplify)
@@ -90,12 +94,23 @@ export class HomeComponent implements OnInit{
 
       this.userAPI.createCredentials(json).subscribe(
         result => {
-          // this._HASH.setEmailHash(result.owner);
-          Notiflix.Loading.remove();
+          if(result.already === true){
+            Notiflix.Loading.remove();
+            this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
+          }
+          else{
+            if(result.result === true){
+              Notiflix.Loading.remove();
 
-          this.Logged.isSessionLogged()
+              Notiflix.Notify.success('Inicie sesión nuevamente con sus credenciales para finalizar el proceso.')
 
-          this.router.navigate(["/"]);
+              this.router.navigate(["/login"]);
+            }
+            else{
+              Notiflix.Loading.remove();
+              this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios retornaron un indefinido, intente crear nuevamente sus credenciales.', closable: true})
+            }
+          }
         },
         error => {
           Notiflix.Loading.remove();
@@ -103,6 +118,59 @@ export class HomeComponent implements OnInit{
         }
       );
 
+    }
+  }
+
+  reformatJSONGoogleProvider(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      const JSONSimplify = {
+        u0x: uuidv4(),
+        pw1x: this.userGoogle?.provider,
+        e2x: this.userGoogle?.email,
+        p3x: this.userGoogle?.id,
+        fn4x: this.userGoogle?.name,
+        pp5x: this.userGoogle?.photoUrl
+      }
+
+      resolve(JSONSimplify)
+    })
+  }
+
+  async sendData_GOOGLE(){
+    if(this.userGoogle?.idToken){
+      Notiflix.Loading.dots('Esperando servidor...',{
+        clickToClose: false,
+        svgColor: '#a95eff',
+        className: 'font-b'
+      })
+
+      const json = await this.reformatJSONGoogleProvider();
+
+      this.userAPI.createCredentials(json).subscribe(
+        result => {
+          if(result.already === true){
+            Notiflix.Loading.remove();
+            this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
+          }
+          else{
+            if(result.result === true){
+              Notiflix.Loading.remove();
+
+              Notiflix.Notify.success('Inicie sesión nuevamente con Google para finalizar el proceso.')
+
+              this.router.navigate(["/login"]);
+            }
+            else{
+              Notiflix.Loading.remove();
+              this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios retornaron un indefinido, intente crear nuevamente sus credenciales.', closable: true})
+            }
+          }
+        },
+        error => {
+          Notiflix.Loading.remove();
+          this.NG_MSG.add({severity: 'error', summary: 'Oh oh', detail:'Los servicios de Aurora Studios no han conseguido crear las credenciales.', closable: true})
+        }
+      );
     }
   }
 
@@ -115,6 +183,12 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+    this._authService.authState.subscribe((data) => {
+      this.userGoogle = data;
+
+      if(this.userGoogle.email !== null){
+        this.sendData_GOOGLE();
+      }
+    })
   }
 }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import * as Notiflix from 'notiflix';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,9 @@ import * as Notiflix from 'notiflix';
   providers: [MessageService]
 })
 export class LoginComponent implements OnInit{
+  //Google Subscribe
+  private userGoogle: SocialUser | undefined;
+  
   protected value: string = "";
 
   protected saveCheck: boolean = false;
@@ -21,7 +25,7 @@ export class LoginComponent implements OnInit{
   //Form
   protected formLogin: FormGroup;
   
-  constructor(private __formgroup: FormBuilder, private router: Router, private Title: Title, private _locate: Location, private userAPI: UsersgestorService, private NG_MSG: MessageService) {
+  constructor(private __formgroup: FormBuilder, private router: Router, private Title: Title, private _locate: Location, private userAPI: UsersgestorService, private NG_MSG: MessageService, private readonly _authService: SocialAuthService) {
     //Form
     this.formLogin = this.__formgroup.group({
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
@@ -33,6 +37,17 @@ export class LoginComponent implements OnInit{
 
   noAccount(): void{
     this.router.navigate(["/start"]);
+  }
+
+  reformatJSONGoogleProvider(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      const JSONSimplify = {
+        e0x: this.userGoogle?.email,
+        p1x: this.userGoogle?.id,
+      }
+
+      resolve(JSONSimplify)
+    })
   }
 
   reformatJSON(): Promise<any>{
@@ -50,10 +65,26 @@ export class LoginComponent implements OnInit{
     this._locate.back();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._authService.authState.subscribe((data) => {
+      this.userGoogle = data;
 
-  async compare(){
-    const json = await this.reformatJSON();
+        if(this.userGoogle.email !== null){
+          this.saveCheck = true;
+          this.compare('google')
+        }
+    })
+  }
+
+  async compare(method: string){
+    let json;
+
+    if(method === 'google'){
+      json = await this.reformatJSONGoogleProvider()
+    }
+    else{
+      json = await this.reformatJSON()
+    }
 
     Notiflix.Loading.dots('Validando credenciales...', {
       clickToClose: false,
@@ -66,19 +97,23 @@ export class LoginComponent implements OnInit{
         Notiflix.Loading.remove();
 
         if(result.allowed === true){
-          // this.NG_MSG.add({severity: 'success', summary: 'Maestro de llaves', detail: result.result, closable: true})
           Notiflix.Notify.success('Maestro de llaves: ' + result.result)
           
           if(this.saveCheck === true){
             localStorage.setItem('uu0x0', result.uuid)
             localStorage.setItem('ac0x1', 'true')
+            localStorage.setItem('_token', result.token)
           }
           else{
             sessionStorage.setItem('uu0x0', result.uuid)
             sessionStorage.setItem('ac0x1', 'true')
+            sessionStorage.setItem('_token', result.token)
           }
 
-          this.router.navigate(["/"]);
+          this.router.navigate(["/"], 
+          {
+            queryParams: {locate: 'true'}
+          });
         }
         else{
           this.NG_MSG.add({severity: 'error', summary: 'Credenciales invalidas', detail: result.result, closable: true})

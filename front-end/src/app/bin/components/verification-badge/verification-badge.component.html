@@ -1,0 +1,63 @@
+<p-toast [life]="7000"></p-toast>
+
+<div class="alert alert-warning mb-0 rounded-0 user-select-none" role="alert" *ngIf="!isVerified">
+    <strong>Verificación requerida</strong> La cuenta actual no esta verificada, esto lo requerimos para realizar actividades en HomeServices®️
+    <a class="btn-link" style="cursor: pointer !important;" (click)="openModal(verify)">Verificar</a>
+</div>
+
+<ng-template #verify>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalVerify">HomeServices®️ - Verificación de cuenta</h5>
+        <button type="button" class="btn-close close pull-right" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form" *ngIf="step === 0">
+            <p>Confirme su correo electrónico vinculado a <b>{{_name}}</b> para proseguir con el envió.</p>
+            
+            <input class="form-control mt-4 mb-3 text-center" type="email" formControlName="email" id="email" required/>
+            <div class="container d-flex justify-content-end text-danger">
+                <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+                    <div *ngIf="form.controls['email'].errors?.['required']">
+                        Campo obligatorio
+                    </div>
+                    <div *ngIf="form.controls['email'].errors?.['pattern']">
+                        Dirección invalida
+                    </div>
+                </div>
+            </div>
+
+            <div class="row user-select-none">
+                <div class="col">
+                    <p-button pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="rounded-2" severity="help" type="submit" (onClick)="btnActions()" [disabled]="!form.valid"></p-button>
+                </div>
+                <div class="col d-flex align-items-end justify-content-end">
+                    <p style="font-size: smaller; opacity: .5;">ID: ({{showUUID}})</p>
+                </div>
+            </div>
+        </form>
+
+        <form [formGroup]="formVerify"  *ngIf="step === 1">
+            <h5>Se ha enviado correctamente el código a la direccion asociada a {{_name}}</h5>
+            <p style="font-size: smaller;">¿Ya ha obtenido su código de verificación?</p>
+            <hr>
+            <div class="text-center">
+                <h4 class="mb-0">Inserte su código de verificación</h4>
+                <div class="row d-flex justify-content-center">
+                    <input class="form-control mt-4 mb-3 w-25 text-center" type="number" formControlName="x0" id="x0" (input)="compare()"/>
+                    <div class="text-danger" *ngIf="formVerify.controls['x0'].invalid && (formVerify.controls['x0'].dirty || formVerify.controls['x0'].touched)">
+                        <div *ngIf="formVerify.get('x0')?.hasError('required')">
+                            -Campo obligatorio
+                        </div>
+                        <div *ngIf="formVerify.get('x0')?.hasError('pattern')">
+                            -Solo debe contener números
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p style="font-size: smaller; opacity: .5;">¿No encuentra el correo? Verifique su bandeja de spam.</p>
+        </form>
+    </div>
+</ng-template>

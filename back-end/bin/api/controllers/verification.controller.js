@@ -7,6 +7,12 @@ const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 //Mailer Manager
 const mailerUtility = require('../../utility/mailerUtilities/mailerManager')
 
+//Cipher Manager
+const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('verification-controller')
+
+//Bcrypt
+const bcrypt = require('bcrypt')
+
 //Utility function
 function generateNumbers(){
     return new Promise((resolve, reject) => {
@@ -98,6 +104,7 @@ async function saveondatabase(value, to){
     })
 }
 
+//Utils
 async function errorSendCode(value){
     return new Promise(async (res, rej) => {
         let cn;
@@ -132,6 +139,44 @@ async function errorSendCode(value){
             }
         }
     })
+}
+
+//Function
+async function evaluateEmail(req, res){
+    let cn;
+    
+    try{
+        const body = req.body;
+        const fn = await Cipher.createNewChallenge(body._fn);
+
+        cn = await Connection();
+
+        //Prepare query
+        const SQL = 'SELECT email0x2 FROM ud0x WHERE fullname0x4 = ?'
+        const values = [fn]
+
+        const [rows] = await cn.execute(SQL, values);
+
+        if(rows.length > 0){
+            for(let i = 0; i < rows.length; i++){
+                const compareEmail = await bcrypt.compare(body._e0x1, rows[i].email0x2.toString('utf-8'))
+
+                if(compareEmail){
+                    res.status(200).json({result: true})
+                }
+                else{
+                    res.status(200).json({result: false, message: 'La dirección no esta vinculada a ' + body._fn + ', verifique la dirección.'})
+                }
+            }
+        }
+        else{
+            res.status(200).json({result: false, message: 'La dirección no esta vinculada a ' + body._fn + ', verifique la dirección.'})
+        }
+    }
+    catch (e){
+        console.log('[ERR] EvaluateEmail failed. Reason: ' + e);
+        
+    }
 }
 
 //Export function
@@ -184,21 +229,33 @@ async function insertCode(req, res){
         const [result] = await cn.execute('DELETE FROM v0x WHERE code0x0 = ?', [body.c0x]);
         
         if(result.affectedRows > 0){
-            res(true);
+            const [result2] = await cn.execute('UPDATE ud0x SET verify0x5 = 1 WHERE uuid0x0 = ?', [body._uuid])
+
+            if(result2.affectedRows > 0){
+                res.status(200).json({result: 'Verificación finalizada con éxito.', complete: true})
+            }
+            else{
+                res.status(500).json({result: 'Fallo al intentar finalizar la verificación.', complete: false})
+            }
         }
         else{
-            res(false);    
+            res.status(500).json({result: 'Fallo al intentar finalizar la verificación.', complete: false})            
         }
 
     }
-    catch{
-
+    catch (e){
+        console.log('[ERR] InsertCode failed. Reason: ' + e);
+        res.status(500).json({result: e, complete: false})
     }
     finally{
-        
+        if(cn){
+            cn.end();
+        }
     }
 }
 
 module.exports = {
-    newCode: sendNewMail
+    newCode: sendNewMail,
+    evaluateEmail: evaluateEmail,
+    insertCode: insertCode
 }

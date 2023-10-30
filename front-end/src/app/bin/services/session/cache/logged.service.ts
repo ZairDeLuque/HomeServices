@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable ,of } from 'rxjs';
 
@@ -6,9 +5,6 @@ import { Observable ,of } from 'rxjs';
   providedIn: 'root'
 })
 export class LoggedService {
-
-  constructor(private _http: HttpClient){}
-
   isSessionLogged(): Observable<boolean>{
     if(localStorage.getItem('uu0x0')){
       const currentKey = localStorage.getItem('ac0x1') === 'true';
@@ -22,7 +18,4 @@ export class LoggedService {
     }
   }
 
-  isVerifySession(data: any): Observable<any>{
-    return this._http.post('http://localhost:3000/api/v1/get/verifyAccounts', data);
-  }
 }

@@ -1,129 +1,42 @@
 <app-navbar-tiny class="sticky-top"></app-navbar-tiny>
 
-<div class="container w-75 p-4 mt-4">
-    <p-steps [model]="steps" [readonly]="true" [activeIndex]="1"></p-steps>
-</div>
-
-<div class="container p-4 w-75 mb-0">
-    <h2><i class="bi bi-person"></i> Acerca de mi...</h2>
-    <p style="text-align: justify; font-size: 14px; color: gray;">En WorkHome®️ nos interesa tu confianza y seguridad, para esto, requerimos información personal para que los demás usuarios se sientan seguros.</p>
-    <hr>
-    <!-- Alert -->
-    <div class="alert customalert user-select-none" role="alert" *ngIf="!formCurrentStage.valid && formCurrentStage.touched">
-        <div class="row">
-            <div class="col-auto">
-                <i class="bi bi-exclamation-triangle" style="font-size: 17px;"></i>
+<div class="container-fluid" style="background-color: #ededed;">
+    <a href="" class="invisible">👻</a>
+    <div class="container mt-5 mb-5" style="width: 60rem;">
+        <div class="row w-100 p-0">
+            <div class="col d-flex align-items-end">
+                <h3 style="width: 30rem;">¡Hola! Antes que nada cuéntanos sobre tu servicio.</h3>
             </div>
-            <div class="col">
-                <div *ngIf="formCurrentStage.get('name')?.hasError('required')">
-                    <strong>•</strong> Nombre es requerido, no es posible continuar.
-                </div>
-                <div *ngIf="formCurrentStage.get('name')?.hasError('pattern')">
-                    <strong>•</strong> ¿Nombre con números? Es imposible...
-                </div>
-                <div *ngIf="formCurrentStage.get('name')?.hasError('minlength')">
-                    <strong>•</strong> Es un nombre muy corto, es estadisticamente imposible...
-                </div>
-                <div *ngIf="formCurrentStage.get('name')?.hasError('maxlength')">
-                    <strong>•</strong> Es un nombre muy largo, es estadisticamente imposible...
-                </div>
-                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('required')">
-                    <strong>•</strong> Apellidos requeridos, no es posible continuar.
-                </div>
-                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('pattern')">
-                    <strong>•</strong> ¿Apellidos con números? Buen intento...
-                </div>
-                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('minlength')">
-                    <strong>•</strong> Son apellidos muy cortos, es estadisticamente imposible...
-                </div>
-                <div *ngIf="formCurrentStage.get('lastnames')?.hasError('maxlength')">
-                    <strong>•</strong> Son apellidos muy largos, ¿seguro de no estar equivocado?
-                </div>
-                <div *ngIf="formCurrentStage.get('cp')?.hasError('required')">
-                    <strong>•</strong> Código postal requerido, ¿Como sabremos que servicios ofrecerte?
-                </div>
-                <div *ngIf="formCurrentStage.get('cp')?.hasError('pattern')">
-                    <strong>•</strong> No puedes usar letras numéricas, es un código postal...
-                </div>
-                <div *ngIf="formCurrentStage.get('state')?.hasError('required')">
-                    <strong>•</strong> Estado requerido.
-                </div>
-                <div *ngIf="formCurrentStage.get('city')?.hasError('required')">
-                    <strong>•</strong> Ciudad requerida.
-                </div>
-                <div *ngIf="formCurrentStage.get('genre')?.hasError('required')">
-                    <strong>•</strong> Genero requerido.
-                </div>
-                <div *ngIf="formCurrentStage.get('age')?.hasError('required')">
-                    <strong>•</strong> Edad requerida.
-                </div>
-                <div *ngIf="formCurrentStage.get('age')?.hasError('pattern')">
-                    <strong>•</strong> No puedes usar letras numéricas, es una edad...
-                </div>
-                <div *ngIf="formCurrentStage.get('ageVerify')?.hasError('required')">
-                    <strong>•</strong> Marca la casilla sobre el uso de tu información.
-                </div>
+            <div class="col d-flex justify-content-end">
+                <lord-icon
+                    src="https://cdn.lordicon.com/kndkiwmf.json"
+                    trigger="loop"
+                    delay="2000"
+                    colors="primary:#121331,secondary:#a95eff"
+                    style="width:100px;height:100px">
+                </lord-icon>
             </div>
         </div>
     </div>
-    <form [formGroup]="formCurrentStage" (ngSubmit)="onSave()">
-        <div class="row mb-3">
-            <div class="col">
-                <p><i class="bi bi-card-heading"></i> Nombre(s):</p>
-                <input style="width: 100%;" pInputText type="text" id="name" formControlName="name"/>
-                
-            </div>
-            <div class="col">
-                <p><i class="bi bi-card-heading"></i> Apellidos:</p>
-                <input style="width: 100%;" pInputText type="text" id="lastnames" formControlName="lastnames"/>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-2">
-                <p><i class="bi bi-geo-alt"></i> Código Postal:</p>
-                <input style="width: 100%;" pInputText type="number" max="99999" min="0" id="cp" formControlName="cp"/>
-            </div>
-            <div class="col">
-                <p><i class="bi bi-geo-alt"></i> Estado:</p>
-                <p-multiSelect optionLabel="name" [options]="states" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="state" formControlName="state" (onChange)="updateCitys()"></p-multiSelect>
-            </div>
-            <div class="col">
-                <p><i class="bi bi-geo-alt"></i> Ciudad:</p>
-                <p-multiSelect optionLabel="name" [options]="citys" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="city" formControlName="city"></p-multiSelect>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col">
-                <p><i class="bi bi-gender-ambiguous"></i> Genero:</p>
-                <p-multiSelect optionLabel="name" [options]="genre" [style]="{'width':'100%'}" [filter]="false" [selectionLimit]="1" id="genre" formControlName="genre"></p-multiSelect>
-            </div>
-            <div class="col">
-                <p><i class="bi bi-person-exclamation"></i> Edad:</p>
-                <input style="width: 100%;" pInputText type="number" min="18" max="99" id="age" formControlName="age"/>
-            </div>
-        </div>
-        <div class="container-fluid p-0 mb-3 user-select-none">
+    <div class="container bg-white border-start border-top border-end ps-4 pt-4 pe-4" style="width: 60rem;">
+        <p class="mb-0" style="font-size: small; opacity: .5;">Es importante que describas detalladamente tu servicio, asi, para quienes buscan lo que ofreces sepan con total seguridad lo que recibirán.</p>
+    </div>
+</div>
+
+<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4" style="width: 60rem;">
+    <form>
+        <div class="container-fluid p-0 mt-4">
             <div class="row">
-                <div class="col-auto">
-                    <input class="form-check-input ms-0" type="checkbox" id="ageVerify" formControlName="ageVerify">
+                <div class="col">
+                    <h4>¿A que categoría pertenece tu servicio?</h4>
                 </div>
                 <div class="col">
-                    <p style="font-size: 12px; color: gray">Acepto tener la edad recomendada para usar WorkHome®️ y aceptar el uso de mi información según los acuerdos de privacidad de Aurora Studios Mexico S.A. de C.V.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="d-flex justify-content-end">
-                <div class="col-auto">
-                    <p-button [disabled]="!formCurrentStage.valid" icon="bi bi-arrow-right" sesión="Continuar" styleClass="p-button-help mb-0" type="submit"></p-button>
-                </div>
-                <div class="col-auto">
-                    <p-button icon="bi bi-arrow-left" sesión="Volver" routerLink="/start" styleClass="p-button-help p-button-text mb-0"></p-button>
+                    
                 </div>
             </div>
         </div>
     </form>
 </div>
-
+    
 
 <app-footer></app-footer>

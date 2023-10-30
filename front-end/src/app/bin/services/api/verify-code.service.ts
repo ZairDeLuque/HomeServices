@@ -15,4 +15,12 @@ export class VerifyCodeService {
   public sendNewVerificationCode(data: any): Observable<any>{
     return this._http.post<any>(this.apiURL + '/api/v1/post/security/verification/mail', data);
   }
+
+  public evaluateEmail(data: any): Observable<any>{
+    return this._http.post<any>(this.apiURL + '/api/v1/post/security/verification/mail/evaluate', data);
+  }
+
+  public verifyFinish(data: any): Observable<any>{
+    return this._http.post<any>(this.apiURL + '/api/v1/post/security/verification/complete', data);
+  }
 }

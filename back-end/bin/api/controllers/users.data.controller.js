@@ -7,49 +7,113 @@ const bcrypt = require('bcrypt')
 const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('users.data')
 const jwt = require('jsonwebtoken')
+const { DateTime } = require('luxon')
+
+//Tool: Secure equals credentials
+async function isequalscredentials(email, cn){
+    return new Promise(async (result, reject) => {
+        try{
+            //Prepare query
+            const SQL = 'SELECT power0x1,email0x2 FROM ud0x'
+
+            const [rows] = await cn.execute(SQL);
+
+            if(rows.length > 0){
+                for(let i = 0; i < rows.length; i++){
+                    const compareEmail = await bcrypt.compare(email, rows[i].email0x2.toString('utf-8'))
+
+                    if(compareEmail){
+                        result({bool: true, provider: rows[i].power0x1})
+                    }
+                    else{
+                        result({bool: false})
+                    }
+                }
+            }
+            else{
+                result({bool: false})
+            }
+        }
+        catch (e){
+            reject(e);
+        }
+    })
+}
 
 //Function: Save user data
-//
 async function createUserCredentials(req, res){
     let cn;
 
     try{
         //Generate body const
         const body = req.body;
-
+        
         //Create connection promise
         cn = await Connection();
+    
+        //Already logged?
+        const isAlready = await isequalscredentials(body.e2x, cn);
 
-        //Crypt information
-        const hashEmail = await bcrypt.hash(body.e2x, 12);
-        const hashPassword = await bcrypt.hash(body.p3x, 12);
-        const cryptFN = await Cipher.createNewChallenge(body.fn4x)
+        if(isAlready.bool === true){
 
-        //Prepare query
-        const SQL = 'INSERT INTO ud0x (uuid0x0, power0x1, email0x2, pass0x3, fullname0x4, verify0x5, pp0x6) VALUES (?,?,?,?,?,?,?)';
-        const values = [body.u0x, body.pw1x, hashEmail, hashPassword, cryptFN, '0', 'notassign'];
+            let msg;
 
-        const [result] = await cn.execute(SQL, values);
+            if(isAlready.provider === 'GOOGLE'){
+                msg = 'El correo electrónico esta relacionado con otra cuenta Google. ¿Olvido su contraseña?';
+            }
+            else{
+                msg = 'El correo electrónico esta relacionado con otra cuenta HomeServices. ¿Olvido su contraseña?'
+            }
 
-        //Results?
-        if(result.affectedRows === 1){
             res.status(200).json({
-                result: true,
+                result: msg,
                 agent: 'users.data',
                 required: req.ip,
-                owner: hashEmail
+                already: true
             })
         }
         else{
-            res.status(500).json({
-                result: false,
-                agent: 'users.data',
-                required: req.ip,
-            })
+    
+            //Crypt information
+            const hashEmail = await bcrypt.hash(body.e2x, 12);
+            const hashPassword = await bcrypt.hash(body.p3x, 12);
+            const cryptFN = await Cipher.createNewChallenge(body.fn4x)
+    
+            //Prepare query
+            const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
+            const SQL = 'INSERT INTO ud0x (uuid0x0, power0x1, email0x2, pass0x3, fullname0x4, verify0x5, pp0x6, date0x8) VALUES (?,?,?,?,?,?,?,?)';
+            const values = [body.u0x, body.pw1x, hashEmail, hashPassword, cryptFN, '0', body.pp5x, dateFormated];
+    
+            const [result] = await cn.execute(SQL, values);
+    
+            //Results?
+            if(result.affectedRows === 1){
+                res.status(200).json({
+                    result: true,
+                    agent: 'users.data',
+                    required: req.ip,
+                    already: false
+                })
+            }
+            else{
+                res.status(500).json({
+                    result: null,
+                    agent: 'users.data',
+                    required: req.ip,
+                    already: false
+                })
+            }
         }
+
     }
     catch (e){
         console.error('[ERR] Error in createUserCredentials:', e)
+        res.status(500).json({
+            result: null,
+            agent: 'users.data',
+            required: req.ip,
+            already: false
+        });
         return;
     }
     finally{
@@ -59,6 +123,7 @@ async function createUserCredentials(req, res){
     }
 }
 
+//Function: Compare user credentials and return token
 async function compareUserCredentials(req, res){
     let cn;
 
@@ -90,6 +155,7 @@ async function compareUserCredentials(req, res){
                         result: 'Bienvenido(a) de vuelta ' + await Cipher.resolveChallenge(rows[i].fullname0x4.toString('utf-8')),
                         agent: 'users.data',
                         required: req.ip,
+                        uuid: userData.uuid0x0,
                         token: token,
                         allowed: true
                     })
@@ -132,6 +198,7 @@ async function compareUserCredentials(req, res){
     }
 }
 
+//Tool: Create token
 async function createToken(user){
     return new Promise(async (result, reject) => {
         try{
@@ -154,7 +221,64 @@ async function createToken(user){
     })
 }
 
+//Function: Obtain full info to UUID
+async function obtainFullData(req, res){
+    let cn;
+
+    try{
+        //Generate body const
+        const body = req.body;
+
+        //Create connection promise
+        cn = await Connection();
+
+        //Prepare query
+        const SQL = 'SELECT * FROM ud0x WHERE uuid0x0 = ?'
+        const Values = [body._uuid]
+
+        const [rows] = await cn.execute(SQL, Values);
+
+        //Results?
+        if(rows.length > 0){
+
+            const { power0x1, fullname0x4, verify0x5, pp0x6, type0x7, date0x8 } = rows[0]
+
+            const array = {
+                _p0x1: power0x1,
+                _v0x2: verify0x5,
+                _t0x3: type0x7,
+                fn0x4: await Cipher.resolveChallenge(fullname0x4.toString('utf-8')),
+                pp0x5: pp0x6.toString('utf-8'),
+                date0x6: date0x8
+            };
+
+            res.status(200).json({
+                result: array,
+                agent: 'users.data'
+            })
+        }
+        else{
+            res.status(200).json({
+                result: 'UUID invalida, no es posible encontrarlo en la base de datos.',
+                agent: 'users.data',
+                required: req.ip,
+                exists: false
+            })
+        }
+    }
+    catch (e){
+        console.error('[ERR] Error in createUserCredentials:', e)
+        throw e;
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     create: createUserCredentials,
-    compare: compareUserCredentials
+    compare: compareUserCredentials,
+    getdata: obtainFullData
 }

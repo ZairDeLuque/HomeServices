@@ -79,6 +79,7 @@ import { Payment2Component } from './bin/stages/payment2/payment2.component';
 import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { SummaryBuyComponent } from './bin/components/summary-buy/summary-buy.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
+import { VerificationBadgeComponent } from './bin/components/verification-badge/verification-badge.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -124,7 +125,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     Payment2Component,
     Payment3Component,
     SummaryBuyComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    VerificationBadgeComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +162,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NgxPayPalModule,
     AccordionModule,
     RippleModule,
-    ToastModule
+    ToastModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
