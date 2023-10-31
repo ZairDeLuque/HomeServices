@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoggedService } from '../../services/session/cache/logged.service';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 
@@ -8,6 +8,9 @@ import { UsersgestorService } from '../../services/api/usersgestor.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
+  @Input()
+  extended?: boolean = true;
+
   protected isCurrentSign: boolean = false;
 
   protected userProfile: string = '';

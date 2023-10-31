@@ -11,12 +11,9 @@ export class Homestep2Component implements OnInit{
   constructor(private title: Title){}
 
   ngOnInit(): void {
-      this.title.setTitle('Publicar servicio | HomeServices®️')
+    this.title.setTitle('Publicar servicio | HomeServices®️')
   }
 
-
-
-  selected?: string;
   states: string[] = [
     'Alabama',
     'Alaska',

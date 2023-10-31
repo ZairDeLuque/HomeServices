@@ -43,6 +43,10 @@ import { PanelModule } from 'primeng/panel';
 import { AccordionModule } from 'primeng/accordion';
 import { RippleModule } from 'primeng/ripple'
 import { ToastModule } from 'primeng/toast';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { SkeletonModule } from 'primeng/skeleton';
+import { DeferModule } from 'primeng/defer';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -65,9 +69,7 @@ import { CommentaryandwriteComponent } from './bin/components/commentaryandwrite
 import { ResponseCommentarysComponent } from './bin/components/response-commentarys/response-commentarys.component';
 import { Homestep4Component } from './bin/stages/homestep4/homestep4.component';
 import { ServicesViewComponent } from './bin/stages/services-view/services-view.component';
-import { CheckerLoaderComponent } from './bin/stages/checker-loader/checker-loader.component';
 import { ConfigComponent } from './bin/stages/config/config.component';
-import { NavbarTiny2Component } from './bin/components/navbar-tiny2/navbar-tiny2.component';
 import { ConfigTabsComponent } from './bin/components/config-tabs/config-tabs.component';
 import { ShopsComponent } from './bin/stages/shops/shops.component';
 import { OnlyimgsDirective } from './bin/directives/uploads/onlyimgs.directive';
@@ -112,9 +114,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ResponseCommentarysComponent,
     Homestep4Component,
     ServicesViewComponent,
-    CheckerLoaderComponent,
     ConfigComponent,
-    NavbarTiny2Component,
     ConfigTabsComponent,
     ShopsComponent,
     OnlyimgsDirective,
@@ -164,7 +164,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AccordionModule,
     RippleModule,
     ToastModule,
-    TypeaheadModule
+    TypeaheadModule,
+    ScrollTopModule,
+    SkeletonModule,
+    DeferModule,
+    KeyFilterModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

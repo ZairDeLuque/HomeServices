@@ -14,7 +14,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="form" *ngIf="step === 0">
-            <p>Confirme su correo electrónico vinculado a <b>{{_name}}</b> para proseguir con el envió.</p>
+            <p class="mb-0">Confirme su correo electrónico vinculado a <b>{{_name}}</b> para proseguir con el envió.</p>
             
             <input class="form-control mt-4 mb-3 text-center" type="email" formControlName="email" id="email" required/>
             <div class="container d-flex justify-content-end text-danger">
@@ -28,6 +28,8 @@
                 </div>
             </div>
 
+            <p style="font-size: smaller; opacity: .7;">¿Porque pedimos nuevamente tu correo? Esto con el fin de nosotros verificar que no requerirás un código de verificación ajeno a esta cuenta. Ademas, esto nos ayuda a nunca recibir tu email en nuestros servicios, asi mantendrás tus credenciales privadas.</p>
+
             <div class="row user-select-none">
                 <div class="col">
                     <p-button pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="rounded-2" severity="help" type="submit" (onClick)="btnActions()" [disabled]="!form.valid"></p-button>
@@ -36,6 +38,7 @@
                     <p style="font-size: smaller; opacity: .5;">ID: ({{showUUID}})</p>
                 </div>
             </div>
+            
         </form>
 
         <form [formGroup]="formVerify"  *ngIf="step === 1">
@@ -45,7 +48,7 @@
             <div class="text-center">
                 <h4 class="mb-0">Inserte su código de verificación</h4>
                 <div class="row d-flex justify-content-center">
-                    <input class="form-control mt-4 mb-3 w-25 text-center" type="number" formControlName="x0" id="x0" (input)="compare()"/>
+                    <input class="form-control mt-4 mb-3 w-25 text-center" type="number" pKeyFilter="int" formControlName="x0" id="x0" (input)="compare()"/>
                     <div class="text-danger" *ngIf="formVerify.controls['x0'].invalid && (formVerify.controls['x0'].dirty || formVerify.controls['x0'].touched)">
                         <div *ngIf="formVerify.get('x0')?.hasError('required')">
                             -Campo obligatorio

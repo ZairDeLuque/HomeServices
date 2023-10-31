@@ -1,11 +1,11 @@
-<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+<app-navbar [extended]="false" class="sticky-top"></app-navbar>
 
 <div class="container-fluid" style="background-color: #ededed;">
     <a href="" class="invisible">👻</a>
-    <div class="container mt-5 mb-5" style="width: 60rem;">
+    <div class="container mt-5 mb-5" style="width: 80rem;">
         <div class="row w-100 p-0">
             <div class="col d-flex align-items-end">
-                <h3 style="width: 30rem;">¡Hola! Antes que nada cuéntanos sobre tu servicio.</h3>
+                <h3 style="width: 30rem;">¡Hola! Antes de empezar cuéntanos sobre tu servicio.</h3>
             </div>
             <div class="col d-flex justify-content-end">
                 <lord-icon
@@ -18,46 +18,64 @@
             </div>
         </div>
     </div>
-    <div class="container bg-white border-start border-top border-end ps-4 pt-4 pe-4" style="width: 60rem;">
+    <div class="container bg-white border-start border-top border-end ps-4 pt-4 pe-4" style="width: 80rem;">
         <p class="mb-0" style="font-size: small; opacity: .5;">Es importante que describas detalladamente tu servicio, asi, para quienes buscan lo que ofreces sepan con total seguridad lo que recibirán.</p>
     </div>
 </div>
 
-<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4" style="width: 60rem;">
-    <form>
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col">
-                    <h4 class="mt-4">¿A que categoría pertenece tu servicio?</h4>
+<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4" style="width: 80rem;">
+    <div class="row">
+        <div class="col">
+            <form>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-4">¿A que categoría pertenece tu servicio?</h5>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                    <input pInputText class="mt-2 w-100"/>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si la categoría no esta o similares, puedes escribirla y se creara automáticamente.</p>
                 </div>
-                <div class="col">
-                    
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-4">¿Cual es el nombre de tu servicio?</h5>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <textarea rows="2" pInputTextarea (resize)="true" class="mt-2 w-100" style="border-color: #ced4da;"></textarea>
+                    <!-- <input pInputText class="mt-2 w-100"/> -->
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-4">¿Pendiente...?</h5>
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                    <input pInputText pDefer class="mt-2 w-100"/>        
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <h2 class="font-b mt-3">Vista previa:</h2>
+            <div class="container-fluid p-0">
+                <div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative">
+                    <p-skeleton height="6rem"></p-skeleton>
+                    <div class="row p-0 position-absolute bottom-0 ms-3 mb-4 w-100">
+                        <p class="mb-0 fw-bold">Servicios de Jardinería</p>
+                        <p class="mb-0 fw-bold">Creación de esculturas a domicilio</p>
+                    </div>
                 </div>
             </div>
-            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>
         </div>
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col">
-                    <h4 class="mt-4">¿Cual es el nombre de tu servicio?</h4>
-                </div>
-                <div class="col">
-                </div>
-            </div>
-            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>
-        </div>
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col">
-                    <h4 class="mt-4">¿Pendiente...?</h4>
-                </div>
-                <div class="col">
-                    
-                </div>
-            </div>
-            <input pInputText [(ngModel)]="selected" [typeahead]="states" class="mt-2 w-100"/>        
-        </div>
-    </form>
+    </div>
 </div>
 
 <app-footer></app-footer>
