@@ -2,68 +2,35 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
+interface TimeSelect {
+  name: string,
+  code: string
+}
+
 @Component({
   selector: 'app-homestep2',
   templateUrl: './homestep2.component.html',
   styleUrls: ['./homestep2.component.css']
 })
 export class Homestep2Component implements OnInit{
-  constructor(private title: Title){}
+  
+  protected _category: string | undefined;
+  protected _name: string | undefined;
+  protected _description: string | undefined;
+
+  protected times: TimeSelect[];
+
+  constructor(private title: Title){
+    this.times = [
+      {name: 'Hora', code: 'H'},
+      {name: 'Dia', code: 'D'},
+      {name: 'Semana', code: 'S'},
+      {name: 'Pago único', code: 'PU'},
+  ];
+  }
 
   ngOnInit(): void {
     this.title.setTitle('Publicar servicio | HomeServices®️')
   }
 
-  states: string[] = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Dakota',
-    'North Carolina',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming'
-  ];
 }

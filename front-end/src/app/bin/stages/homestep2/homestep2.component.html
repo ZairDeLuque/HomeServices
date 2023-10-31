@@ -5,7 +5,7 @@
     <div class="container mt-5 mb-5" style="width: 80rem;">
         <div class="row w-100 p-0">
             <div class="col d-flex align-items-end">
-                <h3 style="width: 30rem;">¡Hola! Antes de empezar cuéntanos sobre tu servicio.</h3>
+                <h3 class="border-text" style="width: 30rem;">¡Hola! Antes de empezar cuéntanos sobre tu servicio.</h3>
             </div>
             <div class="col d-flex justify-content-end">
                 <lord-icon
@@ -23,54 +23,103 @@
     </div>
 </div>
 
-<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4" style="width: 80rem;">
+<div class="container border-end border-start border-bottom ps-4 pb-4 pe-4 pt-2" style="width: 80rem;">
     <div class="row">
         <div class="col">
-            <form>
+            <form class="user-select-none">
+                <!-- 1 -->
                 <div class="container-fluid p-0">
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="mt-4">¿A que categoría pertenece tu servicio?</h5>
-                        </div>
-                        <div class="col">
-                            
-                        </div>
-                    </div>
-                    <input pInputText class="mt-2 w-100"/>
+                    <h5 class="mt-4">¿A que categoría pertenece tu servicio?</h5>
+                    <!-- <p-autoComplete [(ngModel)]="_category" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete> -->
+                    <input pInputText class="mt-2 w-100" [(ngModel)]="_category" name="_category"/>
                     <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si la categoría no esta o similares, puedes escribirla y se creara automáticamente.</p>
                 </div>
+                <!-- 2 -->
                 <div class="container-fluid p-0">
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="mt-4">¿Cual es el nombre de tu servicio?</h5>
-                        </div>
-                        <div class="col">
-                        </div>
-                    </div>
-                    <textarea rows="2" pInputTextarea (resize)="true" class="mt-2 w-100" style="border-color: #ced4da;"></textarea>
-                    <!-- <input pInputText class="mt-2 w-100"/> -->
+                    <h5 class="mt-4">¿Cual es el nombre de tu servicio?</h5>
+                    <input pInputText class="mt-2 w-100" [(ngModel)]="_name" name="_name"/>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Intenta no ser tan extenso, eso déjemoslo para la descripción.</p>
                 </div>
+                <!-- 3 -->
                 <div class="container-fluid p-0">
+                    <h5 class="mt-4">Describe mejor tu producto:</h5>
+                    <textarea rows="2" pInputTextarea class="mt-2 w-100" style="border-color: #ced4da;"></textarea>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Ejemplo: "¿Te gustaría experimentar algo completamente nuevo y emocionante? ¡Nuestro servicio te ofrece una experiencia única y llena de sorpresas!"</p>
+                </div>
+                <!-- 4 -->
+                <div class="container-fluid p-0">
+                    <h5 class="mt-4 mb-3">Establece tus cuotas:</h5>
                     <div class="row">
                         <div class="col">
-                            <h5 class="mt-4">¿Pendiente...?</h5>
+                            <h6>Costo:</h6>
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon bg-transparent">MXN</span>
+                                <input pKeyFilter="int" pInputText/>
+                            </div>
+                            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Se multiplicara en caso de ser mayor a 1 compra.</p>
+                        </div>
+                        <div class="col-auto d-flex align-items-center opacity-50">
+                            <p class="mb-0">/</p>
                         </div>
                         <div class="col">
-                            
+                            <h6>Tiempo:</h6>
+                            <p-multiSelect [options]="times" optionLabel="name" [filter]="false" [selectionLimit]="1" [showHeader]="false" [style]="{'width':'100%'}"></p-multiSelect>
+                            <!-- <input pInputText pKeyFilter="int" class="mt-2 w-100"/> -->
+                            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">El comprador decidirá el tiempo sus necesidades basado en esto.</p>
                         </div>
                     </div>
-                    <input pInputText pDefer class="mt-2 w-100"/>        
                 </div>
             </form>
         </div>
         <div class="col">
-            <h2 class="font-b mt-3">Vista previa:</h2>
+            <h3 class="font-b mt-3 border-text mb-4">Vista previa de la vista de contrato:</h3>
             <div class="container-fluid p-0">
                 <div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative">
                     <p-skeleton height="6rem"></p-skeleton>
                     <div class="row p-0 position-absolute bottom-0 ms-3 mb-4 w-100">
-                        <p class="mb-0 fw-bold">Servicios de Jardinería</p>
-                        <p class="mb-0 fw-bold">Creación de esculturas a domicilio</p>
+                        <p class="mb-0 fw-bold">Servicios de {{_category}}</p>
+                        <p class="mb-0 fw-bold">{{_name}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="container-fluid p-0">
+                        <h6 class="mt-4"><i class="bi bi-card-text"></i> Descripción sobre el servicio:</h6>
+                        <hr>
+                        <p style="opacity: .7; text-align: justify; font-size: x-small;" appUppercase>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid modi assumenda magnam ipsa est molestias quisquam laborum, voluptate porro, placeat blanditiis tempora. Saepe cum vel illum libero odio quia aperiam ea amet atque laborum architecto voluptate, praesentium accusantium optio dignissimos, quisquam suscipit expedita repellat laudantium maxime sunt dicta sequi. Veniam velit quam quis recusandae in et ex illum perferendis nostrum excepturi similique sapiente voluptatem, totam non quibusdam quod repellat hic dolores inventore fugit cumque! Minus numquam, provident sed totam quo magnam deserunt soluta similique. Accusantium velit laboriosam accusamus, repellat quas voluptatibus ad tempora, illo earum, incidunt debitis voluptatem in obcaecati!
+                        </p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container-fluid p-0 mt-4">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-0" style="font-size: small;">$00.00</p>
+                            </div>
+                            <div class="col-auto">
+                                <p class="mb-0" style="font-size: small;">Pago [string]</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-0 mt-2">
+                        <p-skeleton height="2rem" borderRadius="16px"></p-skeleton>
+                        <p class="mb-2 mt-2 opacity-50 text-center" style="font-size: x-small;">¿Quieres hablar con el vendedor?</p>
+                        <p-skeleton height="2rem" borderRadius="16px"></p-skeleton>
+                        <p-skeleton width="10rem" styleClass="mb-2 mt-3" borderRadius="16px"></p-skeleton>
+                        <div class="row">
+                            <div class="col-auto text-center d-flex align-items-center justify-content-end">
+                                <p-skeleton size="2rem" styleClass="mr-2"></p-skeleton>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+                                    <p-skeleton width="10rem" styleClass="mt-3" borderRadius="16px"></p-skeleton>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

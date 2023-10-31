@@ -45,8 +45,8 @@ import { RippleModule } from 'primeng/ripple'
 import { ToastModule } from 'primeng/toast';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { SkeletonModule } from 'primeng/skeleton';
-import { DeferModule } from 'primeng/defer';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -167,8 +167,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     TypeaheadModule,
     ScrollTopModule,
     SkeletonModule,
-    DeferModule,
-    KeyFilterModule
+    KeyFilterModule,
+    RadioButtonModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
