@@ -87,6 +87,8 @@ export class AppComponent implements OnInit{
           }
           
           this.runOnce(() => {
+            console.clear()
+
             this.splash_TIMER = 30;
             this.TIMER_ALREADY = false;
             this.splash = false;
