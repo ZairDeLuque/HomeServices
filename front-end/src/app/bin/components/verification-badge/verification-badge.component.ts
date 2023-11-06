@@ -33,6 +33,8 @@ export class VerificationBadgeComponent implements OnInit{
       Notiflix.Loading.dots('Completando verificación...', {
         clickToClose: false,
         svgColor: '#a95eff',
+        backgroundColor: '#fff',
+        messageColor: '#000'
       })
 
       const json = {

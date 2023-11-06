@@ -20,19 +20,24 @@ import { NotaccountComponent } from './bin/stages/notaccount/notaccount.componen
 import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { Payment2Component } from './bin/stages/payment2/payment2.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
+import { StripeComponent } from './bin/redirects/stripe/stripe.component';
+import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
+
 import { guard } from './bin/guards/routes.guard';
+import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
+import { CategoriesComponent } from './bin/stages/categories/categories.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
-  {path: 'start', component: HomeComponent, canActivate: [guard]},
-  {path: 'publish', component: Homestep2Component},
-  // {path: 'start/verification', component: Homestep3Component},
-  // {path: 'start/myworkspace', component: Homestep4Component},
+  {path: 'start', component: HomeComponent, canActivate: [!guard]},
+  {path: 'myservices/publish', component: Homestep2Component},
+  {path: 'sellers', component: Homestep3Component},
+  {path: 'sellers/register', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'privacy', component: PrivacyComponent},
-  {path: 'login', component: LoginComponent, canActivate: [guard]},
+  {path: 'login', component: LoginComponent, canActivate: [!guard]},
   {path: 'profile/:uuid', component: ProfileComponent},
-  // {path: 'articles/:uuid', component: ProductViewComponent},
+  {path: 'payment/:status', component: ProductViewComponent },
   {path: 'services/:uuid', component: ServicesViewComponent},
   {path: 'myaccount/configuration', component: ConfigComponent},
   {path: 'myaccount/s/owned', component: ShopsComponent},
@@ -41,6 +46,12 @@ const routes: Routes = [
   {path: 'services/buy/payment/address/:id', component: Payment2Component},
   {path: 'services/buy/payment/results/:id', component: Payment3Component},
   {path: 'notaccount', component: NotaccountComponent},
+  {path: 'categories', component: CategoriesComponent},
+
+  //Redirects for payments
+  {path: 'api/v1/payments/stripe/:activity', canActivate: [guard], component: StripeComponent},
+  {path: 'api/v1/payments/mercadopago/:activity', canActivate: [guard], component: MercadopagoComponent},
+
   {path: '**', component: NotfoundComponent}
 ];
 

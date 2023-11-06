@@ -89,7 +89,9 @@ export class LoginComponent implements OnInit{
     Notiflix.Loading.dots('Validando credenciales...', {
       clickToClose: false,
       svgColor: '#a95eff',
-      className: 'font-b'
+      className: 'font-b',
+      backgroundColor: '#fff',
+      messageColor: '#000'
     })
 
     this.userAPI.compareCredentials(json).subscribe(

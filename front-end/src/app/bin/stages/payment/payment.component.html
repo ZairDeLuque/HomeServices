@@ -1,5 +1,7 @@
 <app-navbar-tiny class="sticky-sm-top"></app-navbar-tiny>
 
+<p-toast [life]="7000"></p-toast>
+
 <div class="container-fluid font-b" style="background-color: #ededed;">
     <a class="invisible">👻</a>
     <div class="container bg-white border-start border-top border-end ps-4 pt-5 pe-5 pb-4" style="margin-top: 3rem;">
@@ -30,7 +32,18 @@
                     <div class="circle">o</div>
                 </div>
                 
-                <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button>
+                <button type="button" class="btn mercado-pago mb-3 mt-2 w-100" style="padding: .9rem;">
+                    Continuar con 
+                    <img height="20" class="mr-1 fs-unmask" alt="visa" src="../../../../assets/mercadopago_icon.png">
+                </button>
+
+                <button type="button" class="btn stripe mb-3 mt-2 w-100" style="padding: .9rem;">
+                    Continuar con 
+                    <i class="bi bi-stripe"></i>
+                    Stripe
+                </button>
+
+                <!-- <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button> -->
 
                 <div class="container-fluid text-center opacity-50" style="font-size: small;">
                     <i class="bi bi-lock-fill"></i>
@@ -45,7 +58,6 @@
                         <img height="25" width="37" class="mr-1 fs-unmask" alt="amex" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#amex">
                         <img height="25" width="37" class="mr-1 fs-unmask" alt="bbva" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#bbva">
                         <img height="25" width="37" class="mr-1 fs-unmask" alt="santander" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#santander">
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="oxxo" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#oxxo">
                     </div>
                 </div>  
 

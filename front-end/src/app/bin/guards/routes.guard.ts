@@ -5,11 +5,11 @@ export const guard = () => {
 
     const router = inject(Router)
 
-    if(localStorage.getItem('uu0x0')){
-        router.navigate(['/'])
-        return false;
+    if(localStorage.getItem('uu0x0') || sessionStorage.getItem('uu0x0')){
+        return true;
     }
     else{
-        return true;
+        router.navigate(['/'])
+        return false;
     }
 }

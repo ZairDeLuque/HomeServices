@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -6,39 +7,28 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.css']
 })
-export class ProductViewComponent {
-  protected items: MenuItem[];
-  protected home: MenuItem;
-  
-  protected images: any[] = [
-    {
-      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_957919-MLU54972894434_042023-O.webp'
-    },
-    {
-      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_631919-MLU54967277823_042023-O.webp'
-    },
-    {
-      itemImageSrc: 'https://http2.mlstatic.com/D_NQ_NP_649249-MLU54972894436_042023-O.webp'
-    }  
-  ];
+export class ProductViewComponent implements OnInit{
 
-  protected responsiveOptions: any[] = [
-    {
-        breakpoint: '1024px',
-        numVisible: 5
-    },
-    {
-        breakpoint: '768px',
-        numVisible: 3
-    },
-    {
-        breakpoint: '560px',
-        numVisible: 1
+  protected usage: string | undefined;
+  protected klass: string | undefined;
+  protected message: string | undefined;
+
+  constructor(private AR: ActivatedRoute){
+    this.usage = this.AR.snapshot.params['status']
+  }
+
+  ngOnInit(): void {
+    if(this.usage === 'success'){
+      this.klass = 'bi bi-check-circle text-success';
+      this.message = 'Tu orden fue creada con éxito!';
     }
-  ];
-
-  constructor(){
-    this.items = [{ label: 'Artículos' }, { label: 'Moda' }, { label: 'Accesorios' }, { label: 'ArticuloName' }];
-    this.home = { icon: 'bi bi-house', routerLink: '/' };
+    else if(this.usage === 'failed'){
+      this.klass = 'bi bi-x-circle text-danger';
+      this.message = 'Al parecer hubo un error...';
+    }
+    else if(this.usage === 'cancel'){
+      this.klass = 'bi bi-x-circle text-danger';
+      this.message = 'Tu orden fue cancelada.';
+    }
   }
 }

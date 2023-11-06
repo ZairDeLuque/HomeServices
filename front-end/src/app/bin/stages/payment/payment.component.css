@@ -39,3 +39,28 @@
     font-size: 16px;
     color: gray;
 }
+
+.mercado-pago{
+    user-select: none;
+    color: #000;
+    background-color: transparent;
+    border-color: #0088b9;
+}
+
+.mercado-pago:hover{
+    background-color: #59c9f1;
+    border-color: transparent;
+}
+
+.stripe{
+    user-select: none;
+    color: #000;
+    background-color: transparent;
+    border-color: #2a449c;  
+}
+
+.stripe:hover{
+    background-color: #2a449c;
+    color: white;
+    border-color: transparent;
+}

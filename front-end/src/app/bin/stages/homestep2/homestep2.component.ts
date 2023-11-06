@@ -1,8 +1,19 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { CategoryGestorService } from '../../services/api/category-gestor.service';
+import { MessageService } from 'primeng/api';
+import * as Notiflix from 'notiflix';
+import { v4 as uuidv4 } from 'uuid';
+import { ServicesGestorService } from '../../services/api/services-gestor.service';
+import { Router } from '@angular/router';
 
 interface TimeSelect {
+  name: string,
+  code: string
+}
+
+interface Categories {
   name: string,
   code: string
 }
@@ -10,11 +21,13 @@ interface TimeSelect {
 @Component({
   selector: 'app-homestep2',
   templateUrl: './homestep2.component.html',
-  styleUrls: ['./homestep2.component.css']
+  styleUrls: ['./homestep2.component.css'],
+  providers: [MessageService]
 })
 export class Homestep2Component implements OnInit{
   
-  protected _category: string | undefined;
+  protected _category: any;
+  protected _category_show: string | undefined;
 
   protected _name: string | undefined;
   protected _name_length: number = 0;
@@ -24,20 +37,264 @@ export class Homestep2Component implements OnInit{
   protected _description_length: number = 0;
   protected _description_klass: string = 'mb-0';
 
-  protected _cash: number | undefined;
+  protected _cash: number = 0;
   protected _cash_b: any;
   protected _cash_b_show: string | undefined;
+  private _cash_free_ad: boolean = false;
+  private _cash_free_ad_2: boolean = false;
 
+  protected _fileA: string | undefined;
+  protected _fileA_length: number = 0;
+  protected _fileA_all: any;
+  private uploadedFiles: any[] = [];
+
+  private uuidSavedItem: string | undefined;
+
+  protected checkTerms: boolean = false;
 
   protected times: TimeSelect[];
+  protected categories: Categories[] = [];
 
-  constructor(private title: Title){
+  async compressAndConvertImageToB64(file: File, quality: number): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      try {
+        const reader = new FileReader();
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+  
+        reader.onload = () => {
+          const img = new Image();
+  
+          img.onload = () => {
+            // Redimensiona la imagen si es necesario
+            canvas.width = img.width;
+            canvas.height = img.height;
+            if (ctx != null) {
+              // Convierte la imagen al formato deseado (por ejemplo, JPEG)
+              const compressedImage = canvas.toDataURL('image/jpeg', quality);
+  
+              resolve(compressedImage);
+            }
+            const compressedImage = canvas.toDataURL('image/jpeg', quality);
+  
+            resolve(compressedImage);
+          };
+  
+          img.src = reader.result as string;
+        };
+  
+        reader.onerror = (error) => {
+          reject(error);
+        };
+  
+        reader.readAsDataURL(file);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  async onUpload() {
+    if(this._fileA_length > 0){
+      Notiflix.Loading.dots('Compilando y subiendo fotografías...',{
+        clickToClose: false,
+        svgColor: '#a95eff',
+        className: 'font-b',
+        backgroundColor: '#fff',
+        messageColor: '#000'
+      })
+
+      for(let i = 0; i < this._fileA_all.length; i++) {
+        const B64 = await this.compressAndConvertImageToB64(this._fileA_all[i], 0.5);
+  
+        if(B64 != null){
+          this.uploadedFiles.push(B64);
+        }
+      }
+
+      const JSON = {
+        lengthPics: this._fileA_all.length,
+        _uuid: this.uuidSavedItem,
+        allImages: this.uploadedFiles
+      }
+
+      this._services.addPics(JSON).subscribe(
+        result => {
+          Notiflix.Loading.remove();
+
+          if(result.saved === true){
+            Notiflix.Notify.success(result.result);
+
+            this._router.navigate(['/']);
+          }
+          else{
+            this.NG_MSG.add({severity: 'error', summary: 'Imágenes rotas :(', detail: 'El servidor encargado ha fracasado, su publicación continua pero no tendrá fotos.'});  
+          }
+        },
+        error => {
+          Notiflix.Loading.remove();
+          console.error(error);
+          this.NG_MSG.add({severity: 'error', summary: 'Imágenes perdidas', detail: 'El servidor encargado ha fracasado, pruebe a refrescar la pagina.'});
+        }
+      )
+    }
+  }
+
+  countFileSelected(event: any){
+    this._fileA_length = event.currentFiles.length;
+    this._fileA_all = event.currentFiles;
+
+    console.log(this._fileA_all);
+  }
+  
+  deleteFileSelected(event: any){
+    if(this._fileA_length > 0){
+      this._fileA_length--;
+
+      this._fileA_all = this._fileA_all.filter((item: any) => {
+        return item.name !== event.file.name;
+      });
+      
+    }
+    else{
+      this._fileA_length = 0;
+      this._fileA_all = [];
+    }
+  }
+
+  getCategories(): Promise<any>{
+    let arrayReturn: any[] = [];
+
+    this.categoryService.getCategories().subscribe((data: any) => {
+      if(data.ok === true){
+        data.data.forEach((element: any) => {
+          const itemCategory: Categories = {
+            name: element.name0x0,
+            code: element.codename0x1
+          };
+          arrayReturn.push(itemCategory);
+        });
+      }
+      else{
+        console.error('Not founded categories')
+        this.NG_MSG.add({severity: 'error', summary: 'Categorías perdidas!', detail: 'El servidor encargado ha fracasado, pruebe a refrescar la pagina.'});
+      }
+    });
+    
+    return Promise.resolve(arrayReturn);
+  }
+
+  whatUUID(): string {
+    if(localStorage.getItem('uu0x0')){
+      return localStorage.getItem('uu0x0')!;
+    }
+    else{
+      return sessionStorage.getItem('uu0x0')!; 
+    }
+  }
+
+  reformatJSON(){
+    const JSON = {
+      _uuid0x: uuidv4(),
+      _own0x: this.whatUUID(),
+      ctg0x: this._category[0].code,
+      n0x: this._name,
+      desc0x: this._description,
+      pr0x: this._cash,
+      ttp0x: this._cash_b_show
+    }
+
+    return JSON;
+  }
+
+  onSubmit(){
+    if(this._category_show === '' || this._category_show === undefined){
+      this.NG_MSG.add({severity: 'error', summary: 'Campos vacíos', detail: 'Parece que no haz seleccionado una categoría. Vamos ¡hay muchas de ellas!'});
+      return;
+    }
+
+    if(this._name === undefined || this._name.length === 0){
+      this.NG_MSG.add({severity: 'error', summary: 'Campos vacíos', detail: '¿Tu servicio no tiene nombre? ¿Como sabremos como llamarlo?'});
+      return;
+    }
+
+    if(this._description === undefined || this._description.length === 0){
+      this.NG_MSG.add({severity: 'error', summary: 'Campos vacíos', detail: 'Olvidaste describir tu servicio. ¡Eso es importante!'});
+      return;
+    }
+
+    if(this._cash === 0){
+      if(this._cash_free_ad === false){
+        this.NG_MSG.add({severity: 'error', summary: 'Campos vacíos o...¿no?', detail: '¡Espera! No haz establecido un costo o...si quieres establecer un servicio gratuito puedes continuar.'});
+        this._cash_free_ad = true;
+        return;
+      }
+    }
+    else{
+      if(this._cash > 99999){
+        this.NG_MSG.add({severity: 'info', summary: '¿Servicio infinito?', detail: 'A no ser que ofrezcas un servicio infinito o super especial, no puede valer exageradamente.'});
+        return;
+      }
+    }
+
+    if(this._cash_b_show === undefined || this._cash_b_show.length === 0){
+      if(this._cash_free_ad === true && this._cash_free_ad_2 === false){
+        this.NG_MSG.add({severity: 'info', summary: 'Campos vacíos', detail: 'Si estas seguro de tener un servicio gratuito, selecciona el tiempo de tu pago como único.'});
+        this._cash_free_ad_2 = true;
+        return;
+      }
+      else{
+        this.NG_MSG.add({severity: 'error', summary: 'Campos vacíos', detail: '¡Oh vamos! Todos necesitaran saber como es tu costo por tiempo de trabajo.'});
+        return;
+      }
+    }
+
+    if(this._cash === 0 && this._cash_b_show != 'Pago único'){
+      this.NG_MSG.add({severity: 'info', summary: 'Servicio gratis', detail: 'Si es gratis, olvidaste poner el tiempo de pago en único.'});
+      return;
+    }
+
+    if(this._fileA_length < 2){
+      this.NG_MSG.add({severity: 'info', summary: 'Campos vacíos', detail: 'Debes subir como mínimo 2 fotos ¡todos necesitan saber que eres confiable!.'});
+      return;
+    }
+
+    if(this.checkTerms == false){
+      this.NG_MSG.add({severity: 'info', summary: 'Términos ignorados:(', detail: 'Olvidaste marcar los términos de venta, ¡están sobre el botón!'});
+      return;
+    }
+
+    Notiflix.Loading.dots('Esperando servidor...',{
+      clickToClose: false,
+      svgColor: '#a95eff',
+      className: 'font-b',
+      backgroundColor: '#fff',
+      messageColor: '#000'
+    })
+
+    const packet = this.reformatJSON();
+    this.uuidSavedItem = packet._uuid0x;
+
+    this._services.addNewService(packet).subscribe(result => {
+      Notiflix.Loading.remove();
+
+      this.onUpload();
+    }, error => {
+      Notiflix.Loading.remove();
+    })
+  }
+
+  constructor(private title: Title, private categoryService: CategoryGestorService, private NG_MSG: MessageService, private readonly _services: ServicesGestorService, private readonly _router: Router){
     this.times = [
       {name: 'Hora', code: 'H'},
       {name: 'Dia', code: 'D'},
       {name: 'Semana', code: 'S'},
       {name: 'Pago único', code: 'PU'},
-  ];
+    ];
+
+    this.getCategories().then((data: any) => {
+      this.categories = data;
+    });
   }
 
   ngOnInit(): void {
@@ -49,7 +306,16 @@ export class Homestep2Component implements OnInit{
       this._cash_b_show = this._cash_b[0].name;
     }
     else{
-      this._cash_b_show = ' '
+      this._cash_b_show = ''
+    }
+  }
+
+  onChangeMulti2(){
+    if(this._category[0]){
+      this._category_show = this._category[0].name;
+    }
+    else{
+      this._category_show = ''
     }
   }
 

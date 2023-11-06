@@ -26,6 +26,9 @@ export class UsersgestorService {
 
   public getLocation(): Observable<any>{
     return this._http.get<any>(this.API_URL + '/api/v1/get/locations/obtainPublicIP');
-  
+  }
+
+  public getTinyInformation(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/show', data);
   }
 }

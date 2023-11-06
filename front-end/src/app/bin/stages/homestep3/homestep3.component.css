@@ -6,13 +6,6 @@
     font-style: normal;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
-}
-
 .border-text{
     display: inline-block;
     border-top: 0px;

@@ -20,21 +20,11 @@ export class ProfileComponent implements OnInit{
   protected nameLetter: string = '';
   protected URLimage: string = '';
 
-  private dateServer: string = '';
   private currentDate: Date = new Date();
   protected message: string = '';
   
   constructor(private title: Title, private ar: ActivatedRoute, private _API_:UsersgestorService, private NG_MSG: MessageService, private router: Router) {
     this.UUIDactive = this.ar.snapshot.params['uuid']
-  }
-
-  whatUUID(): string {
-    if(localStorage.getItem('uu0x0')){
-      return localStorage.getItem('uu0x0')!;
-    }
-    else{
-      return sessionStorage.getItem('uu0x0')!; 
-    }
   }
 
   transformData(dateServer: string){

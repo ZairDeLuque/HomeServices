@@ -1,33 +1,60 @@
-<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+<app-navbar [extended]="false" class="sticky-top"></app-navbar>
 
 <p-toast [life]="7000"></p-toast>
 
-<div class="container-fluid" style="background-color: #ededed;">
-    <a href="" class="invisible">👻</a>
-    <div class="container bg-white border-start border-top border-end text-center ps-5 pt-5 pe-5 pb-4" style="margin-top: 3rem; width: 30rem;">
-        <h2 class="border-text"><i class="bi bi-envelope"></i> Verificación</h2>
+<div class="d-flex align-items-center" style="user-select: none; background: url(../../../../assets/sellers_header.png); height:400px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1 class="font-b" style="color: #1f1f1f; font-size: 58px;">Portal de vendedores en <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+                <p>Tu éxito es nuestro éxito, es por eso que te conectamos con clientes para garantizar tu crecimiento de ventas en los servicios que mejor sabes hacer.</p>
+                <button type="button" class="btn btn-dark p-3">Convertirme en vendedor <i class="bi-arrow-right"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container border-end border-start border-bottom text-center ps-5 pb-4 pe-5" style="width: 30rem;" *ngIf="!iserrorsend">
-    <h6>Se ha enviado un código de verificación a {{mail}}.</h6>
-    <div class="container-fluid p-0">
-        <h6 class="mt-4" style="color: #808080;">Ingrese su código de verificación:</h6>
-        <div class="row p-0 d-flex justify-content-center">
-            <input class="form-control mt-4 mb-3 w-50 text-center" [(ngModel)]="codeInput" (input)="compare()" type="number"/>
+<div class="container p-0">
+    <div class="mt-5">
+        <div class="row">
+            <div class="col">
+                <h1 class="font-b border-text">¿Que es el portal de vendedores?</h1>
+                <p class="mb-0" style="text-align: justify;">El portal de vendedores es una plataforma que te permite conectar con clientes que necesitan tus servicios, es una herramienta que te permite crecer y aumentar tus ventas. <br><br> Aurora Studios Mexico te brinda las herramientas necesarias para gestionar tus servicios y simplificar las actividades tediosas exteriores, ademas, permite dar las visibilidad que todos necesitan, como dijimos, tu éxito es nuestro éxito.</p>
+            </div>
+            <div class="col-5 d-flex justify-content-center align-items-end">
+                <img src="../../../../assets/sellers_pic.png" alt="Image 1" width="300" height="auto">
+            </div>
         </div>
-        <div class="d-flex gap-2 p-0">
-            <button type="button" class="btn btn-purple w-50" [disabled]="!activeBtn"><i class="bi bi-check"></i> Verificar</button>
-            <button type="button" class="btn btn-outline-purple w-50" (click)="goMail()"><i class="bi bi-envelope"></i> Ir a Gmail</button>
+    </div>
+
+    <div style="margin-top: 7rem;">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-end overflow-hidden">
+                <img src="../../../../assets/sellers_pic2.png" alt="Image 2" width="400" height="auto">
+            </div>
+            <div class="col">
+                <div class="text-end">
+                    <h1 class="font-b border-text">¿Como funciona?</h1>
+                </div>
+                <p class="mb-0" style="text-align: justify;">Es simple. Solo necesitaremos datos personales y fiscales para validar que eres un vendedor responsable y evitar incidentes con tus compradores, ademas, esto nos permitirá brindarte algunas herramientas, como por ejemplo: Facturación electrónica, certificación de seguridad, etc..</p>
+            </div>
         </div>
-        
-    </div>   
-    <p class="mt-4 mb-0" style="font-size: smaller; opacity: .5;">¿No ve el correo? Verifique su correo de spam.</p>
+    </div>
+
+    <div style="margin-top: 7rem;">
+        <div class="row">
+            <div class="col">
+                <h1 class="font-b border-text">¿Que servicios puedo ofrecer?</h1>
+                <p class="mb-0" style="text-align: justify;">Puedes ofrecer cualquier servicio que se te ocurra, desde servicios de limpieza, hasta servicios de reparación de computadoras, no hay limites, siempre y cuando sea legal, claro. </p>
+
+                <h4 class="font-b mt-5">¡Que esperas! Unete hoy mismo a HomeServices®️ y comienza tu aventura como vendedor.</h4>
+                <button type="button" class="btn btn-dark">Iniciar ahora <i class="bi-arrow-right"></i></button>
+            </div>
+            <div class="col-5 d-flex justify-content-center align-items-end">
+                <img src="../../../../assets/sellers_pic3.png" alt="Image 3" width="200" height="auto">
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container border-end border-start border-bottom text-center ps-5 pb-4 pe-5" style="width: 30rem;" *ngIf="iserrorsend">
-    <h5 style="color: #808080;">Error al enviar el correo. Intente mas tarde.</h5>
-    <button type="button" class="btn btn-purple mt-4" (click)="back()"><i class="bi bi-arrow-left"></i> Volver</button>
-</div>
-
-<app-footer *ngIf="!iserrorsend"></app-footer>
+<app-footer></app-footer>

@@ -53,6 +53,11 @@ html, body{
     color: white;
 }
 
+.btn-outline-purple:disabled{
+    border-color: #c28dff;
+    color: #c28dff;
+}
+
 .btn-outline-purple-var-2{
     border-color: white;
     background-color: transparent;
@@ -71,6 +76,16 @@ html, body{
 
 .btn-purple:hover{
     background-color: #a95eff;
+    color: white;
+}
+
+.btn-purple:active{
+    background-color: #a95eff;
+    color: white;
+}
+
+.btn-purple:disabled{
+    background-color: rgb(200, 152, 255);
     color: white;
 }
 

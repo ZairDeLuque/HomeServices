@@ -47,6 +47,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { SkeletonModule } from 'primeng/skeleton';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -83,6 +85,9 @@ import { Payment3Component } from './bin/stages/payment3/payment3.component';
 import { SummaryBuyComponent } from './bin/components/summary-buy/summary-buy.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 import { VerificationBadgeComponent } from './bin/components/verification-badge/verification-badge.component';
+import { StripeComponent } from './bin/redirects/stripe/stripe.component';
+import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
+import { CategoriesComponent } from './bin/stages/categories/categories.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -127,7 +132,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     Payment3Component,
     SummaryBuyComponent,
     NotfoundComponent,
-    VerificationBadgeComponent
+    VerificationBadgeComponent,
+    StripeComponent,
+    MercadopagoComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -136,6 +144,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    RippleModule,
     MsalModule,
     RecaptchaModule,
     RecaptchaFormsModule,
@@ -162,13 +171,14 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PanelModule,
     NgxPayPalModule,
     AccordionModule,
-    RippleModule,
     ToastModule,
     TypeaheadModule,
     ScrollTopModule,
     SkeletonModule,
     KeyFilterModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FileUploadModule,
+    ImageModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,0 +1,24 @@
+<div style="height: 100%; width: 100%;">
+    <app-navbar [extended]="false"></app-navbar>
+    <div style="position: absolute; left: 50%; top: 48%; transform: translate(-48%, -50%); text-align: center;">
+        <div class="col border-start">
+            <div class="container-fluid mt-5" style="opacity: .5;">
+                <div class="d-flex justify-content-center">
+                    <div class="waveform">
+                        <div class="waveform__bar"></div>
+                        <div class="waveform__bar"></div>
+                        <div class="waveform__bar"></div>
+                        <div class="waveform__bar"></div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4 mb-0">
+                    <p class="mb-2">{{message}}</p>
+                </div>
+                <p>{{error}}</p>
+
+                <p class="mt-5">Espere 10 segundos para ser redirigido...</p>
+            </div>
+        </div>
+    </div>
+    <app-footer style="position: absolute; bottom: 0%; width: 100%;"></app-footer>
+</div>

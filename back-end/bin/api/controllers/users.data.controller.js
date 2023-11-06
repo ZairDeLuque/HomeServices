@@ -73,7 +73,6 @@ async function createUserCredentials(req, res){
             })
         }
         else{
-    
             //Crypt information
             const hashEmail = await bcrypt.hash(body.e2x, 12);
             const hashPassword = await bcrypt.hash(body.p3x, 12);
@@ -277,8 +276,61 @@ async function obtainFullData(req, res){
     }
 }
 
+async function getSmartData(req, res){
+    let cn;
+
+    try{
+        //Generate body const
+        const body = req.body;
+
+        //Create connection promise
+        cn = await Connection();
+
+        //Prepare query
+        const SQL = 'SELECT * FROM ud0x WHERE uuid0x0 = ?'
+        const Values = [body._uuid]
+
+        const [rows] = await cn.execute(SQL, Values);
+
+        //Results?
+        if(rows.length > 0){
+            const { fullname0x4, pp0x6, verify0x5 } = rows[0]
+
+            const array = {
+                fn0x0: await Cipher.resolveChallenge(fullname0x4.toString('utf-8')),
+                pp0x1: pp0x6.toString('utf-8'),
+                rep0x2: 1,
+                verify0x3: verify0x5
+            };
+
+            res.status(200).json({
+                result: array,
+                exists: true
+            })
+        }
+        else{
+            res.status(200).json({
+                result: 'UUID invalida, no es posible encontrarlo en la base de datos.',
+                exists: false
+            })
+        }
+    }
+    catch (e){
+        console.error('[ERR] Error in getSmartData:', e)
+        throw e;
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+//Function
+
 module.exports = {
     create: createUserCredentials,
     compare: compareUserCredentials,
-    getdata: obtainFullData
+    getdata: obtainFullData,
+    getSmart: getSmartData
 }
