@@ -20,6 +20,8 @@ export class NavbarComponent implements OnInit{
   protected nameLetter: string = '';
   protected URLimage: string = '';
 
+  protected sidebarVisible: boolean = false;
+
   constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService) { }
 
   whatUUID(): string {
