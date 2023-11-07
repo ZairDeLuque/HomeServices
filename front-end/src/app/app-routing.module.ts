@@ -29,13 +29,13 @@ import { CategoriesComponent } from './bin/stages/categories/categories.componen
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
-  {path: 'start', component: HomeComponent, canActivate: [!guard]},
+  {path: 'start', component: HomeComponent},
   {path: 'myservices/publish', component: Homestep2Component},
   {path: 'sellers', component: Homestep3Component},
   {path: 'sellers/register', component: Homestep4Component},
   {path: 'terms', component: TermsComponent},
   {path: 'privacy', component: PrivacyComponent},
-  {path: 'login', component: LoginComponent, canActivate: [!guard]},
+  {path: 'login', component: LoginComponent},
   {path: 'profile/:uuid', component: ProfileComponent},
   {path: 'payment/:status', component: ProductViewComponent },
   {path: 'services/:uuid', component: ServicesViewComponent},
@@ -49,8 +49,8 @@ const routes: Routes = [
   {path: 'categories', component: CategoriesComponent},
 
   //Redirects for payments
-  {path: 'api/v1/payments/stripe/:activity', canActivate: [guard], component: StripeComponent},
-  {path: 'api/v1/payments/mercadopago/:activity', canActivate: [guard], component: MercadopagoComponent},
+  {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},
+  {path: 'api/v1/payments/mercadopago/:activity', component: MercadopagoComponent},
 
   {path: '**', component: NotfoundComponent}
 ];

@@ -37,14 +37,18 @@
                     Iniciar sesión
                 </a>
             </div>
-            <div class="z-2" *ngIf="isCurrentSign">
-                <!-- Mode no pic -->
+            <button type="button" class="btn btn-outline-purple-var-2 pt-0 pb-0 d-flex align-items-center" pTooltip="Ver perfil" tooltipPosition="bottom" tooltipStyleClass="tooltip" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                <p-avatar image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
+                {{userName}}
+            </button>
+            <!-- <div class="z-2" *ngIf="isCurrentSign">
+                Mode no pic
                 <p-avatar label="{{nameLetter}}" styleClass="mr-2 mb-0 rounded-3" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
-                <!-- Mode pic URL -->
+                Mode pic URL
                 <p-avatar image="{{URLimage}}" styleClass="mr-2 mb-0 rounded-3" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
             </div>
             <div class="btn-group z-1" *ngIf="isCurrentSign">
-                <button type="button" class="btn border-0 dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                <button type="button" class="btn border-0" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                     {{userName}}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end p-2">
@@ -71,8 +75,29 @@
                     <li><button class="dropdown-item blue rounded-3" type="button"><i class="bi bi-question-circle"></i> Acerca de</button></li>
                     <li><button class="dropdown-item red rounded-3 btn-danger" type="button" (click)="deleteCurrentSesion()"><i class="bi bi-door-open"></i> Cerrar sesión</button></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 </nav>
 
+
+<div class="offcanvas offcanvas-end bg-blur" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-backdrop="static">
+    <div class="offcanvas-header">
+        <p-avatar size="large" image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2 rounded-3" [style]="{ 'background-color': '#febd69', color: '#ffffff', }" *ngIf="isURLPic"></p-avatar>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{userName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-bell"></i> Notificaciones</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-gem"></i> WorkHome®️ Prime</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-credit-card"></i> Mis métodos de pago</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-person-raised-hand"></i> Vender</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-building"></i> Organizaciones</button>
+            <button class="btn rounded-3 w-100 blue mb-1" type="button"><i class="bi bi-question-circle"></i> Acerca de</button>
+            <button class="btn rounded-3 w-100 red mb-1" type="button" (click)="deleteCurrentSesion()"><i class="bi bi-door-open"></i> Cerrar sesión</button>
+        </div>
+    </div>
+  </div>

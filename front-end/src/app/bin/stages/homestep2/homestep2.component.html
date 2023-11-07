@@ -7,7 +7,7 @@
     <div class="container mt-5 mb-5" style="width: 80rem;">
         <div class="row w-100 p-0">
             <div class="col d-flex align-items-end">
-                <h3 class="border-text font-b" style="width: 30rem;">¡Hola! Para comenzar, cuéntanos sobre tu servicio.</h3>
+                <h3 class="border-text font-b" style="width: 30rem;">¡Hola! Cuéntanos sobre tu servicio.</h3>
             </div>
             <div class="col d-flex justify-content-end">
                 <lord-icon
@@ -30,9 +30,7 @@
         <div class="col user-select-none">
             <!-- 1 -->
             <div class="container-fluid p-0">
-                <h5 class="mt-4">¿A que categoría pertenece tu servicio?</h5>
-                <!-- <p-autoComplete [(ngModel)]="_category" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete> -->
-                <!-- <input pInputText class="mt-2 w-100" [(ngModel)]="_category" name="_category"/> -->
+                <h5 class="mt-4 mb-3">¿A que categoría pertenece tu servicio?</h5>
                 <p-multiSelect [options]="categories" optionLabel="name" (onChange)="onChangeMulti2()" [selectionLimit]="1" [style]="{'width':'100%'}" [(ngModel)]="_category" name="_category"></p-multiSelect>
                 <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si la categoría no esta o similares, se intentará ajustar automaticamente.</p>
             </div>
@@ -85,7 +83,14 @@
                     </div>
                 </div>
             </div>
+
             <!-- 5 -->
+            <div class="container-fluid p-0 mt-3">
+                <h5 class="mb-0 m-0">¿Cobraras costos por traslado?</h5>
+            </div>
+            
+
+            <!-- 6 -->
             <div class="container-fluid p-0">
                 <div class="row mb-3">
                     <div class="col">

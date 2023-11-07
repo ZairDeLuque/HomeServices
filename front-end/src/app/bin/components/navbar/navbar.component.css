@@ -7,20 +7,22 @@
     border-style: solid;   
 }
 
-.dropdown-item{
+.canvas-item{
     transition: background-color .2s;
+    text-align: start;
 }
 
-.dropdown-item:hover{
+.canvas-item:hover{
     background-color: lightblue;
 }
 
-.dropdown-item:active{
+.canvas-item:active{
     color:#a95eff
 }
 
 .red{
     transition: background-color .2s, color .2s;
+    text-align: start;
 }
 
 .red:hover{
@@ -30,6 +32,7 @@
 
 .blue{
     transition: background-color .2s, color .2s;
+    text-align: start;
 }
 
 .blue:hover{
