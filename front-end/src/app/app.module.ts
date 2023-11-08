@@ -49,7 +49,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
-
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -89,6 +89,7 @@ import { VerificationBadgeComponent } from './bin/components/verification-badge/
 import { StripeComponent } from './bin/redirects/stripe/stripe.component';
 import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
+import { ExplicitModuleComponent } from './bin/components/explicit-module/explicit-module.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -136,7 +137,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     VerificationBadgeComponent,
     StripeComponent,
     MercadopagoComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ExplicitModuleComponent
   ],
   imports: [
     BrowserModule,
@@ -179,7 +181,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     KeyFilterModule,
     RadioButtonModule,
     FileUploadModule,
-    ImageModule
+    ImageModule,
+    DynamicDialogModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

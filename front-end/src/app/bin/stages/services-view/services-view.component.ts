@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoryGestorService } from '../../services/api/category-gestor.service';
 import { ServicesGestorService } from '../../services/api/services-gestor.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,14 +6,16 @@ import { MessageService } from 'primeng/api';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { Title } from '@angular/platform-browser';
 import * as Notiflix from 'notiflix';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ExplicitModuleComponent } from '../../components/explicit-module/explicit-module.component';
 
 @Component({
   selector: 'app-services-view',
   templateUrl: './services-view.component.html',
   styleUrls: ['./services-view.component.css'],
-  providers: [MessageService]
+  providers: [DialogService, MessageService]
 })
-export class ServicesViewComponent implements OnInit{
+export class ServicesViewComponent implements OnInit, OnDestroy{
 
   protected categoryShowed: string | undefined;
   protected nameShowed: string | undefined;
@@ -34,9 +36,9 @@ export class ServicesViewComponent implements OnInit{
   private categories: any;
   protected imagesBlob: any[] = [];
 
-  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title){
-    
-  }
+  private ref: DynamicDialogRef | undefined;
+
+  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService){}
 
   findInfoSeller(uuid: string){
     const packet = {
@@ -133,13 +135,18 @@ export class ServicesViewComponent implements OnInit{
         this.descriptionShowed = result.result[0].description0x4;
         
         this.findInfoSeller(result.result[0].owner0x1);
-        
-        if(result.result[0].ttp0x6 != 'Pago único' && this.priceShowed != 0){
+
+        if(result.result[0].ttp0x6 == 'Pago único' && this.priceShowed == 0){
+          this.priceShowed_Boolean = false;
+        }
+        else{
+          this.priceShowed_Boolean = true;
           this.priceShowed = result.result[0].price0x5;
           this.priceBShowed = 'Pago / ' + result.result[0].ttp0x6;
         }
-        else{
-          this.priceShowed_Boolean = false;
+
+        if(result.result[0].explicit0x10 == 'n'){
+
         }
 
         if(Array.isArray(this.categories)) {
@@ -157,6 +164,23 @@ export class ServicesViewComponent implements OnInit{
         this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar la información del servicio'})
       }
     )
+  }
 
+  showDialog(){
+    this.ref = this.DialogS.open(ExplicitModuleComponent, {
+      header: 'Contenido explicito',
+      width: '75%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
+    })
+
+    this.ref.onClose.subscribe(() => {
+      
+    })
+  }
+
+  ngOnDestroy(): void {
+      
   }
 }

@@ -4,7 +4,7 @@
 
 <div class="container-fluid" style="background-color: #ededed;">
     <a href="" class="invisible">👻</a>
-    <div class="container mt-5 mb-5" style="width: 80rem;">
+    <div class="container mt-4 mb-5" style="width: 80rem;">
         <div class="row w-100 p-0">
             <div class="col d-flex align-items-end">
                 <h3 class="border-text font-b" style="width: 30rem;">¡Hola! Cuéntanos sobre tu servicio.</h3>
@@ -86,10 +86,15 @@
 
             <!-- 5 -->
             <div class="container-fluid p-0 mt-3">
-                <h5 class="mb-0 m-0">¿Cobraras costos por traslado?</h5>
+                <h5 class="mb-3">¿Cobraras costos por traslado?</h5>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon bg-transparent">MXN</span>
+                    <input type="number" [(ngModel)]="_cashC" name="_cashC" pInputText/>
+                </div>
+                <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si no cobraras un traslado no ingreses una cantidad (MXN 0).</p>
             </div>
             
-
+            
             <!-- 6 -->
             <div class="container-fluid p-0">
                 <div class="row mb-3">
@@ -106,10 +111,24 @@
                     </ng-template>
                 </p-fileUpload>
             </div>
+            
+            <h4 class="mt-3">Adicionales:</h4>
+            <hr class="w-25 opacity-25">
+
+            <!-- 5 -->
+            <div class="container-fluid p-0 mt-3">
+                <h5 class="mb-3">¿Tu servicio es apto para todos?</h5>
+                <p-multiSelect [options]="explicitOps" optionLabel="name" (onChange)="explicitChanges()" [filter]="false" [selectionLimit]="1" [showHeader]="false" [style]="{'width':'100%'}" [(ngModel)]="_explicit" name="_explicit"></p-multiSelect>
+                <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Esta opción limitara la visibilidad para proteger a todos los usuarios menores de 18 años. Si el usuario en su búsqueda deshabilita el filtro de contenido explicito, tu servicio se mostrará normalmente.</p>
+            </div>
         </div>
         <div class="col user-select-none">
             <h3 class="font-b mt-3 border-text mb-4">Vista previa de la vista de contrato:</h3>
             <div class="container-fluid p-0">
+                <div class="alert alert-danger" role="alert" *ngIf="_explicit_bool">
+                    <i class="bi bi-exclamation-triangle"></i> <strong> Filtro explicito:</strong> Toma en cuenta las alertas del filtro.
+                </div>
+                
                 <div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative">
                     <p-skeleton height="6rem"></p-skeleton>
                     <div class="row p-0 position-absolute bottom-0 ms-3 mb-4 w-100">
@@ -172,7 +191,6 @@
                 </div>
             </div>
             <button type="button" class="btn btn-purple mb-3 mt-2 w-100" style="padding: .9rem;" (click)="onSubmit()"><i class="bi bi-receipt"></i> Enviar a revision</button>
-
             <p class="mb-0 opacity-50 text-center" style="font-size: small;">La revision puede tomar hasta 48 hrs después de ser enviada para publicarse.</p>
         </div>
     </div>

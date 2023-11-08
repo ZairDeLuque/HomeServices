@@ -15,8 +15,8 @@ async function addNewService(req, res){
         cn = await Connection();
 
         const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
-        const sql = 'INSERT INTO s0x (uuid0x0, owner0x1, category0x2, name0x3, description0x4, price0x5, ttp0x6, date0x7, status0x8) VALUES (?,?,?,?,?,?,?,?,?)'
-        const values = [body._uuid0x, body._own0x, body.ctg0x, body.n0x, body.desc0x, body.pr0x, body.ttp0x, dateFormated, 0]
+        const sql = 'INSERT INTO s0x (uuid0x0, owner0x1, category0x2, name0x3, description0x4, price0x5, ttp0x6, date0x7, status0x8, priceB0x9, explicit0x10) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
+        const values = [body._uuid0x, body._own0x, body.ctg0x, body.n0x, body.desc0x, body.pr0x, body.ttp0x, dateFormated, 0, body.prb0x, body.e0x]
 
         const [result] = await cn.execute(sql, values);
 
@@ -126,6 +126,8 @@ async function getInfoServiceByUUID(req, res){
                     price0x5: info.price0x5,
                     ttp0x6: info.ttp0x6,
                     date0x7: info.date0x7,
+                    priceB0x9: info.priceB0x9,
+                    explicit0x10: info.explicit0x10
                 }));
 
                 // const returned2 = [];

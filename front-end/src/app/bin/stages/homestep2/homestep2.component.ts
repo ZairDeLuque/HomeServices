@@ -18,6 +18,11 @@ interface Categories {
   code: string
 }
 
+interface Explicit {
+  name: string,
+  code: string
+}
+
 @Component({
   selector: 'app-homestep2',
   templateUrl: './homestep2.component.html',
@@ -42,18 +47,47 @@ export class Homestep2Component implements OnInit{
   protected _cash_b_show: string | undefined;
   private _cash_free_ad: boolean = false;
   private _cash_free_ad_2: boolean = false;
+  protected _cashC: number = 0;
 
   protected _fileA: string | undefined;
   protected _fileA_length: number = 0;
   protected _fileA_all: any;
   private uploadedFiles: any[] = [];
 
+  protected _explicit: any;
+  protected _explicit_bool: boolean = false;
+  private _explicitSelected: string | undefined;
+
   private uuidSavedItem: string | undefined;
 
   protected checkTerms: boolean = false;
 
   protected times: TimeSelect[];
+  protected explicitOps: Explicit[] = [{name: "Si", code: "y"},{name: "No", code: "n"}];
   protected categories: Categories[] = [];
+
+  explicitChanges(){
+    if(this._explicit != undefined){
+      if(this._explicit[0]){
+        if(this._explicit[0].name === 'No'){
+          this._explicit_bool = true;
+          this._explicitSelected = this._explicit[0].name;
+        }
+        else{
+          this._explicit_bool = false;
+          this._explicitSelected = this._explicit[0].name;
+        }
+      }
+      else{
+        this._explicit_bool = false;
+        this._explicitSelected = '';
+      }
+    }
+    else{
+      this._explicit_bool = false;
+      this._explicitSelected = '';
+    }
+  }
 
   async compressAndConvertImageToB64(file: File, quality: number): Promise<string | null> {
     return new Promise((resolve, reject) => {
@@ -143,8 +177,6 @@ export class Homestep2Component implements OnInit{
   countFileSelected(event: any){
     this._fileA_length = event.currentFiles.length;
     this._fileA_all = event.currentFiles;
-
-    console.log(this._fileA_all);
   }
   
   deleteFileSelected(event: any){
@@ -201,7 +233,9 @@ export class Homestep2Component implements OnInit{
       n0x: this._name,
       desc0x: this._description,
       pr0x: this._cash,
-      ttp0x: this._cash_b_show
+      ttp0x: this._cash_b_show,
+      prb0x: this._cashC,
+      e0x: this._explicit[0].code
     }
 
     return JSON;
@@ -264,6 +298,11 @@ export class Homestep2Component implements OnInit{
       return;
     }
 
+    if(this._explicitSelected === ''){
+      this.NG_MSG.add({severity: 'info', summary: 'Filtros explícitos faltantes', detail: 'Olvidaste indicarnos sobre el filtro explicito, ¡están al final!'});
+      return;
+    }
+
     Notiflix.Loading.dots('Esperando servidor...',{
       clickToClose: false,
       svgColor: '#a95eff',
@@ -280,6 +319,7 @@ export class Homestep2Component implements OnInit{
 
       this.onUpload();
     }, error => {
+      console.error(error)
       Notiflix.Loading.remove();
     })
   }
@@ -302,8 +342,13 @@ export class Homestep2Component implements OnInit{
   }
 
   onChangeMulti(){
-    if(this._cash_b[0]){
-      this._cash_b_show = this._cash_b[0].name;
+    if(this._cash_b != undefined){
+      if(this._cash_b[0]){
+        this._cash_b_show = this._cash_b[0].name;
+      }
+      else{
+        this._cash_b_show = ''
+      }
     }
     else{
       this._cash_b_show = ''
@@ -311,8 +356,13 @@ export class Homestep2Component implements OnInit{
   }
 
   onChangeMulti2(){
-    if(this._category[0]){
-      this._category_show = this._category[0].name;
+    if(this._category != undefined){
+      if(this._category[0]){
+        this._category_show = this._category[0].name;
+      }
+      else{
+        this._category_show = ''
+      }
     }
     else{
       this._category_show = ''
