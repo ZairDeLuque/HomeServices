@@ -23,14 +23,15 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.4.3",
-    "mercadopago": "^1.5.16",
+    "mercadopago": "^2.0.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.6.0",
+    "mysql2": "^3.6.3",
     "nodejs-nodemailer-outlook": "^1.2.4",
-    "nodemailer": "^6.9.5",
+    "nodemailer": "^6.9.7",
     "request": "^2.88.2",
     "socket.io": "^4.7.2",
+    "ssh2": "^1.14.0",
     "stripe": "^14.3.0"
   }
 }
