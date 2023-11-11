@@ -1,6 +1,6 @@
 <app-navbar [extended]="false" class="sticky-top"></app-navbar>
 
-<p-toast [life]="7000"></p-toast>
+<p-toast></p-toast>
 
 <div class="container-fluid" style="background-color: #ededed;">
     <a href="" class="invisible">👻</a>
@@ -32,7 +32,7 @@
             <div class="container-fluid p-0">
                 <h5 class="mt-4 mb-3">¿A que categoría pertenece tu servicio?</h5>
                 <p-multiSelect [options]="categories" optionLabel="name" (onChange)="onChangeMulti2()" [selectionLimit]="1" [style]="{'width':'100%'}" [(ngModel)]="_category" name="_category"></p-multiSelect>
-                <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si la categoría no esta o similares, se intentará ajustar automaticamente.</p>
+                <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si la categoría no esta o similares, escoja la mas cercana, nosotros crearemos una por ti.</p>
             </div>
             <!-- 2 -->
             <div class="container-fluid p-0">
@@ -105,7 +105,7 @@
                         <p class="mb-0">{{_fileA_length}} seleccionados</p>
                     </div>
                 </div>
-                <p-fileUpload mode="advanced" chooseStyleClass="btn-purple border-0" chooseLabel="Cargar" [showCancelButton]="false" removeStyleClass="btn-purple border-0 rounded-3" [showUploadButton]="false" name="demo[]" cancelStyleClass="rounded-3" (onSelect)="countFileSelected($event)" (onRemove)="deleteFileSelected($event)" [multiple]="true" accept="image/*">
+                <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="1e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" (onSelect)="countFileSelected($event)" (onRemove)="deleteFileSelected($event)" [multiple]="true" accept="image/*">
                     <ng-template pTemplate="toolbar">
                         <div class="mt-2 opacity-75" style="font-size: x-small;">Las fotografías deberán cumplir con las normativas de convivencia en HomeServices®️</div>
                     </ng-template>

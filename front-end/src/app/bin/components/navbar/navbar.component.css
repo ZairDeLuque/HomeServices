@@ -38,3 +38,14 @@
 .blue:hover{
     background-color:rgb(105, 137, 207);
 }
+
+.border-text{
+    display: inline-block;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;
+    padding-bottom: 7px;
+}

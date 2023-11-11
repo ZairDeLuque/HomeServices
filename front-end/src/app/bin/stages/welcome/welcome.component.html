@@ -1,0 +1,132 @@
+<app-navbar-tiny class="sticky-top"></app-navbar-tiny>
+
+<p-toast></p-toast>
+
+<div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative user-select-none">
+    <img src="../../../../assets/welcome_header.png" alt="Background Image" width="100%">
+    <div class="container position-absolute bottom-0 ms-5 w-75" style="margin-bottom: 6rem;">
+        <h1 class="font-b" style="color: #1f1f1f; font-size: 72px;">Bienvenido {{name}} a <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+        <h5 style="text-align: justify;">Todo esta mas que listo, pero primero, configuremos tu experiencia en el sitio.</h5>
+    </div>
+</div>
+
+
+<div class="container p-0 user-select-none" style="margin-top: 6rem;">
+    <div class="row">
+        <div class="col-3 d-flex justify-content-center align-items-center">
+            <lord-icon
+            src="https://cdn.lordicon.com/surcxhka.json"
+            trigger="loop"
+            delay="2000"
+            state="hover-jump-roll"
+            colors="primary:#121331,secondary:#a95eff"
+            style="width:140px; height:140px; overflow: visible;">
+        </lord-icon>
+    </div>
+    <div class="col">
+            <h3>Cuéntanos, <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¿de donde eres?</span></h3>
+            <p class="mt-1" style="opacity: .7;">Para nosotros, conocer donde vives nos ayuda a recomendarte servicios en tu localidad.</p>
+            <div class="row">
+                <div class="col">
+                    <div class="container-fluid p-0">
+                        <h5 class="mt-2 mb-3">Estado:</h5>
+                        <p-multiSelect [selectionLimit]="1" [options]="states" optionLabel="name" [style]="{'width':'100%'}" [(ngModel)]="sStates" (onChange)="getCitys($event)"></p-multiSelect>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container-fluid p-0">
+                        <h5 class="mt-2 mb-3">Ciudad:</h5>
+                        <p-multiSelect [options]="citys" optionLabel="name" [selectionLimit]="1" [style]="{'width':'100%'}" [(ngModel)]="sCity"></p-multiSelect>
+                        <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Al seleccionar un estado, las ciudades se actualizaran automáticamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container p-0 user-select-none" style="margin-top: 6rem;">
+    <h3>¿Cual es tu <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">propósito</span>?</h3>
+    <p class="mt-1" style="opacity: .7;">Conozcamos sobre tus intereses en la pagina.</p>
+    <div class="d-flex gap-3">
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <!-- 1 -->
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/qnwzeeae.json"
+                                trigger="loop"
+                                delay="2000"
+                                state="in-reveal"
+                                style="width:140px; height:140px">
+                            </lord-icon>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <p-radioButton name="shopper" value="1" [(ngModel)]="interests" inputId="int1"></p-radioButton>
+                            <label for="int1" class="ml-2"><h6>Soy un comprador</h6></label>
+                        </div>
+                        <hr>
+                        <p style="text-align: justify; opacity: .7;">Los compradores tienen acceso a toda la amplia lista de servicios ofrecidos por vendedores cercanos a ti, utilizamos la dirección que indicas para saber que recomendaciones brindarte.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- 2 -->
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/tlxagvyb.json"
+                                trigger="loop"
+                                delay="2000"
+                                style="width:140px; height:140px">
+                            </lord-icon>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <p-radioButton name="buyer" value="2" [(ngModel)]="interests" inputId="int2"></p-radioButton>
+                            <label for="int2" class="ml-2"><h6>Soy un vendedor</h6></label>
+                        </div>
+                        <hr>
+                        <p style="text-align: justify; opacity: .7;">Los vendedores tendrán acceso a herramientas que facilitaran su desarrollo en el sitio, desde control de servicios, gestión de facturas, control de ventas. Ademas de aun asi tener las acciones de un comprador. (Necesitaras verificar datos)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- 2 -->
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/kysgebip.json"
+                                trigger="loop"
+                                delay="2000"
+                                style="width:140px; height:140px">
+                            </lord-icon>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <p-radioButton name="organization" value="3" [(ngModel)]="interests" inputId="int3"></p-radioButton>
+                            <label for="int3" class="ml-2"><h6>Soy una organización/empresa</h6></label>
+                        </div>
+                        <hr>
+                        <p style="text-align: justify; opacity: .7;">
+                            HomeServices® ofrece un sistema de empresas para gestionar grupos de trabajadores y demostrar la legitimidad de los servicios ofrecidos. Ofrecerá los mismos beneficios que un vendedor. (Necesitaras verificar datos)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative user-select-none" style="margin-top: 6rem;">
+    <img src="../../../../assets/custom_header_1.png" alt="Background Image" width="100%">
+    <div class="row d-flex p-0 position-absolute justify-content-center bottom-0 ms-5 w-50" style="margin-bottom: 8rem;">
+        <h1 class="font-b" style="color: #1f1f1f; font-size: 48px;">Bienvenido nuevamente a <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+        <h6>Finalizamos tu experiencia con un clic mas, estamos ansiosos de tenerte en nuestro servicio.</h6>
+        <p-button pRipple label="Finalizar" icon="bi bi-arrow-right" styleClass="p-button-help rounded-2 w-100 mt-3 mb-2" type="submit" (onClick)="onSubmit()"></p-button>
+    </div>
+</div>
+
+<app-footer></app-footer>

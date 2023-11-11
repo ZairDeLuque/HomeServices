@@ -31,4 +31,13 @@ export class UsersgestorService {
   public getTinyInformation(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/show', data);
   }
+
+  public getName(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/name', data);
+  }
+
+  public createSubCredentials(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/subcredentials', data);
+  }
+
 }

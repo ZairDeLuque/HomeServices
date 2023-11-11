@@ -99,23 +99,36 @@ export class LoginComponent implements OnInit{
         Notiflix.Loading.remove();
 
         if(result.allowed === true){
-          Notiflix.Notify.success('Maestro de llaves: ' + result.result)
-          
-          if(this.saveCheck === true){
-            localStorage.setItem('uu0x0', result.uuid)
-            localStorage.setItem('ac0x1', 'true')
-            localStorage.setItem('_token', result.token)
+          if(result.isnew === 1){
+            if(this.saveCheck === true){
+              localStorage.setItem('uu0x0', result.uuid)
+              localStorage.setItem('ac0x1', 'true')
+              localStorage.setItem('_token', result.token)
+            }
+            else{
+              sessionStorage.setItem('uu0x0', result.uuid)
+              sessionStorage.setItem('ac0x1', 'true')
+              sessionStorage.setItem('_token', result.token)
+            }
+            
+            this.router.navigate(["/welcome"]);
           }
           else{
-            sessionStorage.setItem('uu0x0', result.uuid)
-            sessionStorage.setItem('ac0x1', 'true')
-            sessionStorage.setItem('_token', result.token)
-          }
+            Notiflix.Notify.success('Maestro de llaves: ' + result.result)
+          
+            if(this.saveCheck === true){
+              localStorage.setItem('uu0x0', result.uuid)
+              localStorage.setItem('ac0x1', 'true')
+              localStorage.setItem('_token', result.token)
+            }
+            else{
+              sessionStorage.setItem('uu0x0', result.uuid)
+              sessionStorage.setItem('ac0x1', 'true')
+              sessionStorage.setItem('_token', result.token)
+            }
 
-          this.router.navigate(["/"], 
-          {
-            queryParams: {locate: 'true'}
-          });
+            this.router.navigate(["/"]);
+          }
         }
         else{
           this.NG_MSG.add({severity: 'error', summary: 'Credenciales invalidas', detail: result.result, closable: true})

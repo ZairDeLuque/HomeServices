@@ -59,13 +59,13 @@
                     </div>
                     <div class="row p-0 mb-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="rounded-2" severity="help" type="submit" (onClick)="compare('AURORA')"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Iniciar sesión" styleClass="p-button-help rounded-2" severity="help" type="submit" (onClick)="compare('AURORA')"></p-button>
                         </div>
                         <div class="col-auto p-0">
-                            <p-button label="No tengo cuenta" [text]="true" (onClick)="noAccount()" styleClass="p-button-help rounded-2"></p-button>
+                            <p-button label="No tengo cuenta" (onClick)="noAccount()" styleClass="p-button-help p-button-text rounded-2"></p-button>
                         </div>
                         <div class="col d-flex justify-content-end me-2 p-0">
-                            <p-button label="Volver" [text]="true" styleClass="p-button-help rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
+                            <p-button label="Volver" styleClass="p-button-help p-button-text rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
                         </div>
                     </div>
                 </form>

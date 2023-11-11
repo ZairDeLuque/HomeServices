@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { MessageService } from 'primeng/api';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-inside-home',
@@ -27,9 +28,11 @@ export class InsideHomeComponent implements OnInit{
     { title: 'Elemento 10', description: 'Este es el elemento 10' }
   ];
 
-  constructor(private route: ActivatedRoute, private _API_: UsersgestorService){}
+  constructor(private route: ActivatedRoute, private _API_: UsersgestorService, private title: Title){}
 
   ngOnInit(): void {
+    this.title.setTitle('Inicio | HomeServices®️');
+
     let _param: boolean | undefined;
 
     this.route.queryParams.subscribe(params => {

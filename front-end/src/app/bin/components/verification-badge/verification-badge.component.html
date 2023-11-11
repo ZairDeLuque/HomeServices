@@ -28,11 +28,11 @@
                 </div>
             </div>
 
-            <p style="font-size: smaller; opacity: .7;">¿Porque pedimos nuevamente tu correo? Esto con el fin de nosotros verificar que no requerirás un código de verificación ajeno a esta cuenta. Ademas, esto nos ayuda a nunca recibir tu email en nuestros servicios, asi mantendrás tus credenciales privadas.</p>
+            <p style="font-size: x-small; opacity: .7;">¿Porque pedimos nuevamente tu correo? Esto con el fin de verificar que no requerirás un código de verificación ajeno a esta cuenta. Ademas, esto debido que nunca recibimos tu correo y contraseña en nuestros servicios, asi mantendremos datos privados.</p>
 
             <div class="row user-select-none">
                 <div class="col">
-                    <p-button pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="rounded-2" severity="help" type="submit" (onClick)="btnActions()" [disabled]="!form.valid"></p-button>
+                    <p-button pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="p-button-help rounded-2" type="submit" (onClick)="btnActions()" [disabled]="!form.valid"></p-button>
                 </div>
                 <div class="col d-flex align-items-end justify-content-end">
                     <p style="font-size: smaller; opacity: .5;">ID: ({{showUUID}})</p>

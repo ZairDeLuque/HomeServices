@@ -249,13 +249,13 @@ export class StatesandcitysService {
       { name: 'Oaxaca de Juárez', stateCode: 'OA' },
       { name: 'Salina Cruz', stateCode: 'OA' },
       { name: 'Juchitán de Zaragoza', stateCode: 'OA' },
-      { name: 'Tuxtepec', stateCode: 'OA' },
       { name: 'Huajuapan de León', stateCode: 'OA' },
       { name: 'Santiago Pinotepa Nacional', stateCode: 'OA' },
       { name: 'San Juan Bautista Tuxtepec', stateCode: 'OA' },
       { name: 'Ixtepec', stateCode: 'OA' },
       { name: 'Miahuatlán de Porfirio Díaz', stateCode: 'OA' },
       { name: 'Zimatlán de Álvarez', stateCode: 'OA' },
+      { name: 'Temascal', stateCode: 'OA'},
 
       // Puebla
       { name: 'Puebla', stateCode: 'PU' },

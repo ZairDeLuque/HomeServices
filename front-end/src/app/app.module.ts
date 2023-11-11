@@ -90,6 +90,7 @@ import { StripeComponent } from './bin/redirects/stripe/stripe.component';
 import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
 import { ExplicitModuleComponent } from './bin/components/explicit-module/explicit-module.component';
+import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -138,7 +139,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     StripeComponent,
     MercadopagoComponent,
     CategoriesComponent,
-    ExplicitModuleComponent
+    ExplicitModuleComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

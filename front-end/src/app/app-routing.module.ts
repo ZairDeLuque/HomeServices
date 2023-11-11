@@ -26,6 +26,7 @@ import { ProductViewComponent } from './bin/stages/product-view/product-view.com
 import { guard } from './bin/guards/routes.guard';
 import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
+import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'services/buy/payment/results/:id', component: Payment3Component},
   {path: 'notaccount', component: NotaccountComponent},
   {path: 'categories', component: CategoriesComponent},
+  {path: 'welcome', component: WelcomeComponent},
 
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},

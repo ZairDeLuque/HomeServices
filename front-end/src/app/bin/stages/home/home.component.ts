@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit{
     this.formLogin = this.__formgroup.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/[a-zA-Z0-9!@#$%^&*()-_+=<>?]/)]]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/[a-zA-Z0-9!@#$%^&*()-_+=<>?]/)]],
+      session: ['']
     })
 
     this.Title.setTitle('Crear cuenta | HomeServices®️')
@@ -74,6 +75,17 @@ export class HomeComponent implements OnInit{
     })
   }
 
+  reformatJSON2(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      const json = {
+        e0x: this.formLogin.controls['email'].value,
+        p1x: this.formLogin.controls['password'].value,
+      }
+
+      resolve(json)
+    })
+  }
+
   onResolved(captchaResponse: string) {
     if(captchaResponse){
       this.RecapCheck = true; 
@@ -95,18 +107,40 @@ export class HomeComponent implements OnInit{
       this.closeModal();
 
       this.userAPI.createCredentials(json).subscribe(
-        result => {
+        async result => {
           if(result.already === true){
             Notiflix.Loading.remove();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
           }
           else{
-            if(result.result === true){
-              Notiflix.Loading.remove();
+            if(result.already === true){
+              const json2 = await this.reformatJSON2();
 
-              Notiflix.Notify.success('Inicie sesión nuevamente con sus credenciales para finalizar el proceso.')
-
-              this.router.navigate(["/login"]);
+              this.userAPI.compareCredentials(json2).subscribe(result2 => {
+                Notiflix.Loading.remove();
+                
+                if(this.formLogin.controls['session'].value === true){
+                  localStorage.setItem('uu0x0', json.u0x)
+                  localStorage.setItem('ac0x1', 'true')
+                  localStorage.setItem('_token', result2.token)
+                }
+                else{
+                  sessionStorage.setItem('uu0x0', json.u0x)
+                  sessionStorage.setItem('ac0x1', 'true')
+                  sessionStorage.setItem('_token', result2.token)
+                }
+                  
+                if(result2.isnew === 1){
+                  this.router.navigate(["/welcome"]);
+                }
+                else{
+                  this.router.navigate(["/"]);
+                }
+              }, error => {
+                console.error(error);
+                this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios no generaron un inicio de sesión, inicie sesión manualmente.', closable: true})
+              })
+              
             }
             else{
               Notiflix.Loading.remove();
@@ -116,6 +150,7 @@ export class HomeComponent implements OnInit{
         },
         error => {
           Notiflix.Loading.remove();
+          console.error(error);
           this.NG_MSG.add({severity: 'error', summary: 'Oh oh', detail:'Los servicios de Aurora Studios no han conseguido crear las credenciales.', closable: true})
         }
       );
@@ -152,24 +187,20 @@ export class HomeComponent implements OnInit{
         result => {
           if(result.already === true){
             Notiflix.Loading.remove();
+            this._authService.signOut();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
           }
           else{
-            if(result.result === true){
-              Notiflix.Loading.remove();
+            Notiflix.Loading.remove();
 
-              Notiflix.Notify.success('Inicie sesión nuevamente con Google para finalizar el proceso.')
+            Notiflix.Notify.success('Inicie sesión nuevamente con Google para finalizar el proceso.')
 
-              this.router.navigate(["/login"]);
-            }
-            else{
-              Notiflix.Loading.remove();
-              this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios retornaron un indefinido, intente crear nuevamente sus credenciales.', closable: true})
-            }
+            this.router.navigate(["/login"]);
           }
         },
         error => {
           Notiflix.Loading.remove();
+          console.error(error)
           this.NG_MSG.add({severity: 'error', summary: 'Oh oh', detail:'Los servicios de Aurora Studios no han conseguido crear las credenciales.', closable: true})
         }
       );

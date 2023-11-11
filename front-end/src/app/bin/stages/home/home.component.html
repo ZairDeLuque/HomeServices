@@ -65,15 +65,25 @@
                         </div>
                         <input pInputText type="password" id="password" formControlName="password"/>
                     </div>
+                    <div class="container-fluid p-0 mb-4 mt-3">
+                        <div class="row p-0">
+                            <div class="col-auto">
+                                <input pTooltip="Desmarcado, la sesión termina al cerrar la pestaña o navegador." tooltipPosition="top" class="form-check-input ms-0 border-dark-subtle" formControlName="session" name="session" type="checkbox">
+                            </div>
+                            <div class="col d-flex align-items-center">
+                                <p class="mb-0 m-0" style="font-size: 12px; color: gray">¿Mantener sesión activa?</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row p-0 mb-3 mt-3">
                         <div class="col-auto me-2 p-0">
-                            <p-button pRipple [disabled]="!formLogin.valid" label="Crear cuenta" styleClass="rounded-2" severity="help" type="submit" (onClick)="openModal(verify)"></p-button>
+                            <p-button pRipple [disabled]="!formLogin.valid" label="Crear cuenta" styleClass="rounded-2 p-button-help" type="submit" (onClick)="openModal(verify)"></p-button>
                         </div>
                         <div class="col-auto p-0">
-                            <p-button label="Tengo cuenta" [text]="true" (onClick)="siAccount()" styleClass="p-button-help rounded-2"></p-button>
+                            <p-button label="Tengo cuenta" (onClick)="siAccount()" styleClass="p-button-text p-button-help rounded-2"></p-button>
                         </div>
                         <div class="col d-flex justify-content-end me-2 p-0">
-                            <p-button label="Volver" [text]="true" styleClass="p-button-help rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
+                            <p-button label="Volver" styleClass="p-button-text p-button-help rounded-2" icon="bi bi-arrow-left" (onClick)="back()"></p-button>
                         </div>
                     </div>
                 </form>
@@ -197,7 +207,7 @@
             <h4 class="border-text">9. Contacto</h4>
             <p class="mb-0">
                 9.1. Para cualquier pregunta o comentario relacionado con estos Términos y Condiciones, los usuarios pueden ponerse
-                en contacto con HomeServices®️ a través de <a href="mailto:hola@home-support.store">hola@home-support.store</a>
+                en contacto con HomeServices®️ a través de <a href="mailto:hola@home-support.store">hola&#64;home-support.store</a>
             </p>
         </div>
         <div class="container-fluid p-0 mb-4 d-flex justify-content-center">
@@ -215,7 +225,7 @@
                 <re-captcha (resolved)="onResolved($event)" (errored)="onErrorRecap()" badge="bottomright"></re-captcha>
             </div>
             <div class="col d-flex justify-content-end align-items-center">
-                <p-button pRipple [disabled]="RecapCheck == false || TermsCheck == false" label="Finalizar" styleClass="rounded-2" severity="help" type="submit" (onClick)="sendData_AURORA()"></p-button>
+                <p-button pRipple [disabled]="RecapCheck == false || TermsCheck == false" label="Finalizar" styleClass="p-button-help rounded-2" severity="help" type="submit" (onClick)="sendData_AURORA()"></p-button>
             </div>
         </div>
     </div>
