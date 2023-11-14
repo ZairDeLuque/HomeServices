@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: homework
 -- ------------------------------------------------------
--- Server version	8.0.32
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -120,6 +120,7 @@ CREATE TABLE `s0x` (
 
 LOCK TABLES `s0x` WRITE;
 /*!40000 ALTER TABLE `s0x` DISABLE KEYS */;
+INSERT INTO `s0x` VALUES ('0-1-0-1','1f44aa8d-5658-4e8a-9a7b-abd7ce59a839','CDN','asd',_binary 'asd',900,'Dia','2022-01-01 00:00:00',0,90,'0');
 /*!40000 ALTER TABLE `s0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,6 +170,31 @@ LOCK TABLES `status0x` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tm0x`
+--
+
+DROP TABLE IF EXISTS `tm0x`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tm0x` (
+  `id0x0` int NOT NULL,
+  `remited0x1` varchar(255) NOT NULL,
+  `sender0x2` varchar(255) NOT NULL,
+  `theme0x3` varchar(45) NOT NULL,
+  `lastmessage0x4` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tm0x`
+--
+
+LOCK TABLES `tm0x` WRITE;
+/*!40000 ALTER TABLE `tm0x` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tm0x` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ud0x`
 --
 
@@ -195,7 +221,7 @@ CREATE TABLE `ud0x` (
 
 LOCK TABLES `ud0x` WRITE;
 /*!40000 ALTER TABLE `ud0x` DISABLE KEYS */;
-INSERT INTO `ud0x` VALUES ('95a720f2-b4b0-4db9-bcbe-411769eb7e4d','GOOGLE',_binary '$2b$12$hkyuOhJmUs6whpiGS4sC3OYSSDstSMSVEMLXsbbg7Pafe5R657jfa',_binary '$2b$12$73Kmw1IT4IS5G/EvaZ8PauhvITGZSLCG3qLEL8Oy9JznRT.Eqe0.q',_binary 'Eak Zadu',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocKPfa3vUAoeuzglZNUN0M2VAESmJUV48J7s1jNa8oCD-F0=s96-c','1','2023-11-13 17:37:38',0);
+INSERT INTO `ud0x` VALUES ('1f44aa8d-5658-4e8a-9a7b-abd7ce59a839','GOOGLE',_binary '$2b$12$mESSF2/wC6JmqSFpkeoWxuyRb.NdbKnqax6.nT41my/0h1xZGm13S',_binary '$2b$12$bDdKhk6FxvSTENO/fh5iheeNjSRQ69RgOWHAxMVH0Ey5jjDNYVsW2',_binary 'Mxqjmzpqd emzfumsa',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocJy1kzFRxGFNZYY45Anm3rjSJInkPx-2T8xl5CxDW0O=s96-c','1','2023-11-14 11:06:34',0);
 /*!40000 ALTER TABLE `ud0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +245,7 @@ CREATE TABLE `ud_p0x` (
 
 LOCK TABLES `ud_p0x` WRITE;
 /*!40000 ALTER TABLE `ud_p0x` DISABLE KEYS */;
-INSERT INTO `ud_p0x` VALUES ('Amjmom','Fqymeomx','0fd4a50b-126a-4a42-a90f-659120a1cdb7'),('Bgqnxm','Fqtgmoáz','10955ec1-c6de-4dbd-b8d8-de9b8bcece75'),('Euzmxam','Ogxumoáz','91b96ec9-ba0b-4754-8693-ecec384fd4d9'),('Amjmom','Fqymeomx','95a720f2-b4b0-4db9-bcbe-411769eb7e4d');
+INSERT INTO `ud_p0x` VALUES ('Amjmom','Fqymeomx','1f44aa8d-5658-4e8a-9a7b-abd7ce59a839');
 /*!40000 ALTER TABLE `ud_p0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +302,6 @@ CREATE TABLE `ws0x` (
 
 LOCK TABLES `ws0x` WRITE;
 /*!40000 ALTER TABLE `ws0x` DISABLE KEYS */;
-INSERT INTO `ws0x` VALUES ('Zair Leon',18,1,'03/05/2006','XXXXXXXXXXXXXXXXXX','XXXXXXXXXXXXXXXXXX',_binary 'X',_binary 'ASD','2','3',0,'0-0-0-0','202625348473');
 /*!40000 ALTER TABLE `ws0x` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -289,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-13 22:05:32
+-- Dump completed on 2023-11-14 12:06:16
