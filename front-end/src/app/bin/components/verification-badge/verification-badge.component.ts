@@ -24,6 +24,8 @@ export class VerificationBadgeComponent implements OnInit{
   protected form: FormGroup;
   protected formVerify: FormGroup;
 
+  protected verifyClose: boolean = true;
+
   private codeVerify: number = 0;
 
   protected compare(){
@@ -141,6 +143,7 @@ export class VerificationBadgeComponent implements OnInit{
   
   btnActions(){
     if(this.step === 0){
+      this.verifyClose = false;
       this.verifyEmail();
     }
   }

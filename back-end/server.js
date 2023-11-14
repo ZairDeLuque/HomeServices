@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 //.env
-// require('dotenv').config({ path: './.env'})
+require('dotenv').config({ path: './.env'})
 const origins = ['http://localhost:4200'];
 const port = process.env.PORT || 3001;
-// const host = process.env.HOST;
+const host = process.env.HOST;
 
 //Routers
 const mainRouter = require('./bin/api/routers/init.routes');
@@ -18,6 +18,7 @@ const locationsRouter  = require('./bin/api/routers/locations.routes');
 const categoryRouter = require('./bin/api/routers/categorys.routes');
 const servicesRouter = require('./bin/api/routers/services.routes');
 const paymentsRouter = require('./bin/api/routers/payments.routes');
+const messageRouter = require('./bin/api/routers/messages.routes')
 
 //Express app
 const app = express();
@@ -72,7 +73,8 @@ app.use(locationsRouter);
 app.use(categoryRouter);
 app.use(servicesRouter);
 app.use(paymentsRouter);
+app.use(messageRouter);
 
-server.listen(port, () => {
+server.listen(port, host, () => {
     console.log(`[INFO] Servicio HS-Backend iniciado correctamente [DATA: port ${port}].`);
 });

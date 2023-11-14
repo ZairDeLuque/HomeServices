@@ -177,9 +177,11 @@ export class HomeComponent implements OnInit{
       Notiflix.Loading.dots('Esperando servidor...',{
         clickToClose: false,
         svgColor: '#a95eff',
-        className: 'font-b'
+        className: 'font-b',
+        backgroundColor: '#fff',
+        messageColor: '#000'
       })
-
+      
       const json = await this.reformatJSONGoogleProvider();
 
       this.userAPI.createCredentials(json).subscribe(

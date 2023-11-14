@@ -49,3 +49,11 @@
     border-style: solid;
     padding-bottom: 7px;
 }
+
+.ntf-btn{
+    color: #933bf8;
+}
+
+.ntf-btn:hover{
+    background-color: #ededed;
+}

@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import * as Notiflix from 'notiflix';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExplicitModuleComponent } from '../../components/explicit-module/explicit-module.component';
+import { ApiManagerService } from '../../services/chat/api-manager.service';
 
 @Component({
   selector: 'app-services-view',
@@ -38,7 +39,7 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
 
   private ref: DynamicDialogRef | undefined;
 
-  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService){}
+  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService, private ManagerChats: ApiManagerService){}
 
   findInfoSeller(uuid: string){
     const packet = {
@@ -178,6 +179,33 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     this.ref.onClose.subscribe(() => {
       
     })
+  }
+
+  whatUUID(): string {
+    if(localStorage.getItem('uu0x0')){
+      return localStorage.getItem('uu0x0')!;
+    }
+    else{
+      return sessionStorage.getItem('uu0x0')!; 
+    }
+  }
+
+  generateNewRoom(){
+    const json = {
+      r0x: this.servicerUUID,
+      s0x: this.whatUUID(),
+      _t0: this.nameShowed,
+      _lm0: 'undefined'
+    }
+
+    this.ManagerChats.createNewRoom(json).subscribe(
+      result => {
+
+      },
+      error => {
+        this.NG_MSG.add({severity: 'error', summary: 'Oh oh:(', detail: 'Los servicios de Aurora Studios no han sido invitados a la fiesta:('})
+      }
+    )
   }
 
   ngOnDestroy(): void {
