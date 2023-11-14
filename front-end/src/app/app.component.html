@@ -18,22 +18,26 @@
 
 <div *ngIf="!splash">
     <router-outlet></router-outlet>
-    <div class="container-fluid sticky-bottom p-0 d-none">
-        <div class="row w-100 p-0 mb-0">
-            <div class="col">
-                <h6 class="invisible">Esto es un easter egg</h6>
-            </div>
-            <div class="col-3 p-0 mb-0 rounded-4 rounded-bottom-0 dropped-shadow border border-3" style="background-color: rgb(255, 255, 255);">
-                <a href="" class="text-decoration-none">
-                    <div class="row w-100 p-2">
-                        <div class="col-auto">
-                            <span class="badge text-bg-secondary">4</span>
+    <div class="mb-0 position-fixed bottom-0 container">
+        <div class="container w-auto">
+            <div class="row p-0 mb-0 user-select-none">
+                <div class="col-5 p-0 mb-0 rounded-4 rounded-bottom-0 sfx" style="background-color: rgb(255, 255, 255);">
+                    <a (click)="openMessageBox()" class="text-decoration-none text-black" style="cursor: pointer;">
+                        <div class="row p-3">
+                            <div class="col d-flex align-items-center">
+                                <h6 class="mb-0 text-dark me-2">Mensajes activos</h6>                                
+                                <p-tag [style]="{ 'background': 'transparent', 'color': '#a95eff', 'border': '1px solid #a95eff'}">
+                                    <div class="flex align-items-center gap-2">
+                                        <span class="text-base">Experimental</span>
+                                    </div>
+                                </p-tag>
+                            </div>
+                            <div class="col-auto d-flex justify-content-end">
+                                <i class="bi bi-arrows-angle-expand mb-0"></i>
+                            </div>
                         </div>
-                        <div class="col d-flex justify-content-start align-items-center">
-                            <h6 class="mb-0 text-dark"><i class="bi bi-chat-dots"></i> Todos tus mensajes </h6>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { interval } from 'rxjs';
 import { ServersguardianService } from './bin/services/api/serversguardian.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MessagesComponent } from './bin/components/messages/messages.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [DialogService]
 })
 export class AppComponent implements OnInit{
   title = 'front-end';
@@ -21,7 +24,7 @@ export class AppComponent implements OnInit{
 
   protected animations: string = '';
 
-  constructor(private router: Router, private Guardian: ServersguardianService) { }
+  constructor(private router: Router, private Guardian: ServersguardianService, private dialog: DialogService) { }
 
   runTimer() {
     this.TIMER_ALREADY = true;
@@ -117,6 +120,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.guardianInit()
+    // this.openMessageBox();
 
     interval(30000).subscribe(()=> {
       if(document.hasFocus()){
@@ -124,5 +128,15 @@ export class AppComponent implements OnInit{
       }
     })
     // this.router.navigate([""]);
+  }
+
+  openMessageBox(){
+    this.dialog.open(MessagesComponent, {
+      header: 'Tus mensajes',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      width: '90%',
+      height: '100%'
+    })
   }
 }

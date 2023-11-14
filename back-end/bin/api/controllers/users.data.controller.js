@@ -436,11 +436,63 @@ async function getNameSmart(req, res){
     }
 }
 
-//Function
+//Promise
+function generateRandomNumberString() {
+    return new Promise((resolve, reject) => {
+        let randomNumberString = '';
+        for (let i = 0; i < 12; i++) {
+            randomNumberString += Math.floor(Math.random() * 10);
+        }
+        resolve(randomNumberString);
+    });
+}
+
+//Function for Sellers Portal
+async function createNewRequest(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const ID = await generateRandomNumberString();
+        const sql = 'INSERT INTO ws0x (name0x0, age0x1, genre0x2, date0x3, crp0x4, rc0x5, blob0x6, hsA0x7, hsB0x8, hsC0x9, status, uuid, id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        const values = [body.n0x, body.a0x, body.g0x, body.d0x, body.c0x, body.r0x, body.b0x, body.h0x, body.h1x, body.h2x, 0, body._u0x, ID];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                result: 'Tu solicitud ha sido enviada con éxito. Nos pondremos en contacto contigo ante cualquier situación.',
+                saved: true
+            })
+        }
+        else{
+            res.status(500).json({
+                result: 'No se pudo enviar tu solicitud. Es posible que sea nuestro problema, intente mas tarde.',
+                saved: false
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] Error in createNewRequest. Reason:', e)
+        res.status(500).json({
+            result: e,
+            saved: false
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
 
 module.exports = {
     create: createUserCredentials,
     createTwo: createUserCredentials_2,
+    createRequest: createNewRequest,
     compare: compareUserCredentials,
     getdata: obtainFullData,
     getSmart: getSmartData,

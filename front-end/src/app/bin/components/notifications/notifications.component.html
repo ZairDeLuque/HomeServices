@@ -1,0 +1,47 @@
+<p-toast></p-toast>
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center" *ngIf="notificationsArray.length == 0">
+        <div class="container-fluid mt-5">
+            <div class="d-flex justify-content-center" style="opacity: .7;">
+                <lord-icon
+                    src="https://cdn.lordicon.com/unukghxb.json"
+                    trigger="loop"
+                    delay="2000"
+                    colors="primary:#121331,secondary:#a95eff"
+                    style="width:70px;height:70px">
+                </lord-icon>
+            </div>
+            <div class="d-flex justify-content-center mt-4 mb-0" style="opacity: .7;">
+                <p class="mb-2">Parece ser que no hay nada por aquí, ¿Es bueno?</p>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="notificationsArray.length > 0">
+        <div class="btn-noti w-100 mb-2" *ngFor="let packet of notificationsArray">
+            <a class="text-decoration-none" routerLink="{{packet.dir}}">
+                <div class="row w-100">
+                    <div class="col-1 d-flex align-items-center justify-content-center">
+                        <i *ngIf="packet.severity == 0" class="bi bi-bell fs-1"></i>
+                        <i *ngIf="packet.severity == 1" class="bi bi-exclamation-triangle text-danger fs-1"></i>
+                        <i *ngIf="packet.severity == 2" class="bi bi-basket3 fs-1" style="color: #a95eff"></i>
+                        <i *ngIf="packet.severity == 3" class="bi bi-star text-success fs-1"></i>
+                        <i *ngIf="packet.severity == 4" class="bi bi-journal-text fs-1" style="color: #a95eff"></i>
+                        <i *ngIf="packet.severity == 5" class="bi bi-person-raised-hand fs-1" style="color: rgb(56, 154, 187)"></i>
+                    </div>
+                    <div class="col" style="width: 80%;">
+                        <div class="row text-start" style="width: 100%;">
+                            <h5 class="text-dark text-truncate">{{packet.title}}</h5>
+                            <p class="text-dark mb-0 opacity-75 text-truncate">{{packet.subtitle}}</p>
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex gap-2 justify-content-center align-items-center p-0">
+                        <a class="btn btn-outline-purple border-0 p-0" (click)="delete(packet.id)" role="button"><i class="bi bi-x fs-4"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+</div>

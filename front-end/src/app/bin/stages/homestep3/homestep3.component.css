@@ -24,3 +24,12 @@
 .font-b{
     font-family: 'Product Sans', sans-serif;
 }
+
+.sfx{
+    transition: all 0.2s ease-in-out;
+    opacity: .6;
+}
+
+.sfx:hover{
+    opacity: 1;
+}

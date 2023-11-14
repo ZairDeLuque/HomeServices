@@ -1,0 +1,74 @@
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-5">
+            <h5 class="border-text">Conversaciones activas</h5>
+            <div class="btn-msg mb-3">
+                <div class="row w-100 mt-2 mb-2 ms-2">
+                    <div class="col-auto">
+                        <i class="bi bi-cart fs-2"></i>
+                        <!-- <i class="bi bi-person-gear fs-2"></i> -->
+                    </div>
+                    <div class="col" style="width: 80%;">
+                        <div class="row">
+                            <h6>[string]</h6>
+                            <p class="text-truncate mb-0">[string]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div style="height: 100%; width: 100%;">
+                <div class="row border p-2">
+                    <div class="col d-flex align-items-center gap-2">
+                        <p-avatar label="A" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
+                        <h6 class="mt-1">[STRING] <i class="bi bi-patch-check"></i></h6>
+                    </div>
+                    <div class="col-auto d-flex align-items-center">
+                        <div class="btn-group dropstart">
+                            <button class="btn border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Terminar conversación</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Reportar</a></li>
+                            </ul>
+                        </div>                        
+                    </div>
+                </div>
+
+                <div class="p-2 w-100 h-100">
+                    <div class="row mt-3">
+                        <div class="rdiv">
+                            <div class="bubble">
+                                <div class="returning">
+                                    <p class="mb-1 text-break">LMAO</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="sdiv">
+                            <div class="bubble">
+                                <div class="sending">
+                                    <p class="mb-1 text-break">KAPPA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: fixed; bottom: 0; width: 54.6%; margin-bottom: 0; background-color: white;">
+                    <div class="row border-start border-top border-end pt-2 pb-2" style="background-color: white;">
+                        <div class="col">
+                            <input placeholder="Escribe un mensaje..." type="text" pInputText class="w-100"/>
+                        </div>
+                        <div class="col-auto d-flex align-items-center">
+                            <p-button label="Enviar" icon="bi bi-send" styleClass="p-button-help"></p-button>                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

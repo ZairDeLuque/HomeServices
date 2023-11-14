@@ -24,7 +24,7 @@
         </lord-icon>
     </div>
     <div class="col">
-            <h3>Cuéntanos, <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¿de donde eres?</span></h3>
+            <h3 class="font-b">Cuéntanos, <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¿de donde eres?</span></h3>
             <p class="mt-1" style="opacity: .7;">Para nosotros, conocer donde vives nos ayuda a recomendarte servicios en tu localidad.</p>
             <div class="row">
                 <div class="col">
@@ -46,7 +46,7 @@
 </div>
 
 <div class="container p-0 user-select-none" style="margin-top: 6rem;">
-    <h3>¿Cual es tu <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">propósito</span>?</h3>
+    <h3 class="font-b">¿Cual es tu <span style="background: linear-gradient(0deg, rgb(104, 183, 209) 0%, rgb(197, 121, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">propósito</span>?</h3>
     <p class="mt-1" style="opacity: .7;">Conozcamos sobre tus intereses en la pagina.</p>
     <div class="d-flex gap-3">
         <div class="row d-flex justify-content-center">
@@ -85,7 +85,7 @@
                             </lord-icon>
                         </div>
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <p-radioButton name="buyer" value="2" [(ngModel)]="interests" inputId="int2"></p-radioButton>
+                            <p-radioButton pTooltip="Al marcar esta casilla seras dirigido al portal para vendedores de HomeServices®" name="buyer" value="2" [(ngModel)]="interests" inputId="int2"></p-radioButton>
                             <label for="int2" class="ml-2"><h6>Soy un vendedor</h6></label>
                         </div>
                         <hr>
@@ -93,8 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <!-- 2 -->
+            <!-- <div class="col">
                 <div class="card w-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
@@ -115,7 +114,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -38,3 +38,8 @@
         opacity: 0;
     }
 }
+
+.sfx{
+    box-shadow: rgba(232, 28, 255, 0.5) 0px 0px 20px;
+    overflow: hidden;
+}

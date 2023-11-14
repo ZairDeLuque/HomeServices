@@ -6,7 +6,7 @@ const morgan = require('morgan');
 
 //.env
 // require('dotenv').config({ path: './.env'})
-const origins = ['https://www.home-services.store'];
+const origins = ['http://localhost:4200'];
 const port = process.env.PORT || 3001;
 // const host = process.env.HOST;
 
@@ -19,8 +19,33 @@ const categoryRouter = require('./bin/api/routers/categorys.routes');
 const servicesRouter = require('./bin/api/routers/services.routes');
 const paymentsRouter = require('./bin/api/routers/payments.routes');
 
-//Socket IO
+//Express app
+const app = express();
 const http = require('http');
+const server = http.createServer(app);
+
+//Socket IO
+const socketIO = require('socket.io');
+const io = socketIO(server)
+
+io.on('connection', (socket) => {
+    console.log('SOCKET / New connection created.');
+  
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log(`[INFO] User joined room: ${roomId}`);
+    });
+
+    socket.on('leaveRoom', (roomId) => {
+        socket.leave(roomId);
+        console.log(`[INFO] User left room: ${roomId}`);
+    });
+
+    socket.on('sendMessage', (data) => {
+        console.log('[INFO] New message sent');
+        socket.broadcast.emit('receiveMessage', data);
+    });
+});
 
 //Cors Options
 const corsOptions = {
@@ -30,10 +55,6 @@ const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true
 };
-
-//Express app
-const app = express();
-const server = http.createServer(app);
 
 //Set uses of cors and body-parser
 app.use(cors(corsOptions));

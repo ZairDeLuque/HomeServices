@@ -1,8 +1,9 @@
 <app-verification-badge></app-verification-badge>
 
+
 <nav class="navbar navbar-expand-lg dropped-shadow-tiny p-2 user-select-none" style="overflow: visible; background-color: white;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="../../../../assets/mainlogo.png" alt="HomeServices®️ Logo" style="height: 40px; width: auto;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +38,15 @@
                     Iniciar sesión
                 </a>
             </div>
-            <button *ngIf="isCurrentSign" type="button" class="btn btn-outline-purple-var-2 pt-0 pb-0 d-flex align-items-center" pTooltip="Ver perfil" tooltipPosition="bottom" tooltipStyleClass="tooltip" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                <!-- Mode no pic -->
-                <p-avatar label="{{nameLetter}}" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
-                <!-- Mode pic URL -->
-                <p-avatar image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
-                {{userName}}
-            </button>
+            <div *ngIf="drop">
+                <button (click)="sidebarVisible = true" *ngIf="isCurrentSign" type="button" class="btn btn-outline-purple-var-2 pt-0 pb-0 d-flex align-items-center" pTooltip="Ver perfil" tooltipPosition="bottom" tooltipStyleClass="tooltip">
+                    <!-- Mode no pic -->
+                    <p-avatar label="{{nameLetter}}" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
+                    <!-- Mode pic URL -->
+                    <p-avatar image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
+                    {{userName}}
+                </button>
+            </div>
             <!-- <div class="z-2" *ngIf="isCurrentSign">
                 Mode no pic
                 <p-avatar label="{{nameLetter}}" styleClass="mr-2 mb-0 rounded-3" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
@@ -84,9 +87,47 @@
 </nav>
 
 
+<p-sidebar [(visible)]="sidebarVisible" [modal]="false" position="right" [blockScroll]="true">
+    <ng-template pTemplate="header">
+        <p-avatar size="large" label="{{nameLetter}}" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
+        <p-avatar size="large" image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
+        <h5>{{userName}}</h5>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="user-select-none">
+            <h6 class="ms-2 border-text">Sobre ti</h6>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/profile/{{userProfile}}"><i class="bi bi-arrow-return-right"></i> Ir a mi perfil</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" (click)="show()">
+                <div class="row">
+                    <div class="col">
+                        <i class="bi bi-bell"></i> Notificaciones
+                    </div>
+                    <div class="col-auto d-flex justify-content-end" *ngIf="notifications > 0">
+                        <p-badge value="{{notifications}}" severity="info"></p-badge>
+                    </div>
+                </div>
+            </button>
+            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button>
+            <h6 class="ms-2 border-text">Tus compras</h6>
+            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button>
+            <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button> -->
+            <h6 class="ms-2 border-text">Utilidades</h6>
+            <button *ngIf="isSeller" class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/sell"><i class="bi bi-person-raised-hand"></i> Mis ventas</button>
+            <button *ngIf="isShopper" class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/sellers"><i class="bi bi-basket"></i> Convertirme en vendedor</button>
+            <button *ngIf="isOrganizer" class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-building"></i> Organizaciones</button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- <button class="btn rounded-3 w-100 blue mb-1" type="button"><i class="bi bi-question-circle"></i> Acerca de</button> -->
+        <button class="btn rounded-3 w-100 red mb-1" type="button" (click)="deleteCurrentSesion()"><i class="bi bi-door-open"></i> Cerrar sesión</button>
+    </ng-template>
+</p-sidebar>
+
+<!-- 
 <div class="offcanvas offcanvas-end bg-blur" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-backdrop="static">
     <div class="offcanvas-header user-select-none border-bottom">
-        <p-avatar size="large" image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2 rounded-3" [style]="{ 'background-color': '#febd69', color: '#ffffff', }" *ngIf="isURLPic"></p-avatar>
+        <p-avatar size="large" label="{{nameLetter}}" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
+        <p-avatar size="large" image="{{URLimage}}" styleClass="mr-2 mb-0 mt-1 me-2" [style]="{ 'background-color': '#febd69', color: '#ffffff' }" *ngIf="isURLPic"></p-avatar>
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{userName}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -94,18 +135,26 @@
         <div>
             <h6 class="ms-2 border-text">Sobre ti</h6>
             <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/profile/{{userProfile}}"><i class="bi bi-arrow-return-right"></i> Ir a mi perfil</button>
-            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-bell"></i> Notificaciones</button>
-            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> WorkHome® Prime</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button">
+                <div class="row">
+                    <div class="col">
+                        <i class="bi bi-bell"></i> Notificaciones
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <p-badge value="2" severity="success"></p-badge>
+                    </div>
+                </div>
+            </button>
+            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button>
             <h6 class="ms-2 border-text">Tus compras</h6>
             <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button>
-            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-credit-card"></i> Mis métodos de pago</button>
-            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button>
             <h6 class="ms-2 border-text">Utilidades</h6>
-            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-person-raised-hand"></i> Vender</button>
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/sellers"><i class="bi bi-person-raised-hand"></i> Vender</button>
             <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-building"></i> Organizaciones</button>
             <h6 class="ms-2 border-text">Sobre HomeServices®</h6>
             <button class="btn rounded-3 w-100 blue mb-1" type="button"><i class="bi bi-question-circle"></i> Acerca de</button>
             <button class="btn rounded-3 w-100 red mb-1" type="button" (click)="deleteCurrentSesion()"><i class="bi bi-door-open"></i> Cerrar sesión</button>
         </div>
     </div>
-  </div>
+</div> -->

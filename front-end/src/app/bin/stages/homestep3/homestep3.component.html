@@ -1,59 +1,75 @@
-<app-navbar [extended]="false" class="sticky-top"></app-navbar>
+<app-navbar [drop]="false" [extended]="false" class="sticky-top"></app-navbar>
 
 <p-toast [life]="7000"></p-toast>
 
+<div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative user-select-none">
+    <img src="../../../../assets/sellers_header.png" alt="Background Image" width="100%">
+    <div class="row d-flex p-0 position-absolute justify-content-center bottom-0 ms-5 w-50" style="margin-bottom: 4rem;">
+        <h1 class="font-b" style="color: #1f1f1f; font-size: 68px;">Portal de vendedores en <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+        <p>Tu éxito es nuestro éxito, es por eso que te conectamos con clientes para garantizar tu crecimiento de ventas en los servicios que mejor sabes hacer.</p>
+        <button type="button" class="btn btn-dark p-3" routerLink="/sellers/register">Convertirme en vendedor <i class="bi-arrow-right"></i></button>
+    </div>
+</div>
+<!-- 
 <div class="d-flex align-items-center" style="user-select: none; background: url(../../../../assets/sellers_header.png); height:400px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <h1 class="font-b" style="color: #1f1f1f; font-size: 58px;">Portal de vendedores en <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+                <h1 class="font-b" style="color: #1f1f1f; font-size: 68px;">Portal de vendedores en <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
                 <p>Tu éxito es nuestro éxito, es por eso que te conectamos con clientes para garantizar tu crecimiento de ventas en los servicios que mejor sabes hacer.</p>
                 <button type="button" class="btn btn-dark p-3">Convertirme en vendedor <i class="bi-arrow-right"></i></button>
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="container w-100 p-0 user-select-none">
+    <div class="mt-5 text-center">
+        <h1 class="font-b border-text">Mas sobre el portal para vendedores:</h1>
+        <div class="d-flex gap-3 flex-wrap mt-3 justify-content-center">
+            <!-- 1 -->
+            <p-card class="w-25 sfx" header="¿Que es?">
+                <p class="m-0">
+                    El portal de vendedores es una plataforma que te permite conectar con clientes que necesitan tus servicios, es una herramienta que te permite crecer y aumentar tus ventas con herramientas proporcionadas por Aurora Studios que te ayudaran a ser mas eficiente.
+                </p>
+            </p-card>
+            <!-- 2 -->
+            <p-card class="w-25 sfx" header="¿Como funciona?">
+                <p class="m-0">
+                    Es simple. Solo necesitaremos datos personales y fiscales para validar que eres un vendedor responsable y evitar incidentes con tus compradores, ademas, esto nos permitirá brindarte algunas herramientas, como por ejemplo: Facturación electrónica, certificación de seguridad, etc..
+                </p>
+            </p-card>
+            <!-- 2 -->
+            <p-card class="w-25 sfx" header="¿Que servicios puedo ofrecer?">
+                <p class="m-0">
+                    Puedes ofrecer cualquier servicio que consigas hacer correctamente, desde servicios de limpieza, hasta servicios de reparación de computadoras, no hay limitantes, siempre y cuando se mantenga en el marco legal y responsable. 
+                </p>
+            </p-card>
+        </div>
+    </div>
 </div>
 
-<div class="container p-0">
-    <div class="mt-5">
-        <div class="row">
-            <div class="col">
-                <h1 class="font-b border-text">¿Que es el portal de vendedores?</h1>
-                <p class="mb-0" style="text-align: justify;">El portal de vendedores es una plataforma que te permite conectar con clientes que necesitan tus servicios, es una herramienta que te permite crecer y aumentar tus ventas. <br><br> Aurora Studios Mexico te brinda las herramientas necesarias para gestionar tus servicios y simplificar las actividades tediosas exteriores, ademas, permite dar las visibilidad que todos necesitan, como dijimos, tu éxito es nuestro éxito.</p>
-            </div>
-            <div class="col-5 d-flex justify-content-center align-items-end">
-                <img src="../../../../assets/sellers_pic.png" alt="Image 1" width="300" height="auto">
+<div class="container w-100 p-0 user-select-none mt-5">
+    <div class="row w-100">
+        <div class="col" style="width: 5rem;">
+            <p-chart [responsive]="true" type="line" [data]="data" [options]="options"></p-chart>
+            <p class="mt-3" style="font-size: small; opacity: .6;">Fuente: INEGI</p>
+        </div>
+        <div class="col d-flex align-items-center">
+            <div class="row w-100">
+                <h4 class="border-text w-auto">Nuestro principal propósito:</h4>
+                <p style="opacity: .7; text-align: justify;">Con el portal de vendedores en HomeServices® nuestro principal propósito es la mejoría de las estadísticas en el empleo informal que frecuentemente esta en elevación, por eso, HomeServices® se presenta con un sistema de herramientas, facilidades y simpleza de acciones en el ámbito concurrente.</p>
             </div>
         </div>
     </div>
+</div>
 
-    <div style="margin-top: 7rem;">
-        <div class="row">
-            <div class="col d-flex justify-content-center align-items-end overflow-hidden">
-                <img src="../../../../assets/sellers_pic2.png" alt="Image 2" width="400" height="auto">
-            </div>
-            <div class="col">
-                <div class="text-end">
-                    <h1 class="font-b border-text">¿Como funciona?</h1>
-                </div>
-                <p class="mb-0" style="text-align: justify;">Es simple. Solo necesitaremos datos personales y fiscales para validar que eres un vendedor responsable y evitar incidentes con tus compradores, ademas, esto nos permitirá brindarte algunas herramientas, como por ejemplo: Facturación electrónica, certificación de seguridad, etc..</p>
-            </div>
-        </div>
-    </div>
-
-    <div style="margin-top: 7rem;">
-        <div class="row">
-            <div class="col">
-                <h1 class="font-b border-text">¿Que servicios puedo ofrecer?</h1>
-                <p class="mb-0" style="text-align: justify;">Puedes ofrecer cualquier servicio que se te ocurra, desde servicios de limpieza, hasta servicios de reparación de computadoras, no hay limites, siempre y cuando sea legal, claro. </p>
-
-                <h4 class="font-b mt-5">¡Que esperas! Unete hoy mismo a HomeServices®️ y comienza tu aventura como vendedor.</h4>
-                <button type="button" class="btn btn-dark">Iniciar ahora <i class="bi-arrow-right"></i></button>
-            </div>
-            <div class="col-5 d-flex justify-content-center align-items-end">
-                <img src="../../../../assets/sellers_pic3.png" alt="Image 3" width="200" height="auto">
-            </div>
-        </div>
+<div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative user-select-none" style="margin-top: 6rem;">
+    <img src="../../../../assets/custom_header_1.png" alt="Background Image" width="100%">
+    <div class="row d-flex p-0 position-absolute justify-content-center bottom-0 ms-5 w-50" style="margin-bottom: 8rem;">
+        <h1 class="font-b" style="color: #1f1f1f; font-size: 48px;">¿Que esperas? Únete al portal de vendedores en <span style="background: linear-gradient(-30deg, lightblue 0%, rgb(213, 157, 255)100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HomeServices®️</span></h1>
+        <h6>Creemos juntos experiencias laborales únicas.</h6>
+        <button type="button" class="btn btn-dark p-3 ms-4 mt-3">Convertirme en vendedor <i class="bi-arrow-right"></i></button>
     </div>
 </div>
 

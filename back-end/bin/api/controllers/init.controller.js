@@ -2,12 +2,12 @@ const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 
 function hostAlready(req, res){
     console.log(`[LOG] Request: (${req.ip}) to '${req.url}': [${req.method}].`);
-    res.status(200).send('HomeServices status active. <br><br>API Version: 0.4-rca001323 | Aurora Services: 120.23.53.103-lolliepop');
+    res.status(200).send('HomeServices status active. <br><br>API Version: 0.6-rcb001211 | Aurora Services: 134.43.10.203-chocolate');
 }
 
 function errorDir(req, res){
     console.log(`[LOG] Request: (${req.ip}) to '${req.url}': [Not found].`);
-    res.status(404).send('NTD-Server: Not Found.');
+    res.status(404).send('HS-Server: Not Found.');
 }
 
 async function ServerGuard(req, res){

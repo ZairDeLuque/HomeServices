@@ -1,3 +1,10 @@
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300&display=swap');
 @font-face {
     font-family: 'Product Sans';
@@ -34,13 +41,3 @@
 .font-b{
     font-family: 'Product Sans', sans-serif;
 }
-
-p-blockUI {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-}
-  

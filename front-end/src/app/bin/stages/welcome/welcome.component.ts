@@ -94,7 +94,12 @@ export class WelcomeComponent implements OnInit{
     this.usrServices.createSubCredentials(json).subscribe(result => {
       if(result.already === true){
         Notiflix.Loading.remove();
-        this.rt.navigateByUrl('/');
+        if(this.interests === "2"){
+          this.rt.navigateByUrl('/sellers');
+        }
+        else{
+          this.rt.navigateByUrl('/');
+        }
       }
       else{
         this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Ocurrio un error al intentar crear tus credenciales secundarias, intenta de nuevo más tarde', closable: true})

@@ -30,9 +30,9 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag'
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { StepsModule } from 'primeng/steps';
 import { RatingModule } from 'primeng/rating';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { GalleriaModule } from 'primeng/galleria'
@@ -50,6 +50,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenubarModule } from 'primeng/menubar';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -91,6 +95,11 @@ import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.co
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
 import { ExplicitModuleComponent } from './bin/components/explicit-module/explicit-module.component';
 import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
+import { NotificationsComponent } from './bin/components/notifications/notifications.component';
+import { MessagesComponent } from './bin/components/messages/messages.component';
+
+//Charts
+import { NgChartsModule } from 'ng2-charts';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -140,7 +149,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MercadopagoComponent,
     CategoriesComponent,
     ExplicitModuleComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NotificationsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -165,7 +176,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PasswordModule,
     HttpClientModule,
     MultiSelectModule,
-    StepsModule,
     AvatarModule,
     RatingModule,
     BreadcrumbModule,
@@ -184,7 +194,13 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     RadioButtonModule,
     FileUploadModule,
     ImageModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    CardModule,
+    NgChartsModule,
+    ChartModule,
+    InputTextareaModule,
+    SidebarModule,
+    MenubarModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

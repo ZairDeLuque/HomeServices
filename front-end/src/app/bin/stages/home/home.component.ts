@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit{
 
       this.userAPI.createCredentials(json).subscribe(
         async result => {
-          if(result.already === true){
+          if(result.already !== true){
             Notiflix.Loading.remove();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
           }
@@ -140,7 +140,6 @@ export class HomeComponent implements OnInit{
                 console.error(error);
                 this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios no generaron un inicio de sesión, inicie sesión manualmente.', closable: true})
               })
-              
             }
             else{
               Notiflix.Loading.remove();
@@ -185,7 +184,7 @@ export class HomeComponent implements OnInit{
 
       this.userAPI.createCredentials(json).subscribe(
         result => {
-          if(result.already === true){
+          if(result.already !== true){
             Notiflix.Loading.remove();
             this._authService.signOut();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})

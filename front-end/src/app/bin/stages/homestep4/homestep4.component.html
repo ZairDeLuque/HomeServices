@@ -2,33 +2,133 @@
 
 <p-toast [life]="7000"></p-toast>
 
+<p-scrollTop></p-scrollTop>
+
 <div class="container-fluid" style="background-color: #ededed;">
     <a href="" class="invisible">👻</a>
     <div class="container mt-5">
-        <h3 class="border-text">¡Hola! Bienvenido al registro para vendedores.</h3>
+        <h3 class="border-text">¡Hola! Hablemos de ti...</h3>
+        <h6>Formulario de registro para nuevos vendedores</h6>
     </div>
     <div class="container bg-white border-start border-top border-end ps-5 pt-4 pe-5 pb-2 mt-4">
-        <p class="mb-0" style="font-size: small; opacity: .7;">Repasaremos algunas cosas sobre ti para que asi, podamos determinar si tu información es valida para ser convertido en un gran vendedor de HomeServices®️.</p>
+        <p class="mb-0" style="font-size: small; opacity: .7;">Repasaremos algunas cosas sobre ti para determinar si la información es valida y ser convertido en un gran vendedor de servicios en HomeServices®. *</p>
     </div>
 </div>
 
 <div class="container border-end border-start border-bottom ps-5 pb-4 pe-5 pt-4">
-    <form>
+    <form [formGroup]="formCurrentStage">
+        <h5 class="border-text">Información personal:</h5>
         <!-- 1 -->
+        <div class="container-fluid p-0">
+            <h5 class="mt-3">¿Cual es tu nombre completo?</h5>
+            <input pInputText class="mt-2 w-100" formControlName="name"/>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">No sobrenombres, no tu nombre de usuario.</p>
+        </div>
+        <!-- 2 -->
         <div class="container-fluid p-0">
             <div class="row">
                 <div class="col">
-                    <h5 class="mt-4">Describe mejor tu servicio:</h5>
+                    <h5 class="mt-4">¿Cual es tu edad?</h5>
+                    <input type="number" class="mt-2 w-100" pInputText pKeyFilter="int" max="100" min="18" value="18" formControlName="age"/>
                 </div>
-                <div class="col-auto d-flex align-items-end mb-2 opacity-75">
-                    <p>0/250</p>
+                <div class="col">
+                    <h5 class="mt-4">¿Cual es tu genero?</h5>
+                    <p-multiSelect [options]="genre"  optionLabel="name" [selectionLimit]="1" [style]="{'width':'100%', 'margin-top': '.43rem'}" [showHeader]="false" formControlName="genre"></p-multiSelect>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Según figure la identificación.</p>
                 </div>
             </div>
-            <input pInputText class="mt-2 w-100" maxlength="25"/>
-            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Ejemplo: "¿Te gustaría experimentar algo completamente nuevo y emocionante? ¡Nuestro servicio te ofrece una experiencia única y llena de sorpresas!"</p>
+        </div>
+        <!-- 3 -->
+        <div class="container-fluid p-0">
+            <h5 class="mt-3">¿Cual es tu fecha de nacimiento?</h5>
+            <div class="row">
+                <div class="col">
+                    <h6>Año:</h6>
+                    <p-multiSelect formControlName="ybirth" optionLabel="name" [options]="ages" [selectionLimit]="1" [style]="{'width':'100%', 'margin-top': '.43rem'}" [showHeader]="false" formControlName="ybirth"></p-multiSelect>
+                </div>
+                <div class="col">
+                    <h6>Mes:</h6>
+                    <p-multiSelect formControlName="mbirth" optionLabel="name" [options]="months" [selectionLimit]="1" [style]="{'width':'100%', 'margin-top': '.43rem'}" [showHeader]="false" formControlName="mbirth"></p-multiSelect>
+                </div>
+                <div class="col">
+                    <h6>Dia:</h6>
+                    <input formControlName="dbirth" type="number" class="mt-2 w-100" pInputText pKeyFilter="int" max="31" min="1" value="1" formControlName="dbirth"/>
+                </div>
+            </div>
+        </div>
+        <!-- 4 -->
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col">
+                    <h5 class="mt-3">¿Cual es tu CURP?</h5>
+                    <input formControlName="crp" pInputText class="mt-2 w-100" maxlength="18" formControlName="crp"/>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Si no la tienes a la mano, solicítala en linea <a target="_blank" href="https://www.gob.mx/curp/">aquí.</a>.</p>
+                </div>
+                <div class="col">
+                    <h5 class="mt-3">¿Cual es tu RFC?</h5>
+                    <input formControlName="rc" pInputText class="mt-2 w-100" maxlength="13" formControlName="rc"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="container-fluid p-0">
+            <h5 class="mt-4">Agrega tu identificación personal por ambas partes:</h5>
+            <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="1e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" [multiple]="true" accept="image/*">
+            </p-fileUpload>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Intenta que las fotografías sean visibles y los datos claros. Nada de esta información sera compartida.**</p>
+        </div>
+
+        <h5 class="border-text mt-5">Sobre HomeServices®:</h5>
+        <!-- 1 -->
+        <div class="container-fluid p-0">
+            <h5 class="mt-3">¿Cuales son tus mejores habilidades?</h5>
+            <!-- <input pInputText class="mt-2 w-100"/> -->
+            <textarea formControlName="hsA" rows="3" cols="30" pInputTextarea style="width: 100%;" formControlName="hsA"></textarea>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Intenta ser lo mejor detallado.</p>
+        </div>
+
+        <!-- 2 -->
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col">
+                    <h5 class="mt-3">¿Cuanta experiencia laboral posees?</h5>
+                    <p-multiSelect formControlName="hsB" [options]="exp" optionLabel="name" [selectionLimit]="1" [style]="{'width':'100%', 'margin-top': '.43rem'}" [showHeader]="false"></p-multiSelect>
+                </div>
+                <div class="col">
+                    <h5 class="mt-3">¿Cual es tu disponibilidad laboral?</h5>
+                    <p-multiSelect formControlName="hsC" [options]="times" optionLabel="name" [selectionLimit]="1" [style]="{'width':'100%', 'margin-top': '.43rem'}" [showHeader]="false"></p-multiSelect>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">HomeServices® ofrece la posibilidad de pausar publicaciones para no afectar tu disponibilidad.</p>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="row">
+            <div class="col d-flex align-items-center">
+                <div class="d-flex justify-content-center">
+                    <div class="row p-0">
+                        <div class="col-auto">
+                            <input formControlName="required" class="form-check-input ms-0 border-dark-subtle" type="checkbox">
+                        </div>
+                        <div class="col d-flex align-items-center">
+                            <p class="mb-0 m-0" style="font-size: 12px; color: gray">Acepto los términos y condiciones de trabajadores en HomeServices®️ y Aurora Studios Mexico S.A. de C.V.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <button [disabled]="!formCurrentStage.valid" type="button" class="btn btn-purple mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-receipt"></i> Enviar solicitud a revision</button>
+                <p class="opacity-50" style="font-size: small;">Las revisiones pueden tardar entre 24 a 72 hrs dependiendo de la demanda del servicio.</p>
+            </div>
         </div>
     </form>
 
+    <hr class="invisible">
+    
+    <p class="opacity-50 mb-0" style="font-size: x-small;">*Aurora Studios Mexico nunca compartirá tu información, después de recibir el formulario tu información no sera utilizada hasta no tener una razón.</p>
+    <p class="opacity-50" style="font-size: x-small;">**El usuario debe enviar todos los datos estrictamente impecables, de lo contrario Aurora Studios Mexico puede denegar el acceso al portal de vendedores.</p>
 </div>
 
 <app-footer></app-footer>

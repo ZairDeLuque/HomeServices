@@ -40,4 +40,15 @@ export class UsersgestorService {
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/subcredentials', data);
   }
 
+  public getNotifications(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/notifications/get', data);
+  }
+
+  public deleteNotifications(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/notifications/delete', data);
+  }
+
+  public getLengthNotifications(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/notifications/length', data);
+  }
 }
