@@ -39,6 +39,34 @@ INSERT INTO `ctg0x` VALUES ('Fontanería','FTN'),('Construcción','CTN'),('Repar
 UNLOCK TABLES;
 
 --
+-- Table structure for table `n0x`
+--
+
+DROP TABLE IF EXISTS `n0x`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `n0x` (
+  `own0x0` varchar(255) NOT NULL,
+  `id0x1` varchar(12) NOT NULL,
+  `title0x2` varchar(255) NOT NULL,
+  `subtitle0x3` blob NOT NULL,
+  `severity0x4` int NOT NULL,
+  `dir0x5` blob NOT NULL,
+  `date0x6` datetime DEFAULT NULL,
+  `read0x7` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `n0x`
+--
+
+LOCK TABLES `n0x` WRITE;
+/*!40000 ALTER TABLE `n0x` DISABLE KEYS */;
+/*!40000 ALTER TABLE `n0x` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pay0x`
 --
 
@@ -167,7 +195,7 @@ CREATE TABLE `ud0x` (
 
 LOCK TABLES `ud0x` WRITE;
 /*!40000 ALTER TABLE `ud0x` DISABLE KEYS */;
-INSERT INTO `ud0x` VALUES ('10955ec1-c6de-4dbd-b8d8-de9b8bcece75','GOOGLE',_binary '$2b$12$/b07yE8yH6yO9zYKWosaj.oCvpgiVWa.UlH2Pj2lhJxRpRoWg7Awa',_binary '$2b$12$d2KzFJQ9uI8lMLjjQQE87uMytdRUedk9.nMBd1CN49kK4IgDF2h3i',_binary 'Eak Zadu',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocKPfa3vUAoeuzglZNUN0M2VAESmJUV48J7s1jNa8oCD-F0=s96-c','2','2023-10-10 19:16:36',0),('0fd4a50b-126a-4a42-a90f-659120a1cdb7','AURORA',_binary '$2b$12$v3gi4e..LF7yOzbFq.TlJeKlUh.qXlidO2jFm5Spv3t15lJUrx4PO',_binary '$2b$12$f5DcFF7brNp6nWVuOZ.YWOpEYCSIDQVwAcw8GAMohpC8nDlUkhYT.',_binary 'fqef',1,_binary 'notassign','1','2023-11-10 19:35:28',0);
+INSERT INTO `ud0x` VALUES ('95a720f2-b4b0-4db9-bcbe-411769eb7e4d','GOOGLE',_binary '$2b$12$hkyuOhJmUs6whpiGS4sC3OYSSDstSMSVEMLXsbbg7Pafe5R657jfa',_binary '$2b$12$73Kmw1IT4IS5G/EvaZ8PauhvITGZSLCG3qLEL8Oy9JznRT.Eqe0.q',_binary 'Eak Zadu',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocKPfa3vUAoeuzglZNUN0M2VAESmJUV48J7s1jNa8oCD-F0=s96-c','1','2023-11-13 17:37:38',0);
 /*!40000 ALTER TABLE `ud0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +219,7 @@ CREATE TABLE `ud_p0x` (
 
 LOCK TABLES `ud_p0x` WRITE;
 /*!40000 ALTER TABLE `ud_p0x` DISABLE KEYS */;
-INSERT INTO `ud_p0x` VALUES ('Amjmom','Fqymeomx','0fd4a50b-126a-4a42-a90f-659120a1cdb7'),('Bgqnxm','Fqtgmoáz','10955ec1-c6de-4dbd-b8d8-de9b8bcece75');
+INSERT INTO `ud_p0x` VALUES ('Amjmom','Fqymeomx','0fd4a50b-126a-4a42-a90f-659120a1cdb7'),('Bgqnxm','Fqtgmoáz','10955ec1-c6de-4dbd-b8d8-de9b8bcece75'),('Euzmxam','Ogxumoáz','91b96ec9-ba0b-4754-8693-ecec384fd4d9'),('Amjmom','Fqymeomx','95a720f2-b4b0-4db9-bcbe-411769eb7e4d');
 /*!40000 ALTER TABLE `ud_p0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,6 +245,40 @@ LOCK TABLES `v0x` WRITE;
 /*!40000 ALTER TABLE `v0x` DISABLE KEYS */;
 /*!40000 ALTER TABLE `v0x` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ws0x`
+--
+
+DROP TABLE IF EXISTS `ws0x`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ws0x` (
+  `name0x0` varchar(255) NOT NULL,
+  `age0x1` int NOT NULL,
+  `genre0x2` int NOT NULL,
+  `date0x3` varchar(45) NOT NULL,
+  `crp0x4` varchar(18) NOT NULL,
+  `rc0x5` varchar(30) NOT NULL,
+  `blob0x6` blob NOT NULL,
+  `hsA0x7` blob NOT NULL,
+  `hsB0x8` varchar(45) NOT NULL,
+  `hsC0x9` varchar(45) NOT NULL,
+  `status` int NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `id` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ws0x`
+--
+
+LOCK TABLES `ws0x` WRITE;
+/*!40000 ALTER TABLE `ws0x` DISABLE KEYS */;
+INSERT INTO `ws0x` VALUES ('Zair Leon',18,1,'03/05/2006','XXXXXXXXXXXXXXXXXX','XXXXXXXXXXXXXXXXXX',_binary 'X',_binary 'ASD','2','3',0,'0-0-0-0','202625348473');
+/*!40000 ALTER TABLE `ws0x` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -227,4 +289,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 20:25:07
+-- Dump completed on 2023-11-13 22:05:32
