@@ -1,0 +1,12 @@
+.sfx{
+    transition: all .1s ease-in-out;
+}
+
+.sfx:hover{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px;
+    border-color: #c592ff;   
+    border-style: solid;
+}

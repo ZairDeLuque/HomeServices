@@ -66,14 +66,14 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this._authService.authState.subscribe((data) => {
-      this.userGoogle = data;
+    // this._authService.authState.subscribe((data) => {
+    //   this.userGoogle = data;
 
-        if(this.userGoogle.email !== null){
-          this.saveCheck = true;
-          this.compare('google')
-        }
-    })
+    //     if(this.userGoogle.email !== null){
+    //       this.saveCheck = true;
+    //       this.compare('google')
+    //     }
+    // })
   }
 
   async compare(method: string){

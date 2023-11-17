@@ -23,4 +23,20 @@ export class ServicesGestorService {
   public getServices_inside(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/serviceinfo', data);
   }
+
+  public createCommentary(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/comentary/create', data);
+  }
+  
+  public getCommentarys(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/comentary/get', data);
+  }
+
+  public isMyService(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/mypublish', data);
+  }
+
+  public getPaymentInfo(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/tiny/a', data);
+  }
 }

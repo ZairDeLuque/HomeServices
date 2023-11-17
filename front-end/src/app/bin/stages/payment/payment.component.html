@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <div class="container-fluid text-center">
-                    <h3>[string]</h3>
-                    <h6 class="border-text">Ofrecido por: [string]</h6>
+                    <h3>{{nameString}}</h3>
+                    <h6 class="border-text">Ofrecido por: {{ofterString}}</h6>
                 </div>
             </div>
             <div class="col">
@@ -22,53 +22,50 @@
 <div class="container border-end border-start border-bottom ps-4 pb-4 pe-4">
     <div class="row mb-5">
         <div class="col">
-            <app-summary-buy></app-summary-buy>
-        </div>
-        <div class="col d-flex align-items-center">
-            <div class="container">
-                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-                <div class="hr-container opacity-50" style="position: relative; text-align: center; margin: 20px 0;">
-                    <hr style="border: none; border-top: 1px solid #000;">
-                    <div class="circle">o</div>
-                </div>
-                
-                <button type="button" class="btn mercado-pago mb-3 mt-2 w-100" style="padding: .9rem;">
-                    Continuar con 
-                    <img height="20" class="mr-1 fs-unmask" alt="visa" src="../../../../assets/mercadopago_icon.png">
-                </button>
-
-                <button type="button" class="btn stripe mb-3 mt-2 w-100" style="padding: .9rem;">
-                    Continuar con 
-                    <i class="bi bi-stripe"></i>
-                    Stripe
-                </button>
-
-                <!-- <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button> -->
-
-                <div class="container-fluid text-center opacity-50" style="font-size: small;">
-                    <i class="bi bi-lock-fill"></i>
-                    <span class="fs-6 fw-bold">Pago seguro: </span>
-                    <span>Aurora Studios Mexico protege la integridad de tus transacciones. **</span>
-                </div>
-                
-                <div class="d-flex align-items-center justify-content-center mt-3">
-                    <div>
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="visa" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#visa">
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="mastercard" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#mastercard">
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="amex" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#amex">
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="bbva" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#bbva">
-                        <img height="25" width="37" class="mr-1 fs-unmask" alt="santander" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#santander">
+            <div class="container-fluid mt-4">
+                <h3>Resumen de la compra:</h3>
+                <hr style="opacity: .15;">
+                <div class="row mb-2">
+                    <div class="col">
+                        <p class="mb-0">Servicio:</p>
                     </div>
-                </div>  
-
-                <div class="container-fluid p-3 mt-4 text-center font-a" style="background-color: #ededed; font-size: smaller;">
-                    <div class="fw-bold mt-2">
-                        <i class="bi bi-check-circle"></i>
-                        Satisfacción garantizada
+                    <div class="col text-end">
+                        ${{priceA}} MXN
                     </div>
-                    <p>Si no estás completamente satisfecho con tu compra, ponte en contacto con nuestros asesores de HomeServices®️.</p>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <p class="mb-0">Costo adicional por traslado:</p>
+                    </div>
+                    <div class="col text-end">
+                        ${{priceB}} MXN
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="mb-0">Comisión de servicio:</p>
+                    </div>
+                    <div class="col text-end">
+                        ${{priceC}} MXN
+                    </div>
+                </div>
+                <hr style="opacity: .15;">
+                <div class="row">
+                    <div class="col d-flex align-items-center">
+                        <h4 class="m-0 p-0">Subtotal:</h4>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-end">
+                        <h3>${{priceD}} MXN</h3>
+                    </div>
+                </div>
+                <div class="container-fluid text-center mt-4">
+                    <p class="opacity-75" style="font-size: small;">El subtotal no incluye los impuestos correspondientes a servicios ajenos. *</p>
+                    <p style="font-size: small; opacity: .6;">HomeServices® cobra una comisión por uso del servicio.</p>
                 </div>
             </div>
+        </div>
+        <div class="col d-flex align-items-center">
+            <app-paymentsteps [price]="priceD"></app-paymentsteps>
         </div>
     </div>
     <hr style="opacity: .15;">

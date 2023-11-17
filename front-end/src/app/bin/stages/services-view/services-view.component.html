@@ -6,7 +6,7 @@
 <div class="container mt-4 rounded-2 user-select-none p-0">
     <div class="container-fluid p-0">
         <div class="container-fluid p-0 primarysize theme-b rounded-3 position-relative">
-            <img src="https://cdn.pixabay.com/photo/2016/01/02/00/40/green-1117267_1280.jpg" alt="Background Image" width="100%" style="opacity: .5;">
+            <!-- <img src="https://cdn.pixabay.com/photo/2016/01/02/00/40/green-1117267_1280.jpg" alt="Background Image" width="100%" style="opacity: .5;"> -->
             <div class="row p-0 position-absolute bottom-0 ms-3 mb-4 w-100">
                 <h4 class="text-truncate">Servicios de {{categoryShowed}}</h4>
                 <h1 class="text-truncate">{{nameShowed}}</h1>
@@ -35,7 +35,7 @@
             <div class="container-fluid p-0">
                 <h4 class="mt-4 mb-4"><i class="bi bi-question-circle"></i> Preguntas y respuestas:</h4>
                 <hr>
-                <app-commentaryandwrite></app-commentaryandwrite>
+                <app-commentaryandwrite [subject]="activeID"></app-commentaryandwrite>
             </div>
         </div>
         <div class="col-4 p-4">
@@ -54,9 +54,19 @@
             </div>
 
             <div class="row mt-4">
-                <button type="button" class="btn btn-purple p-2 mb-3 rounded-4 dropped-shadow-tiny"><i class="bi bi-bag"></i> Contratar</button>
+                <button type="button" class="btn btn-purple p-2 mb-3 rounded-4 dropped-shadow-tiny" (click)="shop()"><i class="bi bi-bag"></i> Contratar</button>
                 <p class="d-flex justify-content-center w-100" style="opacity: .5; font-size: 13px;">¿Quieres hablar con el vendedor?</p>
-                <button type="button" class="btn btn-outline-purple-var-2 p-2 rounded-4 mb-3 dropped-shadow-tiny"><i class="bi bi-send"></i> Enviar mensaje</button>
+                <button type="button" class="btn btn-outline-purple-var-2 p-2 rounded-4 mb-3 dropped-shadow-tiny" (click)="generateNewRoom()">
+                    <div class="opacity-75" *ngIf="spinner">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        Creando sala...
+                    </div>
+                    <div *ngIf="!spinner">
+                        <i class="bi bi-send"></i> Enviar mensaje
+                    </div>
+                </button>
                 <button type="button" class="btn btn-outline-danger p-2 w-100 rounded-4 border-0 dropped-shadow-tiny"><i class="bi bi-flag"></i> Reportar</button>
             </div>
 

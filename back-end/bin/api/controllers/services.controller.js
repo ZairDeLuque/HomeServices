@@ -5,6 +5,7 @@
 //Requires
 const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 const { DateTime } = require('luxon')
+const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('services')
 
 async function addNewService(req, res){
     let cn;
@@ -173,8 +174,132 @@ async function getInfoServiceByUUID(req, res){
     }
 }
 
+async function isMyPublish(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+        
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM s0x WHERE uuid0x0 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+            if(result[0].owner0x1 === body._owner){
+                res.status(200).json({
+                    isMy: true
+                })
+            }
+            else{
+                res.status(200).json({
+                    isMy: false
+                })
+            }
+        }
+        else{
+            res.status(500).json({
+                result: 'Duplicated UUID.',
+                getter: false
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] isMyPublish error. Reason: ' + e)
+        res.status(500).json({
+            result: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras buscábamos información del servicio.',
+            getter: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function getLabelByUUID(uuid){
+    return new Promise(async (resolve, reject) => {
+        let cn;
+
+        try{
+            cn = await Connection();
+
+            const sql = 'SELECT fullname0x4 FROM ud0x WHERE uuid0x0 = ?';
+            const values = [uuid];
+
+            const [result] = await cn.execute(sql, values);
+
+            if(result.length === 1){
+                const resolved = await Cipher.resolveChallenge(result[0].fullname0x4.toString('utf-8'))
+
+                resolve(resolved)
+            }
+            else{
+                resolve('undefined')
+            }
+        }
+        catch (e){
+            reject(e)
+        }
+        finally{
+            if(cn){
+                cn.end();
+            }
+        }
+    })
+}
+
+async function paymentInfoA(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+        
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM s0x WHERE uuid0x0 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+
+            const owner = await getLabelByUUID(result[0].owner0x1);
+
+            res.status(200).json({
+                name: result[0].name0x3,
+                ofterby: owner,
+                extras: result
+            })
+        }
+        else{
+            res.status(500).json({
+                result: 'Duplicated UUID.',
+                getter: false
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] PaymentInfoA error. Reason: ' + e)
+        res.status(500).json({
+            result: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras buscábamos información del servicio.',
+            getter: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
-    getInfoService: getInfoServiceByUUID
+    getInfoService: getInfoServiceByUUID,
+    isMyPublish: isMyPublish,
+    paymentA: paymentInfoA
 }

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoryGestorService } from '../../services/api/category-gestor.service';
 import { ServicesGestorService } from '../../services/api/services-gestor.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { Title } from '@angular/platform-browser';
@@ -34,12 +34,16 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
   protected servicerStatus: string | undefined;
   protected servicerKlass: string | undefined;
 
+  protected spinner: boolean = false;
+
   private categories: any;
   protected imagesBlob: any[] = [];
 
   private ref: DynamicDialogRef | undefined;
 
-  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService, private ManagerChats: ApiManagerService){}
+  protected activeID: string | undefined;
+
+  constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService, private ManagerChats: ApiManagerService, private rt: Router){}
 
   findInfoSeller(uuid: string){
     const packet = {
@@ -77,6 +81,26 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     )
   }
 
+  shop(){
+    const isLogged = this.whatUUID();
+
+    if(isLogged != 'undefined'){
+
+      Notiflix.Loading.dots('Preparando todo para tu compra...',{
+        clickToClose: false,
+        svgColor: '#a95eff',
+        className: 'font-b',
+        backgroundColor: '#fff',
+        messageColor: '#000'
+      })
+
+      this.rt.navigateByUrl('/services/buy/payment/method/' + this.activeID)
+    }
+    else{
+      this.rt.navigateByUrl('/notaccount')
+    }
+  }
+
   findTheParent(array: any[], finder: string): Promise<string>{
     return new Promise((resolve, reject) => {
       for(let i = 0; i < array.length; i++){
@@ -109,6 +133,8 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     })
 
     const uuid = this.AR.snapshot.params['uuid'];
+
+    this.activeID = uuid;
 
     const packet = {
       _uuid0x: uuid
@@ -185,27 +211,40 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     if(localStorage.getItem('uu0x0')){
       return localStorage.getItem('uu0x0')!;
     }
-    else{
+    else if(sessionStorage.getItem('uu0x0')){
       return sessionStorage.getItem('uu0x0')!; 
+    }
+    else{
+      return 'undefined';
     }
   }
 
   generateNewRoom(){
-    const json = {
-      r0x: this.servicerUUID,
-      s0x: this.whatUUID(),
-      _t0: this.nameShowed,
-      _lm0: 'undefined'
-    }
+    const isLogged = this.whatUUID();
 
-    this.ManagerChats.createNewRoom(json).subscribe(
-      result => {
+    if(isLogged != 'undefined'){
+      this.spinner = true;
 
-      },
-      error => {
-        this.NG_MSG.add({severity: 'error', summary: 'Oh oh:(', detail: 'Los servicios de Aurora Studios no han sido invitados a la fiesta:('})
+      const json = {
+        r0x: this.servicerUUID,
+        s0x: this.whatUUID(),
+        _t0: this.nameShowed,
+        _lm0: 'undefined'
       }
-    )
+
+      this.ManagerChats.createNewRoom(json).subscribe(
+        result => {
+          this.spinner = false;
+          this.NG_MSG.add({severity: 'success', summary: '¡Genial!', detail: 'Se ha creado la sala de chat con éxito.'})
+        },
+        error => {
+          this.NG_MSG.add({severity: 'error', summary: 'Oh oh:(', detail: 'Los servicios de Aurora Studios no han sido invitados a la fiesta:('})
+        }
+      )
+    }
+    else{
+      this.rt.navigateByUrl('/notaccount')
+    }
   }
 
   ngOnDestroy(): void {

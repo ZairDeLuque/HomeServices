@@ -1,0 +1,40 @@
+.mercado-pago{
+    user-select: none;
+    color: #000;
+    background-color: transparent;
+    border-color: #0088b9;
+}
+
+.mercado-pago:hover{
+    background-color: #59c9f1;
+    border-color: transparent;
+}
+
+.stripe{
+    user-select: none;
+    color: #000;
+    background-color: transparent;
+    border-color: #2a449c;  
+}
+
+.stripe:hover{
+    background-color: #2a449c;
+    color: white;
+    border-color: transparent;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(0%, -57%);
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: gray;
+}

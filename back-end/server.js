@@ -19,6 +19,7 @@ const categoryRouter = require('./bin/api/routers/categorys.routes');
 const servicesRouter = require('./bin/api/routers/services.routes');
 const paymentsRouter = require('./bin/api/routers/payments.routes');
 const messageRouter = require('./bin/api/routers/messages.routes')
+const commentaryRouter = require('./bin/api/routers/comentary.routes')
 
 //Express app
 const app = express();
@@ -74,6 +75,7 @@ app.use(categoryRouter);
 app.use(servicesRouter);
 app.use(paymentsRouter);
 app.use(messageRouter);
+app.use(commentaryRouter);
 
 server.listen(port, host, () => {
     console.log(`[INFO] Servicio HS-Backend iniciado correctamente [DATA: port ${port}].`);

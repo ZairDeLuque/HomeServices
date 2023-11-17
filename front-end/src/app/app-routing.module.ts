@@ -17,8 +17,6 @@ import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 import { PaymentComponent } from './bin/stages/payment/payment.component';
 import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
-import { Payment3Component } from './bin/stages/payment3/payment3.component';
-import { Payment2Component } from './bin/stages/payment2/payment2.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 import { StripeComponent } from './bin/redirects/stripe/stripe.component';
 import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
@@ -40,19 +38,17 @@ const routes: Routes = [
   {path: 'profile/:uuid', component: ProfileComponent},
   {path: 'payment/:status', component: ProductViewComponent },
   {path: 'services/:uuid', component: ServicesViewComponent},
-  {path: 'myaccount/configuration', component: ConfigComponent},
+  // {path: 'myaccount/configuration', component: ConfigComponent},
   {path: 'myaccount/s/owned', component: ShopsComponent},
   {path: 'myaccount/notifications', component: NotifysComponent},
-  {path: 'services/buy/payment/method/:id', component: PaymentComponent},
-  {path: 'services/buy/payment/address/:id', component: Payment2Component},
-  {path: 'services/buy/payment/results/:id', component: Payment3Component},
+  {path: 'services/buy/payment/:id', component: PaymentComponent},
   {path: 'notaccount', component: NotaccountComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'welcome', component: WelcomeComponent},
 
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},
-  {path: 'api/v1/payments/mercadopago/:activity', component: MercadopagoComponent},
+  // {path: 'api/v1/payments/mercadopago/:activity', component: MercadopagoComponent},
 
   {path: '**', component: NotfoundComponent}
 ];

@@ -4,7 +4,7 @@
 
 //Requires
 const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
-const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('users.data')
+const Cipher = require('../../utility/cesarCipherUtilities/cryptHelper').start('users.notifications')
 const { DateTime } = require('luxon')
 
 //Helpers

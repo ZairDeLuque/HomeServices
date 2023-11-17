@@ -10,20 +10,29 @@ const jwt = require('jsonwebtoken')
 const { DateTime } = require('luxon')
 
 //Tool: Secure equals credentials
-async function isequalscredentials(email, cn){
-    return new Promise(async (result, reject) => {
+async function isequalscredentials(email){
+    return new Promise(async (resolve, reject) => {
+
+        let cn;
+
         try{
+            cn = await Connection();
+
             //Prepare query
             const SQL = 'SELECT power0x1, email0x2 FROM ud0x'
 
-            const [rows] = await cn.execute(SQL);
+            const [result] = await cn.execute(SQL);
 
-            if(rows.length > 0){
-                for(let i = 0; i < rows.length; i++){
-                    const compareEmail = await bcrypt.compare(email, rows[i].email0x2.toString('utf-8'))
+            if(result.length > 0){
+                for(let i = 0; i < result.length; i++){
+                    const compareEmail = await bcrypt.compare(email, result[i].email0x2.toString('utf-8'))
 
-                    if(compareEmail){
-                        result({bool: true, provider: rows[i].power0x1})
+                    if(compareEmail === true){
+                        resolve({bool: true})
+                        break;
+                    }
+                    else{
+                        resolve({bool: false})
                         break;
                     }
                 }
@@ -35,27 +44,32 @@ async function isequalscredentials(email, cn){
         catch (e){
             reject(e);
         }
+        finally{
+            if(cn){
+                cn.end();
+            }
+        }
     })
 }
 
 async function test(req, res){
-    let cn;
+    // let cn;
 
-    try{
-        cn = await Connection();
+    // try{
+    //     cn = await Connection();
 
-        const response = await isequalscredentials(req.body.email, cn)
+    //     const response = await isequalscredentials(req.body.email, cn)
 
-        res.send(response);
-    }
-    catch (err){
-        throw err;
-    }
-    finally{
-        if(cn){
-            cn.end();
-        }
-    }
+    //     res.send(response);
+    // }
+    // catch (err){
+    //     throw err;
+    // }
+    // finally{
+    //     if(cn){
+    //         cn.end();
+    //     }
+    // }
 }
 
 //Function: Save user data
@@ -70,20 +84,11 @@ async function createUserCredentials(req, res){
         cn = await Connection();
     
         //Already logged?
-        const isAlready = await isequalscredentials(body.e2x, cn);
+        const isAlready = await isequalscredentials(body.e2x);
 
         if(isAlready.bool === true){
-            let msg;
-
-            if(isAlready.provider === 'GOOGLE'){
-                msg = 'El correo electrónico esta relacionado con otra cuenta Google. ¿Olvido su contraseña?';
-            }
-            else{
-                msg = 'El correo electrónico esta relacionado con otra cuenta HomeServices. ¿Olvido su contraseña?'
-            }
-
             res.status(200).json({
-                result: msg,
+                result: 'El correo electrónico esta relacionado con otra cuenta HomeServices. ¿Olvido su contraseña?',
                 already: true
             })
         }
@@ -104,14 +109,12 @@ async function createUserCredentials(req, res){
             if(result.affectedRows === 1){
                 res.status(200).json({
                     result: true,
-                    new: 1,
-                    already: true
+                    new: 1
                 })
             }
             else{
                 res.status(500).json({
-                    result: null,
-                    already: false
+                    result: null
                 })
             }
         }
@@ -120,8 +123,7 @@ async function createUserCredentials(req, res){
     catch (e){
         console.error('[ERR] Error in createUserCredentials:', e)
         res.status(500).json({
-            result: e,
-            already: false
+            result: e
         });
         return;
     }

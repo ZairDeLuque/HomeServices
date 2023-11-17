@@ -108,12 +108,12 @@ export class HomeComponent implements OnInit{
 
       this.userAPI.createCredentials(json).subscribe(
         async result => {
-          if(result.already !== true){
+          if(result.already === true){
             Notiflix.Loading.remove();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
           }
           else{
-            if(result.already === true){
+            if(result.new === 1){
               const json2 = await this.reformatJSON2();
 
               this.userAPI.compareCredentials(json2).subscribe(result2 => {
@@ -194,7 +194,7 @@ export class HomeComponent implements OnInit{
           else{
             Notiflix.Loading.remove();
 
-            Notiflix.Notify.success('Inicie sesión nuevamente con Google para finalizar el proceso.')
+            // Notiflix.Notify.success('Inicie sesión nuevamente con Google para finalizar el proceso.')
 
             this.router.navigate(["/login"]);
           }

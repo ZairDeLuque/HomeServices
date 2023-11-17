@@ -1,0 +1,44 @@
+<div class="container">
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    <div class="hr-container opacity-50" style="position: relative; text-align: center; margin: 20px 0;">
+        <hr style="border: none; border-top: 1px solid #000;">
+        <div class="circle">o</div>
+    </div>
+    
+    <button type="button" class="btn mercado-pago mb-3 mt-2 w-100" style="padding: .9rem;">
+        Continuar con 
+        <img height="20" class="mr-1 fs-unmask" alt="visa" src="../../../../assets/mercadopago_icon.png">
+    </button>
+
+    <button type="button" class="btn stripe mb-3 mt-2 w-100" style="padding: .9rem;">
+        Continuar con 
+        <i class="bi bi-stripe"></i>
+        Stripe
+    </button>
+
+    <!-- <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button> -->
+
+    <div class="container-fluid text-center opacity-50" style="font-size: small;">
+        <i class="bi bi-lock-fill"></i>
+        <span class="fs-6 fw-bold">Pago seguro: </span>
+        <span>Aurora Studios Mexico protege la integridad de tus transacciones. **</span>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-center mt-3">
+        <div>
+            <img height="25" width="37" class="mr-1 fs-unmask" alt="visa" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#visa">
+            <img height="25" width="37" class="mr-1 fs-unmask" alt="mastercard" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#mastercard">
+            <img height="25" width="37" class="mr-1 fs-unmask" alt="amex" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#amex">
+            <img height="25" width="37" class="mr-1 fs-unmask" alt="bbva" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#bbva">
+            <img height="25" width="37" class="mr-1 fs-unmask" alt="santander" src="https://img6.wsimg.com/fos/react/icons/115/gd/sprite.svg#santander">
+        </div>
+    </div>  
+
+    <div class="container-fluid p-3 mt-4 text-center font-a" style="background-color: #ededed; font-size: smaller;">
+        <div class="fw-bold mt-2">
+            <i class="bi bi-check-circle"></i>
+            Satisfacción garantizada
+        </div>
+        <p>Si no estás completamente satisfecho con tu compra, ponte en contacto con nuestros asesores de HomeServices®️.</p>
+    </div>
+</div>

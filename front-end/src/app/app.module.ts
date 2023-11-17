@@ -85,9 +85,6 @@ import { NotifysComponent } from './bin/stages/notifys/notifys.component';
 import { PrivacyComponent } from './bin/stages/privacy/privacy.component';
 import { PaymentComponent } from './bin/stages/payment/payment.component';
 import { NotaccountComponent } from './bin/stages/notaccount/notaccount.component';
-import { Payment2Component } from './bin/stages/payment2/payment2.component';
-import { Payment3Component } from './bin/stages/payment3/payment3.component';
-import { SummaryBuyComponent } from './bin/components/summary-buy/summary-buy.component';
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 import { VerificationBadgeComponent } from './bin/components/verification-badge/verification-badge.component';
 import { StripeComponent } from './bin/redirects/stripe/stripe.component';
@@ -100,6 +97,7 @@ import { MessagesComponent } from './bin/components/messages/messages.component'
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
+import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentsteps.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -140,9 +138,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PrivacyComponent,
     PaymentComponent,
     NotaccountComponent,
-    Payment2Component,
-    Payment3Component,
-    SummaryBuyComponent,
     NotfoundComponent,
     VerificationBadgeComponent,
     StripeComponent,
@@ -151,7 +146,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ExplicitModuleComponent,
     WelcomeComponent,
     NotificationsComponent,
-    MessagesComponent
+    MessagesComponent,
+    PaymentstepsComponent
   ],
   imports: [
     BrowserModule,

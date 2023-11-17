@@ -4,6 +4,7 @@ import { interval } from 'rxjs';
 import { ServersguardianService } from './bin/services/api/serversguardian.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MessagesComponent } from './bin/components/messages/messages.component';
+import { UsersgestorService } from './bin/services/api/usersgestor.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit{
 
   protected animations: string = '';
 
-  constructor(private router: Router, private Guardian: ServersguardianService, private dialog: DialogService) { }
+  constructor(private router: Router, private Guardian: ServersguardianService, private dialog: DialogService, private usersManager: UsersgestorService) {}
 
   runTimer() {
     this.TIMER_ALREADY = true;
@@ -118,6 +119,18 @@ export class AppComponent implements OnInit{
     )
   }
 
+  whatUUID(): string {
+    if(localStorage.getItem('uu0x0')){
+      return localStorage.getItem('uu0x0')!;
+    }
+    else if(sessionStorage.getItem('uu0x0')){
+      return sessionStorage.getItem('uu0x0')!; 
+    }
+    else{
+      return '';
+    }
+  }
+
   ngOnInit(): void {
     this.guardianInit()
     // this.openMessageBox();
@@ -127,6 +140,7 @@ export class AppComponent implements OnInit{
         this.guardianInit();
       }
     })
+
     // this.router.navigate([""]);
   }
 
