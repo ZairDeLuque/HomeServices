@@ -7,7 +7,6 @@ const mpAPI = require('mercadopago')
 require('dotenv').config({path: '../../../.env'})
 const { Connection } = require('../../utility/mysqlUtilities/connectionManager')
 const stripeAPI = require('stripe')
-const conektaAPI = require('conekta');
 
 //Mercado Pago payments
 function getTransitionID(preference_id){
@@ -133,7 +132,7 @@ async function createPayment(req, res){
                 failure: thisURL + 'failure',
                 pending: thisURL + 'pending',
             },
-            notification_url: "https://d3f2-187-146-215-171.ngrok.io/api/v1/post/payments/mp/webhook"
+            notification_url: "https://f25e-187-146-13-153.ngrok.io/api/v1/post/payments/mp/webhook"
         })
 
         if(result){
@@ -143,7 +142,8 @@ async function createPayment(req, res){
                 res.status(200).json({
                     authorized: true,
                     important: result.body.init_point,
-                    saved: true
+                    collectorID: result.body.collector_id,
+                    saved: true,
                 })
             }
             else{
@@ -195,6 +195,43 @@ async function webHookMP(req, res){
     catch (err){
         console.log('[ERR] Mercado Pago WebHook as failed: ' + err)
         res.sendStatus(500).json({error: err.message})
+    }
+}
+
+async function checkStatusTransition(req, res){
+    let cn; 
+    
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT status0x2 FROM pay0x WHERE transID0x0 = ?';
+        const values = [body.id]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                status: result[0].status0x2
+            })
+        }
+        else{
+            res.status(500).json({
+                status: 'not found'
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] Check status transition as failed: ' + e);
+        res.status(500).json({
+            status: 'error'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
     }
 }
 
@@ -381,11 +418,53 @@ async function DeleteInformationTicketStripe(req, res){
     }
 }
 
+async function createOrderSuccessPaypal(req, res){
+    let cn;
+
+    try{
+        const data = req.body;
+
+        cn = await Connection();
+
+        const sql = "INSERT INTO pay0x (transID0x0, payer0x1, status0x2, powered0x3, uuidshop0x4, price0x5) VALUES (?,?,?,?,?,?)";
+        const values = [data._transaction, data._payer, 'approved', 'PAYPAL', data._uitem, data._price]
+
+        const [result] = await cn.execute(sql, values);
+
+        if (result.affectedRows === 1){
+            res.status(200).json({
+                authorized: true,
+                message: 'El pago ha sido aprobado con exito.'
+            })
+        }
+        else{
+            res.status(500).json({
+                authorized: false,
+                message: 'No hemos conseguido comprobar el estado del pago. Contacte con soporte.'
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] Create order success (Paypal) as failed: ' + e);
+        res.status(500).json({
+            authorized: false,
+            message: 'Ha ocurrido un error al intentar actualizar el estado del pago. Intente mas tarde.'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     MPcreate: createPayment,
     MPhook: webHookMP,
     MPfail: onFailedMP,
+    Check: checkStatusTransition,
     SPcreate: createPaymentStripe,
     SPupdate: UpdateInformationTicketStripe,
     SPdelete: DeleteInformationTicketStripe,
+    PPAdd: createOrderSuccessPaypal
 }

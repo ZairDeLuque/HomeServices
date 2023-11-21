@@ -1,0 +1,171 @@
+<app-navbar [extended]="false" class="sticky-top rounded-2"></app-navbar>
+
+<p-toast></p-toast>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 position-fixed">
+            <div class="user-select-none mt-4">
+                <h6 class="ms-2">Tus servicios:</h6>
+                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" (click)="openCreateNewService()"><i class="bi bi-plus-circle"></i> Crear nuevo servicio</button>
+                <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-journal-text"></i> </button> -->
+                <h6 class="ms-2 border-text">Tu historial:</h6>
+                <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-chat-dots"></i> Ver todos los comentarios</button>
+                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-star"></i> Ver mis reseñas</button>
+                <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button> -->
+                <h6 class="ms-2 border-text">Utilidades:</h6>
+                <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-journal-text"></i> Crear factura de venta</button>
+                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/sell"><i class="bi bi-person-raised-hand"></i> Soporte y asistencia</button>
+            </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col p-4">
+            <div class="d-flex gap-2">
+                <div class="card w-100 sfx">
+                    <div class="card-body">
+                        <h5>Ventas totales:</h5>
+                        <div class="d-flex gap-5 align-items-end justify-content-end">
+                            <i class="bi bi-cart-check fs-1" style="color: #a95eff;"></i>
+                            <h2 class="text-end">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-100 sfx">
+                    <div class="card-body">
+                        <h5>Servicios pendientes:</h5>
+                        <div class="d-flex gap-5 align-items-end justify-content-end">
+                            <i class="bi bi-person-raised-hand fs-1" style="color: #a95eff;"></i>
+                            <h2 class="text-end">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card w-100 sfx">
+                    <div class="card-body">
+                        <h5>Ingresos totales:</h5>
+                        <div class="d-flex gap-5 align-items-end justify-content-end">
+                            <i class="bi bi-cash fs-1" style="color: #a95eff;"></i>
+                            <h2 class="text-end">$0</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="somebody">
+                <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-1"><i class="bi bi-cart" style="color: #a95eff;"></i> Tus servicios:</h5>
+                        </div>
+                        <div class="col d-flex justify-content-end align-items-center">
+                            <a href="">Ver todos</a>
+                        </div>
+                    </div>
+                    <hr>
+    
+                    <p-table [value]="products">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Calificaciones</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td><i *ngIf="product.explicit0x10 === 'n'" class="bi bi-exclamation-triangle" pTooltip="Este servicio esta marcado como explicito." tooltipPosition="top"></i> {{product.name0x3}}</td>
+                                <td>{{product.price0x5 | currency:'MXN'}}</td>
+                                <td>{{product.category0x2}}</td>
+                                <td><p-rating [readonly]="true" [cancel]="false"></p-rating></td>
+                                <td><p-tag [value]="product.status0x8" [severity]="getSeverity(product.status0x8)"></p-tag></td>
+                                <td>
+                                    <a class="btn btn-outline-purple" type="submit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-purple ms-2" type="submit">
+                                        <i class="bi bi-x-circle"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+    
+                <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
+                    <h5 class="mt-1"><i class="bi bi-fire" style="color: #a95eff;"></i> Tu top 5 servicios mas comprados:</h5>
+                    <hr>
+    
+                    <p-table [value]="products">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Calificaciones</th>
+                                <th>Estado</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{product.name0x3}}</td>
+                                <td>{{product.price | currency: 'MXN'}}</td>
+                                <td>{{product.category}}</td>
+                                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+    
+                <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
+                    <h5 class="mt-1"><i class="bi bi-graph-down-arrow" style="color: #a95eff;"></i> Tu top 5 servicios menos comprados:</h5>
+                    <hr>
+    
+                    <p-table [value]="products">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Calificaciones</th>
+                                <th>Estado</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.price | currency:'USD'}}</td>
+                                <td>{{product.category}}</td>
+                                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            
+            <div *ngIf="!somebody">
+                <div class="d-flex justify-content-center align-items-center" style="height: 30rem;">
+                    <div class="container-fluid mt-5">
+                        <div class="d-flex justify-content-center" style="opacity: .7;">
+                            <lord-icon
+                                src="https://cdn.lordicon.com/unukghxb.json"
+                                trigger="loop"
+                                delay="2000"
+                                colors="primary:#121331,secondary:#a95eff"
+                                style="width:70px;height:70px">
+                            </lord-icon>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 mb-0 text-center" style="opacity: .7;">
+                            <p class="mb-2">Parece ser que no hay nada por aquí.<br>¿Porque no crear un servicio nuevo arriba a la izquierda?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

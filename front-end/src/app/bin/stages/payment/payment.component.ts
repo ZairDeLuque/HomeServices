@@ -12,7 +12,6 @@ import { ServicesGestorService } from '../../services/api/services-gestor.servic
   providers: [MessageService]
 })
 export class PaymentComponent implements OnInit{
-    
     protected nameString: string = '';
     protected ofterString: string = '';
     
@@ -21,8 +20,27 @@ export class PaymentComponent implements OnInit{
     protected priceC: number = 0;
     protected priceD: number = 0;
 
+    protected shopper: string;
+    protected id: string = '';
+
+    whatUUID(): string {
+        if(localStorage.getItem('uu0x0')){
+            return localStorage.getItem('uu0x0')!;
+        }
+        else{
+            return sessionStorage.getItem('uu0x0')!; 
+        }
+    }
+
+    formatIDPayments(data: string): string{
+        const formatted = data.replace(/-/g, '');
+        const resolved = formatted.substring(0, 4);
+
+        return resolved.toUpperCase();
+    }
+
     constructor(private _route: ActivatedRoute, private _title: Title, private _services: ServicesGestorService){
-        
+        this.shopper = this.whatUUID();
     }
 
     ngOnInit(): void {
@@ -33,6 +51,7 @@ export class PaymentComponent implements OnInit{
         }
 
         this._services.getPaymentInfo(json).subscribe((res: any) => {
+            this.id = this.formatIDPayments(res.extras[0].uuid0x0);
             this.nameString = res.name;
             this.ofterString = res.ofterby;
 

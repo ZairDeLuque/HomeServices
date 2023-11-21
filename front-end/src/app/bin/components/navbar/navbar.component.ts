@@ -4,6 +4,7 @@ import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { interval } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -34,7 +35,7 @@ export class NavbarComponent implements OnInit{
 
   protected sidebarVisible: boolean = false;
 
-  constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService, public dialogService: DialogService) { }
+  constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService, public dialogService: DialogService, private rt: Router) { }
 
   show() {
     this.ref = this.dialogService.open(NotificationsComponent, {
@@ -131,5 +132,6 @@ export class NavbarComponent implements OnInit{
     }
 
     window.location.reload();
+    this.rt.navigateByUrl('/')
   }
 }

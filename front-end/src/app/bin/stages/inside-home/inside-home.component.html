@@ -18,14 +18,39 @@
 
 <div class="container-fluid p-4 mt-3 font-b">
     <h1 class="mb-4">Destacados:</h1>
-    <p-carousel [value]="items" [numVisible]="3" [showIndicators]="false" [autoplayInterval]="5000">
+    <p-carousel [value]="items" [numVisible]="3" class="overflow-visible">
         <ng-template let-items pTemplate="item">
-            <a href="" class="text-decoration-none">
-                <div class="container border border-1 w-75 text-center p-3 rounded-3">
-                    <h4>{{items.title}}</h4>
-                    <h6>{{items.description}}</h6>
-                </div>
-            </a>
+            <div class="container border border-1 w-75 h-100 p-3 rounded-3 sfx">
+                <a href="" class="text-decoration-none text-dark">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="row text-start">
+                                <h4 class="mb-0">{{items.title}}</h4>
+                                <p class="mb-0 opacity-50">Ofrecido por: ZairDeLuque</p>
+                            </div>
+                        </div>
+                        <div class="col-auto d-flex justify-content-center align-items-center">
+                            <p-avatar size="large" label="A" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center opacity-50">
+                        <h6>Tags: </h6>
+                        <p-chip label="[string]" [style]="{'height':'30px', 'font-size': '13px'}"></p-chip>
+                        <p-chip label="[string]" [style]="{'height':'30px', 'font-size': '13px'}"></p-chip>
+                        <p-chip label="[string]" [style]="{'height':'30px', 'font-size': '13px'}"></p-chip>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <p-rating [readonly]="true" [cancel]="false"></p-rating>
+                        </div>
+                        <div class="col text-end">
+                            <h4>$0</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
         </ng-template>
     </p-carousel>
 </div>

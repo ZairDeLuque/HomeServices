@@ -1,0 +1,17 @@
+.sfx{
+    box-shadow: rgba(63, 63, 63, 0.1) 3px 3px 5px; 
+    overflow: hidden;
+}
+
+.canvas-item{
+    transition: background-color .2s;
+    text-align: start;
+}
+
+.canvas-item:hover{
+    background-color: #e4ccff;
+}
+
+.canvas-item:active{
+    color:#a95eff
+}

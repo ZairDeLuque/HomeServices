@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit{
 
       this.userAPI.createCredentials(json).subscribe(
         result => {
-          if(result.already !== true){
+          if(result.already === true){
             Notiflix.Loading.remove();
             this._authService.signOut();
             this.NG_MSG.add({severity: 'error', summary: '¿Eres tu?', detail: result.result, closable: true})
@@ -201,6 +201,7 @@ export class HomeComponent implements OnInit{
         },
         error => {
           Notiflix.Loading.remove();
+          this._authService.signOut();
           console.error(error)
           this.NG_MSG.add({severity: 'error', summary: 'Oh oh', detail:'Los servicios de Aurora Studios no han conseguido crear las credenciales.', closable: true})
         }

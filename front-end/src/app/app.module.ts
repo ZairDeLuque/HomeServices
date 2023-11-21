@@ -54,6 +54,8 @@ import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
+import { TableModule } from 'primeng/table';
+import { InputMaskModule } from 'primeng/inputmask';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -94,10 +96,11 @@ import { ExplicitModuleComponent } from './bin/components/explicit-module/explic
 import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 import { NotificationsComponent } from './bin/components/notifications/notifications.component';
 import { MessagesComponent } from './bin/components/messages/messages.component';
+import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentsteps.component';
+import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
-import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentsteps.component';
 
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -147,7 +150,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     WelcomeComponent,
     NotificationsComponent,
     MessagesComponent,
-    PaymentstepsComponent
+    PaymentstepsComponent,
+    SellersPortalComponent
   ],
   imports: [
     BrowserModule,
@@ -196,7 +200,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ChartModule,
     InputTextareaModule,
     SidebarModule,
-    MenubarModule
+    MenubarModule,
+    InputMaskModule,
+    TableModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

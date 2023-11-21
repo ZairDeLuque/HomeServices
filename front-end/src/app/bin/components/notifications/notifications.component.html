@@ -20,7 +20,7 @@
     
     <div *ngIf="notificationsArray.length > 0">
         <div class="btn-noti w-100 mb-2" *ngFor="let packet of notificationsArray">
-            <a class="text-decoration-none" routerLink="{{packet.dir}}">
+            <a class="text-decoration-none" (click)="transportWeb(packet.dir)">
                 <div class="row w-100">
                     <div class="col-1 d-flex align-items-center justify-content-center">
                         <i *ngIf="packet.severity == 0" class="bi bi-bell fs-1"></i>

@@ -60,8 +60,8 @@ const corsOptions = {
 
 //Set uses of cors and body-parser
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(express.urlencoded({extended: false}))
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 
 //Set Morgan Dev for development
 app.use(morgan('dev'));

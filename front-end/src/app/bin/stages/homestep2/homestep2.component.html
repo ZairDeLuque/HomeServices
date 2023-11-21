@@ -1,4 +1,4 @@
-<app-navbar [extended]="false" class="sticky-top"></app-navbar>
+<!-- <app-navbar [extended]="false" class="sticky-top"></app-navbar> -->
 
 <p-toast></p-toast>
 
@@ -6,8 +6,9 @@
     <a href="" class="invisible">👻</a>
     <div class="container mt-4 mb-5" style="width: 80rem;">
         <div class="row w-100 p-0">
-            <div class="col d-flex align-items-end">
-                <h3 class="border-text font-b" style="width: 30rem;">¡Hola! Cuéntanos sobre tu servicio.</h3>
+            <div class="col">
+                <a class="btn btn-outline-purple mb-4" (click)="close()"><i class="bi bi-arrow-left fs-6"></i> Volver</a>
+                <h3 class="font-b" style="width: 30rem;">¡Hola! Cuéntanos sobre tu servicio.</h3>
             </div>
             <div class="col d-flex justify-content-end">
                 <lord-icon
@@ -105,7 +106,7 @@
                         <p class="mb-0">{{_fileA_length}} seleccionados</p>
                     </div>
                 </div>
-                <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="1e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" (onSelect)="countFileSelected($event)" (onRemove)="deleteFileSelected($event)" [multiple]="true" accept="image/*">
+                <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="5e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" (onSelect)="countFileSelected($event)" (onRemove)="deleteFileSelected($event)" [multiple]="true" accept="image/*">
                     <ng-template pTemplate="toolbar">
                         <div class="mt-2 opacity-75" style="font-size: x-small;">Las fotografías deberán cumplir con las normativas de convivencia en HomeServices®️</div>
                     </ng-template>
@@ -125,7 +126,7 @@
         <div class="col user-select-none">
             <h3 class="font-b mt-3 border-text mb-4">Vista previa de la vista de contrato:</h3>
             <div class="container-fluid p-0">
-                <div class="alert alert-danger" role="alert" *ngIf="_explicit_bool">
+                <div class="alert alert-danger bg-transparent" role="alert" *ngIf="_explicit_bool">
                     <i class="bi bi-exclamation-triangle"></i> <strong> Filtro explicito:</strong> Toma en cuenta las alertas del filtro.
                 </div>
                 
@@ -196,4 +197,4 @@
     </div>
 </div>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

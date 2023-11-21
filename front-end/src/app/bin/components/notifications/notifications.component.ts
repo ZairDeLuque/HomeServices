@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import * as Notiflix from 'notiflix';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 interface Content{
   _read: number,
@@ -25,7 +26,7 @@ export class NotificationsComponent implements OnInit{
 
   protected notificationsArray: Content[] = [];
 
-  constructor(private notifications: UsersgestorService, private MG_MSG: MessageService, private redirectable: Router) {
+  constructor(private notifications: UsersgestorService, private MG_MSG: MessageService, private redirectable: Router, private _dynamic: DynamicDialogRef) {
     
   }
 
@@ -98,6 +99,11 @@ export class NotificationsComponent implements OnInit{
     else{
       return sessionStorage.getItem('uu0x0')!; 
     }
+  }
+
+  transportWeb(URL: string){
+    this.redirectable.navigateByUrl(URL);
+    this._dynamic.close();
   }
 
 }

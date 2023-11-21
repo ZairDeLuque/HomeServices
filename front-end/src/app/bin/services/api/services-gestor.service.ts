@@ -39,4 +39,8 @@ export class ServicesGestorService {
   public getPaymentInfo(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/tiny/a', data);
   }
+
+  public getServicesSP(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/all', data);
+  }
 }

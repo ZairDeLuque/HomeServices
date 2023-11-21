@@ -7,6 +7,8 @@ import * as Notiflix from 'notiflix';
 import { v4 as uuidv4 } from 'uuid';
 import { ServicesGestorService } from '../../services/api/services-gestor.service';
 import { Router } from '@angular/router';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { OnchangeService } from '../../services/pics/onchange.service';
 
 interface TimeSelect {
   name: string,
@@ -21,6 +23,10 @@ interface Categories {
 interface Explicit {
   name: string,
   code: string
+}
+
+interface image {
+  blob: any
 }
 
 @Component({
@@ -52,7 +58,7 @@ export class Homestep2Component implements OnInit{
   protected _fileA: string | undefined;
   protected _fileA_length: number = 0;
   protected _fileA_all: any;
-  private uploadedFiles: any[] = [];
+  private uploadPics: image[] = [];
 
   protected _explicit: any;
   protected _explicit_bool: boolean = false;
@@ -89,45 +95,6 @@ export class Homestep2Component implements OnInit{
     }
   }
 
-  async compressAndConvertImageToB64(file: File, quality: number): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      try {
-        const reader = new FileReader();
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-  
-        reader.onload = () => {
-          const img = new Image();
-  
-          img.onload = () => {
-            // Redimensiona la imagen si es necesario
-            canvas.width = img.width;
-            canvas.height = img.height;
-            if (ctx != null) {
-              // Convierte la imagen al formato deseado (por ejemplo, JPEG)
-              const compressedImage = canvas.toDataURL('image/jpeg', quality);
-  
-              resolve(compressedImage);
-            }
-            const compressedImage = canvas.toDataURL('image/jpeg', quality);
-  
-            resolve(compressedImage);
-          };
-  
-          img.src = reader.result as string;
-        };
-  
-        reader.onerror = (error) => {
-          reject(error);
-        };
-  
-        reader.readAsDataURL(file);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  }
-
   async onUpload() {
     if(this._fileA_length > 0){
       Notiflix.Loading.dots('Compilando y subiendo fotografías...',{
@@ -138,18 +105,31 @@ export class Homestep2Component implements OnInit{
         messageColor: '#000'
       })
 
-      for(let i = 0; i < this._fileA_all.length; i++) {
-        const B64 = await this.compressAndConvertImageToB64(this._fileA_all[i], 0.5);
-  
-        if(B64 != null){
-          this.uploadedFiles.push(B64);
+      for (let a = 0; a < this._fileA_length; a++) {
+        try {
+          const file = this._fileA_all[a];
+          const data = await this._compiler.extractorSrc(file);
+          const information = data.code;
+          const data2 = await this._compiler.recompileSrc(information, 600, 500);
+    
+          const pushed: image = {
+            blob: data2.code
+          };
+          this.uploadPics.push(pushed);
+        } catch (err) {
+          console.error(err);
+          this.NG_MSG.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al compilar la imagen no. ' + (a + 1)
+          });
         }
       }
 
       const JSON = {
         lengthPics: this._fileA_all.length,
         _uuid: this.uuidSavedItem,
-        allImages: this.uploadedFiles
+        allImages: this.uploadPics
       }
 
       this._services.addPics(JSON).subscribe(
@@ -159,7 +139,7 @@ export class Homestep2Component implements OnInit{
           if(result.saved === true){
             Notiflix.Notify.success(result.result);
 
-            this._router.navigate(['/']);
+            this._dynamic.close({upload: true});
           }
           else{
             this.NG_MSG.add({severity: 'error', summary: 'Imágenes rotas :(', detail: 'El servidor encargado ha fracasado, su publicación continua pero no tendrá fotos.'});  
@@ -324,7 +304,7 @@ export class Homestep2Component implements OnInit{
     })
   }
 
-  constructor(private title: Title, private categoryService: CategoryGestorService, private NG_MSG: MessageService, private readonly _services: ServicesGestorService, private readonly _router: Router){
+  constructor(private title: Title, private categoryService: CategoryGestorService, private NG_MSG: MessageService, private readonly _services: ServicesGestorService, private readonly _router: Router, private _dynamic: DynamicDialogRef, private _compiler: OnchangeService){
     this.times = [
       {name: 'Hora', code: 'H'},
       {name: 'Dia', code: 'D'},
@@ -381,6 +361,10 @@ export class Homestep2Component implements OnInit{
         this._name_klass = 'mb-0'
       }
     }
+  }
+
+  close(){
+    this._dynamic.close({upload: false});
   }
 
   onCompare2(){

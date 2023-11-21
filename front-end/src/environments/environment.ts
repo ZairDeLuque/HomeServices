@@ -13,7 +13,7 @@ export const environment = {
         secretKeyCaptcha: '6LcCOOonAAAAACIycH4AWm1JK7klAEelS4FCiJnB'
     },
     Homework: {
-        apiUrl: 'https://workhome.com.mx',
+        apiUrl: 'http://192.168.30.186:3000',
     }
         
 };

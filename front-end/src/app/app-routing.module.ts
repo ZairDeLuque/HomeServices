@@ -20,11 +20,9 @@ import { NotaccountComponent } from './bin/stages/notaccount/notaccount.componen
 import { NotfoundComponent } from './bin/stages/notfound/notfound.component';
 import { StripeComponent } from './bin/redirects/stripe/stripe.component';
 import { ProductViewComponent } from './bin/stages/product-view/product-view.component';
-
-import { guard } from './bin/guards/routes.guard';
-import { MercadopagoComponent } from './bin/redirects/mercadopago/mercadopago.component';
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
 import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
+import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
@@ -45,6 +43,7 @@ const routes: Routes = [
   {path: 'notaccount', component: NotaccountComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'welcome', component: WelcomeComponent},
+  {path: 'myaccount/sell', component: SellersPortalComponent},
 
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},

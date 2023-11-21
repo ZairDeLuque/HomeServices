@@ -26,9 +26,9 @@
             <div class="container-fluid-p-0">
                 <h4 class="mt-4"><i class="bi bi-image"></i> Imágenes sobre el servicio:</h4>
                 <hr>
-                <div class="d-flex flex-wrap justify-content-center">
-                    <img *ngFor="let img of imagesBlob" src="{{img.blob}}" width="250" alt="Image">
-                    <!-- <p-image class="m-1" src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" [preview]="true"></p-image> -->
+                <div class="d-flex flex-wrap">
+                    <!-- <img *ngFor="let img of imagesBlob" src="{{img.blob}}" width="250" alt="Image"> -->
+                    <p-image class="m-1" *ngFor="let img of imagesBlob" src="{{img.blob}}" alt="Image" width="auto" height="auto" [preview]="true"></p-image>
                 </div>
             </div>
 

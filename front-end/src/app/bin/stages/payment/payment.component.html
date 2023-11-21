@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col">
-                <h3 class="border-text mb-0 ms-4"><i class="bi-credit-card"></i> ¿Cómo quieres pagar? </h3>
+                <h3 class="border-text mb-0 ms-4"><i class="bi-person-vcard"></i> Completa para completar la compra </h3>
             </div>
         </div>
     </div>
@@ -44,8 +44,9 @@
                 <div class="row">
                     <div class="col">
                         <p class="mb-0">Comisión de servicio:</p>
+                        <p class="mb-0" style="font-size: small; opacity: .6;">HomeServices® cobra una comisión por uso del servicio.</p>
                     </div>
-                    <div class="col text-end">
+                    <div class="col-auto text-end">
                         ${{priceC}} MXN
                     </div>
                 </div>
@@ -60,17 +61,15 @@
                 </div>
                 <div class="container-fluid text-center mt-4">
                     <p class="opacity-75" style="font-size: small;">El subtotal no incluye los impuestos correspondientes a servicios ajenos. *</p>
-                    <p style="font-size: small; opacity: .6;">HomeServices® cobra una comisión por uso del servicio.</p>
                 </div>
             </div>
         </div>
-        <div class="col d-flex align-items-center">
-            <app-paymentsteps [price]="priceD"></app-paymentsteps>
+        <div class="col">
+            <app-paymentsteps [price]="priceD" [uuid]="id" [shopper]="shopper"></app-paymentsteps>
         </div>
     </div>
     <hr style="opacity: .15;">
     <p class="opacity-50 mb-0" style="font-size: 12px;">*Algunos asociados a HomeServices®️ pueden tener ciertos impuestos extra en las transacciones.</p>
-    <p class="opacity-50 mb-0" style="font-size: 12px;">**Aurora Studios Mexico actúa como intermediario entre los pagos para asegurar tu confianza y eficacia del servicio, por lo tanto, puedes estar seguro de la integridad del servicio contratado, una vez marcado como completado el servicio el pago fluctúa completamente hacia el contratado.</p>
 </div>
 
 <app-footer></app-footer>

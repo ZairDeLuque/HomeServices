@@ -1,27 +1,31 @@
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="!active">
+    <div class="spinner-border" style="color: #a95eff;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="container" *ngIf="active && steps == 1">
     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
     <div class="hr-container opacity-50" style="position: relative; text-align: center; margin: 20px 0;">
         <hr style="border: none; border-top: 1px solid #000;">
         <div class="circle">o</div>
     </div>
     
-    <button type="button" class="btn mercado-pago mb-3 mt-2 w-100" style="padding: .9rem;">
+    <button type="button" class="btn mercado-pago mb-2 mt-2 w-100" style="padding: .9rem;" (click)="openPopupMercadoPago()">
         Continuar con 
         <img height="20" class="mr-1 fs-unmask" alt="visa" src="../../../../assets/mercadopago_icon.png">
     </button>
 
-    <button type="button" class="btn stripe mb-3 mt-2 w-100" style="padding: .9rem;">
+    <button type="button" class="btn stripe mb-3 w-100" style="padding: .9rem;" (click)="openStripePopup()">
         Continuar con 
         <i class="bi bi-stripe"></i>
         Stripe
     </button>
 
-    <!-- <button type="button" class="btn btn-dark mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-cash"></i> Pago en efectivo</button> -->
-
     <div class="container-fluid text-center opacity-50" style="font-size: small;">
         <i class="bi bi-lock-fill"></i>
         <span class="fs-6 fw-bold">Pago seguro: </span>
-        <span>Aurora Studios Mexico protege la integridad de tus transacciones. **</span>
+        <span>Aurora Studios Mexico protege la integridad de tus transacciones.</span>
     </div>
     
     <div class="d-flex align-items-center justify-content-center mt-3">
@@ -41,4 +45,53 @@
         </div>
         <p>Si no estás completamente satisfecho con tu compra, ponte en contacto con nuestros asesores de HomeServices®️.</p>
     </div>
+</div>
+
+<div class="container" *ngIf="active && steps == 0">
+    <form>
+        <!-- 1 -->
+        <div class="container-fluid p-0 mb-3">
+            <h5>¿Quien recibe la presta-servicios?</h5>
+            <input pInputText class="mt-2 w-100"/>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">No sobrenombres.</p>
+        </div>
+        <!-- 2 -->
+        <div class="container-fluid p-0 mb-3">
+            <h5>Codigo Postal</h5>
+            <input pInputText pKeyFilter="int" maxLength="5" class="mt-2 w-50"/>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">¿No sabes tu código? <a href="https://worldpostalcode.com/mexico/" target="_blank">Pulse aqui</a>.</p>
+        </div>
+        <!-- 3 -->
+        <div class="row mb-3">
+            <div class="col">
+                <div class="container-fluid p-0">
+                    <h5>Calle:</h5>
+                    <input pInputText class="mt-2 w-100"/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="container-fluid p-0">
+                    <h5>No. Exterior:</h5>
+                    <input pInputText class="mt-2 w-100"/>
+                    <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">De no tenerlo, use un SN (Sin Numero).</p>
+                </div>
+            </div>
+        </div>
+        <!-- 4 -->
+        <div class="container-fluid p-0 mb-3">
+            <h5>Teléfono de contacto:</h5>
+            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" class="mt-2" [style]="{'width':'100%'}"></p-inputMask>
+            <!-- <input pKeyFilter="int" pInputText class="mt-2 w-100" maxlength="10"/> -->
+        </div>
+        <!-- 1 -->
+        <div class="container-fluid p-0 mb-3">
+            <h5>Indicaciones adicionales:</h5>
+            <textarea class="mt-2" rows="3" cols="30" pInputTextarea style="width: 100%;" placeholder="Descripción de la fachada, puntos de referencia o seguridad, etc."></textarea>
+            <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">No sobrenombres.</p>
+        </div>
+        <hr class="invisible">
+        <div class="d-flex justify-content-end">
+            <p-button [disabled]="formCurrent.valid" pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="p-button-help rounded-2" severity="help" type="submit"></p-button>
+        </div>
+    </form>
 </div>

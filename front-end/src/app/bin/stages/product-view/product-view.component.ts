@@ -20,15 +20,19 @@ export class ProductViewComponent implements OnInit{
   ngOnInit(): void {
     if(this.usage === 'success'){
       this.klass = 'bi bi-check-circle text-success';
-      this.message = 'Tu orden fue creada con éxito!';
+      this.message = 'Tu orden fue creada con éxito! Puedes cerrar la ventana.';
     }
     else if(this.usage === 'failed'){
       this.klass = 'bi bi-x-circle text-danger';
-      this.message = 'Al parecer hubo un error...';
+      this.message = 'Al parecer hubo un error. Prueba cerrar la ventana.';
     }
     else if(this.usage === 'cancel'){
       this.klass = 'bi bi-x-circle text-danger';
       this.message = 'Tu orden fue cancelada.';
     }
+  }
+
+  close(){
+    window.close();
   }
 }

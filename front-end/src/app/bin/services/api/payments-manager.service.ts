@@ -18,4 +18,20 @@ export class PaymentsManagerService {
   public stripeDelete(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/payments/stripe/delete', data)
   }
+
+  public stripeCheckout(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/payments/stripe/create-order', data)
+  }
+
+  public mercadopagoCheckout(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/payments/mp/create-order', data)
+  }
+
+  public mercadopagoConfirmation(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/payments/verify', data)
+  }
+
+  public paypalConfirmation(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/payments/paypal/create-order', data)
+  }
 }

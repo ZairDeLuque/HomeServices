@@ -16,6 +16,18 @@ export class UsersgestorService {
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/createcredentials', data);
   }
 
+  public createCredentials_Sellers(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/sellers/createrequest', data);
+  }
+
+  public createCredentials_Sellers_Pics(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/sellers/createrequest/photos', data);
+  }
+
+  public isAlreadyRequested(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/sellers/checkrequest', data);
+  }
+
   public compareCredentials(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/comparecredentials', data);
   }

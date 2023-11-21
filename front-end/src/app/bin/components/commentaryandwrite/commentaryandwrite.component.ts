@@ -187,7 +187,7 @@ export class CommentaryandwriteComponent implements OnInit{
     })
 
     this.ref.onClose.subscribe((results: any) => {
-      console.log(results)
+      // console.log(results)
       if(results){
         this.onGetData();
       }

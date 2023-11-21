@@ -123,7 +123,30 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  ngOnInit(): void {
+  getCategories(): Promise<any>{
+    return new Promise((res, rej) => {
+      this._categories.getCategories().subscribe(
+        result => {
+          if(result.ok === true){
+            this.categories = result.data;
+            res(true)
+            // console.log(this.categories)
+          }
+          else{
+            this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error de conexión al cargar las categorías en la base de datos.'})
+            rej(false)
+          }
+        },
+        error => {
+          console.error(error);
+          this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar las categorías para el servicio'})
+          rej(false)
+        }
+      )
+    })
+  }
+
+  async ngOnInit(){
     Notiflix.Loading.dots('Cargando contenido...',{
       clickToClose: false,
       svgColor: '#a95eff',
@@ -140,57 +163,47 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
       _uuid0x: uuid
     }
 
-    this._categories.getCategories().subscribe(
-      result => {
-        if(result.ok === true){
-          this.categories = result.data;
-          // console.log(this.categories)
-        }
-        else{
-          this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error de conexión al cargar las categorías en la base de datos.'})
-        }
-      },
-      error => {
-        console.error(error);
-        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar las categorías para el servicio'})
-      }
-    )
+    const alreadyCategories = await this.getCategories();
 
-    this._servicesManager.getServices_inside(packet).subscribe(
-      async result => {
-        this.nameShowed = result.result[0].name0x3;
-        this.descriptionShowed = result.result[0].description0x4;
-        
-        this.findInfoSeller(result.result[0].owner0x1);
+    if(alreadyCategories === true){
+      this._servicesManager.getServices_inside(packet).subscribe(
+        async result => {
+          this.nameShowed = result.result[0].name0x3;
+          this.descriptionShowed = result.result[0].description0x4;
+          
+          this.findInfoSeller(result.result[0].owner0x1);
+  
+          if(result.result[0].ttp0x6 == 'Pago único' && this.priceShowed == 0){
+            this.priceShowed_Boolean = false;
+          }
+          else{
+            this.priceShowed_Boolean = true;
+            this.priceShowed = result.result[0].price0x5;
+            this.priceBShowed = 'Pago / ' + result.result[0].ttp0x6;
+          }
+  
+          if(result.result[0].explicit0x10 == 'y'){
+  
+          }
+  
+          if(Array.isArray(this.categories)) {
+            this.categoryShowed = await this.findTheParent(this.categories, result.result[0].category0x2);
+          }
+  
+          this.servicerUUID = result.result[0].owner0x1;
+          
+          this.title.setTitle(this.nameShowed + ' | HomeServices®️')
+          
+          this.imagesBlob = result.pics;
 
-        if(result.result[0].ttp0x6 == 'Pago único' && this.priceShowed == 0){
-          this.priceShowed_Boolean = false;
+          Notiflix.Loading.remove();
+        },
+        error => {
+          console.error(error)
+          this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar la información del servicio'})
         }
-        else{
-          this.priceShowed_Boolean = true;
-          this.priceShowed = result.result[0].price0x5;
-          this.priceBShowed = 'Pago / ' + result.result[0].ttp0x6;
-        }
-
-        if(result.result[0].explicit0x10 == 'n'){
-
-        }
-
-        if(Array.isArray(this.categories)) {
-          this.categoryShowed = await this.findTheParent(this.categories, result.result[0].category0x2);
-        }
-
-        this.servicerUUID = result.result[0].owner0x1;
-        
-        this.title.setTitle(this.nameShowed + ' | HomeServices®️')
-        
-        Notiflix.Loading.remove();
-      },
-      error => {
-        console.error(error)
-        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar la información del servicio'})
-      }
-    )
+      )
+    }
   }
 
   showDialog(){

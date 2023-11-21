@@ -16,7 +16,7 @@
 </div>
 
 <div class="container border-end border-start border-bottom ps-5 pb-4 pe-5 pt-4">
-    <form [formGroup]="formCurrentStage">
+    <form [formGroup]="formCurrentStage" (submit)="onSubmit()">
         <h5 class="border-text">Información personal:</h5>
         <!-- 1 -->
         <div class="container-fluid p-0">
@@ -74,7 +74,7 @@
         <!-- 5 -->
         <div class="container-fluid p-0">
             <h5 class="mt-4">Agrega tu identificación personal por ambas partes:</h5>
-            <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="1e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" [multiple]="true" accept="image/*">
+            <p-fileUpload mode="advanced" chooseStyleClass="p-button-help" chooseLabel="Cargar" [maxFileSize]="3e+6" [showCancelButton]="false" removeStyleClass="p-button-help" [showUploadButton]="false" name="demo[]" [multiple]="true" accept="image/*" (onSelect)="countFileSelected($event)" (onRemove)="deleteFileSelected($event)">
             </p-fileUpload>
             <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">Intenta que las fotografías sean visibles y los datos claros. Nada de esta información sera compartida.**</p>
         </div>
@@ -106,8 +106,8 @@
         <hr>
 
         <div class="row">
-            <div class="col d-flex align-items-center">
-                <div class="d-flex justify-content-center">
+            <div class="col">
+                <div class="d-flex justify-content-center mt-2">
                     <div class="row p-0">
                         <div class="col-auto">
                             <input formControlName="required" class="form-check-input ms-0 border-dark-subtle" type="checkbox">
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="col">
-                <button [disabled]="!formCurrentStage.valid" type="button" class="btn btn-purple mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-receipt"></i> Enviar solicitud a revision</button>
+                <button [disabled]="!formCurrentStage.valid || this._fileA_length === 0" type="submit" class="btn btn-purple mb-3 mt-2 w-100" style="padding: .9rem;"><i class="bi bi-receipt"></i> Enviar solicitud a revision</button>
                 <p class="opacity-50" style="font-size: small;">Las revisiones pueden tardar entre 24 a 72 hrs dependiendo de la demanda del servicio.</p>
             </div>
         </div>

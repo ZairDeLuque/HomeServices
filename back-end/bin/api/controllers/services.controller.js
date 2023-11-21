@@ -60,7 +60,7 @@ async function saveImagesConverted(req, res){
 
         for(let i = 0; i < body.lengthPics; i++){
             const sql = 'INSERT INTO s_p0x (uuid0x0, blob0x1) VALUES (?,?)'
-            const values = [body._uuid, body.allImages[i]]
+            const values = [body._uuid, body.allImages[i].blob]
 
             const [result] = await cn.execute(sql, values);
             
@@ -112,12 +112,12 @@ async function getInfoServiceByUUID(req, res){
         const [result] = await cn.execute(sql, values);
 
         if(result.length === 1){
-            // const sql2 = 'SELECT * FROM s_p0x WHERE uuid0x0 = ?'
-            // const values2 = [body._uuid0x]
+            const sql2 = 'SELECT * FROM s_p0x WHERE uuid0x0 = ?'
+            const values2 = [body._uuid0x]
 
-            // const [result2] = await cn.execute(sql2, values2);
+            const [result2] = await cn.execute(sql2, values2);
 
-            // if(result2.length > 0){
+            if(result2.length > 0){
 
                 const returned = result.map(info => ({
                     owner0x1: info.owner0x1,
@@ -131,27 +131,26 @@ async function getInfoServiceByUUID(req, res){
                     explicit0x10: info.explicit0x10
                 }));
 
-                // const returned2 = [];
+                const returned2 = [];
 
-                // for(let i = 0; i < result2.length; i++){
-                //     returned2.push({
-                //         number: i,
-                //         blob: result2[i].blob0x1.toString('utf-8')
-                //     })
-                // }
+                for(let i = 0; i < result2.length; i++){
+                    returned2.push({
+                        blob: result2[i].blob0x1.toString('utf-8')
+                    })
+                }
 
                 res.status(200).json({
                     result: returned,
-                    // pics: returned2,
+                    pics: returned2,
                     getter: true
                 })
-            // }
-            // else{
-            //     res.status(500).json({
-            //         result: 'Las fotografías de esta publicación están desaparecidas. Intentaremos localizarlas.',
-            //         getter: true
-            //     })
-            // }
+            }
+            else{
+                res.status(500).json({
+                    result: 'Las fotografías de esta publicación están desaparecidas. Intentaremos localizarlas.',
+                    getter: true
+                })
+            }
         }
         else{
             res.status(500).json({
@@ -296,10 +295,53 @@ async function paymentInfoA(req, res){
     }
 }
 
+//Sellers portal
+
+async function listAllProducts(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT uuid0x0, category0x2, name0x3, price0x5, status0x8, priceB0x9, explicit0x10 FROM s0x WHERE owner0x1 = ? ORDER BY date0x7 DESC'
+        const values = [body._own]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                result: result,
+                getter: true
+            })
+        }
+        else{
+            res.status(200).json({
+                result: 'No se encontraron servicios.',
+                nothing: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] listAllProducts error. Reason: ' + e)
+        res.status(500).json({
+            result: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras buscábamos información de tus servicios.',
+            getter: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
     getInfoService: getInfoServiceByUUID,
     isMyPublish: isMyPublish,
-    paymentA: paymentInfoA
+    paymentA: paymentInfoA,
+    SPgetAllProducts: listAllProducts
 }

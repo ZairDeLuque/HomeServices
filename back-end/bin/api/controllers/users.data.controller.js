@@ -232,7 +232,7 @@ async function compareUserCredentials(req, res) {
                         allowed: true,
                     });
                     responseSent = true;
-                    break; // Exit the loop once a response is sent
+                    break;
                 } else if (compareEmail && !comparePass) {
                     res.status(200).json({
                         result:
@@ -240,7 +240,7 @@ async function compareUserCredentials(req, res) {
                         allowed: false,
                     });
                     responseSent = true;
-                    break; // Exit the loop once a response is sent
+                    break;
                 }
             }
         }
@@ -459,15 +459,22 @@ async function createNewRequest(req, res){
         cn = await Connection();
 
         const ID = await generateRandomNumberString();
+        const BlobID = await generateRandomNumberString();
+
+        const data1 = await Cipher.createNewChallenge(body.n0x);
+        const data2 = await Cipher.createNewChallenge(body.c0x);
+        const data3 = await Cipher.createNewChallenge(body.r0x);
+        const data4 = await Cipher.createNewChallenge(body.h0x);
+
         const sql = 'INSERT INTO ws0x (name0x0, age0x1, genre0x2, date0x3, crp0x4, rc0x5, blob0x6, hsA0x7, hsB0x8, hsC0x9, status, uuid, id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
-        const values = [body.n0x, body.a0x, body.g0x, body.d0x, body.c0x, body.r0x, body.b0x, body.h0x, body.h1x, body.h2x, 0, body._u0x, ID];
+        const values = [data1, body.a0x, body.g0x, body.d0x, data2, data3, BlobID, data4, body.h1x, body.h2x, 0, body._u0x, ID];
 
         const [result] = await cn.execute(sql, values);
 
         if(result.affectedRows === 1){
             res.status(200).json({
-                result: 'Tu solicitud ha sido enviada con éxito. Nos pondremos en contacto contigo ante cualquier situación.',
-                saved: true
+                saved: true,
+                blobId: BlobID
             })
         }
         else{
@@ -491,10 +498,134 @@ async function createNewRequest(req, res){
     }
 }
 
+async function createNewRequest_Photos(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'INSERT INTO ws_p0x (idBlob0x0, a0x1, b0x2) VALUES (?,?,?)';
+        const values = [body.blobId, body.a0x, body.b0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                result: 'Tu solicitud ha sido enviada con éxito. Nos pondremos en contacto contigo ante cualquier situación.',
+                saved: true
+            })
+        }
+        else{
+            res.status(500).json({
+                result: 'No se pudo enviar tu solicitud. Es posible que sea nuestro problema, intente mas tarde.',
+                saved: false
+            })
+        }
+    }
+    catch (e){
+        console.log('[ERR] Error in createNewRequest_Photos. Reason:', e)
+        res.status(500).json({
+            result: e,
+            saved: false
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function isexistRequest(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM ws0x WHERE uuid = ?';
+        const values = [body._u0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                result: true
+            })
+        }
+        else{
+            res.status(200).json({
+                result: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in isexistRequest. Reason:', e)
+        res.status(500).json({
+            result: e,
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function alreadyAllowedRequest(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT status FROM ws0x WHERE uuid = ?';
+        const values = [body._u0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            if(result[0].status === 1){
+                res.status(200).json({
+                    result: true
+                })
+            }
+            else{
+                res.status(200).json({
+                    result: false
+                })
+            }
+        }
+        else{
+            res.status(200).json({
+                result: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in alreadyAllowedRequest. Reason:', e)
+        res.status(500).json({
+            result: e,
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     create: createUserCredentials,
     createTwo: createUserCredentials_2,
     createRequest: createNewRequest,
+    createRequest_Photos: createNewRequest_Photos,
+    checkRequest: isexistRequest,
+    allowed: alreadyAllowedRequest,
     compare: compareUserCredentials,
     getdata: obtainFullData,
     getSmart: getSmartData,

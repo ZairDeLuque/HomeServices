@@ -11,6 +11,9 @@ const controller_NOTIFICATIONS = require('../controllers/users.notifications.con
 //Routes - Users.data
 router.post('/api/v1/post/user/createcredentials', controller_DATA.create)
 router.post('/api/v1/post/user/sellers/createrequest', controller_DATA.createRequest)
+router.post('/api/v1/post/user/sellers/createrequest/photos', controller_DATA.createRequest_Photos)
+router.post('/api/v1/post/user/sellers/checkrequest', controller_DATA.checkRequest)
+router.post('/api/v1/post/user/sellers/already', controller_DATA.allowed)
 router.post('/api/v1/post/user/subcredentials', controller_DATA.createTwo)
 router.post('/api/v1/post/user/comparecredentials', controller_DATA.compare)
 router.post('/api/v1/post/user/info/allinformation', controller_DATA.getdata)

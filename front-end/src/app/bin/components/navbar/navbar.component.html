@@ -30,7 +30,7 @@
                     <i class="bi bi-search fs-5"></i>
                 </button>
             </form>
-            <a class="btn ntf-btn border-0 me-2" type="submit" (click)="show()">
+            <a class="btn ntf-btn border-0 me-2" pTooltip="Mis notificaciones" tooltipPosition="bottom" type="submit" (click)="show()" *ngIf="extended">
                 <i class="bi bi-bell fs-5"></i>
             </a>
             <div *ngIf="!isCurrentSign">
@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div *ngIf="drop">
-                <button (click)="sidebarVisible = true" *ngIf="isCurrentSign" type="button" class="btn btn-outline-purple-var-2 pt-0 pb-0 d-flex align-items-center border-0" pTooltip="Ver perfil" tooltipPosition="bottom" tooltipStyleClass="tooltip">
+                <button (click)="sidebarVisible = true" *ngIf="isCurrentSign" type="button" class="btn btn-outline-purple-var-2 pt-0 pb-0 d-flex align-items-center border-0" pTooltip="Desplegar slider" tooltipPosition="bottom" tooltipStyleClass="tooltip">
                     <!-- Mode no pic -->
                     <p-avatar label="{{nameLetter}}" styleClass="mr-2 mb-0 mt-1 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }" *ngIf="!isURLPic"></p-avatar>
                     <!-- Mode pic URL -->
