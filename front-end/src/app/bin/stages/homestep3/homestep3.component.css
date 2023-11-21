@@ -33,3 +33,17 @@
 .sfx:hover{
     opacity: 1;
 }
+
+.sfx2{
+    transition: all 0.2s ease-in-out;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: .4;
+}
+
+.sfx2:hover{
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}

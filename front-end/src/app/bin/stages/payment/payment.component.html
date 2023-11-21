@@ -33,10 +33,10 @@
                         ${{priceA}} MXN
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row mb-2" *ngIf="priceB > 0">
                     <div class="col">
                         <p class="mb-0">Costo adicional por traslado:</p>
-                    </div>
+                    </div> 
                     <div class="col text-end">
                         ${{priceB}} MXN
                     </div>
