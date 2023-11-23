@@ -98,6 +98,8 @@ import { NotificationsComponent } from './bin/components/notifications/notificat
 import { MessagesComponent } from './bin/components/messages/messages.component';
 import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentsteps.component';
 import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
+import { DeletePopupComponent } from './bin/components/sellersportal/delete-popup/delete-popup.component';
+import { DetailsPopupComponent } from './bin/components/sellersportal/details-popup/details-popup.component';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
@@ -151,7 +153,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NotificationsComponent,
     MessagesComponent,
     PaymentstepsComponent,
-    SellersPortalComponent
+    SellersPortalComponent,
+    DeletePopupComponent,
+    DetailsPopupComponent
   ],
   imports: [
     BrowserModule,

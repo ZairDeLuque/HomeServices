@@ -23,6 +23,8 @@ export class PaymentComponent implements OnInit{
     protected shopper: string;
     protected id: string = '';
 
+    protected ownerBySend: string = ''
+
     whatUUID(): string {
         if(localStorage.getItem('uu0x0')){
             return localStorage.getItem('uu0x0')!;
@@ -51,6 +53,7 @@ export class PaymentComponent implements OnInit{
         }
 
         this._services.getPaymentInfo(json).subscribe((res: any) => {
+            this.ownerBySend = res.extras[0].owner0x1;
             this.id = this.formatIDPayments(res.extras[0].uuid0x0);
             this.nameString = res.name;
             this.ofterString = res.ofterby;

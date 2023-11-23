@@ -16,6 +16,10 @@ router.post('/api/v1/post/services/get/mypublish', controller.isMyPublish)
 router.post('/api/v1/post/services/get/tiny/a', controller.paymentA)
 
 router.post('/api/v1/post/services/get/sp/all', controller.SPgetAllProducts)
+router.post('/api/v1/post/services/get/sp/uncomplete', controller.SPuncomplete)
+router.post('/api/v1/post/services/get/sp/delete', controller.deleteReq)
 
+router.post('/api/v1/post/services/purchase/a', controller.shopA)
+router.post('/api/v1/post/services/purchase/invoice/data', controller.invoice)
 //Export
 module.exports = router;

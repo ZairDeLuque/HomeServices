@@ -43,4 +43,20 @@ export class ServicesGestorService {
   public getServicesSP(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/all', data);
   }
+
+  public deleteServicesSP(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/delete', data);
+  }
+
+  public getUncompletedServicesSP(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/uncomplete', data);
+  }
+
+  public purchaseStep1(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/a', data);
+  }
+
+  public invoiceData(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/invoice/data', data);
+  }
 }

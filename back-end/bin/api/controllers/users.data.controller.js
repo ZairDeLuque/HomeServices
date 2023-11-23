@@ -619,6 +619,52 @@ async function alreadyAllowedRequest(req, res){
     }
 }
 
+async function getSubCredentials(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM ud_p0x WHERE owner0x2 = ?';
+        const values = [body._u0x]; 
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            const { state0x0, city0x1 } = result[0];
+
+            const array = {
+                s0x0: await Cipher.resolveChallenge(state0x0),
+                c0x1: await Cipher.resolveChallenge(city0x1)
+            }
+
+            res.status(200).json({
+                result: array,
+                exists: true
+            })
+        }
+        else{
+            res.status(200).json({
+                result: 'No se encontraron resultados.',
+                exists: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in getSubCredentials. Reason:', e)
+        res.status(500).json({
+            result: e,
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     create: createUserCredentials,
     createTwo: createUserCredentials_2,
@@ -630,5 +676,6 @@ module.exports = {
     getdata: obtainFullData,
     getSmart: getSmartData,
     getName: getNameSmart,
+    getSubCredentials: getSubCredentials,
     test: test
 }

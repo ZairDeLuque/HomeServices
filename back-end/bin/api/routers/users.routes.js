@@ -19,7 +19,7 @@ router.post('/api/v1/post/user/comparecredentials', controller_DATA.compare)
 router.post('/api/v1/post/user/info/allinformation', controller_DATA.getdata)
 router.post('/api/v1/post/user/info/smart/show', controller_DATA.getSmart)
 router.post('/api/v1/post/user/info/smart/name', controller_DATA.getName)
-
+router.post('/api/v1/post/user/info/smart/sub', controller_DATA.getSubCredentials)
 //Routes - Users.notifications
 router.post('/api/v1/post/user/notifications/get', controller_NOTIFICATIONS.get)
 router.post('/api/v1/post/user/notifications/delete', controller_NOTIFICATIONS.delete)

@@ -43,7 +43,7 @@ const routes: Routes = [
   {path: 'notaccount', component: NotaccountComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'welcome', component: WelcomeComponent},
-  {path: 'myaccount/sell', component: SellersPortalComponent},
+  {path: 'myaccount/seller/dashboard', component: SellersPortalComponent},
 
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},

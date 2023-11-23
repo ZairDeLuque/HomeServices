@@ -5,6 +5,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationsComponent } from '../notifications/notifications.component';
 import { interval } from 'rxjs';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-navbar',
@@ -117,6 +118,37 @@ export class NavbarComponent implements OnInit{
     }, error => {
       console.error(error);
     })
+  }
+
+  runOnce(callback: () => void, delay: number) {
+    let timer: string | number | NodeJS.Timeout | null | undefined;
+    
+    function reset() {
+        if (timer) {
+        clearTimeout(timer);
+        timer = null;
+        }
+    }
+    
+    reset();
+    timer = setTimeout(() => {
+        callback();
+        reset();
+    }, delay);
+  }
+
+  transportWeb(){
+    Notiflix.Loading.dots('Descargando datos...',{
+      clickToClose: false,
+      svgColor: '#a95eff',
+      className: 'font-b',
+      backgroundColor: '#fff',
+      messageColor: '#000'
+    })
+
+    this.runOnce(() => {
+      this.rt.navigateByUrl('/myaccount/seller/dashboard')
+    }, 1000);
   }
 
   deleteCurrentSesion(): void{

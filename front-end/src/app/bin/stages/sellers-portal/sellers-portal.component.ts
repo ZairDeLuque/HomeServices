@@ -6,6 +6,8 @@ import { ServicesGestorService } from '../../services/api/services-gestor.servic
 import { MessageService } from 'primeng/api';
 import { CategoryGestorService } from '../../services/api/category-gestor.service';
 import * as Notiflix from 'notiflix';
+import { DeletePopupComponent } from '../../components/sellersportal/delete-popup/delete-popup.component';
+import { DetailsPopupComponent } from '../../components/sellersportal/details-popup/details-popup.component';
 
 @Component({
   selector: 'app-sellers-portal',
@@ -16,9 +18,16 @@ import * as Notiflix from 'notiflix';
 export class SellersPortalComponent implements OnInit{
 
   private ref: DynamicDialogRef | undefined;
+  private ref2: DynamicDialogRef | undefined;
+  private ref3: DynamicDialogRef | undefined;
+
+  protected stats1: number = 0;
+  protected stats2: number = 0;
+  protected stats3: number = 0;
 
   private categories: any[] = [];
   protected products: any[] = [];
+  protected uncomplete: any[] = [];
   protected somebody: boolean = true;
 
   constructor(private title: Title, public _dialog: DialogService, private _services: ServicesGestorService, private NG_MSG: MessageService, private _categories: CategoryGestorService){
@@ -32,6 +41,17 @@ export class SellersPortalComponent implements OnInit{
     else{
       return sessionStorage.getItem('uu0x0')!; 
     }
+  }
+
+  openDetailsUncomplete(packet: any){
+    this.ref3 = this._dialog.open(DetailsPopupComponent, {
+      header: 'Orden del servicio',
+      width: '80%',
+      height: '100%',
+      data: {
+        servicePacket: packet
+      }
+    })
   }
 
   openCreateNewService(){
@@ -116,6 +136,62 @@ export class SellersPortalComponent implements OnInit{
     })
   }
 
+  openDeleteDialog(uuid: string, name: string, status: string){
+    this.ref2 = this._dialog.open(DeletePopupComponent, {
+      header: 'Eliminar servicio',
+      width: '50%',
+      height: '40%',
+      closeOnEscape: false,
+      closable: false,
+      data: {
+        uuid: uuid,
+        name: name,
+        status: status
+      }
+    })
+
+    this.ref2.onClose.subscribe((data: any) => {
+      if(data.deleted === true){
+        window.location.reload();
+      }
+    })
+  }
+
+  padZero(number: number): string {
+    return number.toString().padStart(2, '0');
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const hours = this.padZero(date.getHours());
+    const minutes = this.padZero(date.getMinutes());
+    const day = this.padZero(date.getDate());
+    const month = this.padZero(date.getMonth() + 1); 
+    const year = this.padZero(date.getFullYear() % 100);
+    const formattedDateTime = `${hours}:${minutes} ${day}/${month}/${year}`;
+    return formattedDateTime;
+  }
+
+  getUncompleteTasks(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      const packet = {
+        _uuid: this.whatUUID()
+      }
+
+      this._services.getUncompletedServicesSP(packet).subscribe((data: any) => {
+        if(data.get === true){
+          this.stats2 = data.result.length;
+          this.uncomplete = data.result;
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        Notiflix.Notify.failure('No se pudo obtener la información de los servicios.');
+        reject(false);
+      })
+    })
+  }
+
   async ngOnInit() {
     const json = {
       _own: this.whatUUID()
@@ -126,13 +202,7 @@ export class SellersPortalComponent implements OnInit{
     if(categorysReady === true){
       this._services.getServicesSP(json).subscribe((data: any) => {
 
-        Notiflix.Loading.dots('Descargando datos...',{
-          clickToClose: false,
-          svgColor: '#a95eff',
-          className: 'font-b',
-          backgroundColor: '#fff',
-          messageColor: '#000'
-        })
+        Notiflix.Loading.remove(1000);
         
         if(data.getter === true){
           data.result.forEach(async (element: any) => {
@@ -141,6 +211,7 @@ export class SellersPortalComponent implements OnInit{
               category0x2: await this.findTheParent(this.categories ,element.category0x2),
               name0x3: element.name0x3,
               price0x5: element.price0x5,
+              date0x7: this.formatDate(element.date0x7),
               status0x8: await this.getSeverity_Text(element.status0x8),
               priceB0x9: element.priceB0x9,
               explicit0x10: element.explicit0x10,
@@ -148,6 +219,7 @@ export class SellersPortalComponent implements OnInit{
   
             this.products.push(service);
           });
+
         }
 
         if(data.nothing == true){
@@ -159,6 +231,15 @@ export class SellersPortalComponent implements OnInit{
         console.error(error)
         this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener la información de los servicios:('})
       })
+    }
+
+    const uncompletedTasks = await this.getUncompleteTasks();
+
+    if(uncompletedTasks === true){
+      if(this.stats2 > 0){
+        this.openDetailsUncomplete(this.uncomplete[0]);
+        this.NG_MSG.add({severity: 'warn', summary: 'Advertencia', detail: 'Tienes servicios sin completar, por favor, completa los servicios para que puedas recibir pagos.'})
+      }
     }
   }
 }

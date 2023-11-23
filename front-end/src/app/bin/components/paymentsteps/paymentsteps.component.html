@@ -48,17 +48,17 @@
 </div>
 
 <div class="container" *ngIf="active && steps == 0">
-    <form>
+    <form [formGroup]="formCurrent" (submit)="onSubmit()">
         <!-- 1 -->
         <div class="container-fluid p-0 mb-3">
-            <h5>¿Quien recibe la presta-servicios?</h5>
-            <input pInputText class="mt-2 w-100"/>
+            <h5>¿Quien recibe al presta-servicios?</h5>
+            <input pInputText class="mt-2 w-100" pKeyFilter="alpha" formControlName="fA0x" name="fA0x"/>
             <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">No sobrenombres.</p>
         </div>
         <!-- 2 -->
         <div class="container-fluid p-0 mb-3">
             <h5>Codigo Postal</h5>
-            <input pInputText pKeyFilter="int" maxLength="5" class="mt-2 w-50"/>
+            <input pInputText pKeyFilter="int" maxLength="5" class="mt-2 w-50" formControlName="fB0x" name="fB0x"/>
             <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">¿No sabes tu código? <a href="https://worldpostalcode.com/mexico/" target="_blank">Pulse aqui</a>.</p>
         </div>
         <!-- 3 -->
@@ -66,13 +66,13 @@
             <div class="col">
                 <div class="container-fluid p-0">
                     <h5>Calle:</h5>
-                    <input pInputText class="mt-2 w-100"/>
+                    <input pInputText pKeyFilter="alpha" class="mt-2 w-100" formControlName="fC0x" name="fC0x"/>
                 </div>
             </div>
             <div class="col">
                 <div class="container-fluid p-0">
                     <h5>No. Exterior:</h5>
-                    <input pInputText class="mt-2 w-100"/>
+                    <input pInputText pKeyFilter="int" class="mt-2 w-100" formControlName="fD0x" name="fD0x"/>
                     <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">De no tenerlo, use un SN (Sin Numero).</p>
                 </div>
             </div>
@@ -80,18 +80,18 @@
         <!-- 4 -->
         <div class="container-fluid p-0 mb-3">
             <h5>Teléfono de contacto:</h5>
-            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" class="mt-2" [style]="{'width':'100%'}"></p-inputMask>
+            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" class="mt-2" [style]="{'width':'100%'}" formControlName="fE0x" name="fE0x"></p-inputMask>
             <!-- <input pKeyFilter="int" pInputText class="mt-2 w-100" maxlength="10"/> -->
         </div>
         <!-- 1 -->
         <div class="container-fluid p-0 mb-3">
             <h5>Indicaciones adicionales:</h5>
-            <textarea class="mt-2" rows="3" cols="30" pInputTextarea style="width: 100%;" placeholder="Descripción de la fachada, puntos de referencia o seguridad, etc."></textarea>
+            <textarea class="mt-2" rows="3" cols="30" pInputTextarea style="width: 100%;" placeholder="Descripción de la fachada, puntos de referencia o seguridad, etc." formControlName="fF0x" name="fF0x"></textarea>
             <p class="mb-0 mt-1" style="font-size: 12px; opacity: .7;">No sobrenombres.</p>
         </div>
         <hr class="invisible">
         <div class="d-flex justify-content-end">
-            <p-button [disabled]="formCurrent.valid" pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="p-button-help rounded-2" severity="help" type="submit"></p-button>
+            <p-button [disabled]="!formCurrent.valid" pRipple label="Siguiente" icon="bi bi-arrow-right" styleClass="p-button-help rounded-2" severity="help" type="submit"></p-button>
         </div>
     </form>
 </div>

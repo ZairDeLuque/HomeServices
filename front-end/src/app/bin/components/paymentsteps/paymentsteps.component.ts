@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import * as Notiflix from 'notiflix';
 import { PaymentsManagerService } from '../../services/api/payments-manager.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServicesGestorService } from '../../services/api/services-gestor.service';
 
 @Component({
   selector: 'app-paymentsteps',
@@ -28,12 +29,20 @@ export class PaymentstepsComponent implements OnInit{
     @Input()
     shopper?: string;
 
+    @Input()
+    owner?: string;
+
     protected formCurrent: FormGroup;
 
-    constructor(private _payments: PaymentsManagerService, private ar: ActivatedRoute, private _dialog: DialogService, private _builder: FormBuilder) {
+    constructor(private _payments: PaymentsManagerService, private ar: ActivatedRoute, private _dialog: DialogService, private _builder: FormBuilder, private _services: ServicesGestorService, private rt: Router) {
         
         this.formCurrent = this._builder.group({
-            
+            fA0x: ['', Validators.required],
+            fB0x: ['', Validators.required],
+            fC0x: ['', Validators.required],
+            fD0x: ['', Validators.required],
+            fE0x: ['', Validators.required],
+            fF0x: ['', Validators.required],
         })
 
         this.active = true;
@@ -73,42 +82,50 @@ export class PaymentstepsComponent implements OnInit{
                 layout: 'horizontal',
                 fundingicons: true
             },
-            onClientAuthorization: (data) => {
-                Notiflix.Loading.remove();
+            onClientAuthorization: async (data) => {
+                const dataAuth = await this.sendAllData();
 
-                const json = {
-                    _uitem: this.ar.snapshot.params['id'],
-                    _transaction: data.id,
-                    _payer: this.shopper,
-                    _price: data.purchase_units[0].amount.value
-                }
-
-                this._payments.paypalConfirmation(json).subscribe((res: any) => {
-                    Notiflix.Loading.dots('Verificando integridad...',{
-                        clickToClose: false,
-                        svgColor: '#a95eff',
-                        className: 'font-b',
-                        backgroundColor: '#fff',
-                        messageColor: '#000'
-                    })
-
-                    if(res.authorized === true){
-                        Notiflix.Loading.remove();
-                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
-                    }
-                    else{
-                        Notiflix.Loading.remove();
-                        Notiflix.Notify.failure('PayPal rechazo la solicitud, por favor intenta de nuevo más tarde.');
-                    }
-                }, (err: any) => {
-                    console.error(err);
+                if(dataAuth === true){
                     Notiflix.Loading.remove();
-                    Notiflix.Notify.failure('Ocurrió un error al verificar la transacción, por favor intenta de nuevo más tarde.');
-                });
+
+                    const json = {
+                        _uitem: this.ar.snapshot.params['id'],
+                        _transaction: data.id,
+                        _payer: this.shopper,
+                        _price: data.purchase_units[0].amount.value
+                    }
+
+                    this._payments.paypalConfirmation(json).subscribe((res: any) => {
+                        Notiflix.Loading.dots('Verificando integridad...',{
+                            clickToClose: false,
+                            svgColor: '#a95eff',
+                            className: 'font-b',
+                            backgroundColor: '#fff',
+                            messageColor: '#000'
+                        })
+
+                        if(res.authorized === true){
+                            Notiflix.Loading.remove();
+                            Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                            this.rt.navigateByUrl('/')
+                        }
+                        else{
+                            Notiflix.Loading.remove();
+                            Notiflix.Notify.failure('PayPal rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                        }
+                    }, (err: any) => {
+                        console.error(err);
+                        Notiflix.Loading.remove();
+                        Notiflix.Notify.failure('Ocurrió un error al verificar la transacción, por favor intenta de nuevo más tarde.');
+                    });
+                }
+                else{
+                    Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                }
             },
             onCancel: (data, actions) => {
                 Notiflix.Loading.remove();
-                Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.');
+                Notiflix.Notify.failure('Haz cancelado tu pago, ¿Cambiaras de parecer o de método de pago?.');
             },
             onError: err => {
                 Notiflix.Loading.remove();
@@ -127,7 +144,76 @@ export class PaymentstepsComponent implements OnInit{
         };
     }
 
+    onSubmit(){
+        if(this.formCurrent.valid){
+            this.active = false;
+            this.steps = 1;
+
+            this.runOnce(() => {
+                this.active = true;
+            }, 1000)
+        }
+        else{
+            Notiflix.Notify.failure('Por favor completa todos los campos.');
+        }
+    }
+
+    runOnce(callback: () => void, delay: number) {
+        let timer: string | number | NodeJS.Timeout | null | undefined;
+        
+        function reset() {
+            if (timer) {
+            clearTimeout(timer);
+            timer = null;
+            }
+        }
+        
+        reset();
+        timer = setTimeout(() => {
+            callback();
+            reset();
+        }, delay);
+    }
+
+    sendAllData(): Promise<boolean>{
+        return new Promise((res, rej) => {
+            Notiflix.Loading.dots('Enviando datos...',{
+                clickToClose: false,
+                svgColor: '#a95eff',
+                className: 'font-b',
+                backgroundColor: '#fff',
+                messageColor: '#000'
+            })
+    
+            const json = {
+                a0x: this.ar.snapshot.params['id'],
+                o0x: this.owner,
+                s0x: this.shopper,
+                sp0x: this.price,
+                fA0x: this.formCurrent.controls['fA0x'].value,
+                fB0x: this.formCurrent.controls['fB0x'].value,
+                fC0x: this.formCurrent.controls['fC0x'].value,
+                fD0x: this.formCurrent.controls['fD0x'].value,
+                fE0x: this.formCurrent.controls['fE0x'].value,
+                fF0x: this.formCurrent.controls['fF0x'].value,
+            }
+    
+            this._services.purchaseStep1(json).subscribe((result: any) => {
+                if(result.success === true){
+                    Notiflix.Loading.remove();
+                    res(true);
+                }
+            }, (err: any) => {
+                console.error(err);
+                Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                Notiflix.Loading.remove();
+                rej(false);
+            });
+        })
+    }
+
     ngOnInit(): void {
+        
     }
 
     openPopupMercadoPago() {
@@ -161,7 +247,7 @@ export class PaymentstepsComponent implements OnInit{
                                 id: res.collectorID
                             }
 
-                            this._payments.mercadopagoConfirmation(json2).subscribe((res2: any) => {
+                            this._payments.mercadopagoConfirmation(json2).subscribe(async (res2: any) => {
                                 Notiflix.Loading.dots('Verificando respuesta...',{
                                     clickToClose: false,
                                     svgColor: '#a95eff',
@@ -172,11 +258,23 @@ export class PaymentstepsComponent implements OnInit{
 
                                 if(res2.status == 'approved'){
                                     Notiflix.Loading.remove();
-                                    Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+
+                                    const data = await this.sendAllData();
+
+                                    if(data === true){
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                                        this.rt.navigateByUrl('/')
+                                    }
+                                    else{
+                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                                    }
                                 }
                                 else if(res2.status == 'cancelled'){
                                     Notiflix.Loading.remove();
                                     Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.');
+                                    this.runOnce(() => {
+                                        this.rt.navigateByUrl('/')
+                                    }, 2000)
                                 }
                                 else{
                                     Notiflix.Notify.failure('Mercado Pago fracaso en la misión de pago, por favor intenta de nuevo más tarde.');
@@ -199,6 +297,7 @@ export class PaymentstepsComponent implements OnInit{
             Notiflix.Loading.remove();
             Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.');
         });
+        
     }
 
     openStripePopup(){
@@ -232,7 +331,7 @@ export class PaymentstepsComponent implements OnInit{
                                 id: 'HOMESERVICES-' + this.uuid
                             }
 
-                            this._payments.mercadopagoConfirmation(json2).subscribe((res2: any) => {
+                            this._payments.mercadopagoConfirmation(json2).subscribe(async (res2: any) => {
                                 Notiflix.Loading.dots('Verificando respuesta...',{
                                     clickToClose: false,
                                     svgColor: '#a95eff',
@@ -243,11 +342,23 @@ export class PaymentstepsComponent implements OnInit{
 
                                 if(res2.status == 'approved'){
                                     Notiflix.Loading.remove();
-                                    Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+
+                                    const data = await this.sendAllData();
+
+                                    if(data === true){
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                                        this.rt.navigateByUrl('/')
+                                    }
+                                    else{
+                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                                    }
                                 }
                                 else if(res2.status == 'cancelled'){
                                     Notiflix.Loading.remove();
                                     Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.');
+                                    this.runOnce(() => {
+                                        this.rt.navigateByUrl('/')
+                                    }, 2000)
                                 }
                                 else{
                                     Notiflix.Notify.failure('Stripe fracaso en la misión de pago, por favor intenta de nuevo más tarde.');
@@ -270,5 +381,6 @@ export class PaymentstepsComponent implements OnInit{
             Notiflix.Loading.remove();
             Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.');
         });
+        
     }
 }

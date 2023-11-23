@@ -63,4 +63,8 @@ export class UsersgestorService {
   public getLengthNotifications(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/notifications/length', data);
   }
+
+  public getSubCredentials(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/sub', data);
+  }
 }

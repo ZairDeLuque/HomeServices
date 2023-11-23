@@ -26,7 +26,7 @@
                         <h5>Ventas totales:</h5>
                         <div class="d-flex gap-5 align-items-end justify-content-end">
                             <i class="bi bi-cart-check fs-1" style="color: #a95eff;"></i>
-                            <h2 class="text-end">0</h2>
+                            <h2 class="text-end">{{stats1}}</h2>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         <h5>Servicios pendientes:</h5>
                         <div class="d-flex gap-5 align-items-end justify-content-end">
                             <i class="bi bi-person-raised-hand fs-1" style="color: #a95eff;"></i>
-                            <h2 class="text-end">0</h2>
+                            <h2 class="text-end">{{stats2}}</h2>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <h5>Ingresos totales:</h5>
                         <div class="d-flex gap-5 align-items-end justify-content-end">
                             <i class="bi bi-cash fs-1" style="color: #a95eff;"></i>
-                            <h2 class="text-end">$0</h2>
+                            <h2 class="text-end">${{stats3}}</h2>
                         </div>
                     </div>
                 </div>
@@ -79,14 +79,16 @@
                                 <td>{{product.price0x5 | currency:'MXN'}}</td>
                                 <td>{{product.category0x2}}</td>
                                 <td><p-rating [readonly]="true" [cancel]="false"></p-rating></td>
-                                <td><p-tag [value]="product.status0x8" [severity]="getSeverity(product.status0x8)"></p-tag></td>
-                                <td>
-                                    <a class="btn btn-outline-purple" type="submit">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-purple ms-2" type="submit">
+                                <td><p-tag class="user-select-none" [value]="product.status0x8" [severity]="getSeverity(product.status0x8)" pTooltip="Fecha de publicación: {{product.date0x7}}" tooltipPosition="top"></p-tag></td>
+                                <td class="d-flex">
+                                    <div pTooltip="No puedes editar una solicitud sin ser aprobada." tooltipPosition="top" [tooltipDisabled]="product.status0x8 !== 'EN REVISION'">
+                                        <button class="btn btn-outline-purple" type="button" [disabled]="product.status0x8 === 'EN REVISION'">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                    </div>
+                                    <button class="btn btn-purple ms-2" type="button" (click)="openDeleteDialog(product.uuid0x0, product.name0x3, product.status0x8)">
                                         <i class="bi bi-x-circle"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -113,7 +115,11 @@
                                 <td>{{product.price | currency: 'MXN'}}</td>
                                 <td>{{product.category}}</td>
                                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                                <td>
+                                    <div pTooltip="wasa">
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" ></p-tag>
+                                    </div>
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -143,6 +149,60 @@
                             </tr>
                         </ng-template>
                     </p-table>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
+                            <h5 class="mt-1"><i class="bi bi-person-raised-hand" style="color: #a95eff;"></i> Servicios pendientes:</h5>
+                            <hr>
+                            <div class="d-flex justify-content-center align-items-center" *ngIf="stats2 === 0">
+                                <div class="container-fluid mt-5">
+                                    <div class="d-flex justify-content-center" style="opacity: .7;">
+                                        <lord-icon
+                                            src="https://cdn.lordicon.com/jjoolpwc.json"
+                                            trigger="loop"
+                                            delay="2000"
+                                            colors="primary:#121331,secondary:#a95eff"
+                                            style="width:70px;height:70px">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-4 mb-0 text-center" style="opacity: .7;">
+                                        <p class="mb-2">No tienes actividades pendientes, si tienes pedidos completados puedes reclamar el dinero. ¿Vamos por hamburguesas?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div *ngIf="stats2 > 0">
+                                <!-- 1 -->
+                                <div class="btn-noti w-100 mb-3" *ngFor="let packet of uncomplete">
+                                    <a class="text-decoration-none" (click)="openDetailsUncomplete(packet)">
+                                        <div class="row w-100 p-3">
+                                            <div class="col-1 d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-journal-plus fs-2"></i>
+                                            </div>
+                                            <div class="col" style="width: 80%;">
+                                                <div class="row text-start" style="width: 100%;">
+                                                    <h5 class="text-dark text-truncate">Nueva compra!</h5>
+                                                    <p class="text-dark mb-0 opacity-75 text-truncate">Adquirido: {{formatDate(packet.date0x11)}}</p>
+                                                    <p class="text-dark mb-0 opacity-50">Clic para mas información</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto d-flex gap-2 justify-content-center align-items-center p-0">
+                                                <a class="btn btn-outline-purple border-0 p-0" role="button"><i class="bi bi-x fs-4"></i></a>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
+                            <h5 class="mt-1"><i class="bi bi-person-raised-hand" style="color: #a95eff;"></i> Servicios pendientes:</h5>
+                            <hr>
+                        </div>
+                    </div>
                 </div>
             </div>
             

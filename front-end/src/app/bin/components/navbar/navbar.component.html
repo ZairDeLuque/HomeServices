@@ -14,9 +14,9 @@
                 <li class="nav-item" *ngIf="extended">
                     <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                 </li>
-                <li class="nav-item" *ngIf="extended">
+                <!-- <li class="nav-item" *ngIf="extended">
                     <a class="nav-link" href="#">Categorías</a>
-                </li>
+                </li> -->
                 <li class="nav-item" *ngIf="extended">
                     <a class="nav-link" href="#">Tendencias</a>
                 </li>
@@ -98,7 +98,7 @@
     </ng-template>
     <ng-template pTemplate="content">
         <div class="user-select-none">
-            <h6 class="ms-2 border-text">Sobre ti</h6>
+            <!-- <h6 class="ms-2 border-text">Sobre ti</h6> -->
             <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/profile/{{userProfile}}"><i class="bi bi-arrow-return-right"></i> Ir a mi perfil</button>
             <!-- <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" (click)="show()">
                 <div class="row">
@@ -110,14 +110,14 @@
                     </div>
                 </div>
             </button> -->
-            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button>
-            <h6 class="ms-2 border-text">Tus compras</h6>
-            <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button>
+            <!-- <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-geo-alt"></i> Mis direcciones</button> -->
+            <!-- <h6 class="ms-2 border-text">Tus compras</h6> -->
+            <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-cart-check"></i> Servicios contratados</button>
             <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button> -->
-            <h6 class="ms-2 border-text">Utilidades</h6>
-            <button *ngIf="isSeller" class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/sell"><i class="bi bi-person-raised-hand"></i> Mis ventas</button>
-            <button *ngIf="isShopper" class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/sellers"><i class="bi bi-basket"></i> Convertirme en vendedor</button>
-            <button *ngIf="isOrganizer" class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-building"></i> Organizaciones</button>
+            <!-- <h6 class="ms-2 border-text">Utilidades</h6> -->
+            <button *ngIf="isSeller" class="btn canvas-item rounded-3 w-100 mb-1" type="button" (click)="transportWeb()"><i class="bi bi-person-raised-hand"></i> Mis ventas</button>
+            <button *ngIf="isShopper" class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/sellers"><i class="bi bi-basket"></i> Convertirme en vendedor</button>
+            <button *ngIf="isOrganizer" class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-building"></i> Organizaciones</button>
         </div>
     </ng-template>
     <ng-template pTemplate="footer">

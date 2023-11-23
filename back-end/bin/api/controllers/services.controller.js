@@ -305,7 +305,7 @@ async function listAllProducts(req, res){
 
         cn = await Connection();
 
-        const sql = 'SELECT uuid0x0, category0x2, name0x3, price0x5, status0x8, priceB0x9, explicit0x10 FROM s0x WHERE owner0x1 = ? ORDER BY date0x7 DESC'
+        const sql = 'SELECT uuid0x0, category0x2, name0x3, price0x5, date0x7, status0x8, priceB0x9, explicit0x10 FROM s0x WHERE owner0x1 = ? ORDER BY date0x7 DESC'
         const values = [body._own]
 
         const [result] = await cn.execute(sql, values);
@@ -337,11 +337,229 @@ async function listAllProducts(req, res){
     }
 }
 
+async function DeleteRequest(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'DELETE FROM s0x WHERE uuid0x0 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                deleted: true
+            })
+        }
+        else{
+            res.status(500).json({
+                deleted: false,
+                message: 'Posible duplicidad de UUID o inexistencia.'
+            })
+        
+        }
+    }
+    catch(e){
+        console.log('[ERR] DeleteRequest error. Reason: ' + e)
+        res.status(500).json({
+            deleted: false,
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras eliminabamos tu servicio.'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+function generateRandomNumberString() {
+    return new Promise((resolve, reject) => {
+        let randomNumberString = '';
+        for (let i = 0; i < 12; i++) {
+            randomNumberString += Math.floor(Math.random() * 10);
+        }
+        resolve(randomNumberString);
+    });
+}
+
+async function shopStepA(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        //Cipher data
+        const formA = await Cipher.createNewChallenge(body.fA0x)
+        const formB = await Cipher.createNewChallenge(body.fB0x)
+        const formC = await Cipher.createNewChallenge(body.fC0x)
+        const formD = await Cipher.createNewChallenge(body.fD0x)
+        const formE = await Cipher.createNewChallenge(body.fE0x)
+        const formF = await Cipher.createNewChallenge(body.fF0x)
+
+        const id_shop = 'HS-' + await generateRandomNumberString();
+        const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
+        const sql = 'INSERT INTO q0x (article0x0, owner0x1, shopper0x2, subprice0x3, id_shop0x4, formA0x5, formB0x6, formC0x7, formD0x8, formE0x9 ,formF0x10, date0x11, completed0x12) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
+        const values = [body.a0x, body.o0x, body.s0x, body.sp0x, id_shop, formA, formB, formC, formD, formE, formF, dateFormated, 0]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows > 0){
+            res.status(200).json({
+                success: true
+            })
+        }
+        else{
+            res.status(500).json({
+                message: 'Desafortunadamente tu información no se guardo, por lo tanto no se podrá procesar tu solicitud.',
+                success: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] shopStepA error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            success: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function UncompleteTasks(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'SELECT * FROM q0x WHERE owner0x1 = ? AND completed0x12 = 0'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            let apprend = [];
+
+            for(let i = 0; i < result.length; i++){
+                const aprendiz = {
+                    article0x0: result[i].article0x0,
+                    owner0x1: result[i].owner0x1,
+                    shopper0x2: result[i].shopper0x2,
+                    subprice0x3: result[i].subprice0x3,
+                    id_shop0x4: result[i].id_shop0x4,
+                    formA0x5: await Cipher.resolveChallenge(result[i].formA0x5),
+                    formB0x6: result[i].formB0x6,
+                    formC0x7: await Cipher.resolveChallenge(result[i].formC0x7),
+                    formD0x8: result[i].formD0x8,
+                    formE0x9: result[i].formE0x9,
+                    formF0x10: await Cipher.resolveChallenge(result[i].formF0x10.toString('utf-8')),
+                    date0x11: "2023-11-22T01:22:54.000Z",
+                    completed0x12: "0"
+                }
+
+                apprend.push(aprendiz)
+            }
+
+            res.status(200).json({
+                result: apprend,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                nothing: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] UncompleteTasks error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function InvoiceData(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'SELECT name0x3, price0x5, priceB0x9 FROM s0x WHERE uuid0x0 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+            
+            const sql2 = 'SELECT powered0x3 FROM pay0x WHERE uuidshop0x4 = ? AND payer0x1 = ?'
+            const values2 = [body._uuid, body._payer]
+
+            const [result2] = await cn.execute(sql2, values2);
+
+            if(result2.length === 1){
+                res.status(200).json({
+                    info: result,
+                    pay: result2,
+                    get: true
+                })
+            }
+            else{
+                res.status(200).json({
+                    get: false
+                })
+            }
+        }
+        else{
+            res.status(200).json({
+                get: false
+            })
+        
+        }
+    }
+    catch (err){
+        console.log('[ERR] InvoiceData error. Reason: ' + err)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
     getInfoService: getInfoServiceByUUID,
     isMyPublish: isMyPublish,
     paymentA: paymentInfoA,
-    SPgetAllProducts: listAllProducts
+    SPgetAllProducts: listAllProducts,
+    SPuncomplete: UncompleteTasks,
+    deleteReq: DeleteRequest,
+    shopA: shopStepA,
+    invoice: InvoiceData
 }
