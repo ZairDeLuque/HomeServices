@@ -23,3 +23,16 @@
     border-style: solid;
     padding-bottom: 7px;
 }
+
+.btn-outline-purple-var-3{
+    border-color: transparent;
+    background-color: transparent;
+    opacity: .7;
+}
+
+.btn-outline-purple-var-3:hover{
+    border-color: #a95eff;
+    background-color: white;
+    color: #a95eff;
+    opacity: 1;
+}

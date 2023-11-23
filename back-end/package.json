@@ -29,6 +29,7 @@
     "mysql2": "^3.6.3",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.9.7",
+    "pdfmake": "^0.2.8",
     "request": "^2.88.2",
     "socket.io": "^4.7.2",
     "ssh2": "^1.14.0",
