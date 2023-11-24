@@ -405,7 +405,7 @@ async function shopStepA(req, res){
 
         const id_shop = 'HS-' + await generateRandomNumberString();
         const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
-        const sql = 'INSERT INTO q0x (article0x0, owner0x1, shopper0x2, subprice0x3, id_shop0x4, formA0x5, formB0x6, formC0x7, formD0x8, formE0x9 ,formF0x10, date0x11, completed0x12) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
+        const sql = 'INSERT INTO q0x (article0x0, owner0x1, shopper0x2, subprice0x3, id_shop0x4, formA0x5, formB0x6, formC0x7, formD0x8, formE0x9 ,formF0x10, date0x11, completed0x12, multiplebuys0x13) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
         const values = [body.a0x, body.o0x, body.s0x, body.sp0x, id_shop, formA, formB, formC, formD, formE, formF, dateFormated, 0, body._multiple]
 
         const [result] = await cn.execute(sql, values);
