@@ -237,7 +237,6 @@ export class SellersPortalComponent implements OnInit{
 
     if(uncompletedTasks === true){
       if(this.stats2 > 0){
-        this.openDetailsUncomplete(this.uncomplete[0]);
         this.NG_MSG.add({severity: 'warn', summary: 'Advertencia', detail: 'Tienes servicios sin completar, por favor, completa los servicios para que puedas recibir pagos.'})
       }
     }

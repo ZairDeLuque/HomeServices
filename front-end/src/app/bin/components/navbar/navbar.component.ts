@@ -163,7 +163,6 @@ export class NavbarComponent implements OnInit{
       sessionStorage.removeItem('_token');
     }
 
-    window.location.reload();
     this.rt.navigateByUrl('/')
   }
 }

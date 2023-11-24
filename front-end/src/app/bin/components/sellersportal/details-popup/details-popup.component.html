@@ -68,7 +68,7 @@
                     <th class="table-secondary" scope="col">Nombre del servicio</th>
                     <th class="table-secondary" scope="col">Identificador</th>
                     <th class="table-secondary" scope="col">Método de pago</th>
-                    <th class="table-secondary" scope="col">Precios</th>
+                    <th class="table-secondary" scope="col">Precio Unitario</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,6 +90,12 @@
                     <td class="border-0"></td>
                     <td class="border-0"></td>
                 </tr>
+                <tr *ngIf="servicePacket.multiple0x13 > 1">
+                    <th class="border-0"></th>
+                    <td class="border-0"></td>
+                    <td>Servicios por tiempo ({{servicePacket.multiple0x13}} pagos):</td>
+                    <td>{{invoice.info[0].price0x5 * servicePacket.multiple0x13 | currency: 'MXN'}}</td>
+                </tr>
                 <tr>
                     <th class="border-0"></th>
                     <td class="border-0"></td>
@@ -100,7 +106,7 @@
                     <th class="border-0"></th>
                     <td class="border-0"></td>
                     <td>Comisión de HomeServices®:</td>
-                    <td>{{servicePacket.subprice0x3 - (invoice.info[0].priceB0x9 + invoice.info[0].price0x5) | currency: 'MXN'}}</td>
+                    <td>{{servicePacket.subprice0x3 - (invoice.info[0].priceB0x9 + (invoice.info[0].price0x5 * servicePacket.multiple0x13)) | currency: 'MXN'}}</td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>

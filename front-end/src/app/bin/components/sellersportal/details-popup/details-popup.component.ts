@@ -16,7 +16,8 @@ export class DetailsPopupComponent implements OnInit{
   protected active: boolean = true;
   protected errors: boolean = false;
 
-  constructor(public _dynamic: DynamicDialogRef, private _config: DynamicDialogConfig, private _service: ServicesGestorService, private _users: UsersgestorService){}
+  constructor(public _dynamic: DynamicDialogRef, private _config: DynamicDialogConfig, private _service: ServicesGestorService, private _users: UsersgestorService){
+  }
 
   padZero(number: number): string {
     return number.toString().padStart(2, '0');

@@ -39,6 +39,8 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
   private categories: any;
   protected imagesBlob: any[] = [];
 
+  protected multipleTime: number = 1;
+
   private ref: DynamicDialogRef | undefined;
 
   protected activeID: string | undefined;
@@ -94,7 +96,9 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
         messageColor: '#000'
       })
 
-      this.rt.navigateByUrl('/services/buy/payment/method/' + this.activeID)
+      this.rt.navigate(['/services/buy/payment/' + this.activeID], {
+        queryParams: { multiple: this.multipleTime }
+      })
     }
     else{
       this.rt.navigateByUrl('/notaccount')
@@ -121,6 +125,10 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     else{
       this.ifservicerImage = true;
     }
+  }
+
+  isPaymentsofTimes(){
+
   }
 
   getCategories(): Promise<any>{

@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-4 p-4">
-            <div class="container-fluid p-0">
+            <div class="container-fluid p-0 m-0 mb-3">
                 <div class="row" *ngIf="priceShowed_Boolean">
                     <div class="col">
                         <h4>${{priceShowed}}MXN</h4>
@@ -53,10 +53,29 @@
                 </div>
             </div>
 
-            <div class="row mt-4">
-                <button type="button" class="btn btn-purple p-2 mb-3 rounded-4 dropped-shadow-tiny" (click)="shop()"><i class="bi bi-bag"></i> Contratar</button>
+            <div>
+                <div class="row mb-3" *ngIf="priceBShowed !== 'Pago / Pago único'">
+                    <div class="col-auto d-flex align-items-center">
+                        <h6 class="mb-0">¿Cuantas horas necesitas?</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <select class="form-select w-100" [(ngModel)]="multipleTime">
+                            <option value="1">1 hora</option>
+                            <option value="2">2 horas</option>
+                            <option value="3">3 horas</option>
+                            <option value="4">4 horas</option>
+                            <option value="5">5 horas</option>
+                            <option value="6">6 horas</option>
+                            <option value="7">7 horas</option>
+                            <option value="8">8 horas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-purple p-2 mb-3 rounded-4 dropped-shadow-tiny w-100" (click)="shop()"><i class="bi bi-bag"></i> Contratar</button>
+
                 <p class="d-flex justify-content-center w-100" style="opacity: .5; font-size: 13px;">¿Quieres hablar con el vendedor?</p>
-                <button type="button" class="btn btn-outline-purple-var-2 p-2 rounded-4 mb-3 dropped-shadow-tiny" (click)="generateNewRoom()">
+                <button type="button" class="btn btn-outline-purple-var-2 p-2 rounded-4 mb-3 dropped-shadow-tiny w-100" (click)="generateNewRoom()">
                     <div class="opacity-75" *ngIf="spinner">
                         <div class="spinner-border spinner-border-sm" role="status">
                             <span class="visually-hidden">Loading...</span>

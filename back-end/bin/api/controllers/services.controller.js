@@ -1,4 +1,4 @@
-// Category's Controller
+// Services Controller
 // HomeServices Web Services
 // @apocalixdeluque - The creator
 
@@ -406,7 +406,7 @@ async function shopStepA(req, res){
         const id_shop = 'HS-' + await generateRandomNumberString();
         const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
         const sql = 'INSERT INTO q0x (article0x0, owner0x1, shopper0x2, subprice0x3, id_shop0x4, formA0x5, formB0x6, formC0x7, formD0x8, formE0x9 ,formF0x10, date0x11, completed0x12) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
-        const values = [body.a0x, body.o0x, body.s0x, body.sp0x, id_shop, formA, formB, formC, formD, formE, formF, dateFormated, 0]
+        const values = [body.a0x, body.o0x, body.s0x, body.sp0x, id_shop, formA, formB, formC, formD, formE, formF, dateFormated, 0, body._multiple]
 
         const [result] = await cn.execute(sql, values);
 
@@ -465,8 +465,9 @@ async function UncompleteTasks(req, res){
                     formD0x8: result[i].formD0x8,
                     formE0x9: result[i].formE0x9,
                     formF0x10: await Cipher.resolveChallenge(result[i].formF0x10.toString('utf-8')),
-                    date0x11: "2023-11-22T01:22:54.000Z",
-                    completed0x12: "0"
+                    date0x11: result[i].date0x11,
+                    completed0x12: "0",
+                    multiple0x13: result[i].multiplebuys0x13
                 }
 
                 apprend.push(aprendiz)
@@ -549,6 +550,69 @@ async function InvoiceData(req, res){
             cn.end();
         }
     }
+}
+
+async function obtaineableInfo(UUID){
+    return new Promise(async (resolve, reject) => {
+        let cn;
+
+        try{
+            const sql = 'SELECT fullname0x4 FROM ud0x WHERE uuid0x0 = ?'
+            const values = [UUID]
+
+            const [result] = await cn.execute(sql, values);
+
+            if(result.length > 0){
+                resolve(result[0].fullname0x4.toString('utf-8'))
+            }
+        }
+        catch(e){
+
+        }
+        finally{
+            if(cn){
+                cn.end();
+            }
+        }
+    })
+}
+
+async function MyOwnServices(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'SELECT * FROM q0x WHERE shopper0x2 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            
+            const sql2 = 'SELECT name0x3, price0x5, priceB0x9 FROM s0x WHERE uuid0x0 = ?'
+        }
+        else{
+            res.status(200).json({
+                nothing: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] MyOwnServices error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+
 }
 
 module.exports = {

@@ -18,12 +18,13 @@ export class PaymentComponent implements OnInit{
     protected priceA: number = 0;
     protected priceB: number = 0;
     protected priceC: number = 0;
-    protected priceD: number = 0;
 
     protected shopper: string;
     protected id: string = '';
 
     protected ownerBySend: string = ''
+
+    protected multiple: number = 1;
 
     whatUUID(): string {
         if(localStorage.getItem('uu0x0')){
@@ -43,6 +44,12 @@ export class PaymentComponent implements OnInit{
 
     constructor(private _route: ActivatedRoute, private _title: Title, private _services: ServicesGestorService){
         this.shopper = this.whatUUID();
+
+        this._route.queryParams.subscribe(params => {
+            if(params['multiple'] != undefined){
+                this.multiple = params['multiple'];
+            }
+        })
     }
 
     ngOnInit(): void {
@@ -64,9 +71,8 @@ export class PaymentComponent implements OnInit{
                 this.priceB = res.extras[0].priceB0x9;
             }
 
-            this.priceC = (res.extras[0].price0x5 * 0.05)
+            this.priceC = ((res.extras[0].price0x5 * this.multiple) * 0.05)
             
-            this.priceD = this.priceA + this.priceB + this.priceC;
         }, error => {
             console.error(error);
         })

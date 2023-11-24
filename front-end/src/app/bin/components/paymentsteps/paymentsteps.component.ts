@@ -32,10 +32,13 @@ export class PaymentstepsComponent implements OnInit{
     @Input()
     owner?: string;
 
+    @Input()
+    multiple?: number;
+
     protected formCurrent: FormGroup;
 
     constructor(private _payments: PaymentsManagerService, private ar: ActivatedRoute, private _dialog: DialogService, private _builder: FormBuilder, private _services: ServicesGestorService, private rt: Router) {
-        
+
         this.formCurrent = this._builder.group({
             fA0x: ['', Validators.required],
             fB0x: ['', Validators.required],
@@ -92,7 +95,7 @@ export class PaymentstepsComponent implements OnInit{
                         _uitem: this.ar.snapshot.params['id'],
                         _transaction: data.id,
                         _payer: this.shopper,
-                        _price: data.purchase_units[0].amount.value
+                        _price: data.purchase_units[0].amount.value,
                     }
 
                     this._payments.paypalConfirmation(json).subscribe((res: any) => {
@@ -196,6 +199,7 @@ export class PaymentstepsComponent implements OnInit{
                 fD0x: this.formCurrent.controls['fD0x'].value,
                 fE0x: this.formCurrent.controls['fE0x'].value,
                 fF0x: this.formCurrent.controls['fF0x'].value,
+                _multiple: this.multiple
             }
     
             this._services.purchaseStep1(json).subscribe((result: any) => {
@@ -230,7 +234,7 @@ export class PaymentstepsComponent implements OnInit{
             _item:"HOMESERVICES-" + this.uuid,
             _price: this.price,
             _qual: 1,
-            _payer: this.shopper
+            _payer: this.shopper,
         }
 
         this._payments.mercadopagoCheckout(json).subscribe((res: any) => {
@@ -314,7 +318,7 @@ export class PaymentstepsComponent implements OnInit{
             _item:"HOMESERVICES-" + this.uuid,
             _price: this.price,
             _qual: 1,
-            _payer: this.shopper
+            _payer: this.shopper,
         }
 
         this._payments.stripeCheckout(json).subscribe((res: any) => {

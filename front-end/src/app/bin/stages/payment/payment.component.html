@@ -26,11 +26,12 @@
                 <h3>Resumen de la compra:</h3>
                 <hr style="opacity: .15;">
                 <div class="row mb-2">
-                    <div class="col">
-                        <p class="mb-0">Servicio:</p>
+                    <div class="col-auto">
+                        <p class="mb-0">Costo por servicio(s):</p>
+                        <p class="mb-0" style="font-size: small; opacity: .6;" *ngIf="multiple > 1">Costo unitario: {{priceA | currency: 'MXN'}}</p>
                     </div>
                     <div class="col text-end">
-                        ${{priceA}} MXN
+                        {{priceA * multiple | currency: 'MXN'}}
                     </div>
                 </div>
                 <div class="row mb-2" *ngIf="priceB > 0">
@@ -38,7 +39,7 @@
                         <p class="mb-0">Costo adicional por traslado:</p>
                     </div> 
                     <div class="col text-end">
-                        ${{priceB}} MXN
+                        {{priceB | currency: 'MXN'}}
                     </div>
                 </div>
                 <div class="row">
@@ -47,7 +48,7 @@
                         <p class="mb-0" style="font-size: small; opacity: .6;">HomeServices® cobra una comisión por uso del servicio.</p>
                     </div>
                     <div class="col-auto text-end">
-                        ${{priceC}} MXN
+                        {{priceC | currency: 'MXN'}}
                     </div>
                 </div>
                 <hr style="opacity: .15;">
@@ -56,7 +57,7 @@
                         <h4 class="m-0 p-0">Subtotal:</h4>
                     </div>
                     <div class="col d-flex align-items-center justify-content-end">
-                        <h3>${{priceD}} MXN</h3>
+                        <h3>{{(priceA * multiple) + priceB + priceC | currency: 'MXN'}}</h3>
                     </div>
                 </div>
                 <div class="container-fluid text-center mt-4">
@@ -65,7 +66,7 @@
             </div>
         </div>
         <div class="col">
-            <app-paymentsteps [price]="priceD" [uuid]="id" [shopper]="shopper" [owner]="ownerBySend"></app-paymentsteps>
+            <app-paymentsteps [price]="(priceA * multiple) + priceB + priceC" [uuid]="id" [shopper]="shopper" [owner]="ownerBySend" [multiple]="multiple"></app-paymentsteps>
         </div>
     </div>
     <hr style="opacity: .15;">
