@@ -103,6 +103,7 @@ import { DetailsPopupComponent } from './bin/components/sellersportal/details-po
 import { DetailsOwnComponent } from './bin/components/details-own/details-own.component';
 import { DetailsPointsComponent } from './bin/components/details-points/details-points.component';
 import { DetailsCancelComponent } from './bin/components/details-cancel/details-cancel.component';
+import { SearchComponent } from './bin/stages/search/search.component';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
@@ -161,7 +162,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DetailsPopupComponent,
     DetailsOwnComponent,
     DetailsPointsComponent,
-    DetailsCancelComponent
+    DetailsCancelComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

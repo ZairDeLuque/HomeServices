@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as Notiflix from 'notiflix';
 import { MessageService } from 'primeng/api';
 import { UsersgestorService } from '../../services/api/usersgestor.service';
 import { Title } from '@angular/platform-browser';
@@ -146,18 +145,24 @@ export class InsideHomeComponent implements OnInit{
   async ngOnInit(){
     this.title.setTitle('Inicio | HomeServices®️');
 
-    const location = await this.getLocation();
-    
-    if(location === false){
-      this.NG_MSG.add({severity: 'warn', summary: '¿Norte, sur, este, oeste?', detail: 'No se pudo obtener tu ubicación, no podremos darte sugerencias de tu ubicación.'});
-    }
-    else{
-      const itemsA = await this.getItemsWithLocation();
+    const uid = this.whatUUID();
 
-      if(itemsA === false){
-        this.NG_MSG.add({severity: 'warn', summary: 'Olvidamos de donde eres:(', detail: 'No se lograron obtener servicios de tu locación actual.'});
+    if(uid !== 'undefined'){
+      const location = await this.getLocation();
+
+      
+      if(location === false){
+        this.NG_MSG.add({severity: 'warn', summary: '¿Norte, sur, este, oeste?', detail: 'No se pudo obtener tu ubicación, no podremos darte sugerencias de tu ubicación.'});
+      }
+      else{
+        const itemsA = await this.getItemsWithLocation();
+  
+        if(itemsA === false){
+          this.NG_MSG.add({severity: 'warn', summary: 'Olvidamos de donde eres:(', detail: 'No se lograron obtener servicios de tu locación actual.'});
+        }
       }
     }
+    
 
     // let _param: boolean | undefined;
 

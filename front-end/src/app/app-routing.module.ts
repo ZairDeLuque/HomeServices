@@ -23,6 +23,7 @@ import { ProductViewComponent } from './bin/stages/product-view/product-view.com
 import { CategoriesComponent } from './bin/stages/categories/categories.component';
 import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
+import { SearchComponent } from './bin/stages/search/search.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'categories', component: CategoriesComponent},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'myaccount/seller/dashboard', component: SellersPortalComponent},
+  {path: 'search', component: SearchComponent},
 
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},

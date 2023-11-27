@@ -18,7 +18,7 @@
 </div>
 
 
-<div class="container-fluid p-4 mt-3 font-b">
+<div class="container-fluid p-4 mt-3 font-b" *ngIf="this.locationItems.length > 0">
     <h1 class="mb-4"><i class="bi bi-geo" style="color: #a95eff;"></i> Servicios en {{City}}:</h1>
     <p-carousel [value]="locationItems" [numVisible]="3" [autoplayInterval]="2000" class="overflow-visible">
         <ng-template let-items pTemplate="item">

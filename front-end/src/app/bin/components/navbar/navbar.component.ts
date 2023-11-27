@@ -36,6 +36,8 @@ export class NavbarComponent implements OnInit{
 
   protected sidebarVisible: boolean = false;
 
+  protected searchValue: string = '';
+
   constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService, public dialogService: DialogService, private rt: Router) { }
 
   show() {
@@ -53,6 +55,12 @@ export class NavbarComponent implements OnInit{
     }
     else{
       return sessionStorage.getItem('uu0x0')!; 
+    }
+  }
+
+  tpSearch(): void{
+    if(this.searchValue.length > 0){
+      this.rt.navigate(['/search'], { queryParams: { q: this.searchValue } });
     }
   }
 
