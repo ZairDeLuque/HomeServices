@@ -1,0 +1,48 @@
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="!active">
+    <div class="spinner-border" style="color: #a95eff;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="active && step === 1">
+    <div class="d-flex gap-3 align-items-center justify-content-center">
+        <i class="bi bi-emoji-frown fs-2"></i>
+        <h4>¿Porque deseas cancelar el servicio?</h4>
+    </div>
+
+    <div class="container-fluid w-100 p-0 mt-2">
+        <div class="d-flex border p-3 rounded-3 mb-2">
+            <p-radioButton name="1" value="1" [(ngModel)]="ingredient" inputId="op1"></p-radioButton>
+            <label for="1" class="ms-2">El servicio no era el correcto.</label>
+        </div>
+        <div class="d-flex border p-3 rounded-3 mb-2">
+            <p-radioButton name="2" value="2" [(ngModel)]="ingredient" inputId="op2"></p-radioButton>
+            <label for="2" class="ms-2">He encontrado una mejor opción.</label>
+        </div>
+        <div class="d-flex border p-3 rounded-3 mb-2">
+            <p-radioButton name="3" value="3" [(ngModel)]="ingredient" inputId="op3"></p-radioButton>
+            <label for="3" class="ms-2">Yo no he hecho la compra o la he hecho intencionalmente.</label>
+        </div>
+        <div class="d-flex border p-3 rounded-3 mb-2">
+            <p-radioButton name="4" value="4" [(ngModel)]="ingredient" inputId="op4"></p-radioButton>
+            <label for="4" class="ms-2">El prestador no me ha generado confianza.</label>
+        </div>
+        <div class="d-flex border p-3 rounded-3 mb-2">
+            <p-radioButton name="5" value="5" [(ngModel)]="ingredient" inputId="op5"></p-radioButton>
+            <label for="5" class="ms-2">Prefiero no responder.</label>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+        <button type="button" class="btn btn-outline-purple-var-2" (click)="this._dynamic.close({cancel: false})">Cambie de opinión</button>
+        <button type="button" class="btn btn-purple" (click)="next()"><i class="bi bi-arrow-right"></i> Continuar</button>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 2">
+    <div class="row text-center text-danger d-flex justify-content-center">
+        <i class="bi bi-emoji-frown fs-2"></i>
+        <h4>¿Estas seguro de cancelar?</h4>
+        <button type="button" class="btn btn-danger w-50 mt-3" (click)="finalStep()"><i class="bi bi-cart-x"></i> Cancelar</button>
+    </div>
+</div>

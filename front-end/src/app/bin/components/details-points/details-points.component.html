@@ -1,0 +1,50 @@
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="!active">
+    <div class="spinner-border" style="color: #a95eff;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 1">
+    <div class="row text-center d-flex justify-content-center">
+        <i class="bi bi-emoji-smile fs-1"></i>
+        <h5>¿Que tal fue la calidad del servicio {{name}}?</h5>
+        <p-rating [(ngModel)]="pointsA" [cancel]="false" class="ui-rating-lg mt-3 mb-3" (onRate)="next()"></p-rating>
+        <p class="mt-5 opacity-50" style="font-size: small;">La pregunta cambiara cuando puntúes.</p>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 2">
+    <div class="row text-center d-flex justify-content-center">
+        <i class="bi bi-emoji-smile fs-1"></i>
+        <h5>¿Recomendarías con alguien {{name}}?</h5>
+        <p-rating [(ngModel)]="pointsB" [cancel]="false" class="ui-rating-lg mt-3 mb-3" (onRate)="next()"></p-rating>
+        <p class="mt-5 opacity-50" style="font-size: small;">La pregunta cambiara cuando puntúes.</p>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 3">
+    <div class="row text-center d-flex justify-content-center">
+        <i class="bi bi-emoji-smile fs-1"></i>
+        <h5>¿Como fue el trato de {{owner}}?</h5>
+        <p-rating [(ngModel)]="pointsC" [cancel]="false" class="ui-rating-lg mt-3 mb-3" (onRate)="next()"></p-rating>
+        <p class="mt-5 opacity-50" style="font-size: small;">La pregunta cambiara cuando puntúes.</p>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 4">
+    <div class="row text-center d-flex justify-content-center">
+        <i class="bi bi-emoji-smile fs-1"></i>
+        <h5>Puntúa generalmente a {{owner}}</h5>
+        <p-rating [(ngModel)]="pointsD" [cancel]="false" class="ui-rating-lg mt-3 mb-3" (onRate)="next()"></p-rating>
+        <p class="mt-5 opacity-50" style="font-size: small;">La pregunta cambiara cuando puntúes.</p>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="active && step === 5">
+    <div class="row text-center d-flex justify-content-center">
+        <i class="bi bi-emoji-smile fs-1"></i>
+        <h5>Opina adicionalmente sobre {{owner}} (opcional)</h5>
+        <textarea [(ngModel)]="pointsE" rows="3" cols="30" pInputTextarea style="width: 100%; margin-top: 1rem; max-height: 10rem;"></textarea>
+        <button type="button" class="btn btn-purple mt-3 w-25" (click)="upload()"><i class="bi bi-send"></i> Enviar</button>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoryGestorService } from '../../services/api/category-gestor.service';
 import { ServicesGestorService } from '../../services/api/services-gestor.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { ApiManagerService } from '../../services/chat/api-manager.service';
   styleUrls: ['./services-view.component.css'],
   providers: [DialogService, MessageService]
 })
-export class ServicesViewComponent implements OnInit, OnDestroy{
+export class ServicesViewComponent implements OnInit{
 
   protected categoryShowed: string | undefined;
   protected nameShowed: string | undefined;
@@ -26,7 +26,6 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
   protected descriptionShowed: string | undefined;  
 
   protected servicerName: string | undefined;
-  protected servicerDecimal: number | undefined;
   protected servicerUUID: string | undefined;
   protected servicerLetter: string | undefined;
   protected servicerImage: string | undefined;
@@ -45,6 +44,12 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
 
   protected activeID: string | undefined;
 
+  private reviews: any[] = [];
+
+  protected reputationValue: number = 0;
+  protected reputationValueAttention: number = 0;
+  protected reputationValueQuality: number = 0;
+
   constructor(private readonly _categories: CategoryGestorService, private readonly _servicesManager: ServicesGestorService, private readonly AR: ActivatedRoute, private NG_MSG: MessageService, private readonly userManager: UsersgestorService, private title: Title, private DialogS: DialogService, private ManagerChats: ApiManagerService, private rt: Router){}
 
   findInfoSeller(uuid: string){
@@ -60,7 +65,6 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
         this.servicerName = result.result.fn0x0;
         this.servicerLetter = result.result.fn0x0.charAt(0);
         this.servicerImage = result.result.pp0x1;
-        this.servicerDecimal = result.result.rep0x2;
 
         if(result.result.verify0x3 == 1){
           this.servicerStatus = 'Vendedor seguro de HomeServices®️'
@@ -199,6 +203,15 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
           }
   
           this.servicerUUID = result.result[0].owner0x1;
+
+          const reviews = await this.getReviews();
+
+          if(reviews === true){
+            this.reputationValueQuality = await this.formatReputationBValue();
+            this.reputationValueAttention = await this.formatReputationCValue();
+
+            this.reputationValue = this.formatReputationValue();
+          }
           
           this.title.setTitle(this.nameShowed + ' | HomeServices®️')
           
@@ -211,7 +224,48 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
           this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'Error al cargar la información del servicio'})
         }
       )
+
     }
+  }
+
+  formatReputationValue(): number{
+    let convertion = 0;
+    
+    for(let i = 0; i < this.reviews.length; i++){
+      convertion += this.reviews[i].data0x5;
+    }
+
+    const reputation = convertion / this.reviews.length;
+
+    return (
+      (0.4 * this.reputationValueQuality) +
+      (0.4 * this.reputationValueAttention) +
+      (0.2 * reputation)
+    );
+  }
+
+  formatReputationBValue(): Promise<number>{
+    return new Promise((resolve, reject) => {
+      let convertion = 0;
+    
+      for(let i = 0; i < this.reviews.length; i++){
+        convertion += this.reviews[i].data0x2;
+      }
+
+      resolve(convertion / this.reviews.length)
+    })
+  }
+
+  formatReputationCValue(): Promise<number>{
+    return new Promise((resolve, reject) => {
+      let convertion = 0;
+    
+      for(let i = 0; i < this.reviews.length; i++){
+        convertion += this.reviews[i].data0x4;
+      }
+
+      resolve(convertion / this.reviews.length)
+    })
   }
 
   showDialog(){
@@ -268,7 +322,32 @@ export class ServicesViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  ngOnDestroy(): void {
-      
+  getReviews(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      const packet = {
+        _u0x: this.servicerUUID
+      }
+  
+      this.userManager.getReviews_Profile(packet).subscribe((result: any) => {
+        if(result.get === true){
+          if(result.data.length > 0){
+            this.reviews = result.data;
+            resolve(true)
+          }
+          else{
+            this.reviews = [];
+            resolve(true)
+          }
+        }
+        else{
+          this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios de reseñas han fallado, intente recargar la pagina.', closable: true})
+          reject(false)
+        }
+      }, (error:any) => {
+        console.error(error)
+        this.NG_MSG.add({severity: 'error', summary: 'Error:(', detail: 'Los servicios de reseñas han fallado, intente recargar la pagina.', closable: true})
+        reject(false)
+      })
+    })
   }
 }

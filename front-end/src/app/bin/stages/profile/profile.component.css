@@ -8,3 +8,19 @@
     border-style: solid;
     padding-bottom: 7px;
 }
+
+.fade-out {
+    position: relative;
+    max-height: 4rem;
+    overflow: hidden;
+}
+
+.fade-out::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, white 100%);
+}

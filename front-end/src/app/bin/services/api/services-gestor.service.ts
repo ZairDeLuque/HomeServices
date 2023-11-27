@@ -59,4 +59,20 @@ export class ServicesGestorService {
   public invoiceData(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/invoice/data', data);
   }
+
+  public getMyOwnServices(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/own', data);
+  }
+
+  public cancelService(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/own/cancel', data);
+  }
+
+  public getWithUUID(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/uuid', data);
+  }
+
+  public getWithLocation(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/location', data);
+  }
 }

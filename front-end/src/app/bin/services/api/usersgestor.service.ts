@@ -67,4 +67,20 @@ export class UsersgestorService {
   public getSubCredentials(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/sub', data);
   }
+
+  public createReview(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/reviews/create', data);
+  }
+
+  public getReviews_Profile(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/reviews/get/profile', data);
+  }
+
+  public getSells(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/allsells', data);
+  }
+
+  public getLocation_2(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/user/info/smart/location', data);
+  }
 }

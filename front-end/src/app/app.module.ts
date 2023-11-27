@@ -100,6 +100,9 @@ import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentstep
 import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
 import { DeletePopupComponent } from './bin/components/sellersportal/delete-popup/delete-popup.component';
 import { DetailsPopupComponent } from './bin/components/sellersportal/details-popup/details-popup.component';
+import { DetailsOwnComponent } from './bin/components/details-own/details-own.component';
+import { DetailsPointsComponent } from './bin/components/details-points/details-points.component';
+import { DetailsCancelComponent } from './bin/components/details-cancel/details-cancel.component';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
@@ -155,7 +158,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     PaymentstepsComponent,
     SellersPortalComponent,
     DeletePopupComponent,
-    DetailsPopupComponent
+    DetailsPopupComponent,
+    DetailsOwnComponent,
+    DetailsPointsComponent,
+    DetailsCancelComponent
   ],
   imports: [
     BrowserModule,

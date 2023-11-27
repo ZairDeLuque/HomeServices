@@ -217,7 +217,6 @@ export class PaymentstepsComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        console.log(this.multiple)
     }
 
     openPopupMercadoPago() {

@@ -557,17 +557,24 @@ async function obtaineableInfo(UUID){
         let cn;
 
         try{
+
+            cn = await Connection();
+
             const sql = 'SELECT fullname0x4 FROM ud0x WHERE uuid0x0 = ?'
             const values = [UUID]
 
             const [result] = await cn.execute(sql, values);
 
             if(result.length > 0){
-                resolve(result[0].fullname0x4.toString('utf-8'))
+                resolve(Cipher.resolveChallenge(result[0].fullname0x4.toString('utf-8')))
+            }
+            else{
+                resolve('Not Founded')
             }
         }
         catch(e){
-
+            console.log('[ERR] obtaineableInfo error. Reason: ' + e)
+            reject(e)
         }
         finally{
             if(cn){
@@ -585,14 +592,54 @@ async function MyOwnServices(req, res){
 
         cn = await Connection()
 
-        const sql = 'SELECT * FROM q0x WHERE shopper0x2 = ?'
+        const sql = 'SELECT * FROM q0x WHERE shopper0x2 = ? ORDER BY date0x11 DESC'
         const values = [body._uuid]
 
         const [result] = await cn.execute(sql, values);
 
         if(result.length > 0){
-            
-            const sql2 = 'SELECT name0x3, price0x5, priceB0x9 FROM s0x WHERE uuid0x0 = ?'
+
+            const sql2 = 'SELECT uuid0x0, name0x3, price0x5, priceB0x9 FROM s0x WHERE uuid0x0 = ?'
+            const values2 = [result[0].article0x0]
+
+            const [result2] = await cn.execute(sql2, values2);
+
+            if(result2.length > 0){
+                let arrayAOutput = [];
+
+                for(let i = 0; i < result.length; i++){
+                    const { article0x0, owner0x1, subprice0x3, id_shop0x4, formA0x5, formB0x6, formC0x7, formD0x8, formE0x9, formF0x10, date0x11, completed0x12, multiplebuys0x13 } = result[i];
+
+                    const array = {
+                        data0: await obtaineableInfo(owner0x1),
+                        data1: article0x0,
+                        data2: subprice0x3,
+                        data3: id_shop0x4,
+                        data4: await Cipher.resolveChallenge(formA0x5),
+                        data5: formB0x6,
+                        data6: await Cipher.resolveChallenge(formC0x7),
+                        data7: formD0x8,
+                        data8: formE0x9,
+                        data9: await Cipher.resolveChallenge(formF0x10.toString('utf-8')),
+                        data10: date0x11,
+                        data11: completed0x12,
+                        data12: multiplebuys0x13
+                    }
+
+                    arrayAOutput.push(array)
+                }
+
+                res.status(200).json({
+                    resultQ: arrayAOutput,
+                    resultS: result2,
+                    get: true
+                })
+            }
+            else{
+                res.status(200).json({
+                    nothing: true
+                })
+            }
         }
         else{
             res.status(200).json({
@@ -615,15 +662,213 @@ async function MyOwnServices(req, res){
 
 }
 
+async function cancelPurchase(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'UPDATE q0x SET completed0x12 = 4 WHERE id_shop0x4 = ?'
+        const values = [body._id]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                canceled: true
+            })
+        }
+        else{
+            res.status(403).json({
+                canceled: false,
+                message: 'Posible duplicidad de UUID o inexistencia.'
+            })
+        
+        }
+    }
+    catch(e){
+        console.log('[ERR] cancelPurchase error. Reason: ' + e)
+        res.status(500).json({
+            canceled: false,
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras cancelábamos tu servicio.'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+
+}
+
+async function getPublishWithUUID(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'SELECT * FROM s0x WHERE owner0x1 = ?'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+            let resArr = [];
+
+            for(let i = 0; i < result.length; i++){
+                const { uuid0x0, category0x2, name0x3, description0x4, price0x5, ttp0x6, date0x7, status0x8, priceB0x9, explicit0x10 } = result[i];
+
+                const apprend = {
+                    data0: uuid0x0,
+                    data1: category0x2,
+                    data2: name0x3,
+                    data3: description0x4.toString('utf-8'),
+                    data4: price0x5,
+                    data5: ttp0x6,
+                    data6: date0x7,
+                    data7: status0x8,
+                    data8: priceB0x9,
+                    data9: explicit0x10
+                }
+
+                resArr.push(apprend)
+            }
+
+            res.status(200).json({
+                result: resArr,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                get: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] getPublishWithUUID error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+
+}
+
+async function getPublishWithLocation(req, res) {
+    let cn;
+
+    try {
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT state0x0, city0x1 FROM ud_p0x WHERE owner0x2 = ?';
+        const values = [body._uuid];
+
+        const [result] = await cn.execute(sql, values);
+
+        if (result.length === 1) {
+            const sql2 = 'SELECT owner0x2 FROM ud_p0x WHERE state0x0 = ? AND city0x1 = ?';
+            const values2 = [result[0].state0x0, result[0].city0x1];
+
+            const [result2] = await cn.execute(sql2, values2);
+
+            let allResults = [];
+
+            for (let i = 0; i < result2.length; i++) {
+                const sql3 = 'SELECT * FROM s0x WHERE owner0x1 = ?';
+                const values3 = [result2[i].owner0x2];
+
+                const [result3] = await cn.execute(sql3, values3);
+
+                if (result3.length > 0) {
+                    let resArr = [];
+
+                    for (let j = 0; j < result3.length; j++) {
+                        const {
+                            uuid0x0,
+                            category0x2,
+                            name0x3,
+                            description0x4,
+                            price0x5,
+                            ttp0x6,
+                            date0x7,
+                            status0x8,
+                            priceB0x9,
+                            explicit0x10
+                        } = result3[j];
+
+                        const apprend = {
+                            data0: uuid0x0,
+                            data1: category0x2,
+                            data2: name0x3,
+                            data3: description0x4.toString('utf-8'),
+                            data4: price0x5,
+                            data5: ttp0x6,
+                            data6: date0x7,
+                            data7: status0x8,
+                            data8: priceB0x9,
+                            data9: explicit0x10
+                        };
+
+                        resArr.push(apprend);
+                    }
+
+                    allResults = allResults.concat(resArr);
+                }
+            }
+
+            if (allResults.length > 0) {
+                res.status(200).json({
+                    result: allResults,
+                    get: true
+                });
+            } else {
+                res.status(200).json({
+                    get: false
+                });
+            }
+        } else {
+            res.status(200).json({
+                get: false
+            });
+        }
+    } catch (e) {
+        console.log('[ERR] getPublishWithUUID error. Reason: ' + e);
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        });
+    } finally {
+        if (cn) {
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
     getInfoService: getInfoServiceByUUID,
+    getInfoWithUUID: getPublishWithUUID,
+    getWithLocation: getPublishWithLocation,
     isMyPublish: isMyPublish,
     paymentA: paymentInfoA,
     SPgetAllProducts: listAllProducts,
     SPuncomplete: UncompleteTasks,
     deleteReq: DeleteRequest,
     shopA: shopStepA,
-    invoice: InvoiceData
+    invoice: InvoiceData,
+    ownedA: MyOwnServices,
+    ownedB: cancelPurchase
 }

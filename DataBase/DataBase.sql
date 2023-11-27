@@ -113,6 +113,34 @@ LOCK TABLES `n0x` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `op0x`
+--
+
+DROP TABLE IF EXISTS `op0x`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `op0x` (
+  `owner0x0` varchar(255) NOT NULL,
+  `product0x1` varchar(255) NOT NULL,
+  `data0x2` int NOT NULL,
+  `data0x3` int NOT NULL,
+  `data0x4` int NOT NULL,
+  `data0x5` int NOT NULL,
+  `data0x6` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `op0x`
+--
+
+LOCK TABLES `op0x` WRITE;
+/*!40000 ALTER TABLE `op0x` DISABLE KEYS */;
+INSERT INTO `op0x` VALUES ('9d1b8d75-3410-47f1-88dd-386aa35c3c17','26ae32fd-4c7d-43b5-a92f-7fe37551caa6',5,5,5,5,_binary 'asd'),('9d1b8d75-3410-47f1-88dd-386aa35c3c17','26ae32fd-4c7d-43b5-a92f-7fe37551caa6',5,5,5,5,_binary 'asd2'),('9d1b8d75-3410-47f1-88dd-386aa35c3c17','26ae32fd-4c7d-43b5-a92f-7fe37551caa6',5,5,5,5,_binary 'asd3'),('9d1b8d75-3410-47f1-88dd-386aa35c3c17','26ae32fd-4c7d-43b5-a92f-7fe37551caa6',5,5,5,5,_binary 'asd4'),('9d1b8d75-3410-47f1-88dd-386aa35c3c17','26ae32fd-4c7d-43b5-a92f-7fe37551caa6',5,5,5,5,_binary 'asd');
+/*!40000 ALTER TABLE `op0x` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pay0x`
 --
 
@@ -135,7 +163,7 @@ CREATE TABLE `pay0x` (
 
 LOCK TABLES `pay0x` WRITE;
 /*!40000 ALTER TABLE `pay0x` DISABLE KEYS */;
-INSERT INTO `pay0x` VALUES (_binary '7YS512286D8022243','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','approved','PAYPAL','26ae32fd-4c7d-43b5-a92f-7fe37551caa6','732.50');
+INSERT INTO `pay0x` VALUES (_binary '7YS512286D8022243','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','approved','PAYPAL','26ae32fd-4c7d-43b5-a92f-7fe37551caa6','732.50'),(_binary '40D2299114292960V','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','approved','PAYPAL','26ae32fd-4c7d-43b5-a92f-7fe37551caa6','190.40'),(_binary 'HOMESERVICES-26AE','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','approved','STRIPE','26ae32fd-4c7d-43b5-a92f-7fe37551caa6','190.4'),(_binary 'HOMESERVICES-26AE','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','approved','STRIPE','26ae32fd-4c7d-43b5-a92f-7fe37551caa6','190.4');
 /*!40000 ALTER TABLE `pay0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,8 +187,8 @@ CREATE TABLE `q0x` (
   `formE0x9` varchar(45) NOT NULL,
   `formF0x10` blob NOT NULL,
   `date0x11` datetime NOT NULL,
-  `completed0x12` varchar(45) NOT NULL,
-  `multiplebuys0x13` varchar(45) DEFAULT NULL
+  `completed0x12` int NOT NULL,
+  `multiplebuys0x13` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,7 +198,7 @@ CREATE TABLE `q0x` (
 
 LOCK TABLES `q0x` WRITE;
 /*!40000 ALTER TABLE `q0x` DISABLE KEYS */;
-INSERT INTO `q0x` VALUES ('26ae32fd-4c7d-43b5-a92f-7fe37551caa6','9d1b8d75-3410-47f1-88dd-386aa35c3c17','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b',732.5,'HS-576632540866','Lmud Xqaz Emzotql','75790','Omxxq 9 Egd','1513','(229) 609-4828',_binary 'mep','2023-11-23 17:09:25','0','5');
+INSERT INTO `q0x` VALUES ('26ae32fd-4c7d-43b5-a92f-7fe37551caa6','9d1b8d75-3410-47f1-88dd-386aa35c3c17','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b',732.5,'HS-576632540866','Lmud Xqaz Emzotql','75790','Omxxq 9 Egd','1513','(229) 609-4828',_binary 'mep','2023-11-23 17:09:25',5,5),('26ae32fd-4c7d-43b5-a92f-7fe37551caa6','9d1b8d75-3410-47f1-88dd-386aa35c3c17','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b',190.4,'HS-164695171709','Lmud Xqaz Emzotql','75790','Omxxq 9 Egd','1513','(229) 609-4828',_binary 'mep','2023-11-25 12:12:23',5,1),('26ae32fd-4c7d-43b5-a92f-7fe37551caa6','9d1b8d75-3410-47f1-88dd-386aa35c3c17','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b',190.4,'HS-239317511894','Lmud Xqaz Emzotql','75790','Omxxq 9 Egd','1513','(229) 609-4828',_binary 'mep','2023-11-25 12:47:47',4,1),('26ae32fd-4c7d-43b5-a92f-7fe37551caa6','9d1b8d75-3410-47f1-88dd-386aa35c3c17','24f8ad01-ff7b-41c2-b425-f1b5bba26e1b',190.4,'HS-249659875224','Lmud Xqaz Emzotql','75790','Omxxq 9 Egd','1513','(229) 609-4828',_binary 'mep','2023-11-25 12:55:21',2,1);
 /*!40000 ALTER TABLE `q0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +332,7 @@ CREATE TABLE `ud0x` (
 
 LOCK TABLES `ud0x` WRITE;
 /*!40000 ALTER TABLE `ud0x` DISABLE KEYS */;
-INSERT INTO `ud0x` VALUES ('9d1b8d75-3410-47f1-88dd-386aa35c3c17','AURORA',_binary '$2b$12$2NSroppm6SczLt.5qv0XkuK1o0sXxWDYzjQcifRb1ZMXa2cjehY1a',_binary '$2b$12$f8a6N1z.G4uhMrzKlghvS./026twt87nVuSUCTErNkyZiXiVBfOSm',_binary 'fqef',1,_binary 'notassign','2','2023-11-16 17:22:15',0),('24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','GOOGLE',_binary '$2b$12$ERMd7lK7HWSvp1tSearu0ebK.VGQ4PnJ0/LfYzmr0PKIyrnXc/EW6',_binary '$2b$12$uy.XFTyS9POuodQd8w6ldeDfs042911pwMmUGsDZvNIhvOs9elmqe',_binary 'Eak Zadu',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocKPfa3vUAoeuzglZNUN0M2VAESmJUV48J7s1jNa8oCD-F0=s96-c','2','2023-11-23 16:31:14',0);
+INSERT INTO `ud0x` VALUES ('9d1b8d75-3410-47f1-88dd-386aa35c3c17','AURORA',_binary '$2b$12$2NSroppm6SczLt.5qv0XkuK1o0sXxWDYzjQcifRb1ZMXa2cjehY1a',_binary '$2b$12$f8a6N1z.G4uhMrzKlghvS./026twt87nVuSUCTErNkyZiXiVBfOSm',_binary 'fqef',2,_binary 'notassign','2','2023-11-16 17:22:15',0),('24f8ad01-ff7b-41c2-b425-f1b5bba26e1b','GOOGLE',_binary '$2b$12$ERMd7lK7HWSvp1tSearu0ebK.VGQ4PnJ0/LfYzmr0PKIyrnXc/EW6',_binary '$2b$12$uy.XFTyS9POuodQd8w6ldeDfs042911pwMmUGsDZvNIhvOs9elmqe',_binary 'Eak Zadu',1,_binary 'https://lh3.googleusercontent.com/a/ACg8ocKPfa3vUAoeuzglZNUN0M2VAESmJUV48J7s1jNa8oCD-F0=s96-c','2','2023-11-23 16:31:14',0);
 /*!40000 ALTER TABLE `ud0x` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-24  5:46:01
+-- Dump completed on 2023-11-26 22:36:43

@@ -1,0 +1,53 @@
+<div class="container-fluid p-0">
+    <div class="d-flex align-items-center gap-2">
+        <img src="../../../../../assets/logo_invoices.png" alt="HomeServices® Logo" style="height: 40px; width: auto;">
+        <h5 class="mt-2">HomeServices®</h5>
+    </div>
+    <hr>
+    <div>
+        <h4>Información del servicio</h4>
+        <div class="row">
+            <div class="col">
+                <h6>Nombre:</h6>
+                <p>{{name}}</p>
+            </div>
+            <div class="col">
+                <h6>Prestador:</h6>
+                <p>{{information.data4}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6>SubTotal:</h6>
+                <p>{{information.data2 | currency: 'MXN'}}</p>
+            </div>
+            <div class="col">
+                <h6>Identificador:</h6>
+                <p>{{information.data3}}</p>
+            </div>
+            <div class="col">
+                <h6>Fecha de pago:</h6>
+                <p>{{formatDate(information.data10)}}</p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div>
+        <h4>Información del cliente</h4>
+        <div class="row">
+            <div class="col">
+                <h6>Nombre de quien recibe:</h6>
+                <p>{{information.data4}}</p>
+            </div>
+            <div class="col">
+                <h6>Dirección:</h6>
+                <p>{{information.data6}}, {{information.data5}}, No. {{information.data7}}</p>
+            </div>
+        </div>
+        <h6>Telefono:</h6>
+        <p>{{information.data8}}</p>
+        <h6>Información adicional:</h6>
+        <p>{{information.data9}}</p>
+</div>

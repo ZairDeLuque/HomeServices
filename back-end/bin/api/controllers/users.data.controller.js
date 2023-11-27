@@ -364,7 +364,6 @@ async function getSmartData(req, res){
             const array = {
                 fn0x0: await Cipher.resolveChallenge(fullname0x4.toString('utf-8')),
                 pp0x1: pp0x6.toString('utf-8'),
-                rep0x2: 1,
                 verify0x3: verify0x5
             };
 
@@ -665,11 +664,200 @@ async function getSubCredentials(req, res){
     }
 }
 
+async function reviewUser(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT article0x0, owner0x1 FROM q0x WHERE id_shop0x4 = ?';
+        const values = [body._u0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            const sql2 = 'INSERT INTO op0x (owner0x0, product0x1, data0x2, data0x3, data0x4, data0x5, data0x6) VALUES (?,?,?,?,?,?,?)';
+            const values2 = [result[0].owner0x1, result[0].article0x0, body._d0x, body._d1x, body._d2x, body._d3x, body._d4x];
+
+            const [result2] = await cn.execute(sql2, values2);
+
+            if(result2.affectedRows === 1){
+                const sql3 = 'UPDATE q0x SET completed0x12 = 5 WHERE id_shop0x4 = ?';
+                const values3 = [body._u0x];
+
+                const [result3] = await cn.execute(sql3, values3);
+
+                if(result3.affectedRows === 1){
+                    res.status(200).json({
+                        result: true,
+                        message: 'Tu reseña ha sido enviada con éxito. Gracias por tu opinión.'
+                    })
+                }
+                else{
+                    res.status(500).json({
+                        result: false,
+                        message: 'No se pudo enviar tu reseña. Es posible que sea nuestro problema, intente mas tarde.'
+                    })
+                
+                }
+            }
+            else{
+                res.status(500).json({
+                    result: false,
+                    message: 'No se pudo enviar tu reseña. Es posible que sea nuestro problema, intente mas tarde.'
+                })
+            
+            }
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in reviewUser. Reason:', e)
+        res.status(500).json({
+            result: e,
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function getReviewStats_Profile(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM op0x WHERE owner0x0 = ?';
+        const values = [body._u0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                data: result,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                data: [],
+                get: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in getReviewStats_Profile. Reason:', e)
+        res.status(500).json({
+            result: e,
+            get: false
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function getAllSells(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM q0x WHERE owner0x1 = ?';
+        const values = [body._u0x];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                number: result.length,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                number: 0,
+                get: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in getAllSells. Reason:', e)
+        res.status(500).json({
+            result: e,
+            get: false
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function getLocation(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT state0x0, city0x1 FROM ud_p0x WHERE owner0x2 = ?';
+        const values = [body._uuid];
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+            const { state0x0, city0x1 } = result[0];
+
+            const array = {
+                s0x0: await Cipher.resolveChallenge(state0x0),
+                c0x1: await Cipher.resolveChallenge(city0x1)
+            }
+
+            res.status(200).json({
+                data: array,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                data: 'Posible UUID duplicada.',
+                get: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] Error in getLocation. Reason:', e)
+        res.status(500).json({
+            result: e,
+            get: false
+        });
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     create: createUserCredentials,
     createTwo: createUserCredentials_2,
     createRequest: createNewRequest,
     createRequest_Photos: createNewRequest_Photos,
+    createReview: reviewUser,
     checkRequest: isexistRequest,
     allowed: alreadyAllowedRequest,
     compare: compareUserCredentials,
@@ -677,5 +865,8 @@ module.exports = {
     getSmart: getSmartData,
     getName: getNameSmart,
     getSubCredentials: getSubCredentials,
+    getReview_Profile: getReviewStats_Profile,
+    getSells: getAllSells,
+    getLocation: getLocation,
     test: test
 }

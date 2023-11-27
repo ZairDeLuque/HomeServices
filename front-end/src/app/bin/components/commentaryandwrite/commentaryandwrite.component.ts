@@ -104,18 +104,20 @@ export class CommentaryandwriteComponent implements OnInit{
 
     this.serviceAPI.getCommentarys(packet).subscribe((result: any) => {
 
-      this.isMyService();
+      if(result){
+        this.isMyService();
 
-      result.content.forEach(async (element: any) => {
-        const commentary: Commentary = {
-          label: element.label.toUpperCase(),
-          content: element.content,
-          date: await this.transformData(element.date),
-          id: element.id
-        }
+        result.content.forEach(async (element: any) => {
+          const commentary: Commentary = {
+            label: element.label.toUpperCase(),
+            content: element.content,
+            date: await this.transformData(element.date),
+            id: element.id
+          }
 
-        this.commentarys.push(commentary);
-      });
+          this.commentarys.push(commentary);
+        });
+      }
     }, error => {
       console.error(error.message)
     })
