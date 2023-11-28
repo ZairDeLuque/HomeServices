@@ -6,9 +6,9 @@ const morgan = require('morgan');
 
 //.env
 require('dotenv').config({ path: './.env'})
-const origins = ['http://localhost:4200'];
+const origins = ['https://www.home-services.store'];
 const port = process.env.PORT || 3001;
-const host = process.env.HOST;
+// const host = process.env.HOST;
 
 //Routers
 const mainRouter = require('./bin/api/routers/init.routes');
@@ -77,6 +77,6 @@ app.use(paymentsRouter);
 app.use(messageRouter);
 app.use(commentaryRouter);
 
-server.listen(port, host, () => {
+server.listen(port, () => {
     console.log(`[INFO] Servicio HS-Backend iniciado correctamente [DATA: port ${port}].`);
 });
