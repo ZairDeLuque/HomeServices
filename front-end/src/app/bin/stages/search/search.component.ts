@@ -25,4 +25,6 @@ export class SearchComponent implements OnInit{
 
     this.title.setTitle('Busqueda para: ' + this.currentQuery + ' | HomeServices®')
   }
+
+
 }
