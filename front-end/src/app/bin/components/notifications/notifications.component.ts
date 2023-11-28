@@ -81,14 +81,18 @@ export class NotificationsComponent implements OnInit{
         
         this.searchNotifications();
 
-        Notiflix.Notify.failure(result.message);
+        Notiflix.Notify.failure(result.message, {
+          position: 'center-bottom'
+        });
       }
     }, error => {
       this.notificationsArray = []
         
       this.searchNotifications();
 
-      Notiflix.Notify.failure('El servidor no ha respondido como debería, intenta más tarde.');
+      Notiflix.Notify.failure('El servidor no ha respondido como debería, intenta más tarde.', {
+        position: 'center-bottom'
+      });
     });
   }
 

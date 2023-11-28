@@ -186,7 +186,9 @@ export class SellersPortalComponent implements OnInit{
         }
       }, (error: any) => {
         console.error(error);
-        Notiflix.Notify.failure('No se pudo obtener la información de los servicios.');
+        Notiflix.Notify.failure('No se pudo obtener la información de los servicios.', {
+          position: 'center-bottom'
+        });
         reject(false);
       })
     })

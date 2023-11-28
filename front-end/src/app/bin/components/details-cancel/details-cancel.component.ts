@@ -34,16 +34,22 @@ export class DetailsCancelComponent {
 
     this._service.cancelService(packet).subscribe((data: any) => {
       if(data.canceled === true){
-        Notiflix.Notify.success('Servicio cancelado correctamente, en unos dias se le devolverá el dinero');
+        Notiflix.Notify.success('Servicio cancelado correctamente, en unos dias se le devolverá el dinero', {
+          position: 'center-bottom'
+        });
         this._dynamic.close({canceled: true});
       }
       else{
-        Notiflix.Notify.failure(data.message);
+        Notiflix.Notify.failure(data.message, {
+          position: 'center-bottom'
+        });
         this._dynamic.close({canceled: false});
       }
     }, (error: any) => {
       console.log(error);
-      Notiflix.Notify.failure('Ha ocurrido un error al cancelar el servicio');
+      Notiflix.Notify.failure('Ha ocurrido un error al cancelar el servicio', {
+        position: 'center-bottom'
+      });
       this._dynamic.close({canceled: false});
     });
   }

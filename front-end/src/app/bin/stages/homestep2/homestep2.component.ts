@@ -137,7 +137,9 @@ export class Homestep2Component implements OnInit{
           Notiflix.Loading.remove();
 
           if(result.saved === true){
-            Notiflix.Notify.success(result.result);
+            Notiflix.Notify.success(result.result, {
+              position: 'center-bottom'
+            });
 
             this._dynamic.close({upload: true});
           }

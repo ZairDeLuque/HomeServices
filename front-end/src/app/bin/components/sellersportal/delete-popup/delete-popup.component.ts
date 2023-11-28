@@ -39,17 +39,23 @@ export class DeletePopupComponent implements OnInit{
     this._service.deleteServicesSP(packet).subscribe((data: any) => {
       if(data.deleted === true){
         Notiflix.Loading.remove();
-        Notiflix.Notify.success('Servicio eliminado correctamente');
+        Notiflix.Notify.success('Servicio eliminado correctamente', {
+          position: 'center-bottom'
+        });
         this._dynamic.close({deleted: true});
       }
       else{
         Notiflix.Loading.remove();
-        Notiflix.Notify.failure(data.message);
+        Notiflix.Notify.failure(data.message, {
+          position: 'center-bottom'
+        });
       }
     }, (error: any) => {
       console.log(error);
       Notiflix.Loading.remove();
-      Notiflix.Notify.failure('Ha ocurrido un error al eliminar el servicio');
+      Notiflix.Notify.failure('Ha ocurrido un error al eliminar el servicio', {
+        position: 'center-bottom'
+      });
     })
   }
 }

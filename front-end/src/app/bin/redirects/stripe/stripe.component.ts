@@ -43,12 +43,16 @@ export class StripeComponent implements OnInit{
             this.waiting('/payment/success')
           }
           else{
-            Notiflix.Notify.failure(result.message)
+            Notiflix.Notify.failure(result.message, {
+              position: 'center-bottom'
+            })
             this.waiting('/payment/failed')
           }
         },
         error => {
-          Notiflix.Notify.failure(error.message)
+          Notiflix.Notify.failure(error.message, {
+            position: 'center-bottom'
+          })
           this.message = 'Ha habido un error al verificar el pago en Stripe.'
           this.error = error.message;
           this.waiting('/payment/failed')
@@ -64,12 +68,16 @@ export class StripeComponent implements OnInit{
             this.waiting('/payment/cancel')
           }
           else{
-            Notiflix.Notify.failure(result.message)
+            Notiflix.Notify.failure(result.message, {
+              position: 'center-bottom'
+            })
             this.waiting('/payment/failed')
           }
         },
         error => {
-          Notiflix.Notify.failure(error.message)
+          Notiflix.Notify.failure(error.message, {
+            position: 'center-bottom'
+          })
           this.message = 'Ha habido un error al eliminar el pago en Stripe.'
           this.error = error.message;
           this.waiting('/payment/failed')
@@ -77,7 +85,9 @@ export class StripeComponent implements OnInit{
       )
     }
     else{
-      Notiflix.Notify.failure('Ruta de verificación invalida.')
+      Notiflix.Notify.failure('Ruta de verificación invalida.', {
+        position: 'center-bottom'
+      })
       this.waiting('/payment/failed')
     }
   }

@@ -236,7 +236,9 @@ export class Homestep4Component implements OnInit{
           this._users.createCredentials_Sellers_Pics(packet).subscribe((data2: any) => {
             if(data2.saved === true){
               Notiflix.Loading.remove();
-              Notiflix.Notify.success(data2.result);
+              Notiflix.Notify.success(data2.result, {
+                position: 'center-bottom'
+              });
               this._router.navigateByUrl('/')
             }
           }, (error2: any) => {
@@ -262,7 +264,9 @@ export class Homestep4Component implements OnInit{
 
     this._users.isAlreadyRequested(packet).subscribe((data: any) => {
       if(data.result === true){
-        Notiflix.Notify.warning('Ya has solicitado un registro, no puedes volver a hacerlo. Espera respuesta de tu solicitud.');
+        Notiflix.Notify.warning('Ya has solicitado un registro, no puedes volver a hacerlo. Espera respuesta de tu solicitud.', {
+          position: 'center-bottom'
+        });
         Notiflix.Loading.remove();
 
         this._router.navigateByUrl('/');
@@ -273,7 +277,9 @@ export class Homestep4Component implements OnInit{
     }, (error: any) => {
       console.error(error);
       
-      Notiflix.Notify.failure('Error al verificar si ya has solicitado un registro.');
+      Notiflix.Notify.failure('Error al verificar si ya has solicitado un registro.', {
+        position: 'center-bottom'
+      });
       Notiflix.Loading.remove();
 
       this._router.navigateByUrl('/');

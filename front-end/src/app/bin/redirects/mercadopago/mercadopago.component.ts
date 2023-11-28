@@ -41,7 +41,9 @@ export class MercadopagoComponent implements OnInit{
     }
     else{
       this.message = 'URL invalida';
-      Notiflix.Notify.failure('Ruta de verificación invalida.')
+      Notiflix.Notify.failure('Ruta de verificación invalida.', {
+        position: 'center-bottom'
+      })
     }
   }
 }

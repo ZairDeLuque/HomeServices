@@ -114,7 +114,9 @@ export class LoginComponent implements OnInit{
             this.router.navigate(["/welcome"]);
           }
           else{
-            Notiflix.Notify.success('Maestro de llaves: ' + result.result)
+            Notiflix.Notify.success('Maestro de llaves: ' + result.result, {
+              position: 'center-bottom'
+            })
           
             if(this.saveCheck === true){
               localStorage.setItem('uu0x0', result.uuid)

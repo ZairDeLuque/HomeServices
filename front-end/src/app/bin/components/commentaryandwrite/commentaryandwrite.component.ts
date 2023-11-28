@@ -136,15 +136,21 @@ export class CommentaryandwriteComponent implements OnInit{
         this.content = '';
 
         this.serviceAPI.createCommentary(packet).subscribe(result => {
-          Notiflix.Notify.success('Comentario creado con exito!');
+          Notiflix.Notify.success('Comentario creado con exito!', {
+            position: 'center-bottom'
+          });
         }, error => {
           console.error(error.message)
-          Notiflix.Notify.failure('No se pudo crear el comentario :(')
+          Notiflix.Notify.failure('No se pudo crear el comentario :(', {
+            position: 'center-bottom'
+          })
         })
       }
     }
     else{
-      Notiflix.Notify.failure('Es imposible mandar un mensaje vacio >:(')
+      Notiflix.Notify.failure('Es imposible mandar un mensaje vacio >:(', {
+        position: 'center-bottom'
+      })
     }
   }
 

@@ -27,5 +27,7 @@ router.post('/api/v1/post/services/purchase/invoice/data', controller.invoice)
 router.post('/api/v1/post/services/purchase/own', controller.ownedA)
 router.post('/api/v1/post/services/purchase/own/cancel', controller.ownedB)
 
+router.get('/api/v1/get/services/get/navbar/content', controller.getNavbar)
+
 //Export
 module.exports = router;

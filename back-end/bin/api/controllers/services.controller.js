@@ -856,9 +856,45 @@ async function getPublishWithLocation(req, res) {
     }
 }
 
+async function powerSearch(req, res){
+    let cn;
+
+    try{
+        cn = await Connection()
+
+        const sql = 'SELECT name0x3 FROM s0x'
+        const [result] = await cn.execute(sql);
+
+        if(result.length > 0){
+            res.status(200).json({
+                data: result,
+                get: true
+            })
+        }
+        else{
+            res.status(200).json({
+                get: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] powerSearch error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
+    getNavbar: powerSearch,
     getInfoService: getInfoServiceByUUID,
     getInfoWithUUID: getPublishWithUUID,
     getWithLocation: getPublishWithLocation,

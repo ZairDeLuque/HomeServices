@@ -46,16 +46,22 @@ export class DetailsPointsComponent {
 
     this._service.createReview(packet).subscribe((data: any) => {
       if(data.result === true){
-        Notiflix.Notify.success(data.message);
+        Notiflix.Notify.success(data.message, {
+          position: 'center-bottom'
+        });
         this._dynamic.close({result: true});
       }
       else{
-        Notiflix.Notify.failure('Ha ocurrido un error al enviar la reseña, por favor, intentelo de nuevo más tarde.');
+        Notiflix.Notify.failure('Ha ocurrido un error al enviar la reseña, por favor, intentelo de nuevo más tarde.', {
+          position: 'center-bottom'
+        });
         this._dynamic.close({result: false});
       }
     }, (error: any) => {
       console.log(error);
-      Notiflix.Notify.failure('Ha ocurrido un error al enviar la reseña, por favor, intentelo de nuevo más tarde.');
+      Notiflix.Notify.failure('Ha ocurrido un error al enviar la reseña, por favor, intentelo de nuevo más tarde.', {
+        position: 'center-bottom'
+      });
       this._dynamic.close();
     });
   }

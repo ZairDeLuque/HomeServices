@@ -75,4 +75,8 @@ export class ServicesGestorService {
   public getWithLocation(data: any): Observable<any>{
     return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/location', data);
   }
+
+  public getNavContent(): Observable<any>{
+    return this._http.get<any>(this.API_URL + '/api/v1/get/services/get/navbar/content');
+  }
 }

@@ -109,31 +109,43 @@ export class PaymentstepsComponent implements OnInit{
 
                         if(res.authorized === true){
                             Notiflix.Loading.remove();
-                            Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                            Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                                position: 'center-bottom'
+                            });
                             this.rt.navigateByUrl('/')
                         }
                         else{
                             Notiflix.Loading.remove();
-                            Notiflix.Notify.failure('PayPal rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                            Notiflix.Notify.failure('PayPal rechazo la solicitud, por favor intenta de nuevo más tarde.', {
+                                position: 'center-bottom'
+                            });
                         }
                     }, (err: any) => {
                         console.error(err);
                         Notiflix.Loading.remove();
-                        Notiflix.Notify.failure('Ocurrió un error al verificar la transacción, por favor intenta de nuevo más tarde.');
+                        Notiflix.Notify.failure('Ocurrió un error al verificar la transacción, por favor intenta de nuevo más tarde.', {
+                            position: 'center-bottom'
+                        });
                     });
                 }
                 else{
-                    Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                    Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.', {
+                        position: 'center-bottom'
+                    });
                 }
             },
             onCancel: (data, actions) => {
                 Notiflix.Loading.remove();
-                Notiflix.Notify.failure('Haz cancelado tu pago, ¿Cambiaras de parecer o de método de pago?.');
+                Notiflix.Notify.failure('Haz cancelado tu pago, ¿Cambiaras de parecer o de método de pago?.', {
+                    position: 'center-bottom'
+                });
             },
             onError: err => {
                 Notiflix.Loading.remove();
                 // console.log('OnError', err);
-                Notiflix.Notify.failure('PayPal fracaso en la misión de pago, por favor intenta de nuevo más tarde.');
+                Notiflix.Notify.failure('PayPal fracaso en la misión de pago, por favor intenta de nuevo más tarde.', {
+                    position: 'center-bottom'
+                });
             },
             onClick: (data, actions) => {
                 Notiflix.Loading.dots('Esperando a PayPal...',{
@@ -157,7 +169,9 @@ export class PaymentstepsComponent implements OnInit{
             }, 1000)
         }
         else{
-            Notiflix.Notify.failure('Por favor completa todos los campos.');
+            Notiflix.Notify.failure('Por favor completa todos los campos.', {
+                position: 'center-bottom'
+            });
         }
     }
 
@@ -209,7 +223,9 @@ export class PaymentstepsComponent implements OnInit{
                 }
             }, (err: any) => {
                 console.error(err);
-                Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.', {
+                    position: 'center-bottom'
+                });
                 Notiflix.Loading.remove();
                 rej(false);
             });
@@ -265,27 +281,37 @@ export class PaymentstepsComponent implements OnInit{
                                     const data = await this.sendAllData();
 
                                     if(data === true){
-                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                                            position: 'center-bottom'
+                                        });
                                         this.rt.navigateByUrl('/')
                                     }
                                     else{
-                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.', {
+                                            position: 'center-bottom'
+                                        });
                                     }
                                 }
                                 else if(res2.status == 'cancelled'){
                                     Notiflix.Loading.remove();
-                                    Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.');
+                                    Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.', {
+                                        position: 'center-bottom'
+                                    });
                                     this.runOnce(() => {
                                         this.rt.navigateByUrl('/')
                                     }, 2000)
                                 }
                                 else{
-                                    Notiflix.Notify.failure('Mercado Pago fracaso en la misión de pago, por favor intenta de nuevo más tarde.');
+                                    Notiflix.Notify.failure('Mercado Pago fracaso en la misión de pago, por favor intenta de nuevo más tarde.', {
+                                        position: 'center-bottom'
+                                    });
                                 }
                             }, (err2: any) => {
                                 console.error(err2)
                                 Notiflix.Loading.remove();
-                                Notiflix.Notify.failure('Mercado Pago rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                                Notiflix.Notify.failure('Mercado Pago rechazo la solicitud, por favor intenta de nuevo más tarde.', {
+                                    position: 'center-bottom'
+                                });
                             });
                         }
                     }, 1000);
@@ -293,12 +319,16 @@ export class PaymentstepsComponent implements OnInit{
             }
             else{
                 Notiflix.Loading.remove();
-                Notiflix.Notify.failure('Mercado Pago rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                Notiflix.Notify.failure('Mercado Pago rechazo la solicitud, por favor intenta de nuevo más tarde.', {
+                    position: 'center-bottom'
+                });
             }
         }, (err: any) => {
             console.error(err);
             Notiflix.Loading.remove();
-            Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.');
+            Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.', {
+                position: 'center-bottom'
+            });
         });
         
     }
@@ -349,27 +379,37 @@ export class PaymentstepsComponent implements OnInit{
                                     const data = await this.sendAllData();
 
                                     if(data === true){
-                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.');
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                                            position: 'center-bottom'
+                                        });
                                         this.rt.navigateByUrl('/')
                                     }
                                     else{
-                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.');
+                                        Notiflix.Notify.failure('Ocurrió un error al enviar datos sobre la compra, por favor intenta de nuevo más tarde.', {
+                                            position: 'center-bottom'
+                                        });
                                     }
                                 }
                                 else if(res2.status == 'cancelled'){
                                     Notiflix.Loading.remove();
-                                    Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.');
+                                    Notiflix.Notify.failure('Tu pago se ha cancelado. En breve te enviaremos al inicio de HomeServices®.', {
+                                        position: 'center-bottom'
+                                    });
                                     this.runOnce(() => {
                                         this.rt.navigateByUrl('/')
                                     }, 2000)
                                 }
                                 else{
-                                    Notiflix.Notify.failure('Stripe fracaso en la misión de pago, por favor intenta de nuevo más tarde.');
+                                    Notiflix.Notify.failure('Stripe fracaso en la misión de pago, por favor intenta de nuevo más tarde.', {
+                                        position: 'center-bottom'
+                                    });
                                 }
                             }, (err2: any) => {
                                 console.error(err2)
                                 Notiflix.Loading.remove();
-                                Notiflix.Notify.failure('Stripe rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                                Notiflix.Notify.failure('Stripe rechazo la solicitud, por favor intenta de nuevo más tarde.', {
+                                    position: 'center-bottom'
+                                });
                             });
                         }
                     }, 1000);
@@ -377,12 +417,16 @@ export class PaymentstepsComponent implements OnInit{
             }
             else{
                 Notiflix.Loading.remove();
-                Notiflix.Notify.failure('Stripe rechazo la solicitud, por favor intenta de nuevo más tarde.');
+                Notiflix.Notify.failure('Stripe rechazo la solicitud, por favor intenta de nuevo más tarde.', {
+                    position: 'center-bottom'
+                });
             }
         }, (err: any) => {
             console.error(err);
             Notiflix.Loading.remove();
-            Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.');
+            Notiflix.Notify.failure('Ocurrió un error al crear el link de pago, por favor intenta de nuevo más tarde.', {
+                position: 'center-bottom'
+            });
         });
         
     }

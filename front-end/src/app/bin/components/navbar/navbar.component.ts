@@ -6,6 +6,8 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { interval } from 'rxjs';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
+import { ServicesGestorService } from '../../services/api/services-gestor.service';
+import { SearchService } from '../../services/navbars/customization/search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -38,7 +40,11 @@ export class NavbarComponent implements OnInit{
 
   protected searchValue: string = '';
 
-  constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService, public dialogService: DialogService, private rt: Router) { }
+  constructor(private _logService: LoggedService, private readonly userAPI: UsersgestorService, public dialogService: DialogService, private rt: Router, private _serv: ServicesGestorService, private obs: SearchService) {
+    
+  }
+
+  protected suggests: string[] = [];
 
   show() {
     this.ref = this.dialogService.open(NotificationsComponent, {
@@ -60,11 +66,48 @@ export class NavbarComponent implements OnInit{
 
   tpSearch(): void{
     if(this.searchValue.length > 0){
-      this.rt.navigate(['/search'], { queryParams: { q: this.searchValue } });
+      if(this.obs.getSearchValue().getValue() == null){
+        this.obs.setSearchValue('already');
+        this.rt.navigate(['/search'], { queryParams: { q: this.searchValue } });
+      }
+      else{
+        this.obs.setSearchValue(this.searchValue);
+        this.obs.emitNewSearch();
+        this.rt.navigate(['/search'], { queryParams: { q: this.searchValue } });
+      }
     }
   }
 
-  ngOnInit(): void {
+  getAllinformation(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this._serv.getNavContent().subscribe((result: any) => {
+        if(result.get === true){
+          for(let i = 0; i < result.data.length; i++){
+            this.suggests.push(result.data[i].name0x3);
+          }
+
+          resolve(true)
+        }
+        else{
+          resolve(false);
+        }
+      }, (error: any) => {
+        console.log(error);
+        Notiflix.Notify.warning('El motor de busqueda no mostrara sugerencias.', {
+          position: 'center-bottom'
+        })
+        reject(false);
+      });
+    })
+  }
+
+  async ngOnInit(){
+    const result = await this.getAllinformation();
+
+    if(result !== true){
+      this.suggests = [];
+    }
+    
     this.getLengthNotifications();
 
     interval(25000).subscribe(() => {

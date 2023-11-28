@@ -1,5 +1,16 @@
 <app-verification-badge></app-verification-badge>
 
+<ng-template #customListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+    <ul class="custom-list-group">
+      <li class="custom-list-group-item"
+          *ngFor="let match of matches"
+          [class.active]="typeaheadTemplateMethods.isActive(match)"
+          (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+          (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
+        {{ match.item }}
+      </li>
+    </ul>
+  </ng-template>
 
 <nav class="navbar navbar-expand-lg dropped-shadow-tiny p-2 user-select-none" style="overflow: visible; background-color: white;">
     <div class="container-fluid">
@@ -25,7 +36,7 @@
                 </li>
             </ul>
             <form class="d-flex" role="search" style="margin-right: 1rem; width: 27rem;" *ngIf="extended">
-                <input class="form-control me-2" type="search" placeholder="Servicio de..." aria-label="Search" [(ngModel)]="searchValue" name="searchValue">
+                <input class="form-control me-2" type="search" placeholder="Servicio de..." aria-label="Search" [typeahead]="suggests" [optionsListTemplate]="customListTemplate" [isAnimated]="true" [(ngModel)]="searchValue" name="searchValue">
                 <button class="btn btn-purple" type="button" (click)="tpSearch()">
                     <i class="bi bi-search fs-5"></i>
                 </button>

@@ -190,10 +190,14 @@ export class VerificationBadgeComponent implements OnInit{
       result => {
         if(result.result === true){
           this.next();
-          Notiflix.Notify.success('El correo parece ser valido.')
+          Notiflix.Notify.success('El correo parece ser valido.', {
+            position: 'center-bottom'
+          })
         }
         else{
-          Notiflix.Notify.failure('¿'+this._name+'?: ' + result.message)
+          Notiflix.Notify.failure('¿'+this._name+'?: ' + result.message, {
+            position: 'center-bottom'
+          })
         }
       },
       error => {
