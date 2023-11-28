@@ -108,6 +108,9 @@ import { SearchComponent } from './bin/stages/search/search.component';
 //Charts
 import { NgChartsModule } from 'ng2-charts';
 
+//Adsense
+import { AdsenseModule } from 'ng2-adsense';
+
 //Azure Method - Microsoft Token Gen
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -214,7 +217,14 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     SidebarModule,
     MenubarModule,
     InputMaskModule,
-    TableModule
+    TableModule,
+    AdsenseModule.forRoot({
+      adClient: environment.GoogleAdSense.adClient,
+      adSlot: environment.GoogleAdSense.adSlot,
+      display: 'block',
+      fullWidthResponsive: true,
+      adFormat: 'auto',
+    })
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

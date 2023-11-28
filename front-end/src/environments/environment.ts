@@ -14,7 +14,10 @@ export const environment = {
     },
     Homework: {
         apiUrl: 'https://workhome.com.mx',
+    },
+    GoogleAdSense: {
+        adClient: 'ca-pub-5077290121949226',
+        adSlot: 4957131445
     }
-        
 };
   
