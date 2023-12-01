@@ -1,0 +1,7 @@
+.custom-marker {
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  border: 1px solid #00000015;
+  box-shadow: rgba(63, 63, 63, 0.2) 0px 3px 8px;
+}

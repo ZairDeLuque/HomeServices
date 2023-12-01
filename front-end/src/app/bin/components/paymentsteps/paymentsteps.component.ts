@@ -109,7 +109,7 @@ export class PaymentstepsComponent implements OnInit{
 
                         if(res.authorized === true){
                             Notiflix.Loading.remove();
-                            Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                            Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos comenzará el proceso de contratación.', {
                                 position: 'center-bottom'
                             });
                             this.rt.navigateByUrl('/')
@@ -281,7 +281,7 @@ export class PaymentstepsComponent implements OnInit{
                                     const data = await this.sendAllData();
 
                                     if(data === true){
-                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos comenzará el proceso de contratación.', {
                                             position: 'center-bottom'
                                         });
                                         this.rt.navigateByUrl('/')
@@ -379,7 +379,7 @@ export class PaymentstepsComponent implements OnInit{
                                     const data = await this.sendAllData();
 
                                     if(data === true){
-                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos te llegará un correo con los detalles de tu compra.', {
+                                        Notiflix.Notify.success('Tu pago se ha realizado con éxito, en unos momentos comenzará el proceso de contratación.', {
                                             position: 'center-bottom'
                                         });
                                         this.rt.navigateByUrl('/')

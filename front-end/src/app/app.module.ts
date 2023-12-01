@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 //Bootstrap
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -56,6 +58,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
 import { TableModule } from 'primeng/table';
 import { InputMaskModule } from 'primeng/inputmask';
+import { SliderModule } from 'primeng/slider';
+import { TimelineModule } from 'primeng/timeline';
 
 //Components imports
 import { AppRoutingModule } from './app-routing.module';
@@ -68,7 +72,6 @@ import { TermsComponent } from './bin/stages/terms/terms.component';
 import { InsideHomeComponent } from './bin/stages/inside-home/inside-home.component';
 import { FooterComponent } from './bin/components/footer/footer.component';
 import { NavbarTinyComponent } from './bin/components/navbar-tiny/navbar-tiny.component';
-import { HttpClientModule } from '@angular/common/http';
 import { Homestep2Component } from './bin/stages/homestep2/homestep2.component';
 import { Homestep3Component } from './bin/stages/homestep3/homestep3.component';
 import { ProfileComponent } from './bin/stages/profile/profile.component';
@@ -97,13 +100,14 @@ import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 import { NotificationsComponent } from './bin/components/notifications/notifications.component';
 import { MessagesComponent } from './bin/components/messages/messages.component';
 import { PaymentstepsComponent } from './bin/components/paymentsteps/paymentsteps.component';
-import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
 import { DeletePopupComponent } from './bin/components/sellersportal/delete-popup/delete-popup.component';
 import { DetailsPopupComponent } from './bin/components/sellersportal/details-popup/details-popup.component';
 import { DetailsOwnComponent } from './bin/components/details-own/details-own.component';
 import { DetailsPointsComponent } from './bin/components/details-points/details-points.component';
 import { DetailsCancelComponent } from './bin/components/details-cancel/details-cancel.component';
 import { SearchComponent } from './bin/stages/search/search.component';
+import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
+import { MobileUsageComponent } from './bin/stages/mobile-usage/mobile-usage.component';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
@@ -166,7 +170,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DetailsOwnComponent,
     DetailsPointsComponent,
     DetailsCancelComponent,
-    SearchComponent
+    SearchComponent,
+    MobileUsageComponent
   ],
   imports: [
     BrowserModule,
@@ -224,7 +229,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       display: 'block',
       fullWidthResponsive: true,
       adFormat: 'auto',
-    })
+    }),
+    SliderModule,
+    CommonModule,
+    TimelineModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -258,8 +266,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         badge: 'bottomright'
       } as RecaptchaSettings
     },
+    {provide: 'window', useValue: window},
     {provide: MSAL_INSTANCE, useFactory: MSALInstanceFactory},
-    MsalService
+    MsalService,
   ],
   bootstrap: [AppComponent]
 })

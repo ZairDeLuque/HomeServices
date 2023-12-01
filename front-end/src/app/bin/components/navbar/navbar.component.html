@@ -23,17 +23,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item" *ngIf="extended">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                 </li>
                 <!-- <li class="nav-item" *ngIf="extended">
                     <a class="nav-link" href="#">Categorías</a>
                 </li> -->
-                <li class="nav-item" *ngIf="extended">
+                <!-- <li class="nav-item" *ngIf="extended">
                     <a class="nav-link" href="#">Tendencias</a>
                 </li>
                 <li class="nav-item" *ngIf="extended">
                     <a class="nav-link" href="#">Nuevos</a>
-                </li>
+                </li> -->
             </ul>
             <form class="d-flex" role="search" style="margin-right: 1rem; width: 27rem;" *ngIf="extended">
                 <input class="form-control me-2" type="search" placeholder="Servicio de..." aria-label="Search" [typeahead]="suggests" [optionsListTemplate]="customListTemplate" [isAnimated]="true" [(ngModel)]="searchValue" name="searchValue">
@@ -41,7 +41,7 @@
                     <i class="bi bi-search fs-5"></i>
                 </button>
             </form>
-            <a class="btn ntf-btn border-0 me-2" pTooltip="Mis notificaciones" tooltipPosition="bottom" type="submit" (click)="show()" *ngIf="extended">
+            <a class="btn ntf-btn border-0 me-2" pTooltip="Mis notificaciones" tooltipPosition="bottom" type="submit" (click)="show()" *ngIf="extended && isCurrentSign">
                 <i class="bi bi-bell fs-5"></i>
             </a>
             <div *ngIf="!isCurrentSign">

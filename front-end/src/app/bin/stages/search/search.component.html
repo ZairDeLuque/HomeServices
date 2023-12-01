@@ -3,34 +3,72 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-3 p-4">
-            <ng-adsense></ng-adsense>
+            <!-- <ng-adsense></ng-adsense> -->
+            <h4>Filtros de búsqueda:</h4>
+            <hr>
+            <div class="container-fluid p-0 mb-3">
+                <p><i class="bi bi-coin"></i> Rango de precios:</p>
+                <p-slider [(ngModel)]="rangeValues" [max]="5000" [range]="true" [step]="100"></p-slider>
+                <p class="text-end mb-0 mt-2 opacity-50" style="font-size: small;">{{rangeValues[0] | currency: 'MXN'}} hasta {{rangeValues[1] | currency: 'MXN'}}</p>
+            </div>
+            <div class="container-fluid p-0 mb-3">
+                <p><i class="bi bi-person"></i> Tipos de vendedor:</p>
+                <select class="form-select" [(ngModel)]="selected">
+                    <option value="Todos" selected>Todos</option>
+                    <option value="Hora">Hora</option>
+                    <option value="Dia">Dia</option>
+                    <option value="Semana">Semana</option>
+                    <option value="Pago único">Pago único</option>
+                </select>
+                <!-- <p-multiSelect [options]="selected" optionLabel="name" [filter]="false" [selectionLimit]="1" [showHeader]="false" [style]="{'width':'100%'}" [(ngModel)]="selectedB" name="selectedB"></p-multiSelect> -->
+            </div>
+            <div class="container-fluid p-0 mb-3">
+                <p><i class="bi bi-exclamation-triangle"></i> Contenido explícito:</p>
+                <div class="d-flex align-items-center gap-2">
+                    <p-inputSwitch [(ngModel)]="explicit"></p-inputSwitch>
+                    <p class="mt-2">Habilitar contenido explicito</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end p-0 mb-3">
+                <button type="button" class="btn btn-outline-purple" [disabled]="!isDisabled" (click)="generateNewSearch()"><i class="bi bi-search"></i> Buscar con filtros</button>
+                
+            </div>
         </div>
         <div class="col p-4">
-            <h4>Resultados para: {{currentQuery}}</h4>
+            <div class="row d-flex align-items-center">
+                <div class="col">
+                    <h4>Resultados para: {{currentQuery}}</h4>
+                </div>
+                <div class="col text-end opacity-50">
+                    <p class="mb-0">Resultados totales: </p>
+                </div>
+            </div>
             <hr>
             <div class="container">
-                <div class="row border p-3 rounded-2 mt-3">
+                <div class="row border p-3 rounded-2 mt-3" *ngFor="let packet of services">
                     <div class="col d-flex align-items-center">
                         <div class="row">
                             <div class="d-flex gap-2 align-items-center">
                                 <h3 style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-                                    a
+                                    <i class="bi bi-exclamation-triangle" *ngIf="packet.data9 === 'n'" pTooltip="El servicio esta clasificado como explicito."></i> {{packet.data2}}
                                 </h3>
                             </div>
                             <div class="fade-out">
-                                <p>a</p>
+                                <p>{{packet.data3}}</p>
                             </div>
-                            <p class="mb-0 opacity-50">Fecha de publicación: a</p>
+                            <p class="mb-0 opacity-50">Fecha de publicación: {{packet.data6 | date: 'dd/MM/yy'}}</p>
                         </div>
                     </div>
                     <div class="col-4 d-flex align-items-center justify-content-center text-center">
                         <div class="row w-100">
-                            <h4>a / a</h4>
-                            <button type="button" class="btn btn-outline-purple p-2 w-100 mt-2" routerLink="/services"><i class="bi bi-card-list"></i> Ver publicación</button>
+                            <h4>{{packet.data4 | currency: 'MXN'}} / {{packet.data5}}</h4>
+                            <button type="button" class="btn btn-outline-purple p-2 w-100 mt-2" routerLink="/services/{{packet.data0}}"><i class="bi bi-card-list"></i> Ver publicación</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr>
+            <p class="text-center" style="font-size: small; opacity: .5;">Haz llegado al final de la lista. ¿Encontraste lo que necesitas?</p>
         </div>
     </div>
 </div>

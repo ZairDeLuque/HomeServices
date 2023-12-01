@@ -111,7 +111,7 @@ async function GetCommentarys(req, res){
             for(let i = 0; i < result.length; i++){
                 const agree = {
                     label: await getLabelByUUID(result[i].owner0x0),
-                    content: result[i].content0x2.toString('utf-8'),
+                    content: await Cipher.resolveChallenge(result[i].content0x2.toString('utf-8')),
                     date: result[i].date0x3,
                     id: result[i].customid0x4
                 }

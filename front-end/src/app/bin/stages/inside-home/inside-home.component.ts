@@ -18,57 +18,13 @@ export class InsideHomeComponent implements OnInit{
 
   protected locationItems = [];
 
-  protected topSells = [
-    { title: 'Elemento 1', description: 'Este es el elemento 1' },
-    { title: 'Elemento 2', description: 'Este es el elemento 2' },
-    { title: 'Elemento 3', description: 'Este es el elemento 3' },
-    { title: 'Elemento 4', description: 'Este es el elemento 4' },
-    { title: 'Elemento 5', description: 'Este es el elemento 5' },
-    { title: 'Elemento 6', description: 'Este es el elemento 6' },
-    { title: 'Elemento 7', description: 'Este es el elemento 7' },
-    { title: 'Elemento 8', description: 'Este es el elemento 8' },
-    { title: 'Elemento 9', description: 'Este es el elemento 9' },
-    { title: 'Elemento 10', description: 'Este es el elemento 10' }
-  ];
+  protected topSells = [];
 
-  protected recomendations = [
-    { title: 'Elemento 1', description: 'Este es el elemento 1' },
-    { title: 'Elemento 2', description: 'Este es el elemento 2' },
-    { title: 'Elemento 3', description: 'Este es el elemento 3' },
-    { title: 'Elemento 4', description: 'Este es el elemento 4' },
-    { title: 'Elemento 5', description: 'Este es el elemento 5' },
-    { title: 'Elemento 6', description: 'Este es el elemento 6' },
-    { title: 'Elemento 7', description: 'Este es el elemento 7' },
-    { title: 'Elemento 8', description: 'Este es el elemento 8' },
-    { title: 'Elemento 9', description: 'Este es el elemento 9' },
-    { title: 'Elemento 10', description: 'Este es el elemento 10' }
-  ];
+  protected recomendations = [];
 
-  protected offs = [
-    { title: 'Elemento 1', description: 'Este es el elemento 1' },
-    { title: 'Elemento 2', description: 'Este es el elemento 2' },
-    { title: 'Elemento 3', description: 'Este es el elemento 3' },
-    { title: 'Elemento 4', description: 'Este es el elemento 4' },
-    { title: 'Elemento 5', description: 'Este es el elemento 5' },
-    { title: 'Elemento 6', description: 'Este es el elemento 6' },
-    { title: 'Elemento 7', description: 'Este es el elemento 7' },
-    { title: 'Elemento 8', description: 'Este es el elemento 8' },
-    { title: 'Elemento 9', description: 'Este es el elemento 9' },
-    { title: 'Elemento 10', description: 'Este es el elemento 10' }
-  ];
+  protected offs = [];
 
-  protected news = [
-    { title: 'Elemento 1', description: 'Este es el elemento 1' },
-    { title: 'Elemento 2', description: 'Este es el elemento 2' },
-    { title: 'Elemento 3', description: 'Este es el elemento 3' },
-    { title: 'Elemento 4', description: 'Este es el elemento 4' },
-    { title: 'Elemento 5', description: 'Este es el elemento 5' },
-    { title: 'Elemento 6', description: 'Este es el elemento 6' },
-    { title: 'Elemento 7', description: 'Este es el elemento 7' },
-    { title: 'Elemento 8', description: 'Este es el elemento 8' },
-    { title: 'Elemento 9', description: 'Este es el elemento 9' },
-    { title: 'Elemento 10', description: 'Este es el elemento 10' }
-  ];
+  protected news = [];
 
   constructor(private route: ActivatedRoute, private _API_: UsersgestorService, private title: Title, private NG_MSG: MessageService, private _services: ServicesGestorService){}
 
@@ -142,14 +98,83 @@ export class InsideHomeComponent implements OnInit{
     return formattedDateTime;
   }
 
+  getTop(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this._services.getTopMain().subscribe((result: any) => {
+        if(result.get === true){
+          this.topSells = result.result;
+          resolve(true);
+        }
+        else{
+          this.NG_MSG.add({severity: 'warn', summary: 'No hay servicios', detail: 'No hay servicios para mostrar un top.'});
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener los servicios top.'});
+        reject(false);
+      })
+    })
+  }
+
+  getNews(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this._services.getNewMain().subscribe((result: any) => {
+        if(result.get === true){
+          this.news = result.result;
+          resolve(true);
+        }
+        else{
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener los servicios del mes.'});
+        reject(false);
+      })
+    })
+  }
+
+  getToday(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this._services.getTodayMain().subscribe((result: any) => {
+        if(result.get === true){
+          this.offs = result.result;
+          resolve(true);
+        }
+        else{
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener los servicios del mes.'});
+        reject(false);
+      })
+    })
+  }
+
   async ngOnInit(){
     this.title.setTitle('Inicio | HomeServices®️');
 
     const uid = this.whatUUID();
-
+    
     if(uid !== 'undefined'){
       const location = await this.getLocation();
+      const top = await this.getTop();
+      const news = await this.getNews();
+      const today = await this.getToday();
 
+      if(top === false){
+        this.NG_MSG.add({severity: 'warn', summary: 'No hay servicios', detail: 'No hay servicios para mostrar un top.'});
+      }
+
+      if(news === false){
+        this.NG_MSG.add({severity: 'warn', summary: 'No hay servicios', detail: 'No hay servicios este mes.'});
+      }
+
+      if(today === false){
+        this.NG_MSG.add({severity: 'warn', summary: 'No hay servicios', detail: 'No hay servicios hoy.'});
+      }
       
       if(location === false){
         this.NG_MSG.add({severity: 'warn', summary: '¿Norte, sur, este, oeste?', detail: 'No se pudo obtener tu ubicación, no podremos darte sugerencias de tu ubicación.'});
@@ -163,7 +188,6 @@ export class InsideHomeComponent implements OnInit{
       }
     }
     
-
     // let _param: boolean | undefined;
 
     // this.route.queryParams.subscribe(params => {

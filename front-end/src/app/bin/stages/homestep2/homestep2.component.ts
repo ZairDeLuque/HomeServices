@@ -309,8 +309,8 @@ export class Homestep2Component implements OnInit{
   constructor(private title: Title, private categoryService: CategoryGestorService, private NG_MSG: MessageService, private readonly _services: ServicesGestorService, private readonly _router: Router, private _dynamic: DynamicDialogRef, private _compiler: OnchangeService){
     this.times = [
       {name: 'Hora', code: 'H'},
-      {name: 'Dia', code: 'D'},
-      {name: 'Semana', code: 'S'},
+      // {name: 'Dia', code: 'D'},
+      // {name: 'Semana', code: 'S'},
       {name: 'Pago único', code: 'PU'},
     ];
 

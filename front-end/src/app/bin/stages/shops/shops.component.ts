@@ -7,6 +7,7 @@ import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fn
 import { Title } from '@angular/platform-browser';
 import { DetailsOwnComponent } from '../../components/details-own/details-own.component';
 import { DetailsPointsComponent } from '../../components/details-points/details-points.component';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-shops',
@@ -24,6 +25,7 @@ export class ShopsComponent implements OnInit{
   protected pendingPurchases: any;
   protected completePurchases: any;
   protected canceledPurchases: any;
+  protected laststep: boolean = true;
 
   private ref: DynamicDialogRef | undefined;
   private ref2: DynamicDialogRef | undefined;
@@ -85,9 +87,47 @@ export class ShopsComponent implements OnInit{
         return 'danger';
       case 5:
         return 'success';
+      case 6:
+        return 'danger';
+      case 7:
+        return 'warning';
+      case 8:
+        return 'warning';
       default:
         return '';
     }
+  }
+
+  confirmInvitation(data: string){
+    
+    Notiflix.Loading.dots('Confirmando...',{
+      clickToClose: false,
+      svgColor: '#a95eff',
+      className: 'font-b',
+      backgroundColor: '#fff',
+      messageColor: '#000'
+    })
+
+    const packet = {
+      _uuid: this.whatUUID(),
+      _idshop: data
+    }
+
+    this._shops.invitation(packet).subscribe((data: any) => {
+      if(data.success === true){
+        Notiflix.Loading.remove();
+        window.location.reload();
+      }
+      else if(data.agree === true){
+        Notiflix.Loading.remove();
+        window.location.reload();
+      }
+    }, (error: any) => {
+      console.error(error);
+      Notiflix.Notify.failure('Aveces ocurren errores, y hoy no pudimos actualizar de tu servicio:(', {
+        position: 'center-bottom'
+      })
+    });
   }
 
   getPurchases(): Promise<boolean> {
@@ -132,6 +172,12 @@ export class ShopsComponent implements OnInit{
         return 'El servicio ha sido cancelado. Tu reembolso se encuentra en proceso.';
       case 5:
         return 'El servicio ha finalizado y has calificado al prestador.';
+      case 6:
+        return 'El servicio ha sido cancelado por el presta-servicios. Tu reembolso se encuentra en proceso.';
+      case 7:
+        return 'Se esta esperando tu confirmación de asistencia sobre el presta-servicios.';
+      case 8:
+        return 'Se esta esperando la confirmación de asistencia del presta-servicios.';
       default:
         return 'Estado desconocido';
     }
@@ -151,6 +197,12 @@ export class ShopsComponent implements OnInit{
         return 'Cancelado';
       case 5: 
         return 'Finalizado y opinado';
+      case 6: 
+        return 'Cancelado';
+      case 7:
+        return 'Esperando';
+      case 8:
+        return 'Esperando';
       default:
         return 'Desconocido';
     }
@@ -250,8 +302,16 @@ export class ShopsComponent implements OnInit{
     
     if(iscomplete === true){
       for(let i = 0; i < this.purchases.resultQ.length; i++){
-        this.pendingPurchases = this.purchases.resultQ.filter((item: any) => item.data11 < 3);
-        this.canceledPurchases = this.purchases.resultQ.filter((item: any) => item.data11 === 4);
+        this.pendingPurchases = this.purchases.resultQ.filter((item: any) => {
+          if(item.data11 < 3 || item.data11 === 7 || item.data11 === 8){
+            return item;
+          }
+        });
+        this.canceledPurchases = this.purchases.resultQ.filter((item: any) => {
+          if(item.data11 === 4 || item.data11 === 6){
+            return item;
+          }
+        });
         this.completePurchases = this.purchases.resultQ.filter((item: any) => {
           if(item.data11 === 3 || item.data11 === 5){
             return item;

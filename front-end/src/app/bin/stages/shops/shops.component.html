@@ -9,13 +9,13 @@
             <div class="col p-1 d-flex align-items-end">
                 <h1 class="font-b border-text"><i class="bi bi-cart"></i> Mis servicios contratados</h1>
             </div>
-            <div class="col ms-5 d-flex justify-content-end">
+            <!-- <div class="col ms-5 d-flex justify-content-end">
                 <div class="row p-3">
                     <div class="col d-flex align-items-end">
                         <button type="button" pTooltip="Reportar un error" tooltipPosition="top" class="btn btn-outline-purple"><i class="bi bi-bug"></i></button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -51,9 +51,10 @@
             </div>
             <div class="col-3">
                 <div class="row d-flex align-items-center">
+                    <button type="button" class="btn btn-purple p-2 w-100 mb-2" *ngIf="packet.data11 === 2 || packet.data11 === 7" (click)="confirmInvitation(packet.data3)"><i class="bi bi-check"></i> Confirmar asistencia</button>
                     <button type="button" class="btn btn-purple p-2 w-100 mb-2" routerLink="/services/{{packet.data1}}"><i class="bi bi-card-list"></i> Ver publicación</button>
                     <button type="button" class="btn btn-outline-purple p-2 w-100 mb-2" (click)="openDetails(packet)"><i class="bi bi-journal-text"></i> Ver detalles</button>
-                    <button type="button" class="btn btn-outline-danger border-0 p-2 w-100" *ngIf="packet.data11 != 2" (click)="openDialogCancel(packet.data3)"><i class="bi bi-cart-x"></i> Cancelar</button>
+                    <button type="button" class="btn btn-outline-danger border-0 p-2 w-100" *ngIf="packet.data11 == 0" (click)="openDialogCancel(packet.data3)"><i class="bi bi-cart-x"></i> Cancelar</button>
                 </div>
             </div>
         </div>

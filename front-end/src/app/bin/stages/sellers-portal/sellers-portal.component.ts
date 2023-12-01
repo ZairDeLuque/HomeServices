@@ -27,6 +27,8 @@ export class SellersPortalComponent implements OnInit{
 
   private categories: any[] = [];
   protected products: any[] = [];
+  protected top1: any[] = [];
+  protected top2: any[] = [];
   protected uncomplete: any[] = [];
   protected somebody: boolean = true;
 
@@ -45,7 +47,7 @@ export class SellersPortalComponent implements OnInit{
 
   openDetailsUncomplete(packet: any){
     this.ref3 = this._dialog.open(DetailsPopupComponent, {
-      header: 'Orden del servicio',
+      header: 'Detalles',
       width: '80%',
       height: '100%',
       data: {
@@ -172,6 +174,86 @@ export class SellersPortalComponent implements OnInit{
     return formattedDateTime;
   }
 
+  getTopsSells(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      const json = {
+        _own: this.whatUUID(),
+        activity: 'DESC'
+      }
+      
+      this._services.getTopsSells(json).subscribe((data: any) => {
+        if(data.getter === true){
+          data.result.forEach(async (element: any) => {
+            
+            const service: any = {
+              uuid0x0: element.uuid0x0,
+              category0x2: await this.findTheParent(this.categories,element.category0x2),
+              name0x3: element.name0x3,
+              price0x5: element.price0x5,
+              date0x7: this.formatDate(element.date0x7),
+              status0x8: await this.getSeverity_Text(element.status0x8),
+              priceB0x9: element.priceB0x9,
+              explicit0x10: element.explicit0x10,
+            }
+  
+            this.top1.push(service);
+          });
+
+          resolve(true)
+        }
+        else{
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        Notiflix.Notify.failure('No se pudo obtener la información de los tops-servicios.', {
+          position: 'center-bottom'
+        });
+        reject(false);
+      })
+    })
+  }
+
+  getTopsSells2(): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      const json = {
+        _own: this.whatUUID(),
+        activity: 'ASC'
+      }
+      
+      this._services.getTopsSells(json).subscribe((data: any) => {
+        if(data.getter === true){
+          data.result.forEach(async (element: any) => {
+            
+            const service: any = {
+              uuid0x0: element.uuid0x0,
+              category0x2: await this.findTheParent(this.categories,element.category0x2),
+              name0x3: element.name0x3,
+              price0x5: element.price0x5,
+              date0x7: this.formatDate(element.date0x7),
+              status0x8: await this.getSeverity_Text(element.status0x8),
+              priceB0x9: element.priceB0x9,
+              explicit0x10: element.explicit0x10,
+            }
+  
+            this.top2.push(service);
+          });
+
+          resolve(true)
+        }
+        else{
+          resolve(true);
+        }
+      }, (error: any) => {
+        console.error(error);
+        Notiflix.Notify.failure('No se pudo obtener la información de los tops-servicios.', {
+          position: 'center-bottom'
+        });
+        reject(false);
+      })
+    })
+  }
+
   getUncompleteTasks(): Promise<boolean>{
     return new Promise((resolve, reject) => {
       const packet = {
@@ -184,6 +266,9 @@ export class SellersPortalComponent implements OnInit{
           this.uncomplete = data.result;
           resolve(true);
         }
+        else{
+          resolve(false);
+        }
       }, (error: any) => {
         console.error(error);
         Notiflix.Notify.failure('No se pudo obtener la información de los servicios.', {
@@ -194,6 +279,34 @@ export class SellersPortalComponent implements OnInit{
     })
   }
 
+  getSmartData(){
+    const packet = {
+      _uuid: this.whatUUID()
+    }
+
+    this._services.smart(packet).subscribe((data: any) => {
+      if(data.success === true){
+        this.stats1 = data.data[0].TS;
+        
+        if(data.data[0].SM !== null){
+          this.stats3 = data.data[0].SM;
+        }
+        else{
+          this.stats3 = 0;
+        }
+      }
+      else{
+        this.stats1 = 0;
+        this.stats3 = 0;
+      }
+    }, (error: any) => {
+      console.error(error);
+      Notiflix.Notify.failure('No se pudo obtener la información basica de tu portal.', {
+        position: 'center-bottom'
+      });
+    });
+  }
+
   async ngOnInit() {
     const json = {
       _own: this.whatUUID()
@@ -202,6 +315,7 @@ export class SellersPortalComponent implements OnInit{
     const categorysReady = await this.getCategorys();
 
     if(categorysReady === true){
+
       this._services.getServicesSP(json).subscribe((data: any) => {
 
         Notiflix.Loading.remove(1000);
@@ -221,7 +335,7 @@ export class SellersPortalComponent implements OnInit{
   
             this.products.push(service);
           });
-
+          
         }
 
         if(data.nothing == true){
@@ -233,12 +347,24 @@ export class SellersPortalComponent implements OnInit{
         console.error(error)
         this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener la información de los servicios:('})
       })
+
+      const topsA = await this.getTopsSells();
+      if(topsA === false){
+        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener la información de los tops-servicios:('})
+      }
+      const topsB = await this.getTopsSells2();
+      if(topsB === false){
+        this.NG_MSG.add({severity: 'error', summary: 'Error', detail: 'No se pudo obtener la información de los tops-servicios:('})
+      }
     }
 
     const uncompletedTasks = await this.getUncompleteTasks();
+    
+    this.getSmartData();
 
     if(uncompletedTasks === true){
       if(this.stats2 > 0){
+        // this.openDetailsUncomplete(this.uncomplete[0]);
         this.NG_MSG.add({severity: 'warn', summary: 'Advertencia', detail: 'Tienes servicios sin completar, por favor, completa los servicios para que puedas recibir pagos.'})
       }
     }

@@ -9,15 +9,15 @@
                 <h6 class="ms-2">Tus servicios:</h6>
                 <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" (click)="openCreateNewService()"><i class="bi bi-plus-circle"></i> Crear nuevo servicio</button>
                 <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-journal-text"></i> </button> -->
-                <h6 class="ms-2 border-text">Tu historial:</h6>
+                <!-- <h6 class="ms-2 border-text">Tu historial:</h6>
                 <button class="btn canvas-item rounded-3 w-100 mb-1" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-chat-dots"></i> Ver todos los comentarios</button>
                 <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/s/owned"><i class="bi bi-star"></i> Ver mis reseñas</button>
-                <!-- <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button> -->
+                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button"><i class="bi bi-gem"></i> HomeServices® Prime</button>
                 <h6 class="ms-2 border-text">Utilidades:</h6>
                 <button class="btn canvas-item rounded-3 w-100 mb-1" type="button"><i class="bi bi-journal-text"></i> Crear factura de venta</button>
-                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/sell"><i class="bi bi-person-raised-hand"></i> Soporte y asistencia</button>
+                <button class="btn canvas-item rounded-3 w-100 mb-3" type="button" routerLink="/myaccount/sell"><i class="bi bi-person-raised-hand"></i> Soporte y asistencia</button> -->
             </div>
-        </div>
+        </div>-
         <div class="col-2"></div>
         <div class="col p-4">
             <div class="d-flex gap-2">
@@ -28,6 +28,7 @@
                             <i class="bi bi-cart-check fs-1" style="color: #a95eff;"></i>
                             <h2 class="text-end">{{stats1}}</h2>
                         </div>
+                        <p class="mb-0 opacity-50" style="font-size: small;">Este costo solo toma actividades completadas.</p>
                     </div>
                 </div>
                 <div class="card w-100 sfx">
@@ -44,8 +45,9 @@
                         <h5>Ingresos totales:</h5>
                         <div class="d-flex gap-5 align-items-end justify-content-end">
                             <i class="bi bi-cash fs-1" style="color: #a95eff;"></i>
-                            <h2 class="text-end">${{stats3}}</h2>
+                            <h2 class="text-end">{{stats3 | currency: 'MXN'}}</h2>
                         </div>
+                        <p class="mb-0 opacity-50" style="font-size: small;">Este costo solo toma actividades completadas.</p>
                     </div>
                 </div>
             </div>
@@ -68,9 +70,8 @@
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Categoría</th>
-                                <th>Calificaciones</th>
                                 <th>Estado</th>
-                                <th>Acciones</th>
+                                <th>Eliminar</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>
@@ -78,14 +79,13 @@
                                 <td><i *ngIf="product.explicit0x10 === 'n'" class="bi bi-exclamation-triangle" pTooltip="Este servicio esta marcado como explicito." tooltipPosition="top"></i> {{product.name0x3}}</td>
                                 <td>{{product.price0x5 | currency:'MXN'}}</td>
                                 <td>{{product.category0x2}}</td>
-                                <td><p-rating [readonly]="true" [cancel]="false"></p-rating></td>
                                 <td><p-tag class="user-select-none" [value]="product.status0x8" [severity]="getSeverity(product.status0x8)" pTooltip="Fecha de publicación: {{product.date0x7}}" tooltipPosition="top"></p-tag></td>
                                 <td class="d-flex">
-                                    <div pTooltip="No puedes editar una solicitud sin ser aprobada." tooltipPosition="top" [tooltipDisabled]="product.status0x8 !== 'EN REVISION'">
+                                    <!-- <div pTooltip="No puedes editar una solicitud sin ser aprobada." tooltipPosition="top" [tooltipDisabled]="product.status0x8 !== 'EN REVISION'">
                                         <button class="btn btn-outline-purple" type="button" [disabled]="product.status0x8 === 'EN REVISION'">
                                             <i class="bi bi-pencil"></i>
                                         </button>
-                                    </div>
+                                    </div> -->
                                     <button class="btn btn-purple ms-2" type="button" (click)="openDeleteDialog(product.uuid0x0, product.name0x3, product.status0x8)">
                                         <i class="bi bi-x-circle"></i>
                                     </button>
@@ -99,27 +99,21 @@
                     <h5 class="mt-1"><i class="bi bi-fire" style="color: #a95eff;"></i> Tu top 5 servicios mas comprados:</h5>
                     <hr>
     
-                    <p-table [value]="products">
+                    <p-table [value]="top1">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Categoría</th>
-                                <th>Calificaciones</th>
                                 <th>Estado</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>
                             <tr>
-                                <td>{{product.name0x3}}</td>
-                                <td>{{product.price | currency: 'MXN'}}</td>
-                                <td>{{product.category}}</td>
-                                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                                <td>
-                                    <div pTooltip="wasa">
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" ></p-tag>
-                                    </div>
-                                </td>
+                                <td><i *ngIf="product.explicit0x10 === 'n'" class="bi bi-exclamation-triangle" pTooltip="Este servicio esta marcado como explicito." tooltipPosition="top"></i> {{product.name0x3}}</td>
+                                <td>{{product.price0x5 | currency:'MXN'}}</td>
+                                <td>{{product.category0x2}}</td>
+                                <td><p-tag class="user-select-none" [value]="product.status0x8" [severity]="getSeverity(product.status0x8)" pTooltip="Fecha de publicación: {{product.date0x7}}" tooltipPosition="top"></p-tag></td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -129,23 +123,21 @@
                     <h5 class="mt-1"><i class="bi bi-graph-down-arrow" style="color: #a95eff;"></i> Tu top 5 servicios menos comprados:</h5>
                     <hr>
     
-                    <p-table [value]="products">
+                    <p-table [value]="top2">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Categoría</th>
-                                <th>Calificaciones</th>
                                 <th>Estado</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>
                             <tr>
-                                <td>{{product.name}}</td>
-                                <td>{{product.price | currency:'USD'}}</td>
-                                <td>{{product.category}}</td>
-                                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                                <td><i *ngIf="product.explicit0x10 === 'n'" class="bi bi-exclamation-triangle" pTooltip="Este servicio esta marcado como explicito." tooltipPosition="top"></i> {{product.name0x3}}</td>
+                                <td>{{product.price0x5 | currency:'MXN'}}</td>
+                                <td>{{product.category0x2}}</td>
+                                <td><p-tag class="user-select-none" [value]="product.status0x8" [severity]="getSeverity(product.status0x8)" pTooltip="Fecha de publicación: {{product.date0x7}}" tooltipPosition="top"></p-tag></td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -188,21 +180,18 @@
                                                     <p class="text-dark mb-0 opacity-50">Clic para mas información</p>
                                                 </div>
                                             </div>
-                                            <div class="col-auto d-flex gap-2 justify-content-center align-items-center p-0">
-                                                <a class="btn btn-outline-purple border-0 p-0" role="button"><i class="bi bi-x fs-4"></i></a>
-                                            </div>
                                         </div>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="container-fluid p-0 bg-white mt-4 p-3 rounded-2 border">
                             <h5 class="mt-1"><i class="bi bi-person-raised-hand" style="color: #a95eff;"></i> Servicios pendientes:</h5>
                             <hr>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             

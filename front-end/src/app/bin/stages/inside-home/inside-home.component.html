@@ -36,9 +36,9 @@
                         <p>{{items.data3}}</p>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <!-- <div class="col">
                             <p-rating [readonly]="true" [cancel]="false"></p-rating>
-                        </div>
+                        </div> -->
                         <div class="col-auto">
                             <p class="mb-0 opacity-50">Fecha de publicación: {{formatDate(items.data6)}}</p>
                         </div>
@@ -52,31 +52,27 @@
 
 <div class="container-fluid p-4 mt-3 font-b">
     <h2 class="mb-4"><i class="bi bi-fire" style="color: #a95eff;"></i> Mas vendidos:</h2>
-    <p-carousel [value]="topSells" [numVisible]="3" class="overflow-visible">
+    <p-carousel [value]="topSells" [numVisible]="3" [autoplayInterval]="2000" class="overflow-visible">
         <ng-template let-items pTemplate="item">
             <div class="container border border-1 w-75 h-100 p-3 rounded-3 sfx">
-                <a href="" class="text-decoration-none text-dark">
+                <a routerLink="/services/{{items.data0}}" class="text-decoration-none text-dark">
                     <div class="row mb-2">
-                        <div class="col">
-                            <div class="row text-start">
-                                <h4 class="mb-0">{{items.title}}</h4>
-                                <p class="mb-0 opacity-50">Ofrecido por: ZairDeLuque</p>
-                            </div>
+                        <div class="col d-flex align-items-center gap-3">
+                            <i class="bi bi-exclamation-triangle fs-5"></i><h4 class="mb-0">{{items.data2}}</h4>
                         </div>
-                        <div class="col-auto d-flex justify-content-center align-items-center">
-                            <p-avatar size="large" label="A" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
+                        <div class="col-auto d-flex align-items-end">
+                            <h3 class="mb-0">{{items.data4 | currency: 'MXN'}}/{{items.data5}}</h3>
                         </div>
                     </div>
                     <div class="fade-out">
-                        <p>lorem</p>
+                        <p>{{items.data3}}</p>
                     </div>
-                    <hr class="mt-0">
                     <div class="row">
-                        <div class="col d-flex align-items-center">
+                        <!-- <div class="col">
                             <p-rating [readonly]="true" [cancel]="false"></p-rating>
-                        </div>
-                        <div class="col text-end">
-                            <h4>$0</h4>
+                        </div> -->
+                        <div class="col-auto">
+                            <p class="mb-0 opacity-50">Fecha de publicación: {{formatDate(items.data6)}}</p>
                         </div>
                     </div>
                 </a>
@@ -86,7 +82,7 @@
     </p-carousel>
 </div>
 
-<div class="container-fluid p-4 mt-3 font-b">
+<!-- <div class="container-fluid p-4 mt-3 font-b">
     <h3 class="mb-4"><i class="bi bi-star" style="color: #a95eff;"></i> Recomendaciones:</h3>
     <p-carousel [value]="recomendations" [numVisible]="3" class="overflow-visible">
         <ng-template let-items pTemplate="item">
@@ -120,37 +116,49 @@
             
         </ng-template>
     </p-carousel>
-</div>
+</div> -->
 
 <div class="container-fluid p-4 mt-3 font-b">
     <div class="row">
-        <div class="col" style="width: 50%;">
-            <h4 class="mb-4"><i class="bi bi-percent" style="color: #a95eff;"></i> Ofertas:</h4>
-            <p-carousel [value]="offs" [numVisible]="1" class="overflow-visible">
+        <div class="col" style="max-width: 50%;">
+            <h4 class="mb-4"><i class="bi bi-percent" style="color: #a95eff;"></i> Los de hoy:</h4>
+            <div class="d-flex justify-content-center align-items-center" *ngIf="offs.length === 0">
+                <div class="container-fluid mt-5">
+                    <div class="d-flex justify-content-center" style="opacity: .7;">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/jjoolpwc.json"
+                            trigger="loop"
+                            delay="2000"
+                            colors="primary:#121331,secondary:#a95eff"
+                            style="width:70px;height:70px">
+                        </lord-icon>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mb-0 text-center" style="opacity: .7;">
+                        <p class="mb-2">No hay servicios nuevos hoy, veamos que habrá mañana.</p>
+                    </div>
+                </div>
+            </div>
+            <p-carousel [value]="offs" [numVisible]="3" [autoplayInterval]="2000" class="overflow-visible" *ngIf="offs.length > 0">
                 <ng-template let-items pTemplate="item">
                     <div class="container border border-1 w-75 h-100 p-3 rounded-3 sfx">
-                        <a href="" class="text-decoration-none text-dark">
+                        <a routerLink="/services/{{items.data0}}" class="text-decoration-none text-dark">
                             <div class="row mb-2">
-                                <div class="col">
-                                    <div class="row text-start">
-                                        <h4 class="mb-0">{{items.title}}</h4>
-                                        <p class="mb-0 opacity-50">Ofrecido por: ZairDeLuque</p>
-                                    </div>
+                                <div class="col d-flex align-items-center gap-3">
+                                    <i class="bi bi-exclamation-triangle fs-5"></i><h4 class="mb-0">{{items.data2}}</h4>
                                 </div>
-                                <div class="col-auto d-flex justify-content-center align-items-center">
-                                    <p-avatar size="large" label="A" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
+                                <div class="col-auto d-flex align-items-end">
+                                    <h3 class="mb-0">{{items.data4 | currency: 'MXN'}}/{{items.data5}}</h3>
                                 </div>
                             </div>
                             <div class="fade-out">
-                                <p>lorem</p>
+                                <p>{{items.data3}}</p>
                             </div>
-                            <hr class="mt-0">
                             <div class="row">
-                                <div class="col d-flex align-items-center">
+                                <!-- <div class="col">
                                     <p-rating [readonly]="true" [cancel]="false"></p-rating>
-                                </div>
-                                <div class="col text-end">
-                                    <h4>$0</h4>
+                                </div> -->
+                                <div class="col-auto">
+                                    <p class="mb-0 opacity-50">Fecha de publicación: {{formatDate(items.data6)}}</p>
                                 </div>
                             </div>
                         </a>
@@ -159,33 +167,45 @@
                 </ng-template>
             </p-carousel>
         </div>
-        <div class="col" style="width: 50%;">
-            <h4 class="mb-4"><i class="bi bi-graph-up-arrow" style="color: #a95eff;"></i> Nuevos:</h4>
-            <p-carousel [value]="news" [numVisible]="1" class="overflow-visible">
+        <div class="col" style="max-width: 50%;">
+            <h4 class="mb-4"><i class="bi bi-calendar-date" style="color: #a95eff;"></i> Los del mes:</h4>
+            <div class="d-flex justify-content-center align-items-center" *ngIf="news.length === 0">
+                <div class="container-fluid mt-5">
+                    <div class="d-flex justify-content-center" style="opacity: .7;">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/jjoolpwc.json"
+                            trigger="loop"
+                            delay="2000"
+                            colors="primary:#121331,secondary:#a95eff"
+                            style="width:70px;height:70px">
+                        </lord-icon>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mb-0 text-center" style="opacity: .7;">
+                        <p class="mb-2">No hay servicios nuevos este mes:(</p>
+                    </div>
+                </div>
+            </div>
+            <p-carousel [value]="news" [numVisible]="3" [autoplayInterval]="2000" class="overflow-visible" *ngIf="news.length > 0">
                 <ng-template let-items pTemplate="item">
                     <div class="container border border-1 w-75 h-100 p-3 rounded-3 sfx">
-                        <a href="" class="text-decoration-none text-dark">
+                        <a routerLink="/services/{{items.data0}}" class="text-decoration-none text-dark">
                             <div class="row mb-2">
-                                <div class="col">
-                                    <div class="row text-start">
-                                        <h4 class="mb-0">{{items.title}}</h4>
-                                        <p class="mb-0 opacity-50">Ofrecido por: ZairDeLuque</p>
-                                    </div>
+                                <div class="col d-flex align-items-center gap-3">
+                                    <i class="bi bi-exclamation-triangle fs-5"></i><h4 class="mb-0">{{items.data2}}</h4>
                                 </div>
-                                <div class="col-auto d-flex justify-content-center align-items-center">
-                                    <p-avatar size="large" label="A" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
+                                <div class="col-auto d-flex align-items-end">
+                                    <h3 class="mb-0">{{items.data4 | currency: 'MXN'}}/{{items.data5}}</h3>
                                 </div>
                             </div>
                             <div class="fade-out">
-                                <p>lorem</p>
+                                <p>{{items.data3}}</p>
                             </div>
-                            <hr class="mt-0">
                             <div class="row">
-                                <div class="col d-flex align-items-center">
+                                <!-- <div class="col">
                                     <p-rating [readonly]="true" [cancel]="false"></p-rating>
-                                </div>
-                                <div class="col text-end">
-                                    <h4>$0</h4>
+                                </div> -->
+                                <div class="col-auto">
+                                    <p class="mb-0 opacity-50">Fecha de publicación: {{formatDate(items.data6)}}</p>
                                 </div>
                             </div>
                         </a>

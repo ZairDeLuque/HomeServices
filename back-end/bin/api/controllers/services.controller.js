@@ -297,6 +297,101 @@ async function paymentInfoA(req, res){
 
 //Sellers portal
 
+async function nextStep(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'UPDATE q0x SET completed0x12 = ? WHERE id_shop0x4 = ?'
+        const values = [body._status, body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                updated: true
+            })
+        }
+        else{
+            res.status(500).json({
+                updated: false,
+                message: 'Posible duplicidad de ID o inexistencia.'
+            })
+        
+        }
+    }
+    catch(e){
+        console.log('[ERR] nextStep error. Reason: ' + e)
+        res.status(500).json({
+            updated: false,
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras actualizábamos tu servicio.'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+
+}
+
+async function listTop5(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT article0x0, COUNT(*) AS total_pedidos FROM q0x WHERE owner0x1 = ? GROUP BY article0x0 ORDER BY total_pedidos ' + body.activity + ' LIMIT 5'
+        const values = [body._own]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+
+            let response = [];
+
+            for(let i = 0; i < result.length; i++){
+                const sql2 = 'SELECT uuid0x0, category0x2, name0x3, price0x5, date0x7, status0x8, priceB0x9, explicit0x10 FROM s0x WHERE owner0x1 = ? AND uuid0x0 = ?'
+                const values2 = [body._own, result[i].article0x0]
+
+                const [result2] = await cn.execute(sql2, values2);
+
+                if(result2.length > 0){
+                    response.push(result2[i])
+                }
+            }
+
+            res.status(200).json({
+                result: response,
+                getter: true
+            })
+        }
+        else{
+            res.status(200).json({
+                result: 'No se encontraron servicios.',
+                nothing: true
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] listAllProducts error. Reason: ' + e)
+        res.status(500).json({
+            result: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras buscábamos información de tus servicios.',
+            getter: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
 async function listAllProducts(req, res){
     let cn;
 
@@ -367,7 +462,7 @@ async function DeleteRequest(req, res){
         console.log('[ERR] DeleteRequest error. Reason: ' + e)
         res.status(500).json({
             deleted: false,
-            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras eliminabamos tu servicio.'
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras eliminábamos tu servicio.'
         })
     }
     finally{
@@ -444,7 +539,7 @@ async function UncompleteTasks(req, res){
 
         cn = await Connection()
 
-        const sql = 'SELECT * FROM q0x WHERE owner0x1 = ? AND completed0x12 = 0'
+        const sql = 'SELECT * FROM q0x WHERE owner0x1 = ? AND (completed0x12 >= 0 AND completed0x12 <= 2 OR completed0x12 = 7 OR completed0x12 = 8) '
         const values = [body._uuid]
 
         const [result] = await cn.execute(sql, values);
@@ -466,7 +561,7 @@ async function UncompleteTasks(req, res){
                     formE0x9: result[i].formE0x9,
                     formF0x10: await Cipher.resolveChallenge(result[i].formF0x10.toString('utf-8')),
                     date0x11: result[i].date0x11,
-                    completed0x12: "0",
+                    completed0x12: result[i].completed0x12,
                     multiple0x13: result[i].multiplebuys0x13
                 }
 
@@ -511,25 +606,24 @@ async function InvoiceData(req, res){
 
         const [result] = await cn.execute(sql, values);
 
-        if(result.length === 1){
+        if(result.length > 0){
+            res.status(200).json({
+                info: result,
+                get: true
+            })
             
-            const sql2 = 'SELECT powered0x3 FROM pay0x WHERE uuidshop0x4 = ? AND payer0x1 = ?'
-            const values2 = [body._uuid, body._payer]
+            // const sql2 = 'SELECT powered0x3 FROM pay0x WHERE uuidshop0x4 = ? AND payer0x1 = ?'
+            // const values2 = [body._uuid, body._payer]
 
-            const [result2] = await cn.execute(sql2, values2);
+            // const [result2] = await cn.execute(sql2, values2);
 
-            if(result2.length === 1){
-                res.status(200).json({
-                    info: result,
-                    pay: result2,
-                    get: true
-                })
-            }
-            else{
-                res.status(200).json({
-                    get: false
-                })
-            }
+            // if(result2.length === 1){
+            // }
+            // else{
+            //     res.status(200).json({
+            //         get: false
+            //     })
+            // }
         }
         else{
             res.status(200).json({
@@ -690,6 +784,47 @@ async function cancelPurchase(req, res){
     }
     catch(e){
         console.log('[ERR] cancelPurchase error. Reason: ' + e)
+        res.status(500).json({
+            canceled: false,
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras cancelábamos tu servicio.'
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+
+}
+
+async function cancelPurchase2(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'UPDATE q0x SET completed0x12 = 6 WHERE id_shop0x4 = ?'
+        const values = [body._id]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.affectedRows === 1){
+            res.status(200).json({
+                canceled: true
+            })
+        }
+        else{
+            res.status(403).json({
+                canceled: false,
+                message: 'Posible duplicidad de UUID o inexistencia.'
+            })
+        
+        }
+    }
+    catch(e){
+        console.log('[ERR] cancelPurchase2 error. Reason: ' + e)
         res.status(500).json({
             canceled: false,
             message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras cancelábamos tu servicio.'
@@ -891,6 +1026,514 @@ async function powerSearch(req, res){
     }
 }
 
+async function generateRandomSearch(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        let sql, values;
+
+        if(body._template){
+            sql = 'SELECT * FROM s0x WHERE name0x3 LIKE ? ' + body._template
+            values = ['%' + body._search + '%']
+        }
+        else{
+            sql = 'SELECT * FROM s0x WHERE name0x3 LIKE ? AND explicit0x10 = \'y\''
+            values = ['%' + body._search + '%']
+        }
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            let resArr = [];
+
+            for (let j = 0; j < result.length; j++) {
+                const {
+                    uuid0x0,
+                    category0x2,
+                    name0x3,
+                    description0x4,
+                    price0x5,
+                    ttp0x6,
+                    date0x7,
+                    status0x8,
+                    priceB0x9,
+                    explicit0x10
+                } = result[j];
+
+                const apprend = {
+                    data0: uuid0x0,
+                    data1: category0x2,
+                    data2: name0x3,
+                    data3: description0x4.toString('utf-8'),
+                    data4: price0x5,
+                    data5: ttp0x6,
+                    data6: date0x7,
+                    data7: status0x8,
+                    data8: priceB0x9,
+                    data9: explicit0x10
+                };
+
+                resArr.push(apprend);
+            }
+
+            res.status(200).json({
+                data: resArr,
+                total: resArr.length,
+                success: true
+            })
+        }
+        else{
+            res.status(200).json({
+                success: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] generateRandomSearch error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            success: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function itsMyInvitation(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection()
+
+        const sql = 'SELECT * FROM as0x WHERE payloader0x0 = ? AND idshop0x1 = ?'
+        const values = [body._uuid, body._idshop]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length === 1){
+            res.status(200).json({
+                its: true
+            })
+        }
+        else{
+            res.status(200).json({
+                its: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] itsMyInvitation error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            its: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function confirmInvitation(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT * FROM as0x WHERE idshop0x1 = ?';
+        const values = [body._idshop];
+
+        const [result] = await cn.execute(sql, values)
+
+        if(result.length === 1){
+            const sql2 = 'UPDATE q0x SET completed0x12 = 3 WHERE id_shop0x4 = ?';
+            const values2 = [body._idshop]
+
+            const [result2] = await cn.execute(sql2, values2)
+
+            if(result2.affectedRows === 1){
+                const sql3 = 'DELETE FROM as0x WHERE idshop0x1 = ?';
+                const values3 = [body._idshop];
+
+                const [result3] = await cn.execute(sql3, values3);
+
+                if(result3.affectedRows === 1){
+                    res.status(200).json({
+                        success: true
+                    })
+                }
+                else{
+                    res.status(200).json({
+                        success: false
+                    })
+                }
+            }
+            else{
+                res.status(200).json({
+                    success: false
+                })
+            }
+        }
+        else{
+            const sql2 = 'INSERT INTO as0x (payloader0x0, idshop0x1) VALUES (?,?)';
+            const values = [body._uuid, body._idshop];
+
+            const [result2] = await cn.execute(sql2, values);
+
+            if(result2.affectedRows === 1){
+                
+                let sql3
+
+                if(body._sp){
+                    sql3 = 'UPDATE q0x SET completed0x12 = 7 WHERE id_shop0x4 = ?';
+                }
+                else{
+                    sql3 = 'UPDATE q0x SET completed0x12 = 8 WHERE id_shop0x4 = ?';
+                }
+
+                const values3 = [body._idshop];
+
+                const [result3] = await cn.execute(sql3, values3);
+
+                if(result3.affectedRows === 1){
+                    res.status(200).json({
+                        agree: true
+                    })
+                }
+            }
+            else{
+                res.status(200).json({
+                    agree: false
+                })
+            }
+        }
+    }
+    catch(e){
+        console.log('[ERR] confirmInvitation error. Reason: ' + e)
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            success: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+async function getShopsandCosts(req, res){
+    let cn;
+
+    try{
+        const body = req.body;
+
+        cn = await Connection();
+
+        const sql = 'SELECT SUM(subprice0x3) as SM, COUNT (*) as TS FROM q0x WHERE owner0x1 = ? AND (completed0x12 = 3 OR completed0x12 = 5)'
+        const values = [body._uuid]
+
+        const [result] = await cn.execute(sql, values);
+
+        if(result.length > 0){
+            res.status(200).json({
+                data: result,
+                success: true
+            })
+        }
+        else{
+            res.status(200).json({
+                success: false
+            })
+        }
+    }
+    catch(e){
+        console.log('[ERR] getShopsandCosts error. Reason: ' + e)
+        res.status(500).json({
+            success: false
+        })
+    }
+    finally{
+        if(cn){
+            cn.end();
+        }
+    }
+}
+
+//Main
+async function getTopServices(req, res) {
+    let cn;
+
+    try {
+        cn = await Connection();
+
+        const sql = 'SELECT article0x0, COUNT(*) AS total_pedidos FROM q0x GROUP BY article0x0 ORDER BY total_pedidos DESC'
+
+        const [result] = await cn.execute(sql);
+
+        if (result.length > 0) {
+            let allResults = [];
+
+            for (let i = 0; i < result.length; i++) {
+                const sql2 = 'SELECT * FROM s0x WHERE uuid0x0 = ?';
+                const values2 = [result[i].article0x0];
+
+                const [result2] = await cn.execute(sql2, values2);
+
+                if (result2.length > 0) {
+                    let resArr = [];
+
+                    for (let j = 0; j < result2.length; j++) {
+                        const {
+                            uuid0x0,
+                            category0x2,
+                            name0x3,
+                            description0x4,
+                            price0x5,
+                            ttp0x6,
+                            date0x7,
+                            status0x8,
+                            priceB0x9,
+                            explicit0x10
+                        } = result2[j];
+
+                        const apprend = {
+                            data0: uuid0x0,
+                            data1: category0x2,
+                            data2: name0x3,
+                            data3: description0x4.toString('utf-8'),
+                            data4: price0x5,
+                            data5: ttp0x6,
+                            data6: date0x7,
+                            data7: status0x8,
+                            data8: priceB0x9,
+                            data9: explicit0x10
+                        };
+
+                        resArr.push(apprend);
+                    }
+
+                    allResults = allResults.concat(resArr);
+                }
+            }
+
+            if (allResults.length > 0) {
+                res.status(200).json({
+                    result: allResults,
+                    get: true
+                });
+            } else {
+                res.status(200).json({
+                    get: false
+                });
+            }
+        }
+        else {
+            const sql2 = 'SELECT * FROM s0x';
+
+            const [result2] = await cn.execute(sql2);
+
+            if (result2.length > 0) {
+                let resArr = [];
+
+                for (let j = 0; j < result2.length; j++) {
+                    const {
+                        uuid0x0,
+                        category0x2,
+                        name0x3,
+                        description0x4,
+                        price0x5,
+                        ttp0x6,
+                        date0x7,
+                        status0x8,
+                        priceB0x9,
+                        explicit0x10
+                    } = result2[j];
+
+                    const apprend = {
+                        data0: uuid0x0,
+                        data1: category0x2,
+                        data2: name0x3,
+                        data3: description0x4.toString('utf-8'),
+                        data4: price0x5,
+                        data5: ttp0x6,
+                        data6: date0x7,
+                        data7: status0x8,
+                        data8: priceB0x9,
+                        data9: explicit0x10
+                    };
+
+                    resArr.push(apprend);
+                }
+
+                res.status(200).json({
+                    result: resArr,
+                    get: true
+                });
+            }
+        }
+    } catch (e) {
+        console.log('[ERR] getPublishWithUUID error. Reason: ' + e);
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        });
+    } finally {
+        if (cn) {
+            cn.end();
+        }
+    }
+}
+
+async function getNewServices(req, res) {
+    let cn;
+
+    try {
+        cn = await Connection();
+
+        const dateFormated = DateTime.now().setZone('America/Mexico_City').toFormat('yyyy-MM-dd HH:mm:ss');
+        const yearMonth = DateTime.fromFormat(dateFormated, 'yyyy-MM-dd HH:mm:ss').toFormat('yyyy-MM');
+        const sql = `SELECT * FROM s0x WHERE DATE_FORMAT(date0x7, '%Y-%m') = '${yearMonth}'`;
+
+        const [result] = await cn.execute(sql);
+
+        if (result.length > 0) {
+            let resArr = [];
+
+            for (let j = 0; j < result.length; j++) {
+                const {
+                    uuid0x0,
+                    category0x2,
+                    name0x3,
+                    description0x4,
+                    price0x5,
+                    ttp0x6,
+                    date0x7,
+                    status0x8,
+                    priceB0x9,
+                    explicit0x10
+                } = result[j];
+
+                const apprend = {
+                    data0: uuid0x0,
+                    data1: category0x2,
+                    data2: name0x3,
+                    data3: description0x4.toString('utf-8'),
+                    data4: price0x5,
+                    data5: ttp0x6,
+                    data6: date0x7,
+                    data7: status0x8,
+                    data8: priceB0x9,
+                    data9: explicit0x10
+                };
+
+                resArr.push(apprend);
+            }
+
+            res.status(200).json({
+                result: resArr,
+                get: true
+            });
+        }
+        else {
+            res.status(200).json({
+                get: false
+            });
+        }
+    } catch (e) {
+        console.log('[ERR] getPublishWithUUID error. Reason: ' + e);
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        });
+    } finally {
+        if (cn) {
+            cn.end();
+        }
+    }
+}
+
+async function getTodayServices(req, res) {
+    let cn;
+
+    try {
+        cn = await Connection();
+        
+        const todayStart = DateTime.now().setZone('America/Mexico_City').startOf('day');
+        const todayEnd = DateTime.now().setZone('America/Mexico_City').endOf('day');
+
+        const sql = `SELECT * FROM s0x WHERE date0x7 >= '${todayStart.toISO()}' AND date0x7 <= '${todayEnd.toISO()}'`;
+
+        const [result] = await cn.execute(sql);
+
+        if (result.length > 0) {
+            let resArr = [];
+
+            for (let j = 0; j < result.length; j++) {
+                const {
+                    uuid0x0,
+                    category0x2,
+                    name0x3,
+                    description0x4,
+                    price0x5,
+                    ttp0x6,
+                    date0x7,
+                    status0x8,
+                    priceB0x9,
+                    explicit0x10
+                } = result[j];
+
+                const apprend = {
+                    data0: uuid0x0,
+                    data1: category0x2,
+                    data2: name0x3,
+                    data3: description0x4.toString('utf-8'),
+                    data4: price0x5,
+                    data5: ttp0x6,
+                    data6: date0x7,
+                    data7: status0x8,
+                    data8: priceB0x9,
+                    data9: explicit0x10
+                };
+
+                resArr.push(apprend);
+            }
+
+            res.status(200).json({
+                result: resArr,
+                get: true
+            });
+        }
+        else {
+            res.status(200).json({
+                get: false
+            });
+        }
+    } catch (e) {
+        console.log('[ERR] getPublishWithUUID error. Reason: ' + e);
+        res.status(500).json({
+            message: 'Ha ocurrido un error en la base de datos de Aurora Studios mientras procesábamos tu solicitud.',
+            get: false
+        });
+    } finally {
+        if (cn) {
+            cn.end();
+        }
+    }
+}
+
 module.exports = {
     add: addNewService,
     addPics: saveImagesConverted,
@@ -901,10 +1544,20 @@ module.exports = {
     isMyPublish: isMyPublish,
     paymentA: paymentInfoA,
     SPgetAllProducts: listAllProducts,
+    SPgetTops: listTop5,
     SPuncomplete: UncompleteTasks,
+    SPnext: nextStep,
+    SPcancel: cancelPurchase2,
+    invitation: confirmInvitation,
+    invitation2: itsMyInvitation,
     deleteReq: DeleteRequest,
     shopA: shopStepA,
     invoice: InvoiceData,
     ownedA: MyOwnServices,
-    ownedB: cancelPurchase
+    ownedB: cancelPurchase,
+    searchWithFilter: generateRandomSearch,
+    getSmartData: getShopsandCosts,
+    getTopMain: getTopServices,
+    getNewMain: getNewServices,
+    getTodayMain: getTodayServices
 }

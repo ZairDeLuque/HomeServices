@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 //.env
-require('dotenv').config({ path: './.env'})
-const origins = ['https://www.home-services.store'];
+// require('dotenv').config({ path: './.env'})
+const origins = ['https://home-services.store'];
 const port = process.env.PORT || 3001;
 // const host = process.env.HOST;
 

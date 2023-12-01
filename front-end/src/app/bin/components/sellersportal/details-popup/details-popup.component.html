@@ -13,6 +13,60 @@
 </div>
 
 <div class="container-fluid p-0" *ngIf="!active">
+
+    <div class="container-fluid p-0 mt-3 mb-5">
+        <div class="row">
+            <div class="col-4">
+                <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+                    <ng-template pTemplate="marker" let-event>
+                        <span class="custom-marker dropped-shadow-tiny" [style.backgroundColor]="event.color">
+                            <i [ngClass]="event.icon"></i>
+                        </span>
+                    </ng-template>
+                    <ng-template pTemplate="content" let-event>
+                        {{ event.status }}
+                    </ng-template>
+                </p-timeline>
+            </div>
+            <div class="col d-flex align-items-center">
+                <div class="row">
+                    <h6>Información para el vendedor:</h6>
+                <hr class="w-25">
+                <h3>{{getMessage(servicePacket.completed0x12)}}</h3>
+                <p>{{getSubMessage(servicePacket.completed0x12)}}</p>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-purple" (click)="bugDetected()"><i class="bi bi-bug"></i> Notificar un error</button>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex gap-3" *ngIf="servicePacket.completed0x12 === 0">
+                            <button type="button" class="btn btn-outline-danger" (click)="cancel()"><i class="bi bi-x"></i> Cancelar</button>
+                            <button type="button" class="btn btn-purple" (click)="next()"><i class="bi bi-arrow-right"></i> Siguiente paso</button>
+                        </div>
+                        <button type="button" class="btn btn-purple" *ngIf="servicePacket.completed0x12 !== 0 && servicePacket.completed0x12 !== 2 && servicePacket.completed0x12 !== 7 && servicePacket.completed0x12 !== 8" (click)="next()"><i class="bi bi-arrow-right"></i> Siguiente paso</button>
+                        <div pTooltip="Indicaste que tu asistencia se concreto, pero aun necesitamos la confirmación del comprador." [tooltipDisabled]="laststep">
+                            <button type="button" class="btn btn-purple" *ngIf="servicePacket.completed0x12 === 2 || servicePacket.completed0x12 === 7 || servicePacket.completed0x12 === 8" (click)="confirmInvitation()" [disabled]="!laststep">
+                                <div *ngIf="laststep">
+                                    <i class="bi bi-check"></i> <span>Confirmar asistencia</span>
+                                </div>
+                                <div *ngIf="!laststep">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    Esperando al comprador
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <div class="row">
         <div class="col">
             <div class="d-flex align-items-center gap-2">
@@ -67,7 +121,6 @@
                 <tr>
                     <th class="table-secondary" scope="col">Nombre del servicio</th>
                     <th class="table-secondary" scope="col">Identificador</th>
-                    <th class="table-secondary" scope="col">Método de pago</th>
                     <th class="table-secondary" scope="col">Precio Unitario</th>
                 </tr>
             </thead>
@@ -75,57 +128,39 @@
                 <tr>
                     <th>{{invoice.info[0].name0x3}}</th>
                     <td class="w-auto">{{servicePacket.article0x0}}</td>
-                    <td>{{formatStringPayment(invoice.pay[0].powered0x3)}}</td>
                     <td>{{invoice.info[0].price0x5 | currency: 'MXN'}}</td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>
                     <td class="border-0"></td>
                     <td class="border-0"></td>
-                    <td class="border-0"></td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>
-                    <td class="border-0"></td>
                     <td class="border-0"></td>
                     <td class="border-0"></td>
                 </tr>
                 <tr *ngIf="servicePacket.multiple0x13 > 1">
                     <th class="border-0"></th>
-                    <td class="border-0"></td>
                     <td>Servicios por tiempo ({{servicePacket.multiple0x13}} pagos):</td>
                     <td>{{invoice.info[0].price0x5 * servicePacket.multiple0x13 | currency: 'MXN'}}</td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>
-                    <td class="border-0"></td>
                     <td>Costos de traslado:</td>
                     <td>{{invoice.info[0].priceB0x9 | currency: 'MXN'}}</td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>
-                    <td class="border-0"></td>
                     <td>Comisión de HomeServices®:</td>
                     <td>{{servicePacket.subprice0x3 - (invoice.info[0].priceB0x9 + (invoice.info[0].price0x5 * servicePacket.multiple0x13)) | currency: 'MXN'}}</td>
                 </tr>
                 <tr>
                     <th class="border-0"></th>
-                    <td class="border-0"></td>
                     <td class="fw-bold border-0">Subtotal:</td>
                     <td class="border-0">{{servicePacket.subprice0x3 | currency: 'MXN'}}</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div class="container-fluid p-0 text-center text-lg-start text-muted" style="margin-top: 8rem;">
-        <section class="d-flex justify-content-center justify-content-lg-between">
-            <div class="me-5 d-none d-lg-block">
-                <span style="color: rgb(167, 167, 167);">Aurora Studios Mexico S.A. de C.V.</span>
-            </div>
-            <div>
-                <span style="color: rgb(167, 167, 167);">Esta factura es solo de carácter informativo</span>
-            </div>
-        </section>
     </div>
 </div>

@@ -24,6 +24,7 @@ import { CategoriesComponent } from './bin/stages/categories/categories.componen
 import { WelcomeComponent } from './bin/stages/welcome/welcome.component';
 import { SellersPortalComponent } from './bin/stages/sellers-portal/sellers-portal.component';
 import { SearchComponent } from './bin/stages/search/search.component';
+import { MobileUsageComponent } from './bin/stages/mobile-usage/mobile-usage.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'prefix', component: InsideHomeComponent},
@@ -50,6 +51,8 @@ const routes: Routes = [
   //Redirects for payments
   {path: 'api/v1/payments/stripe/:activity', component: StripeComponent},
   // {path: 'api/v1/payments/mercadopago/:activity', component: MercadopagoComponent},
+
+  {path: 'mobile', component: MobileUsageComponent},
 
   {path: '**', component: NotfoundComponent}
 ];

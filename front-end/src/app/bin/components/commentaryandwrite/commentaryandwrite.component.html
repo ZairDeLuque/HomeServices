@@ -7,7 +7,7 @@
             colors="primary:#121331,secondary:#a95eff"
             style="width:100px;height:100px">
         </lord-icon>
-        <h6 class="mb-0 opacity-50">¿Quieres hacer preguntas? ¡Únete a la comunidad de HomeServices® en la parte superior!</h6>
+        <h6 class="mb-0 opacity-50">¿Quieres publicar opiniones? ¡Únete a la comunidad de HomeServices® en la parte superior!</h6>
     </div>
 
     <div class="row" *ngIf="isLog">
@@ -25,7 +25,7 @@
     <hr>
 
     <div class="container-fluid p-0 mt-4">
-        <h5 class="mb-4"><i class="bi bi-chat"></i> Preguntas anteriores:</h5>
+        <h5 class="mb-4"><i class="bi bi-chat"></i> Anteriores:</h5>
         <div class="row mb-1" *ngFor="let packet of commentarys">
             <div class="col-auto ms-2 mt-2">
                 <p-avatar size="large" label="{{packet.label}}" styleClass="mb-0 mb-1 me-2" [style]="{ 'background-color': '#943afb', color: '#ffffff' }"></p-avatar>
@@ -35,9 +35,9 @@
                     <p class="mb-1" style="text-align: justify;">{{packet.content}}</p>
                     <p class="mb-0" style="font-size: small; opacity: .6;">-{{packet.date}}</p>
                     <!-- Acciones del creador -->
-                    <a *ngIf="isMy" (click)="responseCommentary(packet.id)" class="text-decoration-none mb-0 d-inline-block sfx" style="opacity: .7; cursor: pointer;"><i class="bi bi-arrow-return-left"></i> Responder</a>
+                    <!-- <a *ngIf="isMy" (click)="responseCommentary(packet.id)" class="text-decoration-none mb-0 d-inline-block sfx" style="opacity: .7; cursor: pointer;"><i class="bi bi-arrow-return-left"></i> Responder</a> -->
                     <!-- Respuestas del creador -->
-                    <p class="mb-0" *ngIf="!isMy" style="opacity: .7;"><i class="bi bi-chat-left-text"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, non.</p>
+                    <!-- <p class="mb-0" *ngIf="!isMy" style="opacity: .7;"><i class="bi bi-chat-left-text"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, non.</p> -->
                 </div>
             </div>
         </div>

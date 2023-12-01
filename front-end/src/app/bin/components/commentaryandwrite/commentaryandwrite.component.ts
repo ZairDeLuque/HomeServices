@@ -139,6 +139,7 @@ export class CommentaryandwriteComponent implements OnInit{
           Notiflix.Notify.success('Comentario creado con exito!', {
             position: 'center-bottom'
           });
+          window.location.reload();
         }, error => {
           console.error(error.message)
           Notiflix.Notify.failure('No se pudo crear el comentario :(', {

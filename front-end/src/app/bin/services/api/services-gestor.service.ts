@@ -79,4 +79,44 @@ export class ServicesGestorService {
   public getNavContent(): Observable<any>{
     return this._http.get<any>(this.API_URL + '/api/v1/get/services/get/navbar/content');
   }
+
+  public getWithFilter(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/search', data);
+  }
+
+  public nextStep(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/next', data);
+  }
+
+  public cancelSP(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/post/sp/cancel', data);
+  }
+
+  public invitation(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/invitation/confirm', data);
+  }
+
+  public invitation_me(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/purchase/invitation/itsme', data);
+  }
+
+  public getTopsSells(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/tops', data);
+  }
+
+  public smart(data: any): Observable<any>{
+    return this._http.post<any>(this.API_URL + '/api/v1/post/services/get/sp/small', data);
+  }
+
+  public getTopMain(): Observable<any>{
+    return this._http.get<any>(this.API_URL + '/api/v1/post/services/get/topmain');
+  }
+
+  public getNewMain(): Observable<any>{
+    return this._http.get<any>(this.API_URL + '/api/v1/post/services/get/news');
+  }
+
+  public getTodayMain(): Observable<any>{
+    return this._http.get<any>(this.API_URL + '/api/v1/post/services/get/today');
+  }
 }

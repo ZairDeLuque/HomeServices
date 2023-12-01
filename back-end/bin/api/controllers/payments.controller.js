@@ -107,7 +107,7 @@ async function createPayment(req, res){
     const ACCESS_TOKEN = process.env.MERCADO_PAGO_TOKEN;
     
     const body = req.body;
-    const thisURL = 'http://192.168.30.186:3000/api/v1/post/payments/mp/'
+    const thisURL = 'https://workhome.com.mx/api/v1/post/payments/mp/'
 
     if(body){
 
@@ -132,7 +132,7 @@ async function createPayment(req, res){
                 failure: thisURL + 'failure',
                 pending: thisURL + 'pending',
             },
-            notification_url: "https://f25e-187-146-13-153.ngrok.io/api/v1/post/payments/mp/webhook"
+            notification_url: "https://workwhome.com.mx/api/v1/post/payments/mp/webhook"
         })
 
         if(result){
@@ -304,8 +304,8 @@ async function createPaymentStripe(req, res){
                     }
                 ],
                 mode: 'payment',
-                success_url: 'http://localhost:4200/api/v1/payments/stripe/success?payloader='+body._item,
-                cancel_url: 'http://localhost:4200/api/v1/payments/stripe/cancel?payloader='+body._item,
+                success_url: 'https://home-services.store/api/v1/payments/stripe/success?payloader='+body._item,
+                cancel_url: 'https://home-services.store/api/v1/payments/stripe/cancel?payloader='+body._item,
             })
 
             if(session){

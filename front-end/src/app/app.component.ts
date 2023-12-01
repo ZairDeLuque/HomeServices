@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { interval } from 'rxjs';
 import { ServersguardianService } from './bin/services/api/serversguardian.service';
@@ -25,7 +25,15 @@ export class AppComponent implements OnInit{
 
   protected animations: string = '';
 
-  constructor(private router: Router, private Guardian: ServersguardianService, private dialog: DialogService, private usersManager: UsersgestorService) {}
+  constructor(@Inject('window') private window: Window, private router: Router, private Guardian: ServersguardianService, private dialog: DialogService, private usersManager: UsersgestorService) {
+    const isMobileDevice = (): boolean => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(this.window.navigator.userAgent);
+    };
+
+    if(isMobileDevice()){
+      this.router.navigate(['/mobile']);
+    }
+  }
 
   runTimer() {
     this.TIMER_ALREADY = true;
